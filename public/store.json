@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "id": "1",
+      "handle": "home",
+      "title": "Home",
+      "link": "/"
+    },
+    {
+      "id": "2",
+      "handle": "news",
+      "title": "News",
+      "link": "/news"
+    }
+  ]
+}
