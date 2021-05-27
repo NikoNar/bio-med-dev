@@ -1,1 +1,0 @@
-export const CREATE_NAV_BAR = 'CREATE/NAV/BAR'
