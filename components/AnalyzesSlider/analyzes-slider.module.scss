@@ -1,0 +1,24 @@
+@import "styles/variables";
+
+.Products{
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .Inner{
+    display: flex;
+    min-width: 83vw;
+    .SliderContainer{
+      padding: 45px;
+    }
+  }
+}
+.ShowMore{
+  padding-top: 20px;
+  text-align: right;
+  a{
+    font-size: 15px;
+    font-weight: 700;
+    color: $light-blue;
+    text-transform: uppercase;
+  }
+}

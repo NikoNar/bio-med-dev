@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.Link{
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  background: linear-gradient(208deg, transparent 11px, $brand-blue 0);
+  display: inline-block;
+  line-height: 22px;
+  letter-spacing: 0.05em;
+  padding: 16px 25px;
+  color: $white;
+}

@@ -1,0 +1,68 @@
+@import "styles/variables";
+
+.NavBarMain{
+  padding: 40px 0 0;
+  ul{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    li{
+      font-size: 16px;
+      &.HasChild{
+        position: relative;
+        padding-right: 30px;
+        &:before{
+          content: '';
+          display: inline-block;
+          position: absolute;
+          top: 13px;
+          right: 0;
+          font-size: 8px;
+          width: 12px;
+          height: 8px;
+          background-image: url("/images/icons/chevron-down.svg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        &:hover{
+          &>.Dropdown{
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+      .Dropdown{
+        .HasChild{
+          &:before{
+            transform: rotate(-90deg);
+          }
+          &:hover{
+            &>.Dropdown{
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+          .Dropdown{
+            left: 100%;
+            top: 0;
+          }
+        }
+        display: block;
+        padding-left: 30px;
+        position: absolute;
+        width: max-content;
+        opacity: 0;
+        visibility: hidden;
+      }
+      a{
+        color: $brand-blue;
+        padding: 5px 0;
+        display: inline-block;
+        &:hover{
+          color: $brand-red;
+        }
+      }
+    }
+  }
+}

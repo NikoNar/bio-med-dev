@@ -1,26 +1,14 @@
-import React, {useEffect} from 'react'
-import '../styles/globals.scss'
-import '../styles/fonts.scss'
+import React from 'react'
+import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import {createWrapper} from "next-redux-wrapper";
-import {Provider, useDispatch, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import store from "../redux/store";
-import {getNavBarItems} from "../redux/actions/navBarAction";
-import Header from "../components/Header";
-
+import Header from "../components/Header/Header";
+import 'swiper/swiper.scss';
 
 function BioMedApp({Component, pageProps}) {
-
-    const navigationItems = useSelector(state => state.navigation)
-    const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        dispatch(getNavBarItems())
-    }, [])
-
-
     return (
         <>
             <Head>
@@ -28,10 +16,10 @@ function BioMedApp({Component, pageProps}) {
                 <title>Bio med</title>
             </Head>
             <Provider store={store}>
-                <Header navigationItems={navigationItems}/>
-                <div className={'container'}>
-                    <Component {...pageProps} />
-                </div>
+                    <Header/>
+                    <div className={'container'}>
+                        <Component {...pageProps} />
+                    </div>
             </Provider>
         </>
     )
@@ -39,6 +27,7 @@ function BioMedApp({Component, pageProps}) {
 
 
 const makeStore = () => store
+
 const wrapper = createWrapper(makeStore)
 
-export default wrapper.withRedux(BioMedApp)
+export default BioMedApp

@@ -1,0 +1,83 @@
+@import "styles/variables";
+
+.Item{
+  background-color: $white;
+  padding: 10px 20px 20px;
+  &:hover{
+    filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
+  }
+  .Top{
+    margin-bottom: 110px;
+    .Number{
+      font-size: 12px;
+      font-weight: 300;
+      color: $brand-gray;
+    }
+    .Title{
+      font-size: 20px;
+      font-weight: 900;
+      color: $brand-red;
+      margin-bottom: 30px;
+    }
+    .Desc{
+      font-size: 20px;
+      font-weight: 900;
+      color: $brand-blue;
+      line-height: 30px;
+      letter-spacing: 0.05em;
+    }
+  }
+  .Info{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .Price{
+      p{
+        color: $black;
+        font-size: 30px;
+        font-weight: 900;
+        margin: 0;
+        span{
+          font-size: 20px;
+          line-height: 30px;
+        }
+        &.SellPrice{
+          color: rgba(30, 34, 36, 0.5);
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 22px;
+          position: relative;
+          display: inline-block;
+          &:before{
+            content: '';
+            width: 100%;
+            height: 1px;
+            background-color: rgba(30, 34, 36, 0.5);
+            position: absolute;
+            transform: rotate(8deg);
+            top: 13px;
+            left: 0;
+            right: 0;
+          }
+          span{
+            font-size: 12px;
+          }
+        }
+        line-height: 24px;
+        letter-spacing: 0.05em;
+      }
+    }
+    .Options{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .Emergency{
+        width: 43px;
+        margin-right: 20px;
+        button{
+          background: linear-gradient(208deg, transparent 11px, $light-blue 0)!important;
+        }
+      }
+    }
+  }
+}

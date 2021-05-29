@@ -1,0 +1,21 @@
+@import "styles/variables";
+
+.List{
+  ul{
+    display: flex;
+    margin: 0;
+    li{
+      margin-left: 40px;
+      &:first-child{
+        margin-left: 20px;
+      }
+      a{
+        span{
+          svg{
+            fill: $brand-blue
+          }
+        }
+      }
+    }
+  }
+}

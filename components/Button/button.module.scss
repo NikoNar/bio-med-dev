@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.Button{
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  line-height: 22px;
+  letter-spacing: 0.05em;
+  padding: 8px 25px;
+}
+
+.Icon{
+  width: 35px;
+  display: block;
+  margin-left: 10px;
+  svg{
+    fill: $white;
+  }
+}
