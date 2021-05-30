@@ -2,6 +2,7 @@ import React from "react";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from './news.module.scss'
 import Link from "next/link";
+import Tab from "../../components/Tab/Tab";
 
 
 const Index = ({news}) => {

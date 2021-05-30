@@ -5,6 +5,9 @@
     padding: 10px 0;
     display: flex;
     justify-content: flex-end;
+    a{
+      background: linear-gradient(208deg, transparent 11px, #183042 0);
+    }
   }
   .MainHeader{
     background-color: $white;

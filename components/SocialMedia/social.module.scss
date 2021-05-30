@@ -10,11 +10,9 @@
         margin-left: 20px;
       }
       a{
-        span{
-          svg{
-            fill: $brand-blue
-          }
-        }
+        font-family: 'icons';
+        font-size: 30px;
+        color: $brand-blue;
       }
     }
   }

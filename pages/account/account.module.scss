@@ -1,0 +1,32 @@
+@import "styles/variables";
+
+.Main{
+  padding-top: 100px;
+  .Title{
+    margin-bottom: 30px;
+  }
+  .Wrapper{
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+    .HasNoAccount{
+      .HNTitle{
+
+      }
+      .HNtext{
+        font-size: 18px;
+        color: $brand-gray;
+        line-height: 27px;
+        letter-spacing: 0.05em;
+        margin-bottom: 40px;
+        margin-top: 20px;
+      }
+      .HNLink{
+        a{
+          background: linear-gradient(208deg, transparent 11px, #183042 0);
+        }
+      }
+    }
+  }
+}

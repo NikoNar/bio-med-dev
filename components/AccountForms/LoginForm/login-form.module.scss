@@ -1,0 +1,31 @@
+/*
+@import "styles/variables";
+
+.Login{
+  form{
+    input{
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      background-color: $white;
+      padding: 20px;
+      margin-bottom: 20px;
+      line-height: 27px;
+      &::placeholder{
+        color: $brand-gray;
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      float: right;
+      margin-top: 20px;
+    }
+    a{
+      font-size: 16px;
+      color: $light-blue;
+      display: block;
+    }
+  }
+}*/

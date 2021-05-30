@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
@@ -7,8 +7,15 @@ import {Provider} from "react-redux";
 import store from "../redux/store";
 import Header from "../components/Header/Header";
 import 'swiper/swiper.scss';
+import 'react-tabs/style/react-tabs.scss';
+import Footer from "../components/Footer/Footer";
+import 'react-datepicker/dist/react-datepicker.css'
+
 
 function BioMedApp({Component, pageProps}) {
+
+
+
     return (
         <>
             <Head>
@@ -16,14 +23,16 @@ function BioMedApp({Component, pageProps}) {
                 <title>Bio med</title>
             </Head>
             <Provider store={store}>
-                    <Header/>
-                    <div className={'container'}>
-                        <Component {...pageProps} />
-                    </div>
+                <Header/>
+                <div className={'container'}>
+                    <Component {...pageProps} />
+                </div>
+                <Footer/>
             </Provider>
         </>
     )
 }
+
 
 
 const makeStore = () => store

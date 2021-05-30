@@ -2,15 +2,15 @@ import React from 'react';
 import {useTranslation} from "next-i18next";
 import {analyzesUrl, newsUrl} from "../utils/url";
 import AnalyzesSlider from "../components/AnalyzesSlider/AnalyzesSlider";
+import TabComponent from "../components/Tab/Tab";
 
 const Home = (analyzes) => {
 
     return (
-      <>
-        <h1>Home</h1>
-          <AnalyzesSlider analyzes={analyzes}/>
-      </>
-  );
+        <>
+            <TabComponent analyzes={analyzes}/>
+        </>
+    );
 };
 
 export async function getStaticProps() {
@@ -21,6 +21,7 @@ export async function getStaticProps() {
         props: {analyzes},
     }
 }
+
 
 
 export default Home;

@@ -1,0 +1,89 @@
+@import "styles/variables";
+
+.Register{
+  form{
+    input{
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      background-color: $white;
+      padding: 20px;
+      margin-bottom: 20px;
+      line-height: 27px;
+      &::placeholder{
+        color: $brand-gray;
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      float: right;
+      margin-top: 20px;
+    }
+    a{
+      font-size: 16px;
+      color: $light-blue;
+      display: block;
+    }
+    .DatePicker{
+      width: 100%;
+      .react-datepicker-wrapper{
+        width: 100%;
+        .react-datepicker__year-dropdown--scrollable{
+          &.react-datepicker__year-dropdown--scrollable{
+            height: 300px!important;
+          }
+          .react-datepicker__year-option{
+            &:last-of-type{
+              display: none!important;
+            }
+          }
+        }
+      }
+    }
+    .DatePickerButton{
+      background-color: $white;
+      float: unset;
+      width: 100%;
+      color: $brand-gray;
+      padding: 20px;
+      line-height: 27px;
+      font-size: 18px;
+      margin: 0 0 30px;
+    }
+  }
+  .FullName{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    input{
+      margin: 0;
+    }
+    span{
+      font-family: 'icons';
+      display: inline-block;
+      background-color: $white;
+      text-align: center;
+      min-width: 75px;
+      margin-left: 10px;
+      font-size: 40px;
+      line-height: 70px;
+      color: $brand-gray;
+      cursor: pointer;
+      &.active{
+        &.active-female{
+          background-color: $brand-pink;
+          color: $white;
+        }
+        &.active-male{
+          background-color: $light-blue;
+          color: $white;
+        }
+      }
+      &:hover{
+        color: #dfbdbd;
+      }
+    }
+  }
+}
