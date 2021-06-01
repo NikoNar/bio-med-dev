@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
@@ -10,11 +10,12 @@ import 'swiper/swiper.scss';
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
+import {appWithTranslation} from 'next-i18next'
+
+
 
 
 function BioMedApp({Component, pageProps}) {
-
-
 
     return (
         <>
@@ -23,20 +24,19 @@ function BioMedApp({Component, pageProps}) {
                 <title>Bio med</title>
             </Head>
             <Provider store={store}>
-                <Header/>
-                <div className={'container'}>
-                    <Component {...pageProps} />
-                </div>
-                <Footer/>
+                    <Header pageProps={pageProps}/>
+                    <div className={'container'}>
+                        <Component {...pageProps}/>
+                    </div>
+                    <Footer/>
             </Provider>
         </>
     )
 }
 
 
-
 const makeStore = () => store
 
 const wrapper = createWrapper(makeStore)
 
-export default BioMedApp
+export default appWithTranslation(BioMedApp)

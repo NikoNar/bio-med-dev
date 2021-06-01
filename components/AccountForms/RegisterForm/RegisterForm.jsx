@@ -1,7 +1,9 @@
-import React, {forwardRef, useState} from 'react';
+import React, {useState} from 'react';
 import RegisterFormStyle from './register-form.module.scss'
 import Button from "../../Button/Button";
 import DatePicker from 'react-datepicker'
+import {registerUrl} from "../../../utils/url";
+
 
 
 
@@ -10,16 +12,79 @@ import DatePicker from 'react-datepicker'
 const RegisterForm = () => {
 
     const [date, setDate] = useState(null)
+    const [fullName, setFullName] = useState('')
+    const [gender, setGender] = useState()
+    const [email, setEmail] = useState()
+    const [phone, setPhone] = useState()
+    const [password, setPassword] = useState()
+    const [repeatPassword, setRepeatPassword] = useState()
 
-    console.log(date);
+
+    const handleNameValue = (e)=>{
+        setFullName(e.target.value)
+    }
+
+    const handleGenderValue = (e)=>{
+        setGender(e.target.value)
+    }
+
+    const handleEmailValue = (e)=>{
+        setEmail(e.target.value)
+    }
+
+    const handlePhoneValue = (e)=>{
+        setPhone(e.target.value)
+    }
+
+    const handlePasswordValue = (e)=>{
+        setPassword(e.target.value)
+    }
+
+    const handleRepeatPasswordValue = (e)=>{
+        setRepeatPassword(e.target.value)
+    }
+
+    const data = {
+        fullName: fullName,
+        gender: gender,
+        date: date,
+        email: email,
+        phone: phone,
+        password: password,
+        repeatPassword: repeatPassword
+    }
+
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault()
+       await fetch(registerUrl, {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(data)
+       })
+           .then(res=>res.json())
+           .then(()=>{
+               e.target.reset();
+               setDate(null)
+           })
+    }
+
 
     return (
            <div className={RegisterFormStyle.Register}>
-               <form action="">
+               <form onSubmit={handleSubmit}>
                    <div className={RegisterFormStyle.FullName}>
-                       <input placeholder="Անուն Ազգանուն*" type="text" required/>
-                       <span className="_icon-male active" data-type="male"></span>
-                       <span className="_icon-female" data-type="female"></span>
+                       <input placeholder="Անուն Ազգանուն*" type="text" required onChange={(e)=>handleNameValue(e)}/>
+                       <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
+                           <input type="radio" id="male" name="gender" value='male' onChange={(e)=>handleGenderValue(e)}/>
+                           <span className="_icon-male"></span>
+                       </label>
+                       <label htmlFor="female" className={RegisterFormStyle.FemaleActive}>
+                           <input type="radio" id="female" name="gender" value='female' onChange={(e)=>handleGenderValue(e)}/>
+                           <span className="_icon-female"></span>
+                       </label>
                    </div>
                    <div className={RegisterFormStyle.DatePicker}>
                        <DatePicker
@@ -36,10 +101,10 @@ const RegisterForm = () => {
                            maxDate = {new Date()}
                        />
                    </div>
-                   <input placeholder="էլ հասցե*" type="email" required/>
-                   <input placeholder="հեռախոսի համար*" type="tel" required/>
-                   <input placeholder="Գաղտնաբառ*" type="password" required/>
-                   <input placeholder="Գաղտնաբառի կրկնողություն" type="password" required/>
+                   <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)} required/>
+                   <input placeholder="հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)} required/>
+                   <input placeholder="Գաղտնաբառ*" type="password" onChange={(e)=>handlePasswordValue(e)} required/>
+                   <input placeholder="Գաղտնաբառի կրկնողություն" type="password" onChange={(e)=>handleRepeatPasswordValue(e)} required/>
                    <Button type={'submit'} text={'ՈՒղարկել'}/>
                </form>
            </div>

@@ -60,29 +60,45 @@
     input{
       margin: 0;
     }
-    span{
+    label{
       font-family: 'icons';
       display: inline-block;
-      background-color: $white;
       text-align: center;
       min-width: 75px;
       margin-left: 10px;
-      font-size: 40px;
-      line-height: 70px;
-      color: $brand-gray;
-      cursor: pointer;
-      &.active{
-        &.active-female{
-          background-color: $brand-pink;
-          color: $white;
-        }
-        &.active-male{
-          background-color: $light-blue;
-          color: $white;
+      height: 67px;
+      position: relative;
+      &.FemaleActive{
+        input[type="radio"]{
+          &:checked{
+            background-color: $brand-pink;
+          }
         }
       }
-      &:hover{
-        color: #dfbdbd;
+      &.MaleActive{
+        input[type="radio"]{
+          &:checked{
+            background-color: $light-blue;
+          }
+        }
+      }
+      input[type="radio"]{
+        padding: 0;
+        appearance: none;
+        width: 100%;
+        height: 100%;
+        background-color: $brand-gray;
+        &:checked{
+          background-color: #52A4E3;
+        }
+      }
+      span{
+        font-size: 40px;
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        transform: translateX(-50%);
+        color: $white;
       }
     }
   }

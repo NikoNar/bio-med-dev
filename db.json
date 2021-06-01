@@ -5,7 +5,7 @@
       "handle": "home",
       "title": "Home",
       "link": "/",
-      "subLinks":null
+      "subLinks": null
     },
     {
       "id": "2",
@@ -213,12 +213,68 @@
   ],
   "users": [
     {
-      "fullName": "",
-      "birthDay": "",
-      "email": "",
-      "tel": "",
-      "password": "",
-      "repeatPassword": ""
+      "fullName": "Gevor gevorgyan",
+      "date": "2021-05-18T20:00:00.000Z",
+      "email": "aaaaa@aasass.com",
+      "phone": "+37455073343",
+      "password": "123456",
+      "id": "RbrGzkn"
+    },
+    {
+      "fullName": "Gevor gevorgyan",
+      "date": "2021-05-18T20:00:00.000Z",
+      "email": "aaaaa@aasass.com",
+      "phone": "+37455073343",
+      "password": "123456",
+      "id": "P512drU"
+    },
+    {
+      "fullName": "Simon Simonyan",
+      "gender": "male",
+      "date": "1979-11-17T20:00:00.000Z",
+      "email": "test@test.am",
+      "phone": "+37455073343",
+      "password": "123456",
+      "id": "8INyMNY"
+    },
+    {
+      "fullName": "Simon Simonyan",
+      "gender": "male",
+      "date": "1979-11-17T20:00:00.000Z",
+      "email": "test@test.am",
+      "phone": "+37455073343",
+      "password": "123456",
+      "id": "jnEAHGr"
+    },
+    {
+      "fullName": "Karo Karo",
+      "gender": "male",
+      "date": "2021-05-10T20:00:00.000Z",
+      "email": "dddd@gmail.com",
+      "phone": "+37455073343",
+      "password": "123456",
+      "repeatPassword": "123456",
+      "id": "vaij3qZ"
+    },
+    {
+      "fullName": "Test test",
+      "gender": "female",
+      "date": "2021-05-25T20:00:00.000Z",
+      "email": "boom@boom.com",
+      "phone": "+374589245",
+      "password": "123456",
+      "repeatPassword": "123456",
+      "id": "s-HV2pl"
+    },
+    {
+      "fullName": "Gugo gugo",
+      "gender": "male",
+      "date": "2021-05-13T20:00:00.000Z",
+      "email": "gugo@gugo.com",
+      "phone": "+354785214",
+      "password": "123456",
+      "repeatPassword": "123456",
+      "id": "s9N-5JD"
     }
   ]
 }

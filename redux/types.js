@@ -1,3 +1,4 @@
 export const CREATE_NAV_BAR = 'CREATE/NAV/BAR'
 export const GET_SOCIAL_MEDIA = 'GET/SOCIAL/MEDIA'
 export const GET_ALL_NEWS = 'GET/ALL/NEWS'
+export const GET_CURRENT_USER = 'GET/CURRENT/USER'

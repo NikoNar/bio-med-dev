@@ -1,11 +1,9 @@
 import React from 'react';
-import {useTranslation} from "next-i18next";
 import {analyzesUrl, newsUrl} from "../utils/url";
-import AnalyzesSlider from "../components/AnalyzesSlider/AnalyzesSlider";
 import TabComponent from "../components/Tab/Tab";
 
-const Home = (analyzes) => {
 
+const Home = (analyzes) => {
     return (
         <>
             <TabComponent analyzes={analyzes}/>
@@ -13,13 +11,18 @@ const Home = (analyzes) => {
     );
 };
 
-export async function getStaticProps() {
-    const analyzes = await fetch(analyzesUrl)
-        .then(res => res.json())
-        .then(data => data)
-    return {
-        props: {analyzes},
-    }
+
+
+export async function getStaticProps(ctx) {
+
+        const analyzes = await fetch(analyzesUrl, {
+            method: 'GET',
+        })
+            .then(res => res.json())
+            .then(data => data)
+        return {
+            props: {analyzes},
+        }
 }
 
 
