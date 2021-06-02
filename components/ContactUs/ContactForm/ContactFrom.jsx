@@ -23,7 +23,6 @@ const ContactFrom = () => {
         setUserMessage(e.target.value)
     }
 
-
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const data = {
@@ -54,9 +53,9 @@ const ContactFrom = () => {
 
     return (
         <form onSubmit={(e)=>handleSubmit(e)}>
-            <input type="text" placeholder="Անուն Ազգանուն*" value={userName} required onChange={(e)=>handleUserName(e)}/>
-            <input type="email" placeholder="էլ հասցե*" value={userEmail} required onChange={(e)=>handleUserEmail(e)}/>
-            <textarea name="" placeholder="Տեքստ*" value={userMessage} required onChange={(e)=>handleUserMessage(e)}></textarea>
+            <input type="text" placeholder="Անուն Ազգանուն*" value={userName ? userName : ''} required onChange={(e)=>handleUserName(e)}/>
+            <input type="email" placeholder="էլ հասցե*" value={userEmail ? userEmail : ''} required onChange={(e)=>handleUserEmail(e)}/>
+            <textarea name="" placeholder="Տեքստ*" value={userMessage ? userMessage : ''} required onChange={(e)=>handleUserMessage(e)}> </textarea>
             <Button type={'submit'} text={'ՈՒղարկել'}/>
         </form>
     );

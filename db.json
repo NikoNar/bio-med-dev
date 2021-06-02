@@ -421,7 +421,7 @@
     {
       "id": 1,
       "title": "Կանչ տուն",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
       "image": "/images/icons/emergency.svg",
       "link": {
         "link": "/call-home"
@@ -430,7 +430,7 @@
     {
       "id": 2,
       "title": "Ամրագրել",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
       "image": "/images/icons/microscop.svg",
       "link": {
         "link": "/reserve"
@@ -439,7 +439,7 @@
     {
       "id": 3,
       "title": "Ակցիաներ",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
       "image": "/images/icons/percent.svg",
       "link": {
         "link": "/events"
