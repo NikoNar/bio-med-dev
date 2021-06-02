@@ -1,0 +1,53 @@
+@import "styles/variables";
+
+
+.Research{
+  .Title{
+    margin-bottom: 49px;
+  }
+  .Item{
+    padding: 20px;
+    background-color: $white;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    &:hover{
+      filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
+    }
+    .Image{
+      max-width: 145px;
+      margin: 0 auto 30px;
+      padding-top: 160px;
+      position: relative;
+      img{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .ItemTitle{
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 30px;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .Desc{
+      color: rgba(30, 34, 36, 0.5);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 27px;
+      letter-spacing: 0.05em;
+    }
+    .Link{
+      text-align: right;
+      a{
+        color: $light-blue;
+        font-size: 15px;
+        font-weight: 500;
+        &:hover{
+          color: $light-blue;
+        }
+      }
+    }
+  }
+}

@@ -18,65 +18,67 @@ const Analyzes = ({analyzesTypes, analyzes}) => {
 
     return (
         <section className={AnalyzesStyle.Main}>
-            <div className={'row'}>
-                <div className={'col-lg-6 col-sm-12'}>
-                    <h4>Հետազոտություններ</h4>
-                </div>
-            </div>
-            <Tabs>
-                <TabList className={TabStyle.TabList}>
-                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԳՈՐԾԻՔԱՅԻՆ'}/></Tab>
-                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԼԱԲՈՐԱՏՈՐ'}/></Tab>
-                </TabList>
+            <div className={'container'}>
                 <div className={'row'}>
-                    <div className={'col-lg-12'}>
-                        <TabPanel>
-                            <AnalyzesFilter analyzesTypes={analyzesTypes} analyzes={analyzes}/>
-                            <div className={'row'}>
-                                <div className={'col-lg-12'}>
-
-                                    {
-                                        analyzes ? analyzes.map((item) => {
-                                            return (
-                                                <div className={'row mb-5'} key={item.id}>
-                                                    <div className={'col-lg-12'}>
-                                                        <div className={AnalyzesStyle.Item}>
-                                                            <Link href={'/single-analyse-page'}><a className={AnalyzesStyle.Link}></a></Link>
-                                                            <AnalyzesCard analyze={item}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }) : null
-                                    }
-                                </div>
-                            </div>
-                        </TabPanel>
-                        <TabPanel>
-                            <AnalyzesFilter analyzesTypes={analyzesTypes} analyzes={analyzes}/>
-                            <div className={'row'}>
-                                <div className={'col-lg-12'}>
-
-                                    {
-                                        analyzes ? analyzes.map((item) => {
-                                            return (
-                                                <div className={'row mb-5'} key={item.id}>
-                                                    <div className={'col-lg-12'}>
-                                                        <div className={AnalyzesStyle.Item}>
-                                                            <Link href={'/single-analyse-page'}><a className={AnalyzesStyle.Link}></a></Link>
-                                                            <AnalyzesCard analyze={item}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }) : null
-                                    }
-                                </div>
-                            </div>
-                        </TabPanel>
+                    <div className={'col-lg-6 col-sm-12'}>
+                        <h4>Հետազոտություններ</h4>
                     </div>
                 </div>
-            </Tabs>
+                <Tabs>
+                    <TabList className={TabStyle.TabList}>
+                        <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԳՈՐԾԻՔԱՅԻՆ'}/></Tab>
+                        <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԼԱԲՈՐԱՏՈՐ'}/></Tab>
+                    </TabList>
+                    <div className={'row'}>
+                        <div className={'col-lg-12'}>
+                            <TabPanel>
+                                <AnalyzesFilter analyzesTypes={analyzesTypes} analyzes={analyzes}/>
+                                <div className={'row'}>
+                                    <div className={'col-lg-12'}>
+
+                                        {
+                                            analyzes ? analyzes.map((item) => {
+                                                return (
+                                                    <div className={'row mb-5'} key={item.id}>
+                                                        <div className={'col-lg-12'}>
+                                                            <div className={AnalyzesStyle.Item}>
+                                                                <Link href={'/single-analyse-page'}><a className={AnalyzesStyle.Link}></a></Link>
+                                                                <AnalyzesCard analyze={item}/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }) : null
+                                        }
+                                    </div>
+                                </div>
+                            </TabPanel>
+                            <TabPanel>
+                                <AnalyzesFilter analyzesTypes={analyzesTypes} analyzes={analyzes}/>
+                                <div className={'row'}>
+                                    <div className={'col-lg-12'}>
+
+                                        {
+                                            analyzes ? analyzes.map((item) => {
+                                                return (
+                                                    <div className={'row mb-5'} key={item.id}>
+                                                        <div className={'col-lg-12'}>
+                                                            <div className={AnalyzesStyle.Item}>
+                                                                <Link href={'/single-analyse-page'}><a className={AnalyzesStyle.Link}></a></Link>
+                                                                <AnalyzesCard analyze={item}/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }) : null
+                                        }
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </div>
+                    </div>
+                </Tabs>
+            </div>
         </section>
     );
 };

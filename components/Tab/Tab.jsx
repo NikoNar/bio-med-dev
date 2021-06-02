@@ -12,7 +12,7 @@ import TabButtons from "../TabButtons/TabButtons";
 const TabComponent = ({analyzes, id}) => {
 
     return (
-        <>
+        <div className={'container'}>
             <div className={'row'}>
                 <div className={'col-lg-12'}>
                     <h4> Հաճախ հանձնվող անալիզներ </h4>
@@ -31,7 +31,7 @@ const TabComponent = ({analyzes, id}) => {
                     <AnalyzesSlider analyzes={analyzes}/>
                 </TabPanel>
             </Tabs>
-        </>
+        </div>
     );
 };
 

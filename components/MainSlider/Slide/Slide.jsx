@@ -1,14 +1,11 @@
 import React from 'react';
 import SlideStyle from './slide.module.scss'
-import Link from "next/link";
 import LinkButton from "../../LinkButton/LinkButton";
 import Image from "../../Image/Image";
 
-const buttonLink = "/profile"
-
 
 const Slide = ({slide}) => {
-    console.log(slide);
+
     return (
         <div className={'row'}>
             <div className={'col-lg-6 col-md-6'}>

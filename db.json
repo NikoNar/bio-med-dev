@@ -416,5 +416,75 @@
       "desc": "հանդիսացել է տպագրական արդյունաբերության ստանդարտ մոդելային տեքստ, ինչը մի անհայտ տպագրիչի",
       "image": "/images/slider/s-3.jpg"
     }
+  ],
+  "researches": [
+    {
+      "id": 1,
+      "title": "Կանչ տուն",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "image": "/images/icons/emergency.svg",
+      "link": {
+        "link": "/call-home"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Ամրագրել",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "image": "/images/icons/microscop.svg",
+      "link": {
+        "link": "/reserve"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Ակցիաներ",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit nulla placerat arcu\n\n",
+      "image": "/images/icons/percent.svg",
+      "link": {
+        "link": "/events"
+      }
+    }
+  ],
+  "aboutUs": {
+    "id": 1,
+    "title": "Մեր մասին",
+    "text": "Բիոմեդ» ախտորոշման լաբորատորիան հիմնադրվել է 2009 թվականին: Լաբորատորիայում աշխատում են որակավորում ստացած ինչպես փորձառու, այնպես էլ երիատասարդ բժիշկ-լաբորանտներ: Հետազոտություններն իրականացվում են ոլորտում լավագույն, համաշխարհային ճանաչում ունեցող ընկերությունների ամենավերջին սարքավորումներով, իչպիսիք են՝ Cobas e 411, Cobas c 311, 9180 Electrolyte analyser (Roche, Շվեյցարիա), XN-350, XS 500i (Sysmex, Ճապոնիա), Start 4, Start Max (Stago, Ֆրանսիա), Rotor Gene Q (Qiagen, Գերմանիա)",
+    "link": {
+      "link": "/about-us"
+    },
+    "image": "/images/a-bg.jpg"
+  },
+  "locations": [
+    {
+      "id": 1,
+      "lat": 40.2932074974116,
+      "lng": 44.35055671336521
+    },
+    {
+      "id": 2,
+      "lat": 40.293804880483705,
+      "lng": 44.34864698070171
+    }
+  ],
+  "messages": [
+    {
+      "fullName": "Simon Simonyan",
+      "email": "simon@simon.com",
+      "message": "Hello this is a test message from contact form ",
+      "id": 1
+    },
+    {
+      "fullName": "Karo Karapetyan",
+      "email": "karo@karo.com",
+      "message": "Hello this is second message from contact form ",
+      "id": 2
+    },
+    {
+      "fullName": "Gevo Gevoyan",
+      "email": "gevo@gevo.com",
+      "message": "This is a third message from contact form in home page",
+      "id": 3
+    }
   ]
 }

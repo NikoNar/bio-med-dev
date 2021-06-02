@@ -2,8 +2,10 @@ import React from 'react';
 
 const AboutUs = () => {
     return (
-        <div>
-            <h1>About Us</h1>
+        <div className={'container'}>
+            <div className={'row'}>
+                <h1>About Us</h1>
+            </div>
         </div>
     );
 };

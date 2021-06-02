@@ -4,6 +4,7 @@ import {socialMediaReducer} from "./social";
 import {newsReducer} from "./news";
 import {currentUserReducer} from "./currentUser";
 import {addOrderToCartReducer} from "./orders";
+import {locationsReducer} from "./locations";
 
 
 export const rootReducer = combineReducers({
@@ -11,5 +12,6 @@ export const rootReducer = combineReducers({
     social: socialMediaReducer,
     news: newsReducer,
     currentUser: currentUserReducer,
-    orders: addOrderToCartReducer
+    orders: addOrderToCartReducer,
+    locations: locationsReducer
 })

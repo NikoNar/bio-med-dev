@@ -23,12 +23,12 @@ function BioMedApp({Component, pageProps}, analyzes) {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <title>Bio med</title>
+                <script src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmivibDflTIZyyFvkr4gGsFEJa_Yd4o88&v=3.exp&libraries=geometry,drawing,places`}/>
+
             </Head>
             <Provider store={store}>
                     <Header pageProps={pageProps}/>
-                    <div className={'container'}>
                         <Component {...pageProps}/>
-                    </div>
                     <Footer/>
             </Provider>
         </>
