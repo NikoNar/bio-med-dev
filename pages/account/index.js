@@ -10,6 +10,7 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false })
 import {Tab, TabList, TabPanel} from "react-tabs";
 
 import dynamic from "next/dynamic";
+import TabButtons from "../../components/TabButtons/TabButtons";
 
 
 const Account = () => {
@@ -26,8 +27,8 @@ const Account = () => {
                         <div className={'col-lg-12'}>
                             <Tabs>
                                 <TabList className={TabStyle.TabList}>
-                                    <Tab selectedClassName={TabStyle.Selected}><LinkButton text={'ՄՈՒՏՔ'}/></Tab>
-                                    <Tab selectedClassName={TabStyle.Selected}><LinkButton text={'ԳՐԱՆՑՎԵԼ'}/></Tab>
+                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ՄՈՒՏՔ'}/></Tab>
+                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԳՐԱՆՑՎԵԼ'}/></Tab>
                                 </TabList>
                                 <div className={'row'}>
                                     <div className={'col-lg-6 mb-5 mb-lg-0'}>

@@ -1,16 +1,20 @@
 .TabList{
     text-align: right;
-    li{       
+    li{
+        &:focus{
+            border: none;
+            box-shadow: unset;
+        }
         &:first-child{
             right: -48px;
             z-index: 5;
         }
-            a{
+            span{
                 background: linear-gradient(208deg, transparent 11px,#b0b8c0 0)
             }            
 
         &.Selected{
-            a{
+            span{
                 background: linear-gradient(208deg, transparent 11px,#183042 0)
             }        
         }    

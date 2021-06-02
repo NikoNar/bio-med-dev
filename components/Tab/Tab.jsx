@@ -1,11 +1,11 @@
 import React from 'react';
-import LinkButton from "../LinkButton/LinkButton";
 import AnalyzesSlider from '../AnalyzesSlider/AnalyzesSlider'
 import TabStyle from './tab.module.scss'
 import dynamic from 'next/dynamic'
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: true }) // disable ssr
 import {Tab, TabList, TabPanel} from 'react-tabs';
+import TabButtons from "../TabButtons/TabButtons";
 
 
 
@@ -20,8 +20,8 @@ const TabComponent = ({analyzes, id}) => {
             </div>
             <Tabs>
                 <TabList className={TabStyle.TabList}>
-                    <Tab selectedClassName={TabStyle.Selected}><LinkButton text={'ԱՆԱԼԻԶՆԵՐ'}/></Tab>
-                    <Tab selectedClassName={TabStyle.Selected}><LinkButton text={'ԿՈՄՊԼԵՔՍ'}/></Tab>
+                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԱՆԱԼԻԶՆԵՐ'}/></Tab>
+                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԿՈՄՊԼԵՔՍ'}/></Tab>
                 </TabList>
 
                 <TabPanel>
