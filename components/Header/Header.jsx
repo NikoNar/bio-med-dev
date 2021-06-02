@@ -12,6 +12,7 @@ import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 
 
 const linkText = globalLinkText
+const buttonLink = "/profile"
 
 const Header = (pageProps) => {
 
@@ -61,7 +62,7 @@ const Header = (pageProps) => {
                 <div className={'row'}>
                     <div className="col-lg-12">
                         <div className={HeaderStyle.TopHeader}>
-                            <LinkButton text={linkText}/>
+                            <LinkButton text={linkText} href={buttonLink}/>
                         </div>
                     </div>
                 </div>

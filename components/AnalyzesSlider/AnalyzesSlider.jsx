@@ -1,7 +1,7 @@
 import React from 'react';
 import AsliderStyle from './analyzes-slider.module.scss'
 import Link from "next/link";
-import AnalyzesCard from "../AnalyzesCard/Analyzes";
+import AnalyzesCard from "../AnalyzesCard/AnalyzesCard";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, { Mousewheel } from 'swiper';
 
@@ -21,7 +21,7 @@ const AnalyzesSlider = ({analyzes}) => {
                             className={AsliderStyle.SliderContainer}
                         >
                             {
-                                analyzes.analyzes ? analyzes.analyzes.map((analyze) => {
+                                analyzes ? analyzes.map((analyze) => {
                                     return <SwiperSlide className={AsliderStyle.Slide} key={analyze.number}><AnalyzesCard analyze={analyze}/></SwiperSlide>
                                 }) : ''
                             }

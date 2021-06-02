@@ -1,10 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AStyle from './analyzes-card.module.scss'
 import Link from "next/link";
 import Button from "../Button/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
+import {addOrder} from "../../redux/actions/setOrderAction";
 
 const AnalyzesCard = ({analyze}) => {
     const backgroundColor = 'linear-gradient(208deg,'+ 'transparent 11px,' +  '#52A4E3 0)'
+
+
+    const currentUser = useSelector(state=>state.currentUser)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getCurrentUserAction())
+    }, [])
+
+    const handleAddToCart = (data)=>{
+       dispatch(addOrder(data))
+
+    }
+
+
     return (
         <div className={AStyle.Item}>
             <div className={'row'}>
@@ -77,12 +95,17 @@ const AnalyzesCard = ({analyze}) => {
                                 </a>
                             </Link>
                         </div>
-                        <Button text={'ԱՎԵԼԱՑՆԵԼ'} backgroundColor={backgroundColor}/>
+                        <Button text={'ԱՎԵԼԱՑՆԵԼ'} backgroundColor={backgroundColor} callBack={()=>handleAddToCart({...analyze, userId: currentUser.id})}/>
                     </div>
                 </div>
             </div>
         </div>
     );
 };
+
+
+
+
+
 
 export default AnalyzesCard;

@@ -7,16 +7,18 @@ const styles = {
 }
 
 
-const Button = ({text, backgroundColor, type}) => {
+
+const Button = ({text, backgroundColor, type, callBack}) => {
     return (
         <>
             <button
                 style={{background: backgroundColor ? backgroundColor : styles.background}}
                 className={buttonStyles.Button}
                 type={type}
+                onClick={callBack}
             >{text}
                 <span className={buttonStyles.Icon} style={{display: type === 'submit' ? 'none' : 'inline-block'}}>
-              <svg version="1.1" viewBox="0 0 36 30">
+                    <svg version="1.1" viewBox="0 0 36 30">
                  <path className="st0" d="M34.8,10.3c-0.4-0.5-1-0.8-1.6-0.8H26l-3.8-8.7c-0.1-0.3-0.5-0.5-0.9-0.3C21,0.6,20.8,1,21,1.3l3.6,8.2H11
                   l3.6-8.2c0.1-0.3,0-0.7-0.3-0.9c-0.3-0.1-0.7,0-0.9,0.3L9.6,9.5H2.5c-0.6,0-1.2,0.3-1.6,0.8c-0.4,0.5-0.5,1.1-0.4,1.7l3.7,16
                    c0.2,0.9,1.1,1.6,2,1.6h23.4c1,0,1.8-0.7,2-1.6l3.7-16C35.3,11.4,35.2,10.8,34.8,10.3L34.8,10.3z M30.2,27.7

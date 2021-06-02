@@ -11,11 +11,12 @@ import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
 import {appWithTranslation} from 'next-i18next'
+import {analyzesUrl} from "../utils/url";
 
 
 
 
-function BioMedApp({Component, pageProps}) {
+function BioMedApp({Component, pageProps}, analyzes) {
 
     return (
         <>
@@ -33,6 +34,17 @@ function BioMedApp({Component, pageProps}) {
         </>
     )
 }
+
+
+export async function getServerSideProps({ Component, ctx }) {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+    if (Object.keys(pageProps).length > 0) {
+        // return pageProps only when its present
+        return { pageProps };
+    }
+    return {};
+}
+
 
 
 const makeStore = () => store

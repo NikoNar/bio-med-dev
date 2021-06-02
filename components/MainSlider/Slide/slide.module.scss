@@ -1,0 +1,54 @@
+@import "styles/variables";
+
+.Text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .Line{
+    margin: 20px 0;
+  }
+  h1{
+    font-size: 45px;
+    font-weight: 700;
+  }
+  h5{
+    font-size: 18px;
+    font-weight: 700;
+    color: $light-blue;
+  }
+  p{
+    color: $brand-gray;
+    letter-spacing: 2px;
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 400;
+    width: 80%;
+  }
+  .Link{
+    display: flex;
+    justify-content: flex-start;
+    a{
+      padding: 20px;
+      color: $white;
+      margin-top: 20px;
+      background: linear-gradient(208deg, transparent 11px, #183042 0);
+    }
+  }
+}
+.Wrapper{
+  filter: drop-shadow(-17px 14px 11px rgba(24, 48, 66, 0.3));
+  width: 32vw;
+  height: 35vw;
+  margin: 0 auto;
+  .Image{
+    height: 100%;
+    clip-path: $hexagonal;
+    position: relative;
+    img{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      object-fit: cover;
+    }
+  }
+}
