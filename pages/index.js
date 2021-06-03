@@ -1,5 +1,5 @@
 import React from 'react';
-import {aboutUsTextUrl, analyzesUrl, researchesUrl, slidesUrl} from "../utils/url";
+import {aboutUsTextUrl, analyzesUrl, contactInfoUrl, researchesUrl, slidesUrl} from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
 import Researches from "../components/Researches/Researches";
@@ -7,7 +7,7 @@ import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
 import ContactUs from "../components/ContactUs/ContactUs";
 
 
-const Home = ({analyzes, slides, researches, aboutUs}) => {
+const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const Home = ({analyzes, slides, researches, aboutUs}) => {
             <TabComponent analyzes={analyzes}/>
             <Researches researches={researches}/>
             <AboutUsSection aboutUs={aboutUs}/>
-            <ContactUs/>
+            <ContactUs contactInfo={contactInfo}/>
         </>
     );
 };
@@ -47,13 +47,20 @@ export async function getStaticProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
+        const contactInfo = await fetch(contactInfoUrl, {
+            method: 'GET',
+        })
+            .then(res => res.json())
+            .then(data => data)
+
 
     return {
         props: {
             analyzes,
             slides,
             researches,
-            aboutUs
+            aboutUs,
+            contactInfo
         },
     }
 }

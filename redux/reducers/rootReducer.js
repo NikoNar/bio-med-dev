@@ -5,6 +5,7 @@ import {newsReducer} from "./news";
 import {currentUserReducer} from "./currentUser";
 import {addOrderToCartReducer} from "./orders";
 import {locationsReducer} from "./locations";
+import {contactInfoReducer} from "./contactInfo";
 
 
 export const rootReducer = combineReducers({
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
     news: newsReducer,
     currentUser: currentUserReducer,
     orders: addOrderToCartReducer,
-    locations: locationsReducer
+    locations: locationsReducer,
+    contactInfo: contactInfoReducer
 })

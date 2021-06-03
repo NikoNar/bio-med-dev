@@ -1,0 +1,28 @@
+@import "styles/variables";
+
+.Item{
+  position: relative;
+  padding-top: 135px;
+  text-align: center;
+  margin: 145px auto 0;
+  font-size: 15px;
+  .Image{
+    max-width: 119px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .Info{
+    background-color: $white;
+    padding: 13px;
+    .InfoText{
+
+    }
+  }
+  .Select{
+    .container{
+      
+    }
+  }
+}

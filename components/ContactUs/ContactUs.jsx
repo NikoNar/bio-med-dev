@@ -5,10 +5,11 @@ import MapComponent from "./Map/Map";
 import {useDispatch, useSelector} from "react-redux";
 import {getLocation} from "../../redux/actions/getLocationsAction";
 import ContactFrom from "./ContactForm/ContactFrom";
+import ContactInfoWithSelect from "./ContacInfoWithSelect/ContacInfoWithSelect";
 
 
 
-const ContactUs = () => {
+const ContactUs = ({contactInfo}) => {
 
     const locations = useSelector(state=>state.locations)
     const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const ContactUs = () => {
                         </div>
                     </div>
                 </div>
+                <ContactInfoWithSelect contactInfo={contactInfo}/>
             </div>
         </section>
     );

@@ -486,5 +486,31 @@
       "message": "This is a third message from contact form in home page",
       "id": 3
     }
+  ],
+  "contactInfo": [
+    {
+      "value": "address-1",
+      "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-1",
+      "tel": "(010) 48 38 79",
+      "email": "test-1@test.com"
+    },
+    {
+      "value": "address-2",
+      "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-2",
+      "tel": "(010) 11 22 33",
+      "email": "test-2@test.com"
+    },
+    {
+      "value": "address-3",
+      "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-3",
+      "tel": "(010) 33 44 55",
+      "email": "test-3@test.com"
+    },
+    {
+      "value": "address-4",
+      "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-4",
+      "tel": "(010) 12 34 56",
+      "email": "test-4@test.com"
+    }
   ]
 }
