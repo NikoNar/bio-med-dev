@@ -1,0 +1,63 @@
+@import "styles/variables";
+
+.Item{
+  .Image{
+    height: 253px;
+    background-color: $white;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .Info{
+    padding: 20px 20px 33px;
+    border-radius: 6px;
+    background-color: $body-color;
+    .Wrapper{
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #9c9c9c;
+      text-align: left;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      text-shadow: 0 0 0 #9c9c9c;
+      min-height: 75px;
+      max-height: min-content;
+      transition: max-height .3s linear;
+
+      &.Open{
+        -webkit-line-clamp: unset;
+        min-height: auto;
+        max-height: 300px;
+        overflow-y: auto;
+        transition: max-height .3s linear;
+      }
+    }
+    span {
+      float: right;
+      color: $light-blue;
+      font-weight: 700;
+      text-transform: lowercase;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .Name{
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .Desc{
+      width: 80%;
+      color: $brand-gray;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    &:hover {
+      background-color: $white;
+      box-shadow: 0 0 22px rgba(39, 39, 39, 0.3);
+    }
+  }
+}

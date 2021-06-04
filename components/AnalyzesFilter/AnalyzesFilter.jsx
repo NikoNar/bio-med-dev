@@ -1,15 +1,24 @@
-import React from 'react';
+/*
+import React, {useState} from 'react';
 import AnalyzesStyle from "../../pages/analyzes/Analyzes.module.scss";
 import Link from "next/link";
+import {setSelectedFiltersAction} from "../../redux/actions/setSelectedFiltersAction";
+import {useDispatch, useSelector} from "react-redux";
 
 const AnalyzesFilter = ({analyzesTypes, analyzes}) => {
 
+    const dispatch = useDispatch()
+    const selectedFilters = useSelector(state=>state.filters)
 
-    const filterAnalyzes = (title)=>{
-        const filteredArray = analyzes.filter(item=>{
-            return item.type === title
-        })
+
+
+    const handleChange = (e)=>{
+        const value = e.target.value
+        const status =e.target.checked
+        dispatch(setSelectedFiltersAction(value, status))
     }
+
+
 
 
     return (
@@ -24,9 +33,12 @@ const AnalyzesFilter = ({analyzesTypes, analyzes}) => {
                                         <li className={AnalyzesStyle.Event}><Link href={'/events'}><a>ԱԿՑԻԱՆԵՐ</a></Link></li>
                                         <li className={AnalyzesStyle.Emergency}><Link href={'/home-call'}><a>ԿԱՆՉ ՏՈՒՆ</a></Link></li>
                                         {
-                                            analyzesTypes ? analyzesTypes.map((item)=>{
+                                            analyzesTypes ? analyzesTypes.map((item, index)=>{
                                                 return(
-                                                    <li key={item.id} onClick={()=>filterAnalyzes(item.title)}><span>{item.title}</span></li>
+                                                    <li key={item.id}>
+                                                        <input type="checkbox" id={item.title} value={item.title} onChange={(e)=>handleChange(e)}/>
+                                                        <label htmlFor={item.title}>{item.title}</label>
+                                                    </li>
                                                 )
                                             }) : ''
                                         }
@@ -43,4 +55,4 @@ const AnalyzesFilter = ({analyzesTypes, analyzes}) => {
 
 
 
-export default AnalyzesFilter;
+export default AnalyzesFilter;*/

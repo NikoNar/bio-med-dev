@@ -6,7 +6,6 @@ import Researches from "../components/Researches/Researches";
 import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
 import dynamic from 'next/dynamic'
 const ContactUs = dynamic(()=>import("../components/ContactUs/ContactUs"), {ssr: false})
-import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
 import {resetIdCounter} from "react-tabs";
 
 

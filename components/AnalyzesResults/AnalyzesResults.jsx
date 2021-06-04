@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import AnalyzesResultsItem from "./AnalyzesresultsItem/AnalyzesResultsItem";
+import AnalyzesResultsItem from "./AnalyzesResultsItem/AnalyzesResultsItem";
 
 const AnalyzesResults = ({results}) => {
-
-
 
     const [isOpen, setIsOpen] = useState(false)
 

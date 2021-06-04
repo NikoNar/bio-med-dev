@@ -6,6 +6,7 @@ import {currentUserReducer} from "./currentUser";
 import {addOrderToCartReducer} from "./orders";
 import {locationsReducer} from "./locations";
 import {contactInfoReducer} from "./contactInfo";
+import {selectedFiltersReducer} from "./filters";
 
 
 export const allReducers = combineReducers({
@@ -15,5 +16,6 @@ export const allReducers = combineReducers({
     currentUser: currentUserReducer,
     orders: addOrderToCartReducer,
     locations: locationsReducer,
-    contactInfo: contactInfoReducer
+    contactInfo: contactInfoReducer,
+    filters: selectedFiltersReducer
 })

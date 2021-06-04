@@ -182,7 +182,7 @@
       "price": "10000",
       "compare_price": "5000",
       "icon": true,
-      "type": "ՈՒՁՀ"
+      "type": "ՈՒՁՀ-2"
     },
     {
       "id": "2",
@@ -192,7 +192,7 @@
       "price": "10000",
       "compare_price": "5000",
       "icon": true,
-      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
     },
     {
       "id": "3",
@@ -212,7 +212,7 @@
       "price": "10000",
       "compare_price": "5000",
       "icon": true,
-      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
     },
     {
       "id": "5",
@@ -222,7 +222,7 @@
       "price": "10000",
       "compare_price": "5000",
       "icon": true,
-      "type": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+      "type": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-3"
     }
   ],
   "users": [
@@ -358,43 +358,43 @@
     },
     {
       "id": 4,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-1"
     },
     {
       "id": 5,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-1"
     },
     {
       "id": 6,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
     },
     {
       "id": 7,
-      "title": "ՈՒՁՀ"
+      "title": "ՈՒՁՀ-1"
     },
     {
       "id": 8,
-      "title": "ՈՒՁՀ"
+      "title": "ՈՒՁՀ-2"
     },
     {
       "id": 9,
-      "title": "ԱՐՅԱՆ"
+      "title": "ԱՐՅԱՆ-3"
     },
     {
       "id": 10,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-4"
     },
     {
       "id": 11,
-      "title": "ՈՒՁՀ"
+      "title": "ՈՒՁՀ-4"
     },
     {
       "id": 12,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
     },
     {
       "id": 13,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-7"
     }
   ],
   "slides": [
@@ -634,6 +634,96 @@
       "title": "Ինչպե՞ս օգտվել",
       "body": ["Հարցում թողեք, և մեր դաշտային ծառայության մասնագետները կգան ձեզ `կենսանյութ ստանալու համար: Մեկնումն իրականացվում է ծառայության ժամանակացույցի համաձայն `գրանցման անվճար տեղերի առկայության պայմաններում:"]
     }
-  ]
-
+  ],
+  "about-us": {
+    "slide": {
+      "id": 1,
+      "title": "Մեր մասին",
+      "desc": "Բիոմեդ» ախտորոշման լաբորատորիան հիմնադրվել է 2009 թվականին: Լաբորատորիայում աշխատում են որակավորում ստացած ինչպես փորձառու, այնպես էլ երիատասարդ բժիշկ-լաբորանտներ: Հետազոտություններն իրականացվում են ոլորտում լավագույն, համաշխարհային ճանաչում ունեցող ընկերությունների ամենավերջին սարքավորումներով, իչպիսիք են՝ Cobas e 411,\n                            Cobas c 311, 9180 Electrolyte analyser (Roche, Շվեյցարիա), XN-350, XS 500i (Sysmex, Ճապոնիա), Start 4, Start Max (Stago, Ֆրանսիա), Rotor Gene Q (Qiagen, Գերմանիա)",
+      "image": "/images/slider/s-1.jpg"
+    },
+    "doctors": {
+      "title": "Բժիշկներ",
+      "body": "Բարձր հմուտ բժիշկներ, որոնք պարգևատրվել և հավաստագրվել են աշխարհի ամենահայտնի բժշկական հետազոտական համալսարանների կողմից"
+    },
+    "equipment": {
+      "title": "Սարքավորումներ",
+      "body": "Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    }
+  },
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Աբրահամյան Լուսինե",
+      "desc": "Լաբորատոր Բժիշկ, Որակի Պատասխանատու",
+      "image": "/images/doctors/d-1.png"
+    },
+    {
+      "id": 2,
+      "name": "Աբրահամյան Լուսինե",
+      "desc": "Լաբորատոր Բժիշկ, Որակի Պատասխանատու",
+      "image": "/images/doctors/d-f.png"
+    },
+    {
+      "id": 3,
+      "name": "Աբրահամյան Լուսինե",
+      "desc": "Լաբորատոր Բժիշկ, Որակի Պատասխանատու",
+      "image": "/images/doctors/d-m.png"
+    },
+    {
+      "id": 4,
+      "name": "Աբրահամյան Լուսինե",
+      "desc": "Լաբորատոր Բժիշկ, Որակի Պատասխանատու",
+      "image": "/images/doctors/d-f.png"
+    },
+    {
+      "id": 5,
+      "name": "Աբրահամյան Լուսինե",
+      "desc": "Լաբորատոր Բժիշկ, Որակի Պատասխանատու",
+      "image": "/images/doctors/d-m.png"
+    }
+  ],
+  "equipment": [
+    {
+      "id": 1,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-1.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-2.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Lorem ipsum",
+      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error hic molestias tempora tempore.",
+      "image": "/images/equipment/t-3.jpg"
+    }
+  ],
+  "quality-control": {
+    "title": "Որակի վերահսկում",
+    "body": "Բիոմեդ ախտորոշման լաբորատորիան աշխատում է որակի վերահսկման միջազգային ստանդարտներին համապատասխան: Որակի հսկողությունն իրականացվում է բազմաթիվ մակարդակներում՝ կիրառելով որակի վերահսկման թե՛ արտաքին և թե՛ ներքին մեխանիզմները: Լաբորատորիան համագործակցում է Գերմանիայի Բիոհետազոտությունների Ռեֆերենս ինստիտուտի հետ (Reference Institute for Bioanalytics), որը հետազոտությունների արտաքին, միջազգային հսկողություն իրականացնող կենտրոն է: Լաբորատորիան ստացել է նաև ISO 9001:2015 որակավորում միջազգային (կանադական) PECB ընկերության կողմից: Հետազոտությունների յուրաքանչյուր փուլ վերահսկվում է որակի վերահսկման մասնագետի կողմից, ինչն օգնում է մինիմումի հասցնել հավանական սխալների հնարավորությունը:",
+    "image": "/images/sert.png"
+  }
 }

@@ -1,17 +1,20 @@
 @import "styles/variables";
 
 
-.Main{
+.Main {
   padding-top: 109px;
   padding-bottom: 60px;
-  .Header{
-    .Tags{
+
+  .Header {
+    .Tags {
       margin-top: 34px;
-      ul{
+
+      ul {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        li{
+
+        li {
           text-transform: uppercase;
           font-size: 18px;
           font-weight: 700;
@@ -21,48 +24,67 @@
           cursor: pointer;
           text-decoration: underline;
           text-decoration-thickness: 3px;
-          &.Event{
-            color: $brand-pink;
-            a{
-              &:hover{
-          color: $brand-blue;
-        }
+          input[type="checkbox"] {
+
+            appearance: none;
+            & + label{
+              cursor: pointer;
+            }
+            &:checked{
+              & + label {
+                color: $brand-blue;
+              }
             }
           }
-          &.Emergency{
-            color: $light-blue;
-            a{
-              &:hover{
-          color: $brand-blue;
-        }
+
+          &.Event {
+            color: $brand-pink;
+
+            a {
+              &:hover {
+                color: $brand-blue;
+              }
             }
           }
-          &.event{
+
+          &.Emergency {
+            color: $light-blue;
+
+            a {
+              &:hover {
+                color: $brand-blue;
+              }
+            }
+          }
+
+          &.event {
             color: $brand-pink;
           }
-          &.emergency{
+
+          &.emergency {
             color: $light-blue;
           }
-          &:hover{
-            color: $brand-blue;
-          }
-          &.selected{
+
+          &:hover {
             color: $brand-blue;
           }
         }
       }
     }
   }
-  .Item{
+
+  .Item {
     position: relative;
-    .Link{
+
+    .Link {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
     }
-    &:hover{
+
+    &:hover {
       box-shadow: 0 10px 22px rgba(24, 48, 66, 0.3);
     }
   }

@@ -1,0 +1,22 @@
+@import "styles/variables";
+
+.Quality{
+  margin-top: 150px;
+  .Text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    p{
+      font-size: 18px;
+      color: $brand-gray;
+      margin-top: 20px;
+    }
+    .Inner{
+
+    }
+  }
+  .Image{
+    margin: 0 0 0 auto;
+  }
+}

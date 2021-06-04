@@ -1,5 +1,5 @@
 import React from 'react';
-import AnalyzesSlider from '../AnalyzesSlider/AnalyzesSlider'
+import InnerSlider from '../InnerSlider/InnerSlider'
 import TabStyle from './tab.module.scss'
 import dynamic from 'next/dynamic'
 
@@ -25,10 +25,22 @@ const TabComponent = ({analyzes, id}) => {
                 </TabList>
 
                 <TabPanel>
-                    <AnalyzesSlider analyzes={analyzes}/>
+                    <div className={'container'}>
+                        <div className={'row'}>
+                            <div className={'col-lg-12'}>
+                                <InnerSlider analyzes={analyzes} component={'analyzes'}/>
+                            </div>
+                        </div>
+                    </div>
                 </TabPanel>
                 <TabPanel>
-                    <AnalyzesSlider analyzes={analyzes}/>
+                    <div className={'container'}>
+                        <div className={'row'}>
+                            <div className={'col-lg-12'}>
+                                <InnerSlider analyzes={analyzes} component={'analyzes'}/>
+                            </div>
+                        </div>
+                    </div>
                 </TabPanel>
             </Tabs>
         </div>

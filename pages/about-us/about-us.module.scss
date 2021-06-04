@@ -1,0 +1,27 @@
+@import 'styles/variables';
+
+.AboutUs{
+  margin-bottom: 100px;
+  padding: 40px 0;
+  .Title{
+
+  }
+}
+
+.WithSlider{
+  .Inner{
+    display: flex;
+    min-width: 82vw;
+    .SliderContainer{
+      padding: 70px 45px;
+    }
+  }
+  .Desc{
+    p {
+      color: #000;
+      font-size: 18px;
+      line-height: 27px;
+      margin: 20px 0;
+    }
+  }
+}

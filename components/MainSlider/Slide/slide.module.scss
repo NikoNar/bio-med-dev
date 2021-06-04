@@ -6,6 +6,19 @@
   justify-content: center;
   .Line{
     margin: 20px 0;
+    p{
+      display: -webkit-box;
+      -webkit-line-clamp: 12;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #9c9c9c;
+      text-align: left;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      text-shadow: 0 0 0 #9c9c9c;
+      max-height: 325px;
+    }
   }
   h1{
     font-size: 45px;

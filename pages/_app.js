@@ -7,14 +7,15 @@ import {Provider} from "react-redux";
 import store from "../redux/store";
 import Header from "../components/Header/Header";
 import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss'
+import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
 
 
 
-
-function BioMedApp({Component, pageProps}, analyzes) {
+function BioMedApp({Component, pageProps}) {
 
     return (
         <>
@@ -37,13 +38,10 @@ function BioMedApp({Component, pageProps}, analyzes) {
 export async function getServerSideProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
     if (Object.keys(pageProps).length > 0) {
-
         return { pageProps };
     }
-
-
-    return {};
 }
+
 
 
 

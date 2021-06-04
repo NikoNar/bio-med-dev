@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import {addOrder} from "../../redux/actions/setOrderAction";
 
-const AnalyzesCard = ({analyze}) => {
+const AnalyzesCard = ({inner}) => {
     const backgroundColor = 'linear-gradient(208deg,'+ 'transparent 11px,' +  '#52A4E3 0)'
 
 
@@ -28,12 +28,12 @@ const AnalyzesCard = ({analyze}) => {
             <div className={'row'}>
                 <div className={'col-lg-12'}>
                     <div className={AStyle.Top}>
-                        <small className={AStyle.Number}>№{analyze.number}</small>
+                        <small className={AStyle.Number}>№{inner.number}</small>
                         <div className={AStyle.Title}>
-                            <span>{analyze.title}</span>
+                            <span>{inner.title}</span>
                         </div>
                         <div className={AStyle.Desc}>
-                           <p>{analyze.body}</p>
+                           <p>{inner.body}</p>
                         </div>
                     </div>
                 </div>
@@ -42,10 +42,10 @@ const AnalyzesCard = ({analyze}) => {
                 <div className={'col-4'}>
                     <div className={AStyle.Price}>
                         <p
-                            className={analyze.compare_price ? AStyle.SellPrice : null}
-                            style={{visibility: analyze.compare_price ? 'visible' : 'hidden'}}
-                        >{analyze.price}<span>AMD</span></p>
-                        <p>{analyze.compare_price ? analyze.compare_price : analyze.price}<span>AMD</span></p>
+                            className={inner.compare_price ? AStyle.SellPrice : null}
+                            style={{visibility: inner.compare_price ? 'visible' : 'hidden'}}
+                        >{inner.price}<span>AMD</span></p>
+                        <p>{inner.compare_price ? inner.compare_price : inner.price}<span>AMD</span></p>
                     </div>
                 </div>
                 <div className={'col-8'}>
@@ -95,7 +95,7 @@ const AnalyzesCard = ({analyze}) => {
                                 </a>
                             </Link>
                         </div>
-                        <Button text={'ԱՎԵԼԱՑՆԵԼ'} backgroundColor={backgroundColor} callBack={()=>handleAddToCart({...analyze, userId: currentUser.id})}/>
+                        <Button text={'ԱՎԵԼԱՑՆԵԼ'} backgroundColor={backgroundColor} callBack={()=>handleAddToCart({...inner, userId: currentUser.id})}/>
                     </div>
                 </div>
             </div>
