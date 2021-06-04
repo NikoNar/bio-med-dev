@@ -5,8 +5,9 @@ module.exports = {
         locales: ['en', 'ru', 'hy'],
         defaultLocale: 'hy',
         localeDetection: true,
-    },
+    }
 }
+
 
 
 

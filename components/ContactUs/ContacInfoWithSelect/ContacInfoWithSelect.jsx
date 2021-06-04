@@ -8,22 +8,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {getContactInfo} from "../../../redux/actions/getContactInfoAction";
 
 const ContactInfoWithSelect = ({contactInfo}) => {
-    
-    // const dispatch = useDispatch()
-    // const contactInfo = useSelector(state => state.contactInfo)
+
 
     const Addresses = contactInfo
     const [selectedValue, setSelectedValue] = useState(Addresses[0].label);
     const [phone, setPhone] = useState(Addresses[0].tel)
     const [email, setEmail] = useState(Addresses[0].email)
-
-   
-
-    // useEffect(()=>{
-    //     dispatch(getContactInfo())
-    // }, [])
-
-
 
 
     const handleChange = e => {
@@ -57,46 +47,48 @@ const ContactInfoWithSelect = ({contactInfo}) => {
 
 
     return (
-        <div className={'row'}>
-            <div className={'col-lg-4'}>
-                <div className={CUWSStyle.Item}>
-                    <div className={CUWSStyle.Image}>
-                        <BuildingIcon/>
-                    </div>
-                    <div className={CUWSStyle.Select}>
-                        <SelectBox
-                            options={Addresses}
-                            value={Addresses.find(obj => obj.label === selectedValue)}
-                            defaultValue={Addresses[0]}
-                            id={1}
-                            inputId={'contactInfo'}
-                            components={{
-                                IndicatorSeparator: () => null,
-                            }}
-                            styles={styles}
-                            isSearchable={false}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className={'col-lg-4'}>
-                <div className={CUWSStyle.Item}>
-                    <div className={CUWSStyle.Image}>
-                        <PhoneIcon/>
-                    </div>
-                    <div className={CUWSStyle.Info}>
-                        <strong>Հեռ.: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+        <div className={'container'}>
+            <div className={'row'}>
+                <div className={'col-lg-4'}>
+                    <div className={CUWSStyle.Item}>
+                        <div className={CUWSStyle.Image}>
+                            <BuildingIcon/>
+                        </div>
+                        <div className={CUWSStyle.Select}>
+                            <SelectBox
+                                options={Addresses}
+                                value={Addresses.find(obj => obj.label === selectedValue)}
+                                defaultValue={Addresses[0]}
+                                id={1}
+                                inputId={'contactInfo'}
+                                components={{
+                                    IndicatorSeparator: () => null,
+                                }}
+                                styles={styles}
+                                isSearchable={false}
+                                onChange={handleChange}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={'col-lg-4'}>
-                <div className={CUWSStyle.Item}>
-                    <div className={CUWSStyle.Image}>
-                        <EmailIcon/>
+                <div className={'col-lg-4'}>
+                    <div className={CUWSStyle.Item}>
+                        <div className={CUWSStyle.Image}>
+                            <PhoneIcon/>
+                        </div>
+                        <div className={CUWSStyle.Info}>
+                            <strong>Հեռ.: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+                        </div>
                     </div>
-                    <div className={CUWSStyle.Info}>
-                        <strong>Email.: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                </div>
+                <div className={'col-lg-4'}>
+                    <div className={CUWSStyle.Item}>
+                        <div className={CUWSStyle.Image}>
+                            <EmailIcon/>
+                        </div>
+                        <div className={CUWSStyle.Info}>
+                            <strong>Email.: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                        </div>
                     </div>
                 </div>
             </div>

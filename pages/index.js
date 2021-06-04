@@ -4,7 +4,10 @@ import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
 import Researches from "../components/Researches/Researches";
 import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
-import ContactUs from "../components/ContactUs/ContactUs";
+import dynamic from 'next/dynamic'
+const ContactUs = dynamic(()=>import("../components/ContactUs/ContactUs"), {ssr: false})
+import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
+import {resetIdCounter} from "react-tabs";
 
 
 const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {
@@ -22,7 +25,7 @@ const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {
 
 
 export async function getStaticProps(ctx) {
-
+    resetIdCounter();
     const analyzes = await fetch(analyzesUrl, {
         method: 'GET',
     })

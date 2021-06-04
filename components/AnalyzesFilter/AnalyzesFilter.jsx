@@ -22,7 +22,7 @@ const AnalyzesFilter = ({analyzesTypes, analyzes}) => {
                                 <div className={AnalyzesStyle.Tags}>
                                     <ul>
                                         <li className={AnalyzesStyle.Event}><Link href={'/events'}><a>ԱԿՑԻԱՆԵՐ</a></Link></li>
-                                        <li className={AnalyzesStyle.Emergency}><Link href={'/call-home'}><a>ԿԱՆՉ ՏՈՒՆ</a></Link></li>
+                                        <li className={AnalyzesStyle.Emergency}><Link href={'/home-call'}><a>ԿԱՆՉ ՏՈՒՆ</a></Link></li>
                                         {
                                             analyzesTypes ? analyzesTypes.map((item)=>{
                                                 return(

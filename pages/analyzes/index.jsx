@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {analyzesTypesUrl, analyzesUrl} from "../../utils/url";
+import {analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
 import AnalyzesStyle from './Analyzes.module.scss'
 import Link from "next/link";
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true}) // disable ssr
-import {Tab, TabList, TabPanel} from "react-tabs";
+import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import TabButtons from "../../components/TabButtons/TabButtons";
 
 
@@ -85,7 +85,7 @@ const Analyzes = ({analyzesTypes, analyzes}) => {
 
 
 export async function getServerSideProps() {
-
+    resetIdCounter();
     const analyzesTypes = await fetch(analyzesTypesUrl)
         .then(res => res.json())
         .then(data => data)
@@ -95,7 +95,6 @@ export async function getServerSideProps() {
     })
         .then(res => res.json())
         .then(data => data)
-
 
     return {
         props: {

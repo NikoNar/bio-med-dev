@@ -3,7 +3,7 @@ import AnalyzesSlider from '../AnalyzesSlider/AnalyzesSlider'
 import TabStyle from './tab.module.scss'
 import dynamic from 'next/dynamic'
 
-const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: true }) // disable ssr
+const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: true })
 import {Tab, TabList, TabPanel} from 'react-tabs';
 import TabButtons from "../TabButtons/TabButtons";
 

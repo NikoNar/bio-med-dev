@@ -9,7 +9,7 @@ import {registerUrl} from "../../../utils/url";
 
 
 
-const RegisterForm = () => {
+const RegisterForm = ({security}) => {
 
     const [date, setDate] = useState(null)
     const [fullName, setFullName] = useState('')
@@ -56,6 +56,7 @@ const RegisterForm = () => {
 
 
     const handleSubmit = async (e)=>{
+        console.log('boom')
         e.preventDefault()
        await fetch(registerUrl, {
            method: 'POST',
@@ -76,13 +77,13 @@ const RegisterForm = () => {
            <div className={RegisterFormStyle.Register}>
                <form onSubmit={handleSubmit}>
                    <div className={RegisterFormStyle.FullName}>
-                       <input placeholder="Անուն Ազգանուն*" type="text" required onChange={(e)=>handleNameValue(e)}/>
+                       <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleNameValue(e)}/>
                        <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
-                           <input type="radio" id="male" name="gender" value='male' onChange={(e)=>handleGenderValue(e)}/>
+                           <input type="radio" id="male" value='male' onChange={(e)=>handleGenderValue(e)}/>
                            <span className="_icon-male"></span>
                        </label>
                        <label htmlFor="female" className={RegisterFormStyle.FemaleActive}>
-                           <input type="radio" id="female" name="gender" value='female' onChange={(e)=>handleGenderValue(e)}/>
+                           <input type="radio" id="female" value='female' onChange={(e)=>handleGenderValue(e)}/>
                            <span className="_icon-female"></span>
                        </label>
                    </div>
@@ -101,10 +102,12 @@ const RegisterForm = () => {
                            maxDate = {new Date()}
                        />
                    </div>
-                   <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)} required/>
-                   <input placeholder="հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)} required/>
-                   <input placeholder="Գաղտնաբառ*" type="password" onChange={(e)=>handlePasswordValue(e)} required/>
-                   <input placeholder="Գաղտնաբառի կրկնողություն" type="password" onChange={(e)=>handleRepeatPasswordValue(e)} required/>
+                   <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)}/>
+                   <input placeholder="հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)}/>
+                   <h4 style={{display: security ? 'block' : 'none'}}>Անվտանգություն</h4>
+                   <input placeholder="Ընթացիկ գաղտնաբառ" type="password"  style={{display: security ? 'block' : 'none'}}/>
+                   <input placeholder="Գաղտնաբառ*" type="password" onChange={(e)=>handlePasswordValue(e)}/>
+                   <input placeholder="Գաղտնաբառի կրկնողություն" type="password" onChange={(e)=>handleRepeatPasswordValue(e)}/>
                    <Button type={'submit'} text={'ՈՒղարկել'}/>
                </form>
            </div>

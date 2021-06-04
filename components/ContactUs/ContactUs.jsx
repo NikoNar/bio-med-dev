@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import ContStyle from './contact.module.scss'
-import Button from "../Button/Button";
 import MapComponent from "./Map/Map";
 import {useDispatch, useSelector} from "react-redux";
 import {getLocation} from "../../redux/actions/getLocationsAction";
@@ -47,8 +46,8 @@ const ContactUs = ({contactInfo}) => {
                         </div>
                     </div>
                 </div>
-                <ContactInfoWithSelect contactInfo={contactInfo}/>
             </div>
+            <ContactInfoWithSelect contactInfo={contactInfo}/>
         </section>
     );
 };

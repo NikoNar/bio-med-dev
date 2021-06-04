@@ -7,7 +7,7 @@ import RegisterForm from "../../components/AccountForms/RegisterForm/RegisterFor
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false }) // disable ssr
-import {Tab, TabList, TabPanel} from "react-tabs";
+import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 
 import dynamic from "next/dynamic";
 import TabButtons from "../../components/TabButtons/TabButtons";
@@ -64,6 +64,15 @@ const Account = () => {
             </div>
         </section>
     );
+};
+
+
+Account.getInitialProps = () => {
+    resetIdCounter();
+
+    return {
+        props:{}
+    }
 };
 
 export default Account;

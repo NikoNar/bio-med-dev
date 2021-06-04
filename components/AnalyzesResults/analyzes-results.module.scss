@@ -1,0 +1,90 @@
+@import "styles/variables";
+
+.Item{
+  cursor: pointer;
+  margin-bottom: 20px;
+  &.Open{
+    .Icon{
+      transform: translateY(-50%) rotate(90deg)!important;
+      transition: all .5s ease!important;
+    }
+    .Body{
+      max-height: 1000px;
+      transition: all .5s ease;
+    }
+  }
+  .Header{
+    padding: 8px 28px;
+    width: 100%;
+    border: 1px solid $brand-gray;
+    border-radius: 6px;
+    position: relative;
+    background-color: $white;
+    p{
+      margin: 0;
+    }
+    .HeaderTitle{
+      color: $brand-blue;
+      font-size: 20px;
+      font-weight: 700;
+      .Number{
+        color: $brand-gray;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+    .Date{
+      color: $light-blue;
+      font-size: 18px;
+      line-height: 27px;
+      letter-spacing: 0.05em;
+    }
+    .Icon{
+      font-family: icons;
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transition: all .5s ease;
+      transform: translateY(-50%);
+      font-size: 14px;
+    }
+  }
+  .Body{
+    max-height: 0;
+    overflow: hidden;
+    transition: all .5s ease;
+    table{
+      width: 100%;
+      background-color: $white;
+      th, td{
+        border-right: 2px solid $brand-gray;
+        color: $brand-gray;
+        &:last-child{
+          border-right: none;
+        }
+      }
+      td{
+        padding: 36px 20px;
+        color: $brand-blue;
+        font-weight: 700;
+        font-size: 18px;
+        &:first-child{
+          text-align: right;
+        }
+      }
+      thead{
+        tr{
+          border-bottom: 2px solid $brand-gray;
+         th{
+           padding: 8px 20px;
+           width: 25%;
+           &:first-child{
+             width: 50%;
+             text-align: right;
+           }
+         }
+        }
+      }
+    }
+  }
+}

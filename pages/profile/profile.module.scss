@@ -1,0 +1,16 @@
+.Profile {
+  padding-top: 100px;
+  .Wrapper {
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+    .NoAccount {
+      .NoAccountLink {
+        a{
+          background: linear-gradient(208deg ,transparent 11px, #183042 0);
+        }
+      }
+    }
+  }
+}

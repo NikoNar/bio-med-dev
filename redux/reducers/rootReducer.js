@@ -8,7 +8,7 @@ import {locationsReducer} from "./locations";
 import {contactInfoReducer} from "./contactInfo";
 
 
-export const rootReducer = combineReducers({
+export const allReducers = combineReducers({
     navigation: navBarReducer,
     social: socialMediaReducer,
     news: newsReducer,

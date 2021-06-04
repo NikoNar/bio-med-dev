@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
@@ -10,8 +10,6 @@ import 'swiper/swiper.scss';
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
-import {appWithTranslation} from 'next-i18next'
-import {analyzesUrl} from "../utils/url";
 
 
 
@@ -39,9 +37,11 @@ function BioMedApp({Component, pageProps}, analyzes) {
 export async function getServerSideProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
     if (Object.keys(pageProps).length > 0) {
-        // return pageProps only when its present
+
         return { pageProps };
     }
+
+
     return {};
 }
 
@@ -51,4 +51,4 @@ const makeStore = () => store
 
 const wrapper = createWrapper(makeStore)
 
-export default appWithTranslation(BioMedApp)
+export default wrapper.withRedux(BioMedApp)
