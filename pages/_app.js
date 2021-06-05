@@ -14,35 +14,39 @@ import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
 
 
-
 function BioMedApp({Component, pageProps}) {
 
     return (
         <>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+                <meta charSet="UTF-8"/>
+                <meta name="viewport"
+                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+                <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+
                 <title>Bio med</title>
-                <script src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmivibDflTIZyyFvkr4gGsFEJa_Yd4o88&v=3.exp&libraries=geometry,drawing,places`}/>
+                <script
+                    src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmivibDflTIZyyFvkr4gGsFEJa_Yd4o88&v=3.exp&libraries=geometry,drawing,places`}/>
 
             </Head>
             <Provider store={store}>
-                    <Header pageProps={pageProps}/>
-                        <Component {...pageProps}/>
-                    <Footer/>
+                <Header pageProps={pageProps}/>
+                <Component {...pageProps}/>
+                <Footer/>
             </Provider>
         </>
     )
 }
 
 
-export async function getServerSideProps({ Component, ctx }) {
+export async function getServerSideProps({Component, ctx}) {
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
     if (Object.keys(pageProps).length > 0) {
-        return { pageProps };
+        return {pageProps};
     }
 }
-
-
 
 
 const makeStore = () => store

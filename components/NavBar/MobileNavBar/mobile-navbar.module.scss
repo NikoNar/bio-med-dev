@@ -1,0 +1,221 @@
+@import "styles/variables";
+
+.Mobile {
+  display: none;
+
+  .Wrapper {
+    position: relative;
+    padding: 10px 20px;
+    background-color: #fff;
+
+    .Burger {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 40px;
+    }
+  }
+
+  .Menu {
+    position: fixed;
+    width: 100vw;
+    top: 79px;
+    right: -100vw;
+    background-color: #fff;
+    min-height: calc(100vh - 79px);
+    transition: right .3s ease;
+    z-index: 100;
+    &.Open{
+      right: 0;
+    }
+
+    .ControlWrapper {
+      display: flex;
+      justify-content: flex-start;
+      padding: 20px;
+
+      .Control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .Item {
+          margin-right: 40px;
+          margin-left: 0;
+        }
+        .Bag {
+          width: 35px;
+          position: relative;
+
+          .Count {
+            position: absolute;
+            display: block;
+            width: 18px;
+            height: 22px;
+            line-height: 22px;
+            background-color: #52a4e3;
+            text-align: center;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            top: 0;
+            right: -7px;
+            -webkit-clip-path: polygon(50% 0, 100% 23%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+            clip-path: polygon(50% 0, 100% 23%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+          }
+        }
+        .Account {
+          width: 25px;
+        }
+        .LanguageSwitcher {
+
+        }
+      }
+      form{
+        .SearchWrapper {
+          position: relative;
+          input {
+            background: #f5faff;
+            border: none;
+            padding: 6px 22px;
+            border-radius: 5px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+          button {
+            background: 0 0;
+            border: none;
+            outline: 0;
+            position: absolute;
+            top: 6px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+
+            &:before {
+              content: '';
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              top: 2px;
+              left: 0;
+              background-image: url('/images/icons/search.svg');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          }
+        }
+      }
+    }
+
+    .Links {
+      ul {
+        padding: 20px;
+
+        li {
+          background-color: #f5faff;
+          padding: 10px;
+          margin-bottom: 10px;
+          position: relative;
+
+          &.HasChild {
+            position: relative;
+            padding-right: 30px;
+
+            &:before {
+              content: '';
+              display: inline-block;
+              position: absolute;
+              top: 50%;
+              right: 20px;
+              transform: translateY(-50%);
+              font-size: 8px;
+              width: 12px;
+              height: 8px;
+              background-image: url("/images/icons/chevron-down.svg");
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          }
+
+          a {
+            color: #183042;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1550px) {
+
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 991px) {
+  .Mobile {
+    display: block;
+
+    .Wrapper {
+
+      .Burger {
+
+      }
+    }
+
+    .Menu {
+      .ControlWrapper{
+        .Control{
+
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Mobile {
+    display: block;
+
+    .Wrapper {
+
+      .Burger {
+
+      }
+    }
+
+    .Menu {
+      .ControlWrapper{
+        flex-wrap: wrap;
+        .Control{
+          margin-bottom: 20px;
+        }
+        form{
+          width: 100%;
+          input{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+
+}
+
+@media (max-width: 476px) {
+
+}
+
+@media (max-width: 376px) {
+
+}

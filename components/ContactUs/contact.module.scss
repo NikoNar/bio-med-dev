@@ -35,6 +35,9 @@
         min-height: 240px;
         max-height: 240px;
       }
+      button{
+        margin-top: 40px;
+      }
     }
     .Title{
 
@@ -66,4 +69,75 @@
       }
     }
   }
+}
+
+@media (max-width: 1550px) {
+
+}
+
+@media (max-width: 1200px){
+
+}
+
+@media (max-width: 991px){
+  .ContactUs{
+    .Form{
+      margin-bottom: 80px;
+    }
+
+    .Wrapper{
+      .DecorV{
+        display: none;
+      }
+      .DecorH{
+        display: block;
+        width: auto;
+        left: 0;
+        right: 0;
+        top: 200px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px){
+
+}
+
+@media (max-width: 576px) {
+
+}
+
+@media (max-width: 476px){
+  .ContactUs{
+    margin: 70px 0 0;
+    .Form{
+      form {
+        input, textarea {
+          padding: 10px;
+          font-size: 16px;
+
+          &::placeholder {
+            font-size: 16px;
+          }
+        }
+
+        textarea {
+          min-height: 128px;
+          max-height: 128px;
+        }
+
+        button {
+          padding: 7px 10px;
+          font-size: 14px;
+          background: linear-gradient(208deg, transparent 7px, #183042 0);
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 376px){
+
 }

@@ -13,14 +13,14 @@ const CallHome = ({analyzesTypes, analyzes, homeCall}) => {
                     <div className={'row'}>
                         <div className={'col-lg-6'}>
                             {
-                                homeCall ? homeCall.map((text) => {
+                                homeCall ? homeCall.map((text, index) => {
                                     return (
-                                        <div className={HCStyle.Wrapper}>
+                                        <div className={HCStyle.Wrapper} key={index}>
                                             <div className={HCStyle.Title}>
                                                 <h4>{text.title}</h4>
                                                 {
-                                                    text.body ? text.body.map((p) => {
-                                                        return <p>{p}</p>
+                                                    text.body ? text.body.map((p, index) => {
+                                                        return <p key={index}>{p}</p>
                                                     }) : ''
                                                 }
                                             </div>

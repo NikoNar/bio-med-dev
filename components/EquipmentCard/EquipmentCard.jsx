@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import DCStyle from '../DoctorCard/doctor-card.module.scss'
 
 const EquipmentCard = ({inner, index, callBack, isOpen}) => {
-    console.log(isOpen);
 
     return (
         <div className={DCStyle.Item}>

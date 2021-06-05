@@ -47,9 +47,9 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
                             }) : ''
                         }
                         {
-                            doctors && component === 'doctors' ? doctors.map((doctor) => {
+                            doctors && component === 'doctors' ? doctors.map((doctor, index) => {
                                 return (
-                                    <SwiperSlide className={ISStyle.Slide} key={doctors.id}>
+                                    <SwiperSlide className={ISStyle.Slide} key={index}>
                                         {
                                             <DoctorCard inner={doctor}/>
                                         }
@@ -60,7 +60,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
                         {
                             equipment && component === 'equipment' ? equipment.map((equipment, index) => {
                                 return (
-                                    <SwiperSlide className={ISStyle.Slide} key={equipment.id}>
+                                    <SwiperSlide className={ISStyle.Slide} key={index}>
                                         {
                                             <EquipmentCard inner={equipment} callBack={()=>handleOpen(index)} isOpen={isOpen} index={index}/>
                                         }

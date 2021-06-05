@@ -1,11 +1,9 @@
 import React from 'react';
 import QCStyle from './quality-control.module.scss'
 import Image from "../Image/Image";
-import {qualityControlUrl} from "../../utils/url";
 
 const QualityControl = ({qualityControl}) => {
 
-    console.log(qualityControl);
 
     return (
         <section className={QCStyle.Quality}>
