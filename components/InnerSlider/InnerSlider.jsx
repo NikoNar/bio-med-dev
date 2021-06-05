@@ -11,7 +11,7 @@ import EquipmentCard from "../EquipmentCard/EquipmentCard";
 SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
-const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
+const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoints}) => {
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -21,6 +21,11 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
         }
         setIsOpen(index)
     }
+
+
+    const breakpointsValue =
+             component === 'analyzes' ? { 1700:{ slidesPerView: 3,}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} :
+             component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4,}, 991: { slidesPerView: 3,}, 0: {slidesPerView: 1,}} : null
 
 
     return (
@@ -33,17 +38,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
                         mousewheel={true}
                         className={ISStyle.SliderContainer}
                         navigation={component !== 'analyzes'}
-                        breakpoints={{
-                            1700: {
-                                slidesPerView: 3,
-                            },
-                            991: {
-                                slidesPerView: 2,
-                            },
-                            0: {
-                                slidesPerView: 1,
-                            }
-                        }}
+                        breakpoints={breakpointsValue}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {

@@ -85,7 +85,7 @@ const Header = (pageProps) => {
                                         </form>
                                         <div className={HeaderStyle.UserControl}>
                                             <div className={HeaderStyle.Bag + ' ' + HeaderStyle.Item}>
-                                                <Link href={'/cart'}>
+                                                <Link href={'/en/cart'}>
                                                     <a>
                                                         <BagIcon/>
                                                     </a>

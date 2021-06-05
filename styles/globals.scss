@@ -6,6 +6,9 @@ body {
   margin: 0;
   font-family: "Montserrat arm", sans-serif !important;
   background-color: $body-color!important;
+  &.open{
+    overflow: hidden;
+  }
 }
 
 body a {

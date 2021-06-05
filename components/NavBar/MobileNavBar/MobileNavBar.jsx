@@ -9,6 +9,7 @@ import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import {getNavBarItems} from "../../../redux/actions/navBarAction";
 import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
+import {switchMobileNavBarState} from "../../../redux/actions/setNavBarStateAction";
 
 const MobileNavBar = () => {
     const dispatch = useDispatch()
@@ -50,7 +51,8 @@ const MobileNavBar = () => {
     const [selectedValue, setSelectedValue] = useState(LanguageSwitcherOptions[0].value);
 
 
-    const handleOpen = ()=>{
+    const handleOpen = (state)=>{
+        dispatch(switchMobileNavBarState(state))
         setIsOpen(!isOpen)
     }
     const handleChange = e => {
@@ -63,7 +65,7 @@ const MobileNavBar = () => {
                <Logo/>
                <div className={MNStyle.Burger}>
                    {
-                       isOpen ? <CloseIcon callBack={handleOpen}/> :  <BurgerMenu callBack={handleOpen}/>
+                       isOpen ? <CloseIcon callBack={()=>handleOpen(isOpen)}/> :  <BurgerMenu callBack={()=>handleOpen(isOpen)}/>
                    }
                </div>
             </div>
@@ -71,13 +73,13 @@ const MobileNavBar = () => {
                 <div className={MNStyle.ControlWrapper}>
                     <div className={MNStyle.Control}>
                         <div className={MNStyle.Bag + ' ' + MNStyle.Item}>
-                            <Link href={'cart'}>
+                            <Link href={'/en/cart'}>
                                 <a><BagIcon/></a>
                             </Link>
                             <span className={MNStyle.Count}>0</span>
                         </div>
                         <div className={MNStyle.Account + ' ' + MNStyle.Item}>
-                            <Link href={'account'}>
+                            <Link href={'/en/account'}>
                                 <a><AccountIcon/></a>
                             </Link>
                         </div>

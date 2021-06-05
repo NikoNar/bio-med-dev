@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import React, {useState} from 'react';
+import GoogleMapReact  from 'google-map-react';
 import CustomIcon from "./CustomIcon";
+import InfoWindow from "./InfoWindow";
+import Marker from "./InfoWindow";
 
 
 
@@ -169,11 +171,19 @@ const MapComponent = ({locations})=>{
     ];
 
 
+    const [infoWindowOpen, setInfoWindowOpen] = useState(false)
+    const openInfoWindow = (index)=>{
+        setInfoWindowOpen(index)
+    }
+
+    const closeInfoWindow = (e)=>{
+        setInfoWindowOpen(false)
+    }
+
     return(
         <>
             <div style={{ height: '100%', width: '100%' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: process.env.REACT_GOOGLE_APP_API }}
                     defaultCenter={{lat: 40.2932074974116, lng: 44.35055671336521}}
                     defaultZoom={17}
                     options={{
@@ -181,12 +191,16 @@ const MapComponent = ({locations})=>{
                     }}
                 >
                     {
-                        locations ? locations.map((loc)=>{
-                            return <CustomIcon
+                        locations ? locations.map((loc, index)=>{
+                            return  <Marker
+                                state={infoWindowOpen}
+                                closeWindow={closeInfoWindow}
+                                info={loc.title}
+                                index={index}
                                 lat={loc.lat}
                                 lng={loc.lng}
-                                text="My Marker"
                                 key={loc.id}
+                                openWindow={()=>openInfoWindow(index)}
                             />
                         }) : ''
                     }
