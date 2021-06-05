@@ -2,21 +2,39 @@
 
 .Button{
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
   display: flex;
   align-items: center;
   text-transform: uppercase;
   line-height: 22px;
   letter-spacing: 0.05em;
-  padding: 16px 25px;
+  padding: 11px;
 }
 
 .Icon{
-  width: 35px;
+  width: 25px;
   display: block;
   margin-left: 10px;
   svg{
     fill: $white;
+  }
+}
+
+@media (max-width: 991px){
+  .Button{
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px){
+  .Button{
+    padding: 7px;
+    font-size: 12px;
+  }
+
+  .Icon{
+    width: 20px;
   }
 }

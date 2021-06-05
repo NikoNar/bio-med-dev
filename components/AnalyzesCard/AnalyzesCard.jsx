@@ -39,7 +39,7 @@ const AnalyzesCard = ({inner}) => {
                 </div>
             </div>
             <div className={'row' + ' ' +AStyle.Info}>
-                <div className={'col-4'}>
+                <div className={'col-12 col-sm-4 col-md-4 col-lg-4'}>
                     <div className={AStyle.Price}>
                         <p
                             className={inner.compare_price ? AStyle.SellPrice : null}
@@ -48,7 +48,7 @@ const AnalyzesCard = ({inner}) => {
                         <p>{inner.compare_price ? inner.compare_price : inner.price}<span>AMD</span></p>
                     </div>
                 </div>
-                <div className={'col-8'}>
+                <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>
                     <div className={AStyle.Options}>
                         <div className={AStyle.Emergency}>
                             <Link href={'/en'}>

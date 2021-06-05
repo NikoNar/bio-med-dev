@@ -12,10 +12,8 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: #9c9c9c;
       text-align: left;
       margin-top: 10px;
-      font-size: 1.2rem;
       text-shadow: 0 0 0 #9c9c9c;
       max-height: 325px;
     }
@@ -64,4 +62,75 @@
       object-fit: cover;
     }
   }
+}
+
+
+@media (max-width: 1550px) {
+
+}
+
+@media (max-width: 1200px){
+  .Wrapper{
+    width: 38vw;
+    height: 43vw;
+  }
+}
+
+@media (max-width: 991px){
+  .Text{
+    .Line{
+      margin: 5px 0;
+      p{
+        width: 100%;
+      }
+      h1{
+        font-size: 24px;
+      }
+      h5{
+        font-size: 15px;
+      }
+    }
+  }
+  .Wrapper{
+    width: 32vw;
+    height: 37vw;
+    filter: drop-shadow( -5px 14px 11px rgba(24, 48, 66, 0.3));
+  }
+}
+
+@media (max-width: 768px){
+  .Wrapper{
+    width: 50vw;
+    height: 55vw;
+    filter: drop-shadow( -5px 14px 11px rgba(24, 48, 66, 0.3));
+  }
+}
+
+@media (max-width: 576px) {
+
+}
+
+@media (max-width: 476px){
+  .Text{
+    .Line{
+      margin: 5px 0;
+      p{
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 20px;
+        letter-spacing: .05px;
+      }
+      h1{
+        font-size: 20px;
+      }
+      h5{
+        font-size: 12px;
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 376px){
+
 }

@@ -54,6 +54,10 @@ svg{
   width: 100%;
 }
 
+#__next{
+  overflow: hidden;
+}
+
 .swiper-button-next, .swiper-button-prev{
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -92,6 +96,16 @@ svg{
   margin-right: 40px!important;
   &.swiper-pagination-bullet-active{
     background: $brand-red!important;
+  }
+}
+
+
+
+
+
+@media (max-width: 991px){
+  body h4{
+    text-align: center;
   }
 }
 

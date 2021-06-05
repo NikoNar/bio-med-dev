@@ -22,3 +22,13 @@
     text-transform: uppercase;
   }
 }
+
+@media (max-width: 576px) {
+  .Products{
+    .Inner{
+      .SliderContainer{
+        padding: 0;
+      }
+    }
+  }
+}

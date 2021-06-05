@@ -8,7 +8,6 @@ import DoctorCard from "../DoctorCard/DoctorCard";
 import EquipmentCard from "../EquipmentCard/EquipmentCard";
 
 
-
 SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
@@ -16,8 +15,8 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleOpen = (index)=>{
-        if (isOpen === index){
+    const handleOpen = (index) => {
+        if (isOpen === index) {
             return setIsOpen(null)
         }
         setIsOpen(index)
@@ -33,7 +32,18 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
                         spaceBetween={20}
                         mousewheel={true}
                         className={ISStyle.SliderContainer}
-                        navigation = {component !== 'analyzes'}
+                        navigation={component !== 'analyzes'}
+                        breakpoints={{
+                            1700: {
+                                slidesPerView: 3,
+                            },
+                            991: {
+                                slidesPerView: 2,
+                            },
+                            0: {
+                                slidesPerView: 1,
+                            }
+                        }}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {
@@ -62,7 +72,8 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage}) => {
                                 return (
                                     <SwiperSlide className={ISStyle.Slide} key={index}>
                                         {
-                                            <EquipmentCard inner={equipment} callBack={()=>handleOpen(index)} isOpen={isOpen} index={index}/>
+                                            <EquipmentCard inner={equipment} callBack={() => handleOpen(index)}
+                                                           isOpen={isOpen} index={index}/>
                                         }
                                     </SwiperSlide>
                                 )

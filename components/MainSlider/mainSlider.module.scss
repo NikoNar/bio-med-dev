@@ -4,3 +4,13 @@
     padding: 40px 0 154px;
   }
 }
+
+
+@media (max-width: 476px){
+  .Slider{
+    margin-bottom: 40px;
+    .SliderContainer{
+      padding: 40px 0 70px;
+    }
+  }
+}
