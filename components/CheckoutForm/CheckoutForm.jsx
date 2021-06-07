@@ -6,53 +6,14 @@ import DatePicker from 'react-datepicker'
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
-import {orderUrl} from "../../utils/url";
+import {homeCallOrdersUrl, orderUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false })
+import { useForm, Controller } from "react-hook-form";
+
 
 
 const CheckoutForm = ({info, orders}) => {
-
-    /*--- Form data ---*/
-
-    const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [branchAddress, setBranchAddress] = useState(info.contactInfo[0].label)
-    const [orderDate, setOrderDate] = useState(new Date())
-    const [orderTime, setOrderTime] = useState(new Date().getTime())
-
-
-    const data = {
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        branchAddress: branchAddress,
-        orderDate:orderDate,
-        orderTime: orderTime,
-        order: orders
-    }
-
-
-    const handleSubmitOrders = async (e)=>{
-        e.preventDefault()
-        await fetch(orderUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'credentials': 'include'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res=>res.json())
-            .then(()=>{
-                e.target.reset();
-            })
-    }
-
-
-
-
 
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const styles = {
@@ -78,23 +39,79 @@ const CheckoutForm = ({info, orders}) => {
         })
     }
 
-    const handleChange = (e) => {
-        setBranchAddress(e.label);
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
+
+    /*--- Reserve Form data ---*/
+    const reserveOrderDate = new Date().toLocaleDateString()
+    const reserveOrderTime = new Date().toLocaleTimeString().slice(0,4)
+
+   /* const reserveData = {
+        fullName: reserveFullName,
+        email: reserveEmail,
+        phone: reservePhone,
+        branchAddress: reserveBranchAddress,
+        orderDate:reserveOrderDate,
+        orderTime: reserveOrderTime,
+        order: orders
+    }*/
+
+    console.log(reserveOrderDate);
+
+    const handleSubmitReserveOrders = async (data)=>{
+        console.log({...data, orders:orders});
+        await fetch(orderUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'credentials': 'include'
+            },
+            body: JSON.stringify({...data, orders:orders})
+        })
+            .then(res=>res.json())
     }
 
-    const handleNameValue = (e)=>{
-        setFullName(e.target.value)
+    /* ---- Home Call Form ----*/
+    const [homeCallFullName, setHomeCallFullName] = useState('')
+    const [homeCallEmail, setHomeCallEmail] = useState('')
+    const [homeCallPhone, setHomeCallPhone] = useState('')
+    const [homeCallOrderDate, setHomeCallOrderDate] = useState(new Date())
+    const [homeCallOrderTime, setHomeCallOrderTime] = useState(new Date().getTime())
+
+    const handleHomeCallNameValue = (e)=>{
+        setHomeCallFullName(e.target.value)
     }
 
-    const handlePhoneValue = (e)=>{
-        setPhone(e.target.value)
+    const handleHomeCallEmailValue = (e)=>{
+        setHomeCallEmail(e.target.value)
     }
 
-    const handleEmailValue = (e)=>{
-        setEmail(e.target.value)
+    const handleHomeCallPhoneValue = (e)=>{
+        setHomeCallPhone(e.target.value)
     }
 
 
+    const handleSubmitHomeCallOrders = async (e, data)=>{
+
+        //e.preventDefault()
+        await fetch(homeCallOrdersUrl, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'credential': 'include'
+            },
+            body: JSON.stringify({...data, orders: orders})
+        })
+            .then(res=>res.json())
+            .then(()=>{
+                setHomeCallFullName('')
+                setHomeCallEmail('')
+                setHomeCallPhone('')
+                setHomeCallOrderDate(new Date())
+                setHomeCallOrderTime(new Date().getTime())
+            })
+    }
+
+    /*---- Form Validation ----*/
 
     return (
         <Tabs>
@@ -105,53 +122,105 @@ const CheckoutForm = ({info, orders}) => {
 
             <TabPanel>
                 <div className={CheckoutStyle.Form}>
-                    <form onSubmit={(e)=>handleSubmitOrders(e)}>
-                        <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleNameValue(e)} value={fullName}/>
-                        <SelectBox
-                            styles={styles}
-                            options={info.contactInfo}
-                            value={info.contactInfo.find(obj => obj.label === branchAddress)}
-                            defaultValue={info.contactInfo[0]}
-                            inputId={CheckoutStyle.CheckoutSelect}
-                            isSearchable={false}
-                            onChange={handleChange}
-                            components={{
-                                IndicatorSeparator: () => null,
-                            }}
+                    <form onSubmit={handleSubmit((data)=>handleSubmitReserveOrders(data))}>
+                        <input
+                            placeholder="Անուն Ազգանուն*"
+                            type="text"
+                            name="fullName"
+                            {...register('fullName', { required: true })}
                         />
+                        { errors.fullName?.type === "required" && <p>Full Name is Required is required</p> }
+                        <Controller
+                            control={control}
+                            defaultValue={info.contactInfo[0]}
+                            name="branches"
+                            render={({ field: { onChange, value, ref }}) => (
+                                <SelectBox
+                                    styles={styles}
+                                    inputRef={ref}
+                                    value={info.contactInfo.filter(c => value.label === c.label)}
+                                    onChange={val => onChange(val)}
+                                    options={info.contactInfo}
+                                    components={{
+                                        IndicatorSeparator: () => null,
+                                    }}
+                                />
+                            )}
+                        />
+                        { errors.branches?.type === "required" && <p>Branch select is Required is required</p> }
                         <div className={CheckoutStyle.DatePicker}>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
-                                    <DatePicker
-                                        selected={orderDate}
-                                        onChange={orderDate=>setOrderDate(orderDate)}
-                                        dateFormat='dd/MM/yyyy'
-                                        placeholderText={orderDate}
-                                        style={{ width: "100%" }}
-                                        withPortal
-                                        showMonthDropdown
-                                        showYearDropdown
-                                        dropdownMode="select"
-                                        yearDropdownItemNumber={100}
+                                    <Controller
+                                        control={control}
+                                        name="date"
+                                        render={({ field: { onChange, value }}) => (
+                                            <DatePicker
+                                                selected={value}
+                                                onChange={onChange}
+                                                dateFormat='dd/MM/yyyy'
+                                                placeholderText={reserveOrderDate}
+                                                style={{ width: "100%" }}
+                                                withPortal
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
+                                                yearDropdownItemNumber={100}
+                                            />
+                                        )}
                                     />
                                 </div>
                                 <div className={'col-lg-6' + ' ' + CheckoutStyle.Portal}>
-                                    <DatePicker
+                                    <Controller
+                                        control={control}
+                                        name="time"
+                                        render={({ field: { onChange, value }}) => (
+                                            <DatePicker
+                                                style={{ width: "100%" }}
+                                                selected={value}
+                                                onChange={onChange}
+                                                showTimeSelect
+                                                placeholderText = {reserveOrderTime}
+                                                withPortal
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                timeCaption="Ժամը"
+                                                dateFormat="HH:mm"
+                                            />
+                                        )}
+                                    />
+                                    {/*<DatePicker
                                         style={{ width: "100%" }}
-                                        selected={orderTime}
-                                        onChange={(orderTime) => setOrderTime(orderTime)}
+                                        selected={value = reserveOrderTime}
+                                        onChange={onChange}
                                         showTimeSelect
                                         withPortal
                                         showTimeSelectOnly
                                         timeIntervals={15}
                                         timeCaption="Ժամը"
                                         dateFormat="HH:mm"
-                                    />
+                                    />*/}
                                 </div>
                             </div>
                         </div>
-                        <input placeholder="Հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)} value={phone}/>
-                        <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)} value={email}/>
+                        <input
+                            placeholder="Հեռախոսի համար*"
+                            type="tel"
+                            //onChange={(e)=>handleReservePhoneValue(e)}
+                            //value={reservePhone}
+                            name="phoneNumber"
+                            {...register('phoneNumber', { required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/ })}
+                        />
+                        { errors.phoneNumber?.type === "required" && <p>Phone Number is Required is required</p> }
+                        <input
+                            placeholder="էլ հասցե*"
+                            type="email"
+                            //onChange={(e)=>handleReserveEmailValue(e)}
+                            //value={reserveEmail}
+                            name="Email"
+                            {...register('Email', { required: true })}
+                        />
+                        { errors.Email?.type === "required" && <p>Email is Required is required</p> }
                         <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
@@ -168,16 +237,16 @@ const CheckoutForm = ({info, orders}) => {
             </TabPanel>
             <TabPanel>
                 <div className={CheckoutStyle.Form}>
-                    <form onSubmit={(e)=>handleSubmitOrders(e)}>
-                        <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleNameValue(e)} value={fullName}/>
+                    <form onSubmit={(e)=>handleSubmitHomeCallOrders(e)}>
+                        <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleHomeCallNameValue(e)} value={homeCallFullName}/>
                         <div className={CheckoutStyle.DatePicker}>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
                                     <DatePicker
-                                        selected={orderDate}
-                                        onChange={orderDate=>setOrderDate(orderDate)}
+                                        selected={homeCallOrderDate}
+                                        onChange={orderDate=>setHomeCallOrderDate(orderDate)}
                                         dateFormat='dd/MM/yyyy'
-                                        placeholderText={orderDate}
+                                        placeholderText={homeCallOrderDate}
                                         style={{ width: "100%" }}
                                         withPortal
                                         showMonthDropdown
@@ -189,8 +258,8 @@ const CheckoutForm = ({info, orders}) => {
                                 <div className={'col-lg-6' + ' ' + CheckoutStyle.Portal}>
                                     <DatePicker
                                         style={{ width: "100%" }}
-                                        selected={orderTime}
-                                        onChange={(orderTime) => setOrderTime(orderTime)}
+                                        selected={homeCallOrderTime}
+                                        onChange={(orderTime) => setHomeCallOrderTime(orderTime)}
                                         showTimeSelect
                                         withPortal
                                         showTimeSelectOnly
@@ -201,8 +270,8 @@ const CheckoutForm = ({info, orders}) => {
                                 </div>
                             </div>
                         </div>
-                        <input placeholder="Հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)} value={phone}/>
-                        <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)} value={email}/>
+                        <input placeholder="Հեռախոսի համար*" type="tel" onChange={(e)=>handleHomeCallPhoneValue(e)} value={homeCallPhone}/>
+                        <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleHomeCallEmailValue(e)} value={homeCallEmail}/>
                         <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>

@@ -92,7 +92,7 @@ const Header = (pageProps) => {
                                                         <BagIcon/>
                                                     </a>
                                                 </Link>
-                                                <span className={HeaderStyle.BagCount}>{orders ? orders.length : 0}</span>
+                                                <span className={HeaderStyle.BagCount}>{orders && user ? orders.length : 0}</span>
                                             </div>
                                             <div className={HeaderStyle.Account + ' ' + HeaderStyle.Item}>
                                                 {

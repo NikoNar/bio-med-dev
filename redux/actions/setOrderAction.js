@@ -29,7 +29,6 @@ export const removeAllOrdersAction = () => {
     window.localStorage.removeItem('orders')
     ordersInitialArray = []
 
-
     return {
         type: REMOVE_ALL_ORDERS_FROM_CART,
         payload: ordersInitialArray
