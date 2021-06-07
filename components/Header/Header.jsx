@@ -22,8 +22,7 @@ const Header = (pageProps) => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
-    const orders = useSelector(state => state.orders)
-    console.log(orders);
+    const orders = useSelector(state=>state.orders)
 
     useEffect(()=>{
         dispatch(getCurrentUserAction())
@@ -93,7 +92,7 @@ const Header = (pageProps) => {
                                                         <BagIcon/>
                                                     </a>
                                                 </Link>
-                                                <span className={HeaderStyle.BagCount}>1</span>
+                                                <span className={HeaderStyle.BagCount}>{orders ? orders.length : 0}</span>
                                             </div>
                                             <div className={HeaderStyle.Account + ' ' + HeaderStyle.Item}>
                                                 {

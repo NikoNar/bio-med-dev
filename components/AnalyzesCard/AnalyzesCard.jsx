@@ -1,28 +1,36 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import AStyle from './analyzes-card.module.scss'
 import Link from "next/link";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
-import { addToCartAction} from "../../redux/actions/setOrderAction";
+import {addItemToCart,  removeCartItem} from "../../redux/actions/setOrderAction";
 import EmergencyIcon from "../SVGIcons/Emergency/EmergencyIcon";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 
-const AnalyzesCard = ({inner, icon, callback, index}) => {
+const AnalyzesCard = ({inner, icon, index}) => {
 
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
 
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
 
+    const [buttonText, setButtonText] = useState('ԱՎԵԼԱՑՆԵԼ')
+
+    const text = 'ԱՎԵԼԱՑՆԵԼ'
+
+
     useEffect(() => {
         dispatch(getCurrentUserAction())
     }, [])
 
     const handleAddToCart = (data) => {
-        dispatch(addToCartAction(data))
+        dispatch(addItemToCart(data))
     }
 
+    const deleteOrder = (index) => {
+        dispatch(removeCartItem(index))
+    }
 
     return (
         <div className={AStyle.Item}>
@@ -30,7 +38,7 @@ const AnalyzesCard = ({inner, icon, callback, index}) => {
                 <div className={'col-lg-12'}>
                     {
                         icon ? <div className={AStyle.RemoveBtn}>
-                            <button onClick={callback}><CloseIcon/></button>
+                            <button onClick={()=>deleteOrder(index)}><CloseIcon/></button>
                         </div> : ''
                     }
                     <div className={AStyle.Top}>
@@ -63,8 +71,8 @@ const AnalyzesCard = ({inner, icon, callback, index}) => {
                                 </a>
                             </Link>
                         </div>
-                        <Button text={'ԱՎԵԼԱՑՆԵԼ'} backgroundColor={backgroundColor}
-                                callBack={() => handleAddToCart({...inner, userId: currentUser.id},  index)}
+                        <Button text={buttonText} backgroundColor={backgroundColor}
+                                callBack={() => handleAddToCart({...inner, userId: currentUser.id}, text)}
                         />
                     </div>
                 </div>

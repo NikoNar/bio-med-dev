@@ -4,16 +4,15 @@ import CartStyle from './cart.module.scss'
 import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
 import {contactInfoUrl} from "../../utils/url";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
-import {getAllOrdersItem, removeAllOrdersAction} from "../../redux/actions/setOrderAction";
+import {getAllOrdersItem, removeAllOrdersAction, removeCartItem} from "../../redux/actions/setOrderAction";
 import {useDispatch, useSelector} from "react-redux";
-
 
 
 const Cart = ({contactInfo}) => {
     const dispatch = useDispatch()
-    const orders = useSelector(state=>state.orders)
+    const orders = useSelector(state => state.orders)
 
-    const deleteAllOrders = async ()=>{
+    const deleteAllOrders = async () => {
         await dispatch(removeAllOrdersAction())
     }
 
@@ -21,13 +20,7 @@ const Cart = ({contactInfo}) => {
         dispatch(getAllOrdersItem())
     }, [])
 
-    const deleteOrder = (index) => {
-        if (orders.indexOf(index) > -1){
-            orders.slice(index, 1)
-        }
-    }
-
-
+    console.log(orders);
 
     return (
         <section className={CartStyle.Cart}>
@@ -43,7 +36,7 @@ const Cart = ({contactInfo}) => {
                     <div className={'col-lg-6'}>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <div  className={CartStyle.RemoveAll} onClick={deleteAllOrders}>
+                                <div className={CartStyle.RemoveAll} onClick={deleteAllOrders}>
                                     <span>Մաքրել ամբողջը</span>
                                 </div>
                             </div>
@@ -53,10 +46,12 @@ const Cart = ({contactInfo}) => {
                                 orders ? orders.map((o, index) => {
                                     return (
                                         <div
-                                            className={'col-lg-12 mt-4'}
-                                            key={o.number}><AnalyzesCard
-                                            inner={o} icon={true}
-                                            callback={()=>deleteOrder(index)}/></div>
+                                            className={'col-lg-12 mt-4'} key={o.number}>
+                                            <AnalyzesCard
+                                                inner={o} icon={true}
+                                                index={index}
+                                              />
+                                        </div>
                                     )
 
                                 }) : ''

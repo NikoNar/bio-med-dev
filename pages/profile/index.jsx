@@ -101,7 +101,7 @@ const Profile = ({user, contactInfo, results}) => {
 
 export async function getServerSideProps(ctx) {
 
-    const user = ctx.req ? ctx.req.cookies.currentUser : null
+    //const user = ctx.req ? ctx.req.cookies.currentUser : null
 
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
@@ -115,7 +115,7 @@ export async function getServerSideProps(ctx) {
 
 
     return {
-        props: {user, contactInfo, results},
+        props: {contactInfo, results},
     }
 }
 
