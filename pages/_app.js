@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import {createWrapper} from "next-redux-wrapper";
-import {Provider} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "../redux/store";
 import Header from "../components/Header/Header";
 import 'swiper/swiper.scss';
@@ -12,6 +12,7 @@ import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
+
 
 
 function BioMedApp({Component, pageProps}) {

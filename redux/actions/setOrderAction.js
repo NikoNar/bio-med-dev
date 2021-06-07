@@ -1,31 +1,38 @@
-import {ADD_ORDER_TO_CART} from "../types";
-import {orderUrl} from "../../utils/url";
+import {ADD_ORDER_TO_CART, GET_ALL_ORDER_ITEMS, REMOVE_ALL_ORDERS_FROM_CART} from "../types";
+import {destroyCookie, setCookie} from "nookies";
 
-export const addOrder = (data)=>{
-    console.log(data);
-    return async (dispatch)=>{
-        const order = await fetch(orderUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify(data)
-        })
-            .then(res=>res.json())
-            .then(data=>{
-                console.log(data);
-            })
 
-        dispatch(setOrderAction(order))
+let orders = []
+
+export const getAllOrdersItem = () => {
+
+    const ordersJson = window.localStorage.getItem('orders')
+    const orders = JSON.parse(ordersJson)
+
+    return {
+        type: GET_ALL_ORDER_ITEMS,
+        payload: orders
     }
 }
 
 
+export const addToCartAction = (data) => {
 
+    if(orders.map(o => o.number).indexOf(data.number) === -1)orders.push(data);
 
-export const setOrderAction = ()=>{
+    window.localStorage.setItem('orders', JSON.stringify(orders))
+
     return {
-        type: ADD_ORDER_TO_CART
+        type: ADD_ORDER_TO_CART,
+        payload: orders
+    }
+}
+
+export const removeAllOrdersAction = () => {
+    window.localStorage.removeItem('orders')
+    orders=[]
+    return {
+        type: REMOVE_ALL_ORDERS_FROM_CART,
+        payload: orders
     }
 }

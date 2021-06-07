@@ -76,7 +76,7 @@ const Analyzes = ({analyzesTypes, analyzes}) => {
                                     <div className={'col-lg-12'}>
 
                                         {
-                                            filters ? filters.map((item) => {
+                                            filters ? filters.map((item, index) => {
                                                 return (
                                                     <div className={'row mb-5'} key={item.id}>
                                                         <div className={'col-lg-12'}>

@@ -21,7 +21,7 @@ const Profile = ({user, contactInfo, results}) => {
 
 
     const router = useRouter()
-    const currentUser = JSON.parse(user)
+
     const handleLogOut = async (e) => {
         e.preventDefault()
         await fetch('/api/logout', {

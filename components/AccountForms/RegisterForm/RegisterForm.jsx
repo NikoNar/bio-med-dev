@@ -56,7 +56,6 @@ const RegisterForm = ({security}) => {
 
 
     const handleSubmit = async (e)=>{
-        console.log('boom')
         e.preventDefault()
        await fetch(registerUrl, {
            method: 'POST',

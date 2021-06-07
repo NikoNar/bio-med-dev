@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import CUWSStyle from './contactUsInfoWithSelect.module.scss'
 import BuildingIcon from "../../SVGIcons/Building/BuildingIcon";
 import PhoneIcon from "../../SVGIcons/Phone/PhoneIcon";
 import EmailIcon from "../../SVGIcons/Email/EmailIcon";
 import SelectBox from "../../SelectBox/SelectBox";
-import {useDispatch, useSelector} from "react-redux";
-import {getContactInfo} from "../../../redux/actions/getContactInfoAction";
 
 const ContactInfoWithSelect = ({contactInfo}) => {
 

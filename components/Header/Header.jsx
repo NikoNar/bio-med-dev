@@ -11,6 +11,7 @@ import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import MobileNavBar from "../NavBar/MobileNavBar/MobileNavBar";
 import AccountIcon from "../SVGIcons/Account/AccountIcon";
 import BagIcon from "../SVGIcons/Bag/BagIcon";
+import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 
 
 
@@ -21,11 +22,13 @@ const Header = (pageProps) => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
-
+    const orders = useSelector(state => state.orders)
+    console.log(orders);
 
     useEffect(()=>{
         dispatch(getCurrentUserAction())
-    },[pageProps])
+        dispatch(getAllOrdersItem())
+    },[pageProps, dispatch])
 
 
     const styles = {
@@ -85,7 +88,7 @@ const Header = (pageProps) => {
                                         </form>
                                         <div className={HeaderStyle.UserControl}>
                                             <div className={HeaderStyle.Bag + ' ' + HeaderStyle.Item}>
-                                                <Link href={'/en/cart'}>
+                                                <Link href={ !user ? '/account' : '/en/cart'}>
                                                     <a>
                                                         <BagIcon/>
                                                     </a>

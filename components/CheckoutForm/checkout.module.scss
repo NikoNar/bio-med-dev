@@ -1,0 +1,73 @@
+@import "styles/variables";
+
+.Form{
+  background-color: $white;
+  box-shadow: 0 10px 22px rgb(39 39 39 / 30%);
+  padding: 40px;
+  form{
+    text-align: center;
+    display: inline-block;
+    #CheckoutSelect{
+      padding: 0!important;
+    }
+    .Portal, .DatePicker{
+      input{
+        text-align: center!important;
+        color: $brand-gray;
+      }
+    }
+    input{
+      width: 100%;
+      padding: 20px;
+      border: none;
+      background-color: #f5faff;
+      margin-bottom: 30px;
+      &::placeholder{
+        color: $brand-gray;
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      float: right;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .Price{
+    margin-top: 40px;
+    .PriceItem{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #183042;
+      line-height: 22px;
+      letter-spacing: .05em;
+      padding: 5px 20px;
+      width: 100%;
+      p{
+        font-size: 18px;
+        margin: 0;
+      }
+      strong{
+        font-size: 30px;
+        font-weight: 500;
+      }
+      span{
+        font-family: icons;
+        font-size: 22px;
+        font-weight: 400;
+      }
+      &.CallHomePrice{
+
+      }
+    }
+    .Total{
+
+    }
+  }
+}
+
+
