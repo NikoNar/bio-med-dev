@@ -7,6 +7,18 @@
   form{
     text-align: center;
     display: inline-block;
+    .Error{
+      background-color: $error-background-color;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      p{
+        margin: 0;
+      }
+    }
     #CheckoutSelect{
       padding: 0!important;
     }

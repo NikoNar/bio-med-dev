@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CheckoutStyle from './checkout.module.scss'
 import SelectBox from "../SelectBox/SelectBox";
 import Button from "../Button/Button";
@@ -8,9 +8,10 @@ import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
 import {homeCallOrdersUrl, orderUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
-const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false })
-import { useForm, Controller } from "react-hook-form";
 
+const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
+import {useForm, Controller} from "react-hook-form";
+import {ErrorMessage} from "@hookform/error-message";
 
 
 const CheckoutForm = ({info, orders}) => {
@@ -39,76 +40,68 @@ const CheckoutForm = ({info, orders}) => {
         })
     }
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+
+    const {
+        handleSubmit: handleSubmitReserve,
+        control: controlReserve,
+        reset: reserveReset,
+        register: registerReserve,
+        formState:{errors: errorsReserve}
+    }= useForm();
+
+    const {
+        handleSubmit:handleSubmitHomeCall,
+        control: controlHomeCall,
+        reset: homeCallReset,
+        register: registerHomeCall,
+        formState:{errors: errorsHomeCall}
+    } = useForm();
+
+
+
 
     /*--- Reserve Form data ---*/
     const reserveOrderDate = new Date().toLocaleDateString()
-    const reserveOrderTime = new Date().toLocaleTimeString().slice(0,4)
+    const reserveOrderTime = new Date().toLocaleTimeString().slice(0, 4)
 
-   /* const reserveData = {
-        fullName: reserveFullName,
-        email: reserveEmail,
-        phone: reservePhone,
-        branchAddress: reserveBranchAddress,
-        orderDate:reserveOrderDate,
-        orderTime: reserveOrderTime,
-        order: orders
-    }*/
 
-    console.log(reserveOrderDate);
 
-    const handleSubmitReserveOrders = async (data)=>{
-        console.log({...data, orders:orders});
+
+    const handleSubmitReserveOrders = async (reserveData) => {
+
         await fetch(orderUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'credentials': 'include'
             },
-            body: JSON.stringify({...data, orders:orders})
+            body: JSON.stringify({...reserveData, orders: orders})
         })
-            .then(res=>res.json())
+            .then(res => {
+                res.json()
+                reserveReset({})
+            })
+            .then(data=>data)
     }
 
     /* ---- Home Call Form ----*/
-    const [homeCallFullName, setHomeCallFullName] = useState('')
-    const [homeCallEmail, setHomeCallEmail] = useState('')
-    const [homeCallPhone, setHomeCallPhone] = useState('')
-    const [homeCallOrderDate, setHomeCallOrderDate] = useState(new Date())
-    const [homeCallOrderTime, setHomeCallOrderTime] = useState(new Date().getTime())
-
-    const handleHomeCallNameValue = (e)=>{
-        setHomeCallFullName(e.target.value)
-    }
-
-    const handleHomeCallEmailValue = (e)=>{
-        setHomeCallEmail(e.target.value)
-    }
-
-    const handleHomeCallPhoneValue = (e)=>{
-        setHomeCallPhone(e.target.value)
-    }
 
 
-    const handleSubmitHomeCallOrders = async (e, data)=>{
+    const handleSubmitHomeCallOrders = async (homeCallData) => {
 
-        //e.preventDefault()
         await fetch(homeCallOrdersUrl, {
             method: 'POST',
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
                 'credential': 'include'
             },
-            body: JSON.stringify({...data, orders: orders})
+            body: JSON.stringify({...homeCallData, orders: orders})
         })
-            .then(res=>res.json())
-            .then(()=>{
-                setHomeCallFullName('')
-                setHomeCallEmail('')
-                setHomeCallPhone('')
-                setHomeCallOrderDate(new Date())
-                setHomeCallOrderTime(new Date().getTime())
+            .then(res => {
+                res.json()
+                homeCallReset({})
             })
+            .then(data=>data)
     }
 
     /*---- Form Validation ----*/
@@ -122,23 +115,30 @@ const CheckoutForm = ({info, orders}) => {
 
             <TabPanel>
                 <div className={CheckoutStyle.Form}>
-                    <form onSubmit={handleSubmit((data)=>handleSubmitReserveOrders(data))}>
+                    <form onSubmit={handleSubmitReserve((reserveData) => handleSubmitReserveOrders(reserveData))}>
                         <input
                             placeholder="Անուն Ազգանուն*"
                             type="text"
-                            name="fullName"
-                            {...register('fullName', { required: true })}
+                            name="reserveFullName"
+                            {...registerReserve('reserveFullName', {required: 'Մուտքագրեք Ձեր անունը'})}
                         />
-                        { errors.fullName?.type === "required" && <p>Full Name is Required is required</p> }
+                        <ErrorMessage
+                            errors={errorsReserve}
+                            name="reserveFullName"
+                            render={({message}) =>  <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Մուտքագրեք Ձեր անունը</p></div>}
+                        />
                         <Controller
-                            control={control}
+                            control={controlReserve}
                             defaultValue={info.contactInfo[0]}
                             name="branches"
-                            render={({ field: { onChange, value, ref }}) => (
+                            rules={{ required: true }}
+                            render={({field: {onChange, value, ref}}) => (
                                 <SelectBox
                                     styles={styles}
                                     inputRef={ref}
-                                    value={info.contactInfo.filter(c => value.label === c.label)}
+                                    inputId={CheckoutStyle.CheckoutSelect}
+                                    isSearchable={false}
+                                    value={info.contactInfo.filter(c => value ? value.label : info.contactInfo[0].label === c.label)}
                                     onChange={val => onChange(val)}
                                     options={info.contactInfo}
                                     components={{
@@ -147,20 +147,25 @@ const CheckoutForm = ({info, orders}) => {
                                 />
                             )}
                         />
-                        { errors.branches?.type === "required" && <p>Branch select is Required is required</p> }
+                        <ErrorMessage
+                            errors={errorsReserve}
+                            name="branches"
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select branch first</p></div>}
+                        />
                         <div className={CheckoutStyle.DatePicker}>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
                                     <Controller
-                                        control={control}
-                                        name="date"
-                                        render={({ field: { onChange, value }}) => (
+                                        control={controlReserve}
+                                        name="reserveDate"
+                                        rules={{ required: true }}
+                                        render={({field: {onChange, value}}) => (
                                             <DatePicker
                                                 selected={value}
                                                 onChange={onChange}
                                                 dateFormat='dd/MM/yyyy'
                                                 placeholderText={reserveOrderDate}
-                                                style={{ width: "100%" }}
+                                                style={{width: "100%"}}
                                                 withPortal
                                                 showMonthDropdown
                                                 showYearDropdown
@@ -169,18 +174,24 @@ const CheckoutForm = ({info, orders}) => {
                                             />
                                         )}
                                     />
+                                    <ErrorMessage
+                                        errors={errorsReserve}
+                                        name="reserveDate"
+                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select date first</p></div>}
+                                    />
                                 </div>
                                 <div className={'col-lg-6' + ' ' + CheckoutStyle.Portal}>
                                     <Controller
-                                        control={control}
-                                        name="time"
-                                        render={({ field: { onChange, value }}) => (
+                                        control={controlReserve}
+                                        name="reserveTime"
+                                        rules={{ required: true }}
+                                        render={({field: {onChange, value}}) => (
                                             <DatePicker
-                                                style={{ width: "100%" }}
+                                                style={{width: "100%"}}
                                                 selected={value}
                                                 onChange={onChange}
                                                 showTimeSelect
-                                                placeholderText = {reserveOrderTime}
+                                                placeholderText={reserveOrderTime}
                                                 withPortal
                                                 showTimeSelectOnly
                                                 timeIntervals={15}
@@ -189,38 +200,36 @@ const CheckoutForm = ({info, orders}) => {
                                             />
                                         )}
                                     />
-                                    {/*<DatePicker
-                                        style={{ width: "100%" }}
-                                        selected={value = reserveOrderTime}
-                                        onChange={onChange}
-                                        showTimeSelect
-                                        withPortal
-                                        showTimeSelectOnly
-                                        timeIntervals={15}
-                                        timeCaption="Ժամը"
-                                        dateFormat="HH:mm"
-                                    />*/}
+                                    <ErrorMessage
+                                        errors={errorsReserve}
+                                        name="reserveTime"
+                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select time first</p></div>}
+                                    />
                                 </div>
                             </div>
                         </div>
                         <input
                             placeholder="Հեռախոսի համար*"
                             type="tel"
-                            //onChange={(e)=>handleReservePhoneValue(e)}
-                            //value={reservePhone}
-                            name="phoneNumber"
-                            {...register('phoneNumber', { required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/ })}
+                            name="reservePhoneNumber"
+                            {...registerReserve('reservePhoneNumber', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
                         />
-                        { errors.phoneNumber?.type === "required" && <p>Phone Number is Required is required</p> }
+                        <ErrorMessage
+                            errors={errorsReserve}
+                            name="reservePhoneNumber"
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Phone number is required</p></div>}
+                        />
                         <input
                             placeholder="էլ հասցե*"
                             type="email"
-                            //onChange={(e)=>handleReserveEmailValue(e)}
-                            //value={reserveEmail}
-                            name="Email"
-                            {...register('Email', { required: true })}
+                            name="reserveEmail"
+                            {...registerReserve('reserveEmail', {required: true})}
                         />
-                        { errors.Email?.type === "required" && <p>Email is Required is required</p> }
+                        <ErrorMessage
+                            errors={errorsReserve}
+                            name="reserveEmail"
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
+                        />
                         <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
@@ -228,7 +237,7 @@ const CheckoutForm = ({info, orders}) => {
                             <p>Տնային այցի արժեքը</p>
                             <strong>5000 <span className={'_icon-amd'}> </span></strong>
                         </div>
-                        <div className={CheckoutStyle.PriceItem + ' ' +CheckoutStyle.Total}>
+                        <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
                             <p>Ընդհանուր</p>
                             <strong>10000 <span className={'_icon-amd'}> </span></strong>
                         </div>
@@ -237,41 +246,96 @@ const CheckoutForm = ({info, orders}) => {
             </TabPanel>
             <TabPanel>
                 <div className={CheckoutStyle.Form}>
-                    <form onSubmit={(e)=>handleSubmitHomeCallOrders(e)}>
-                        <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleHomeCallNameValue(e)} value={homeCallFullName}/>
+                    <form onSubmit={handleSubmitHomeCall((homeCallData) => handleSubmitHomeCallOrders(homeCallData))}>
+                        <input
+                            placeholder="Անուն Ազգանուն*"
+                            type="text"
+                            name="homeCallFullName"
+                            {...registerHomeCall('homeCallFullName', {required: 'Մուտքագրեք Ձեր անունը'})}
+                        />
+                        <ErrorMessage
+                            errors={errorsHomeCall}
+                            name="homeCallFullName"
+                            render={({message}) => <p style={{color: '#ff0000'}}>{message}</p>}
+                        />
                         <div className={CheckoutStyle.DatePicker}>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
-                                    <DatePicker
-                                        selected={homeCallOrderDate}
-                                        onChange={orderDate=>setHomeCallOrderDate(orderDate)}
-                                        dateFormat='dd/MM/yyyy'
-                                        placeholderText={homeCallOrderDate}
-                                        style={{ width: "100%" }}
-                                        withPortal
-                                        showMonthDropdown
-                                        showYearDropdown
-                                        dropdownMode="select"
-                                        yearDropdownItemNumber={100}
+                                    <Controller
+                                        control={controlHomeCall}
+                                        name="homeCallDate"
+                                        rules={{ required: true }}
+                                        render={({field: {onChange, value}}) => (
+                                            <DatePicker
+                                                selected={value}
+                                                onChange={onChange}
+                                                dateFormat='dd/MM/yyyy'
+                                                placeholderText={reserveOrderDate}
+                                                style={{width: "100%"}}
+                                                withPortal
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
+                                                yearDropdownItemNumber={100}
+                                            />
+                                        )}
+                                    />
+                                    <ErrorMessage
+                                        errors={errorsHomeCall}
+                                        name="homeCallDate"
+                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select date first</p></div>}
                                     />
                                 </div>
                                 <div className={'col-lg-6' + ' ' + CheckoutStyle.Portal}>
-                                    <DatePicker
-                                        style={{ width: "100%" }}
-                                        selected={homeCallOrderTime}
-                                        onChange={(orderTime) => setHomeCallOrderTime(orderTime)}
-                                        showTimeSelect
-                                        withPortal
-                                        showTimeSelectOnly
-                                        timeIntervals={15}
-                                        timeCaption="Ժամը"
-                                        dateFormat="HH:mm"
+                                    <Controller
+                                        control={controlHomeCall}
+                                        name="homeCallTime"
+                                        rules={{ required: true }}
+                                        render={({field: {onChange, value}}) => (
+                                            <DatePicker
+                                                style={{width: "100%"}}
+                                                selected={value}
+                                                onChange={onChange}
+                                                showTimeSelect
+                                                placeholderText={reserveOrderTime}
+                                                withPortal
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                timeCaption="Ժամը"
+                                                dateFormat="HH:mm"
+                                            />
+                                        )}
+                                    />
+                                    <ErrorMessage
+                                        errors={errorsHomeCall}
+                                        name="homeCallTime"
+                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select time first</p></div>}
                                     />
                                 </div>
                             </div>
                         </div>
-                        <input placeholder="Հեռախոսի համար*" type="tel" onChange={(e)=>handleHomeCallPhoneValue(e)} value={homeCallPhone}/>
-                        <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleHomeCallEmailValue(e)} value={homeCallEmail}/>
+                        <input
+                            placeholder="Հեռախոսի համար*"
+                            type="tel"
+                            name="homeCallPhoneNumber"
+                            {...registerHomeCall('homeCallPhoneNumber', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
+                        />
+                        <ErrorMessage
+                            errors={errorsHomeCall}
+                            name="homeCallPhoneNumber"
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Phone number is required</p></div>}
+                        />
+                        <input
+                            placeholder="էլ հասցե*"
+                            type="email"
+                            name="homeCallEmail"
+                            {...registerHomeCall('homeCallEmail', {required: true})}
+                        />
+                        <ErrorMessage
+                            errors={errorsHomeCall}
+                            name="homeCallEmail"
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
+                        />
                         <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
@@ -279,7 +343,7 @@ const CheckoutForm = ({info, orders}) => {
                             <p>Տնային այցի արժեքը</p>
                             <strong>5000 <span className={'_icon-amd'}> </span></strong>
                         </div>
-                        <div className={CheckoutStyle.PriceItem + ' ' +CheckoutStyle.Total}>
+                        <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
                             <p>Ընդհանուր</p>
                             <strong>10000 <span className={'_icon-amd'}> </span></strong>
                         </div>
@@ -290,7 +354,6 @@ const CheckoutForm = ({info, orders}) => {
     );
 };
 
-
 export function getStaticProps() {
     resetIdCounter();
 
@@ -298,7 +361,6 @@ export function getStaticProps() {
         props: {}
     }
 }
-
 
 
 export default CheckoutForm;

@@ -9,6 +9,7 @@
     "mock": "json-server -w db.json -p 4500 -d 450"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.0",
     "bootstrap": "^5.0.0-beta3",
     "cookie": "^0.4.1",
     "dotenv": "^10.0.0",
