@@ -179,50 +179,55 @@
       "number": "1636",
       "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
-      "price": "10000",
-      "compare_price": "5000",
+      "price": 5000,
+      "compare_price": 3000,
       "icon": true,
-      "type": "ՈՒՁՀ-2"
+      "type": "ՈՒՁՀ-2",
+      "callHome": true
     },
     {
       "id": "2",
       "number": "1785",
       "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 2",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
-      "price": "10000",
-      "compare_price": "5000",
+      "price": 7000,
+      "compare_price": 4500,
       "icon": true,
-      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
+      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5",
+      "callHome": false
     },
     {
       "id": "3",
       "number": "1964",
       "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 3",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
-      "price": "10000",
+      "price": 15000,
       "compare_price": null,
       "icon": true,
-      "type": "ՈՒՁՀ"
+      "type": "ՈՒՁՀ",
+      "callHome": false
     },
     {
       "id": "4",
       "number": "2547",
       "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 4",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
-      "price": "10000",
-      "compare_price": "5000",
+      "price": 21000,
+      "compare_price": 17000,
       "icon": true,
-      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
+      "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2",
+      "callHome": true
     },
     {
       "id": "5",
       "number": "1814",
       "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 5",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
-      "price": "10000",
-      "compare_price": "5000",
+      "price": 3500,
+      "compare_price": 2200,
       "icon": true,
-      "type": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-3"
+      "type": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-3",
+      "callHome": true
     }
   ],
   "users": [
@@ -292,11 +297,58 @@
     }
   ],
   "orders": [
-
+    {
+      "reserveFullName": "With total",
+      "reservePhoneNumber": "4565464 - 2",
+      "reserveEmail": "res-3@res.am",
+      "branches": {
+        "value": "address-4",
+        "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-4",
+        "tel": "(010) 12 34 56",
+        "email": "test-4@test.com"
+      },
+      "reserveDate": "2021-06-17T12:56:17.175Z",
+      "reserveTime": "2021-06-08T13:30:00.615Z",
+      "orders": [
+        {
+          "id": "1",
+          "number": "1636",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ",
+          "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
+          "price": 5000,
+          "compare_price": 3000,
+          "icon": true,
+          "type": "ՈՒՁՀ-2",
+          "userId": 19
+        },
+        {
+          "id": "2",
+          "number": "1785",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 2",
+          "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
+          "price": 7000,
+          "compare_price": 4500,
+          "icon": true,
+          "type": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5",
+          "userId": 19
+        },
+        {
+          "id": "3",
+          "number": "1964",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 3",
+          "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
+          "price": 15000,
+          "compare_price": null,
+          "icon": true,
+          "type": "ՈՒՁՀ",
+          "userId": 19
+        }
+      ],
+      "totalPrice": 22500,
+      "id": 1
+    }
   ],
-  "homeCallOrders": [
-
-  ],
+  "homeCallOrders": [],
   "analyzes-types": [
     {
       "id": 1,

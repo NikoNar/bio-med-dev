@@ -67,12 +67,13 @@ const AnalyzesCard = ({inner, icon, index}) => {
                         <div className={AStyle.Emergency}>
                             <Link href={'/en'}>
                                 <a>
-                                    <EmergencyIcon/>
+                                    {inner.callHome ? <EmergencyIcon/> : null}
                                 </a>
                             </Link>
                         </div>
                         <Button text={buttonText} backgroundColor={backgroundColor}
                                 callBack={() => handleAddToCart({...inner, userId: currentUser.id}, text)}
+                                icon={icon}
                         />
                     </div>
                 </div>

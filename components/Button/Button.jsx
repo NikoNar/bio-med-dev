@@ -8,11 +8,11 @@ const styles = {
 
 
 
-const Button = ({text, backgroundColor, type, callBack}) => {
+const Button = ({text, backgroundColor, type, callBack, icon}) => {
     return (
         <>
             <button
-                style={{background: backgroundColor ? backgroundColor : styles.background}}
+                style={{background: backgroundColor ? backgroundColor : styles.background, display: icon ? 'none' : 'inline-block'}}
                 className={buttonStyles.Button}
                 type={type}
                 onClick={callBack}

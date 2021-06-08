@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import CartStyle from './cart.module.scss'
 import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
@@ -12,13 +12,19 @@ const Cart = ({contactInfo}) => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.orders)
 
+
     const deleteAllOrders = async () => {
         await dispatch(removeAllOrdersAction())
     }
 
+
+    let calculateOrderItemsTotalPrice = '0'
+
     useEffect(() => {
         dispatch(getAllOrdersItem())
     }, [])
+
+
 
     return (
         <section className={CartStyle.Cart}>

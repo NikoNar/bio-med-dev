@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {useForm, Controller} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
+import HomeCallCloudText from "../HomeCallCloudText/HomeCallCloudText";
 
 
 const CheckoutForm = ({info, orders}) => {
@@ -39,6 +40,23 @@ const CheckoutForm = ({info, orders}) => {
             fontSize: "16px"
         })
     }
+
+    /*Total Price Calculating*/
+
+    const [totalPrice, setTotalPrice] = useState('0')
+    const [tabDisabled, setTabDisabled] = useState(false)
+
+    let calculateOrderItemsTotalPrice = '0'
+
+    useEffect(() => {
+        setTabDisabled(orders.some((o)=>!o.callHome))
+
+        calculateOrderItemsTotalPrice =  orders ? orders.reduce((acc, value)=>{
+            return acc + (value.compare_price ? value.compare_price : value.price)
+        }, 0) : '0'
+        setTotalPrice(calculateOrderItemsTotalPrice.toFixed(2));
+    }, [orders])
+
 
 
     const {
@@ -75,7 +93,7 @@ const CheckoutForm = ({info, orders}) => {
                 'Content-Type': 'application/json',
                 'credentials': 'include'
             },
-            body: JSON.stringify({...reserveData, orders: orders})
+            body: JSON.stringify({...reserveData, orders: orders, totalPrice: calculateOrderItemsTotalPrice})
         })
             .then(res => {
                 res.json()
@@ -85,7 +103,15 @@ const CheckoutForm = ({info, orders}) => {
     }
 
     /* ---- Home Call Form ----*/
+    const [showAlert, setShowAlert] = useState(false)
+    const homeCallAlert = (e,value)=>{
+        e.stopPropagation()
+        setShowAlert(value)
+    }
 
+    const homeCloudStyle = {
+        display: showAlert ? 'block' : 'none'
+    }
 
     const handleSubmitHomeCallOrders = async (homeCallData) => {
 
@@ -95,7 +121,7 @@ const CheckoutForm = ({info, orders}) => {
                 'Content-Type': 'application/json',
                 'credential': 'include'
             },
-            body: JSON.stringify({...homeCallData, orders: orders})
+            body: JSON.stringify({...homeCallData, orders: orders, totalPrice: calculateOrderItemsTotalPrice})
         })
             .then(res => {
                 res.json()
@@ -110,7 +136,9 @@ const CheckoutForm = ({info, orders}) => {
         <Tabs>
             <TabList className={TabStyle.TabList}>
                 <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԱՄՐԱԳՐԵԼ'}/></Tab>
-                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԿԱՆՉ ՏՈՒՆ'}/></Tab>
+                <Tab selectedClassName={TabStyle.Selected} disabled={tabDisabled} onClick={ tabDisabled ? (e)=>homeCallAlert(e,true) : null}><TabButtons text={'ԿԱՆՉ ՏՈՒՆ'}/>
+                    <HomeCallCloudText callback={(e) => homeCallAlert(e, false)} style={homeCloudStyle}/>
+                </Tab>
             </TabList>
 
             <TabPanel>
@@ -233,13 +261,13 @@ const CheckoutForm = ({info, orders}) => {
                         <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
-                        <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
+                       {/* <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
                             <p>Տնային այցի արժեքը</p>
                             <strong>5000 <span className={'_icon-amd'}> </span></strong>
-                        </div>
+                        </div>*/}
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
                             <p>Ընդհանուր</p>
-                            <strong>10000 <span className={'_icon-amd'}> </span></strong>
+                            <strong>{totalPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                     </div>
                 </div>
@@ -345,7 +373,7 @@ const CheckoutForm = ({info, orders}) => {
                         </div>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
                             <p>Ընդհանուր</p>
-                            <strong>10000 <span className={'_icon-amd'}> </span></strong>
+                            <strong>{totalPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                     </div>
                 </div>
