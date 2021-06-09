@@ -1,115 +1,205 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import RegisterFormStyle from './register-form.module.scss'
 import Button from "../../Button/Button";
 import DatePicker from 'react-datepicker'
 import {registerUrl} from "../../../utils/url";
+import {Controller, useForm} from "react-hook-form";
+import {ErrorMessage} from "@hookform/error-message";
+import {yupResolver} from "@hookform/resolvers/yup";
+import * as Yup from 'yup';
+
+
+const registerSchema = Yup.object().shape({
+    registerFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև անունը և ազգանունը'),
+    registerGender: Yup.string().nullable(true).required('Ընտրեք Ձեր սեռը'),
+    registerDate: Yup.string().required('Մուտքագրեք Ձեև ծննդյան ամսաթիվը'),
+    registerEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
+    registerPhone: Yup.string().required('Մուտքագրեք Ձեև էլ․ հեռահոասահամարը'),
+    registerPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required(),
+    registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
+})
+
+
+const RegisterForm = ({security, currentUser}) => {
+
+    const {
+        handleSubmit: handleRegisterSubmit,
+        register: handleRegisterRegister,
+        control: registerControl,
+        watch: registerWatch,
+        formState: {errors},
+        reset: registerFormReset
+    } = useForm(
+        {
+            mode: 'onBlur',
+            resolver: yupResolver(registerSchema)
+        }
+    );
 
 
 
+    const registerHandleSubmit = async (registerData) => {
+        console.log(registerData);
+        await fetch(registerUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registerData)
+        })
+            .then(res => {
+                    res.json()
+                    registerFormReset({})
+                }
+            )
 
-
-
-const RegisterForm = ({security}) => {
-
-    const [date, setDate] = useState(null)
-    const [fullName, setFullName] = useState('')
-    const [gender, setGender] = useState()
-    const [email, setEmail] = useState()
-    const [phone, setPhone] = useState()
-    const [password, setPassword] = useState()
-    const [repeatPassword, setRepeatPassword] = useState()
-
-
-    const handleNameValue = (e)=>{
-        setFullName(e.target.value)
-    }
-
-    const handleGenderValue = (e)=>{
-        setGender(e.target.value)
-    }
-
-    const handleEmailValue = (e)=>{
-        setEmail(e.target.value)
-    }
-
-    const handlePhoneValue = (e)=>{
-        setPhone(e.target.value)
-    }
-
-    const handlePasswordValue = (e)=>{
-        setPassword(e.target.value)
-    }
-
-    const handleRepeatPasswordValue = (e)=>{
-        setRepeatPassword(e.target.value)
-    }
-
-    const data = {
-        fullName: fullName,
-        gender: gender,
-        date: date,
-        email: email,
-        phone: phone,
-        password: password,
-        repeatPassword: repeatPassword
-    }
-
-
-    const handleSubmit = async (e)=>{
-        e.preventDefault()
-       await fetch(registerUrl, {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/json'
-           },
-           body: JSON.stringify(data)
-       })
-           .then(res=>res.json())
-           .then(()=>{
-               e.target.reset();
-               setDate(null)
-           })
     }
 
 
     return (
-           <div className={RegisterFormStyle.Register}>
-               <form onSubmit={handleSubmit}>
-                   <div className={RegisterFormStyle.FullName}>
-                       <input placeholder="Անուն Ազգանուն*" type="text" onChange={(e)=>handleNameValue(e)}/>
-                       <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
-                           <input type="radio" id="male" value='male' onChange={(e)=>handleGenderValue(e)}/>
-                           <span className="_icon-male"></span>
-                       </label>
-                       <label htmlFor="female" className={RegisterFormStyle.FemaleActive}>
-                           <input type="radio" id="female" value='female' onChange={(e)=>handleGenderValue(e)}/>
-                           <span className="_icon-female"></span>
-                       </label>
-                   </div>
-                   <div className={RegisterFormStyle.DatePicker}>
-                       <DatePicker
-                           selected={date}
-                           onChange={date=>setDate(date)}
-                           dateFormat='dd/MM/yyyy'
-                           placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
-                           style={{ width: "100%" }}
-                           withPortal
-                           showMonthDropdown
-                           showYearDropdown
-                           dropdownMode="select"
-                           yearDropdownItemNumber={100}
-                           maxDate = {new Date()}
-                       />
-                   </div>
-                   <input placeholder="էլ հասցե*" type="email" onChange={(e)=>handleEmailValue(e)}/>
-                   <input placeholder="հեռախոսի համար*" type="tel" onChange={(e)=>handlePhoneValue(e)}/>
-                   <h4 style={{display: security ? 'block' : 'none'}}>Անվտանգություն</h4>
-                   <input placeholder="Ընթացիկ գաղտնաբառ" type="password"  style={{display: security ? 'block' : 'none'}}/>
-                   <input placeholder="Գաղտնաբառ*" type="password" onChange={(e)=>handlePasswordValue(e)}/>
-                   <input placeholder="Գաղտնաբառի կրկնողություն" type="password" onChange={(e)=>handleRepeatPasswordValue(e)}/>
-                   <Button type={'submit'} text={'ՈՒղարկել'}/>
-               </form>
-           </div>
+        <div className={RegisterFormStyle.Register}>
+            <form onSubmit={handleRegisterSubmit(registerHandleSubmit)}>
+                <div className={RegisterFormStyle.FullName}>
+                    <div className={'row'}>
+                        <div className={'col-8'}>
+                            <input
+                                placeholder="Անուն Ազգանուն*"
+                                type="text"
+                                name='registerFullName'
+                                {...handleRegisterRegister('registerFullName')}
+                                //value={currentUser ? currentUser.fullName : ''}
+                            />
+                            {errors.registerFullName &&
+                            <div className={'error mt-3'}>
+                                <p style={{color: '#ff0000'}}>
+                                    {errors.registerFullName.message}
+                                </p>
+                            </div>
+                            }
+                        </div>
+                        <div className={'col-4'}>
+                            <div className={RegisterFormStyle.GenderBlock}>
+                                <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
+                                    <input
+                                        type="radio"
+                                        id="male"
+                                        value='male'
+                                        {...handleRegisterRegister('registerGender')}
+                                        //checked={!!(currentUser && currentUser.gender === 'male')}
+                                    />
+                                    <span className="_icon-male"></span>
+                                </label>
+                                <label htmlFor="female" className={RegisterFormStyle.FemaleActive}>
+                                    <input
+                                        type="radio"
+                                        id="female"
+                                        value='female'
+                                        {...handleRegisterRegister('registerGender')}
+                                        //checked={!!(currentUser && currentUser.gender === 'female')}
+                                    />
+                                    <span className="_icon-female"></span>
+                                </label>
+                            </div>
+                            {errors.registerGender &&
+                            <div className={'error mt-3'}>
+                                <p style={{color: '#ff0000'}}>
+                                    {errors.registerGender.message}
+                                </p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <Controller
+                    control={registerControl}
+                    name="registerDate"
+                    render={({field: {onChange, value}}) => (
+                        <div className={RegisterFormStyle.DatePicker}>
+                            <DatePicker
+                                selected={value}
+                                onChange={onChange}
+                                dateFormat='dd/MM/yyyy'
+                                placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
+                                style={{width: "100%"}}
+                                withPortal
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                                yearDropdownItemNumber={100}
+                                maxDate={new Date()}
+                            />
+                        </div>
+                    )}
+                />
+                {errors.registerDate &&
+                <div className={'error'}>
+                    <p style={{color: '#ff0000'}}>
+                        {errors.registerDate.message}
+                    </p>
+                </div>
+                }
+
+                <input
+                    placeholder="էլ հասցե*"
+                    type='email'
+                    name='registerEmail'
+                    {...handleRegisterRegister('registerEmail')}
+                    //value={currentUser ? currentUser.email : ''}
+                />
+                {errors.registerEmail &&
+                <div className={'error'}>
+                    <p style={{color: '#ff0000'}}>
+                        {errors.registerEmail.message}
+                    </p>
+                </div>
+                }
+                <input
+                    placeholder="հեռախոսի համար*"
+                    type="tel"
+                    name='registerPhone'
+                    {...handleRegisterRegister('registerPhone')}
+                    //value={currentUser ? currentUser.phone : ''}
+                />
+                {errors.registerPhone &&
+                <div className={'error'}>
+                    <p style={{color: '#ff0000'}}>
+                        {errors.registerPhone.message}
+                    </p>
+                </div>
+                }
+                <input
+                    placeholder="Գաղտնաբառ*"
+                    type="password"
+                    name='registerPassword'
+                    {...handleRegisterRegister('registerPassword')}
+                    style={{display: security ? 'none' : 'block'}}
+                />
+                {errors.registerPassword &&
+                <div className={'error'}>
+                    <p style={{color: '#ff0000'}}>
+                        {errors.registerPassword.message}
+                    </p>
+                </div>
+                }
+                <input
+                    placeholder="Գաղտնաբառի կրկնողություն"
+                    type="password"
+                    name='registerConfirmPassword'
+                    {...handleRegisterRegister('registerConfirmPassword')}
+                    style={{display: security ? 'none' : 'block'}}
+                />
+                {errors.registerConfirmPassword &&
+                <div className={'error'}>
+                    <p style={{color: '#ff0000'}}>
+                        {errors.registerConfirmPassword.message}
+                    </p>
+                </div>
+                }
+                <div style={{textAlign: 'right'}}>
+                    <Button type={'submit'} text={'ՈՒղարկել'}/>
+                </div>
+            </form>
+        </div>
     );
 };
 

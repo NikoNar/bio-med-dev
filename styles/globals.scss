@@ -19,6 +19,9 @@ body a {
     color: unset;
     text-decoration: none;
   }
+  &:focus{
+    outline: none;
+  }
 }
 
 body ul{
@@ -46,6 +49,9 @@ body input, body textarea{
 button{
   border: none;
   color: $white;
+  &:focus{
+    outline: none;
+  }
 }
 
 img{
@@ -102,6 +108,17 @@ svg{
   }
 }
 
+.error{
+  background-color: #ffeff0;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  p{
+    margin: 0;
+  }
+}
 
 
 

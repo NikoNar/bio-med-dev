@@ -43,17 +43,17 @@ const CheckoutForm = ({info, orders}) => {
 
     /*Total Price Calculating*/
 
-    const [totalPrice, setTotalPrice] = useState('0')
+    const [totalPrice, setTotalPrice] = useState(0)
     const [tabDisabled, setTabDisabled] = useState(false)
 
     let calculateOrderItemsTotalPrice = '0'
 
     useEffect(() => {
-        setTabDisabled(orders.some((o)=>!o.callHome))
+        setTabDisabled(orders && orders.some((o)=>!o.callHome))
 
         calculateOrderItemsTotalPrice =  orders ? orders.reduce((acc, value)=>{
             return acc + (value.compare_price ? value.compare_price : value.price)
-        }, 0) : '0'
+        }, 0) : 0
         setTotalPrice(calculateOrderItemsTotalPrice.toFixed(2));
     }, [orders])
 
@@ -284,7 +284,7 @@ const CheckoutForm = ({info, orders}) => {
                         <ErrorMessage
                             errors={errorsHomeCall}
                             name="homeCallFullName"
-                            render={({message}) => <p style={{color: '#ff0000'}}>{message}</p>}
+                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>{message}</p></div>}
                         />
                         <div className={CheckoutStyle.DatePicker}>
                             <div className={'row'}>

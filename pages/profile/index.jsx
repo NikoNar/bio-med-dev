@@ -9,18 +9,39 @@ import TabStyle from "../../components/Tab/tab.module.scss";
 import TabButtons from "../../components/TabButtons/TabButtons";
 import {contactInfoUrl, resultsUrl} from "../../utils/url";
 const RegisterForm  = dynamic(()=>import("../../components/AccountForms/RegisterForm/RegisterForm"), {ssr: false});
-//import RegisterForm from "../../components/AccountForms/RegisterForm/RegisterForm";
 import LinkButton from "../../components/LinkButton/LinkButton";
 const ContactUs  = dynamic(()=>import("../../components/ContactUs/ContactUs"), {ssr: false});
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
+import {useSelector} from "react-redux";
+import RegisterFormStyle from "../../components/AccountForms/RegisterForm/register-form.module.scss";
+import Button from "../../components/Button/Button";
+import {useForm, Controller} from "react-hook-form";
+import {ErrorMessage} from "@hookform/error-message";
+import CheckoutStyle from "../../components/CheckoutForm/checkout.module.scss";
+
+
 
 
 
 
 const Profile = ({user, contactInfo, results}) => {
 
-
+    const currentUser = useSelector(state=>state.currentUser)
     const router = useRouter()
+
+    console.log(user);
+
+    const {
+        handleSubmit: handleChangePassword,
+        //control: controlEditProfile,
+        //reset: resetEditProfile,
+        register: registerEditProfile,
+        formState:{errors: errorsEditProfile}
+    }= useForm();
+
+
+
+
 
     const handleLogOut = async (e) => {
         e.preventDefault()
@@ -69,7 +90,48 @@ const Profile = ({user, contactInfo, results}) => {
                             <TabPanel>
                                 <div className={'row pt-5'}>
                                     <div className={'col-lg-6'}>
-                                        <RegisterForm security={true}/>
+                                        <RegisterForm security={true} currentUser={currentUser ? currentUser : null}/>
+                                        <h4 className={'mt-5'}>Անվտանգություն</h4>
+                                        <div className={RegisterFormStyle.Register + ' ' + 'mt-5'}>
+                                            <form onSubmit={handleChangePassword((reserveData) => handleSubmitReserveOrders(reserveData))}>
+                                                <input
+                                                    type="password"
+                                                    placeholder="Ընթացիկ գաղտնաբառ"
+                                                    name="editProfileCurrentPassword"
+                                                    {...registerEditProfile('editProfileCurrentPassword', {required: 'Մուտքագրեք Ձեր ընթացիկ գաղտնաբառը'})}
+                                                />
+                                                <ErrorMessage
+                                                    errors={errorsEditProfile}
+                                                    name="editProfileCurrentPassword"
+                                                    render={({message}) =>  <div className={'error'}><p style={{color: '#ff0000'}}>Մուտքագրեք Ձեր ընթացիկ գաղտնաբառը</p></div>}
+                                                />
+                                                <input
+                                                    type="password"
+                                                    placeholder="Նոր գաղտնաբառ"
+                                                    name="editProfileNewPassword"
+                                                    {...registerEditProfile('editProfileNewPassword', {required: 'Մուտքագրեք Ձեր ընթացիկ գաղտնաբառը'})}
+                                                />
+                                                <ErrorMessage
+                                                    errors={errorsEditProfile}
+                                                    name="editProfileNewPassword"
+                                                    render={({message}) =>  <div className={'error'}><p style={{color: '#ff0000'}}>Մուտքագրեք նոր գաղտնաբառը</p></div>}
+                                                />
+                                                <input
+                                                    type="password"
+                                                    placeholder="Գաղտնաբառի կրկնողություն"
+                                                    name="editProfileRepeatPassword"
+                                                    {...registerEditProfile('editProfileRepeatPassword', {required: 'Մուտքագրեք Ձեր ընթացիկ գաղտնաբառը'})}
+                                                />
+                                                <ErrorMessage
+                                                    errors={errorsEditProfile}
+                                                    name="editProfileRepeatPassword"
+                                                    render={({message}) =>  <div className={'error'}><p style={{color: '#ff0000'}}>Կրկնեք նոր գաղտնաբառը</p></div>}
+                                                />
+                                                <div style={{textAlign: 'right'}}>
+                                                    <Button type={'submit'} text={'Պահպանել'}/>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                     <div className={'col-lg-5 offset-0 offset-lg-1'}>
                                         <div className={ProfStyle.Wrapper}>
@@ -101,7 +163,7 @@ const Profile = ({user, contactInfo, results}) => {
 
 export async function getServerSideProps(ctx) {
 
-    //const user = ctx.req ? ctx.req.cookies.currentUser : null
+    const user = ctx.req ? ctx.req.cookies.currentUser : null
 
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
@@ -115,7 +177,7 @@ export async function getServerSideProps(ctx) {
 
 
     return {
-        props: {contactInfo, results},
+        props: {contactInfo, results, user},
     }
 }
 
