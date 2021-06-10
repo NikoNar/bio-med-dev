@@ -39,7 +39,6 @@ const RegisterForm = ({security, currentUser}) => {
 
 
     const registerHandleSubmit = async (registerData) => {
-        console.log(registerData);
         await fetch(registerUrl, {
             method: 'POST',
             headers: {
@@ -66,8 +65,8 @@ const RegisterForm = ({security, currentUser}) => {
                                 placeholder="Անուն Ազգանուն*"
                                 type="text"
                                 name='registerFullName'
+                                defaultValue={currentUser ? currentUser.fullName : ''}
                                 {...handleRegisterRegister('registerFullName')}
-                                //value={currentUser ? currentUser.fullName : ''}
                             />
                             {errors.registerFullName &&
                             <div className={'error mt-3'}>
@@ -85,7 +84,7 @@ const RegisterForm = ({security, currentUser}) => {
                                         id="male"
                                         value='male'
                                         {...handleRegisterRegister('registerGender')}
-                                        //checked={!!(currentUser && currentUser.gender === 'male')}
+                                        checked={!!(currentUser && currentUser.gender === 'male')}
                                     />
                                     <span className="_icon-male"></span>
                                 </label>
@@ -95,7 +94,7 @@ const RegisterForm = ({security, currentUser}) => {
                                         id="female"
                                         value='female'
                                         {...handleRegisterRegister('registerGender')}
-                                        //checked={!!(currentUser && currentUser.gender === 'female')}
+                                        checked={!!(currentUser && currentUser.gender === 'female')}
                                     />
                                     <span className="_icon-female"></span>
                                 </label>
@@ -116,7 +115,7 @@ const RegisterForm = ({security, currentUser}) => {
                     render={({field: {onChange, value}}) => (
                         <div className={RegisterFormStyle.DatePicker}>
                             <DatePicker
-                                selected={value}
+                                selected={currentUser ? new Date(currentUser.date) : value}
                                 onChange={onChange}
                                 dateFormat='dd/MM/yyyy'
                                 placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
@@ -144,7 +143,7 @@ const RegisterForm = ({security, currentUser}) => {
                     type='email'
                     name='registerEmail'
                     {...handleRegisterRegister('registerEmail')}
-                    //value={currentUser ? currentUser.email : ''}
+                    defaultValue={currentUser ? currentUser.email : ''}
                 />
                 {errors.registerEmail &&
                 <div className={'error'}>
@@ -158,7 +157,7 @@ const RegisterForm = ({security, currentUser}) => {
                     type="tel"
                     name='registerPhone'
                     {...handleRegisterRegister('registerPhone')}
-                    //value={currentUser ? currentUser.phone : ''}
+                    defaultValue={currentUser ? currentUser.phone : ''}
                 />
                 {errors.registerPhone &&
                 <div className={'error'}>
