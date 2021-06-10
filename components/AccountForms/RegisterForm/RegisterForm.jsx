@@ -84,7 +84,6 @@ const RegisterForm = ({security, currentUser}) => {
                                         id="male"
                                         value='male'
                                         {...handleRegisterRegister('registerGender')}
-                                        checked={!!(currentUser && currentUser.gender === 'male')}
                                     />
                                     <span className="_icon-male"></span>
                                 </label>
@@ -94,7 +93,6 @@ const RegisterForm = ({security, currentUser}) => {
                                         id="female"
                                         value='female'
                                         {...handleRegisterRegister('registerGender')}
-                                        checked={!!(currentUser && currentUser.gender === 'female')}
                                     />
                                     <span className="_icon-female"></span>
                                 </label>
@@ -115,7 +113,7 @@ const RegisterForm = ({security, currentUser}) => {
                     render={({field: {onChange, value}}) => (
                         <div className={RegisterFormStyle.DatePicker}>
                             <DatePicker
-                                selected={currentUser ? new Date(currentUser.date) : value}
+                                selected={value}
                                 onChange={onChange}
                                 dateFormat='dd/MM/yyyy'
                                 placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
