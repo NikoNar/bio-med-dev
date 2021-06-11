@@ -483,40 +483,22 @@
   ],
   "messages": [
     {
-      "fullName": "Simon Simonyan",
-      "email": "simon@simon.com",
-      "message": "Hello this is a test message from contact form ",
+      "messageAuthor": "Karen Karapetyan",
+      "messageAuthorEmail": "karen@karen.am",
+      "messageBody": "Test Message from Contact form",
       "id": 1
     },
     {
-      "fullName": "Karo Karapetyan",
-      "email": "karo@karo.com",
-      "message": "Hello this is second message from contact form ",
+      "messageAuthor": "Suren Surenyan",
+      "messageAuthorEmail": "suren@suren.am",
+      "messageBody": "Message from Suren",
       "id": 2
     },
     {
-      "fullName": "Gevo Gevoyan",
-      "email": "gevo@gevo.com",
-      "message": "This is a third message from contact form in home page",
+      "messageAuthor": "Gago Gaoyan",
+      "messageAuthorEmail": "gago@gago.am",
+      "messageBody": "Message from Gago",
       "id": 3
-    },
-    {
-      "fullName": "Saqo Saqoyan",
-      "email": "saqo@saqo.com",
-      "message": "Saqo send you a message",
-      "id": 4
-    },
-    {
-      "fullName": "gago Gagoyan",
-      "email": "gago@gago.com",
-      "message": "Test message from Contact Us page",
-      "id": 5
-    },
-    {
-      "fullName": "Sergey",
-      "email": "sergey@sergey.com",
-      "message": "This is test text from Sergey",
-      "id": 6
     }
   ],
   "contactInfo": [

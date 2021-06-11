@@ -74,7 +74,6 @@ const RegisterForm = ({security, currentUser}) => {
                                 placeholder="Անուն Ազգանուն*"
                                 type="text"
                                 name='registerFullName'
-                                defaultValue={currentUser ? currentUser.fullName : ''}
                                 {...handleRegisterRegister('registerFullName')}
                             />
                             {errors.registerFullName &&
