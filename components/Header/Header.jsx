@@ -7,6 +7,7 @@ import Link from "next/link";
 import SelectBox from "../SelectBox/SelectBox";
 import {globalLinkText} from "../../utils/linkTexts";
 import {useDispatch, useSelector} from "react-redux";
+
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import MobileNavBar from "../NavBar/MobileNavBar/MobileNavBar";
 import AccountIcon from "../SVGIcons/Account/AccountIcon";
@@ -92,7 +93,7 @@ const Header = (pageProps) => {
                                                         <BagIcon/>
                                                     </a>
                                                 </Link>
-                                                <span className={HeaderStyle.BagCount}>{orders && user ? orders.length : 0}</span>
+                                                <span className={HeaderStyle.BagCount}>{orders ? orders.length : 0}</span>
                                             </div>
                                             <div className={HeaderStyle.Account + ' ' + HeaderStyle.Item}>
                                                 {

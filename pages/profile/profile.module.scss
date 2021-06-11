@@ -15,4 +15,15 @@
       }
     }
   }
+  form{
+    .ProfileDatePicker{
+      .react-datepicker__input-container{
+          input{
+            &::placeholder{
+              color: $brand-blue!important;
+            }
+          }
+      }
+    }
+  }
 }

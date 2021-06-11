@@ -1,32 +1,34 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
-import {destroyCookie, parseCookies} from 'nookies'
+import {destroyCookie, setCookie} from 'nookies'
 import ProfStyle from './profile.module.scss'
 import dynamic from 'next/dynamic'
-const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false })
-import {Tab, TabList, TabPanel } from "react-tabs";
+
+const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
+import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../../components/Tab/tab.module.scss";
 import TabButtons from "../../components/TabButtons/TabButtons";
-import {changePasswordUrl, contactInfoUrl, resultsUrl} from "../../utils/url";
+import {changePasswordUrl, contactInfoUrl, editProfileUrl, resultsUrl} from "../../utils/url";
 import LinkButton from "../../components/LinkButton/LinkButton";
-const ContactUs  = dynamic(()=>import("../../components/ContactUs/ContactUs"), {ssr: false});
+
+const ContactUs = dynamic(() => import("../../components/ContactUs/ContactUs"), {ssr: false});
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import RegisterFormStyle from "../../components/AccountForms/RegisterForm/register-form.module.scss";
 import DatePicker from 'react-datepicker'
 import Button from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
-import {ErrorMessage} from "@hookform/error-message";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 
 
 const editProfileSchema = Yup.object().shape({
-    editProfileFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև անունը և ազգանունը'),
-    editProfileGender: Yup.string().nullable(true).required('Ընտրեք Ձեր սեռը'),
-    editProfileDate: Yup.string().required('Մուտքագրեք Ձեև ծննդյան ամսաթիվը'),
-    editProfileEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
-    editProfilePhone: Yup.string().required('Մուտքագրեք Ձեև էլ․ հեռահոասահամարը'),
+    editProfileFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր'),
+    editProfileGender: Yup.string().nullable(true),
+    editProfileDate: Yup.string(),
+    editProfileEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)'),
+    editProfilePhone: Yup.string(),
 })
 
 const changePasswordSchema = Yup.object().shape({
@@ -36,19 +38,24 @@ const changePasswordSchema = Yup.object().shape({
 })
 
 
-
-
 const Profile = ({contactInfo, results, token}) => {
 
-    const currentUser = useSelector(state=>state.currentUser)
+    const currentUser = useSelector(state => state.currentUser)
+    const [isEdited, setIsEdited] = useState(false)
     const router = useRouter()
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        setIsEdited(false)
+        dispatch(getCurrentUserAction())
+    },[isEdited])
 
     const {
         handleSubmit: handleSubmitChangePassword,
         //control: controlEditProfile,
         reset: resetChangePassword,
         register: registerChangePassword,
-        formState:{errors: errorsChangePassword}
+        formState: {errors: errorsChangePassword}
     } = useForm(
         {
             mode: 'onBlur',
@@ -61,7 +68,7 @@ const Profile = ({contactInfo, results, token}) => {
         control: controlEditProfile,
         reset: resetChangeProfileEdit,
         register: registerEditProfile,
-        formState:{errors: errorsEditProfile},
+        formState: {errors: errorsEditProfile},
         watch: editProfileWatch,
     } = useForm(
         {
@@ -80,16 +87,16 @@ const Profile = ({contactInfo, results, token}) => {
             body: JSON.stringify({}),
         })
             .then(() => {
-            router.push('/en')
-        })
-        setTimeout(()=>{
+                router.push('/en')
+            })
+        setTimeout(() => {
             destroyCookie(null, 'currentUser')
             destroyCookie(null, 'token')
-        },1000)
+        }, 1000)
     }
 
-    const handleChangePassword = async (passwordData)=>{
-        console.log(passwordData);
+    const handleChangePassword = async (passwordData) => {
+
         const userCredentials = {...passwordData, loginEmail: currentUser.email, loginPassword: currentUser.password}
         await fetch(changePasswordUrl, {
             method: 'PUT',
@@ -99,15 +106,39 @@ const Profile = ({contactInfo, results, token}) => {
             },
             body: JSON.stringify(userCredentials)
         })
-            .then(res=> {
+            .then(res => {
                 res.json()
                 resetChangePassword({})
             })
+            .then(data=>{
+                setIsEdited(true)
+            })
     }
 
-    const handleProfileEdit = async (editProfileData)=>{
-        console.log(editProfileData);
+    const handleProfileEdit = async (editProfileData) => {
+        const userCredentials = {...editProfileData, loginEmail: currentUser.email, loginPassword: currentUser.password}
+        await fetch(editProfileUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(userCredentials)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then((data)=>{
+                console.log(data);
+                const user = JSON.stringify(data.user)
+                setCookie(null, 'currentUser', user)
+                setCookie(null, 'token', data.access_token)
+                setIsEdited(true)
+            })
     }
+
+
+
 
     return (
         <section className={ProfStyle.Profile}>
@@ -163,7 +194,8 @@ const Profile = ({contactInfo, results, token}) => {
                                                         </div>
                                                         <div className={'col-4'}>
                                                             <div className={RegisterFormStyle.GenderBlock}>
-                                                                <label htmlFor="editProfileMale" className={RegisterFormStyle.MaleActive}>
+                                                                <label htmlFor="editProfileMale"
+                                                                       className={RegisterFormStyle.MaleActive}>
                                                                     <input
                                                                         type="radio"
                                                                         id="editProfileMale"
@@ -173,7 +205,8 @@ const Profile = ({contactInfo, results, token}) => {
                                                                     />
                                                                     <span className="_icon-male"></span>
                                                                 </label>
-                                                                <label htmlFor="editProfileFemale" className={RegisterFormStyle.FemaleActive}>
+                                                                <label htmlFor="editProfileFemale"
+                                                                       className={RegisterFormStyle.FemaleActive}>
                                                                     <input
                                                                         type="radio"
                                                                         id="editProfileFemale"
@@ -197,23 +230,27 @@ const Profile = ({contactInfo, results, token}) => {
                                                 <Controller
                                                     control={controlEditProfile}
                                                     name="editProfileDate"
-                                                    render={({field: {onChange, value}}) => (
-                                                        <div className={RegisterFormStyle.DatePicker}>
-                                                            <DatePicker
-                                                                selected={new Date(currentUser.date)}
-                                                                onChange={onChange}
-                                                                dateFormat='dd/MM/yyyy'
-                                                                placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
-                                                                style={{width: "100%"}}
-                                                                withPortal
-                                                                showMonthDropdown
-                                                                showYearDropdown
-                                                                dropdownMode="select"
-                                                                yearDropdownItemNumber={100}
-                                                                maxDate={new Date()}
-                                                            />
-                                                        </div>
-                                                    )}
+                                                    defaultValue={new Date(currentUser && currentUser.date)}
+                                                    render={({field: {onChange, value, ref}}) => {
+                                                        return (
+                                                            <div className={ProfStyle.ProfileDatePicker}>
+                                                                <DatePicker
+                                                                    selected={value}
+                                                                    onChange={onChange}
+                                                                    dateFormat='dd/MM/yyyy'
+                                                                    //placeholderText={new Date(currentUser && currentUser.date).toLocaleDateString()}
+                                                                    style={{width: "100%"}}
+                                                                    withPortal
+                                                                    showMonthDropdown
+                                                                    showYearDropdown
+                                                                    dropdownMode="select"
+                                                                    yearDropdownItemNumber={100}
+                                                                    maxDate={new Date()}
+                                                                    inputRef={ref}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    }}
                                                 />
                                                 {errorsEditProfile.editProfileDate &&
                                                 <div className={'error'}>
@@ -311,7 +348,8 @@ const Profile = ({contactInfo, results, token}) => {
                                                     <h4>Չունես անձնական հաշիվ?</h4>
                                                 </div>
                                                 <div className={ProfStyle.NoAccountText}>
-                                                    <p>Դուք կկարողանաք ստեղծել այն թեստի արդյունքները վերանայելուց հետո և
+                                                    <p>Դուք կկարողանաք ստեղծել այն թեստի արդյունքները վերանայելուց հետո
+                                                        և
                                                         ստանալ հավատարիմ հաճախորդի առավելությունները</p>
                                                 </div>
                                                 <div className={ProfStyle.NoAccountLink}>
@@ -333,7 +371,7 @@ const Profile = ({contactInfo, results, token}) => {
 }
 
 export async function getServerSideProps(ctx) {
-    const token  = ctx.req.cookies.token
+    const token = ctx.req.cookies.token
     //const user = ctx.req ? ctx.req.cookies.currentUser : null
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
@@ -342,8 +380,8 @@ export async function getServerSideProps(ctx) {
         .then(data => data)
 
     const results = await fetch(resultsUrl)
-        .then(res=>res.json())
-        .then(data=>data)
+        .then(res => res.json())
+        .then(data => data)
 
 
     return {
