@@ -3,9 +3,10 @@ import linkButtonStyle from './linkButton.module.scss'
 import Link from "next/link";
 
 
-const LinkButton = ({text}) => {
+const LinkButton = ({text, link}) => {
+
     return (
-        <Link href={'#'}>
+        <Link href={`${link}`}>
             <a className={linkButtonStyle.Link}>{text}</a>
         </Link>
     )

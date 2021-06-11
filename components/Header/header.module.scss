@@ -86,6 +86,13 @@
         }
         .Account{
           width: 25px;
+          &.LoggedIn{
+            width: 60px;
+            text-align: center;
+          }
+          a{
+            font-size: 14px;
+          }
         }
         .LanguageSwitcher{
           width: 85px;

@@ -17,7 +17,7 @@ import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 
 
 const linkText = globalLinkText
-const buttonLink = "/profile"
+const buttonLink = "/results"
 
 const Header = (pageProps) => {
 
@@ -28,7 +28,7 @@ const Header = (pageProps) => {
     useEffect(()=>{
         dispatch(getCurrentUserAction())
         dispatch(getAllOrdersItem())
-    },[pageProps, dispatch])
+    },[pageProps])
 
 
     const styles = {
@@ -68,7 +68,7 @@ const Header = (pageProps) => {
                     <div className={'row'}>
                         <div className="col-lg-12">
                             <div className={HeaderStyle.TopHeader}>
-                                <LinkButton text={linkText} href={buttonLink}/>
+                                <LinkButton text={linkText} link={buttonLink}/>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@ const Header = (pageProps) => {
                                                 </Link>
                                                 <span className={HeaderStyle.BagCount}>{orders ? orders.length : 0}</span>
                                             </div>
-                                            <div className={HeaderStyle.Account + ' ' + HeaderStyle.Item}>
+                                            <div className={user ? HeaderStyle.Account + ' ' + HeaderStyle.LoggedIn + ' ' + HeaderStyle.Item : HeaderStyle.Account + ' ' + HeaderStyle.Item}>
                                                 {
                                                     !user ? <Link href={'/account'}>
                                                         <a>

@@ -1,6 +1,6 @@
 import {SET_SELECTED_FILTERS} from "../types";
 
-export const selectedFiltersReducer = (state = [], action)=>{
+export const selectedFiltersReducer = (state = null, action)=>{
     switch (action.type) {
         case SET_SELECTED_FILTERS:
             return action.payload
@@ -8,3 +8,4 @@ export const selectedFiltersReducer = (state = [], action)=>{
             return state
     }
 }
+

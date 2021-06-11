@@ -1,17 +1,30 @@
 import {SET_SELECTED_FILTERS} from "../types";
+import {analyzesUrl} from "../../utils/url";
 
-let filters = []
+export const filterAnalyzesByCategory = (filterValue)=>{
 
-export const setSelectedFiltersAction = (filterValue, status) => {
+    return async (dispatch)=>{
+        const filters = await fetch(`${analyzesUrl}` + '?' + `typeId=${filterValue}`)
+            .then(res=>res.json())
+            .then(data=>data)
 
-    if (status) {
-        filters.push(filterValue)
+        await dispatch(setSelectedFiltersAction(filters))
     }
-    if (!status) {
-        const index = filters.findIndex(f => f === filterValue)
-        filters.splice(index, 1)
-    }
+}
 
+export const filterAnalyzesByEvents = (filterValue)=>{
+    console.log(filterValue);
+    return async (dispatch)=>{
+        const filters = await fetch(`${analyzesUrl}` + '?' + `eventType=${filterValue}`)
+            .then(res=>res.json())
+            .then(data=>data)
+
+        await dispatch(setSelectedFiltersAction(filters))
+    }
+}
+
+
+export const setSelectedFiltersAction = (filters) => {
 
     return {
         type: SET_SELECTED_FILTERS,
