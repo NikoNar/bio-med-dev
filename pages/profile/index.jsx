@@ -21,6 +21,7 @@ import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
+import {parsePhoneNumberFromString} from "libphonenumber-js";
 
 
 const editProfileSchema = Yup.object().shape({
@@ -137,6 +138,15 @@ const Profile = ({contactInfo, results, token}) => {
             })
     }
 
+    const validatePhoneNumber = (value)=>{
+        const phoneNumber = parsePhoneNumberFromString(value)
+        if (!phoneNumber){
+            return value
+        }
+
+        return phoneNumber.formatInternational()
+
+    }
 
 
 
@@ -280,6 +290,9 @@ const Profile = ({contactInfo, results, token}) => {
                                                     name='editProfilePhone'
                                                     {...registerEditProfile('editProfilePhone')}
                                                     defaultValue={currentUser && currentUser.phone}
+                                                    onChange={(event)=>{
+                                                        event.target.value = validatePhoneNumber(event.target.value)
+                                                    }}
                                                 />
                                                 {errorsEditProfile.editProfilePhone &&
                                                 <div className={'error'}>

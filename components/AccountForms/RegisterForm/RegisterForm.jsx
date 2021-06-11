@@ -4,8 +4,8 @@ import Button from "../../Button/Button";
 import DatePicker from 'react-datepicker'
 import {registerUrl} from "../../../utils/url";
 import {Controller, useForm} from "react-hook-form";
-import {ErrorMessage} from "@hookform/error-message";
 import {yupResolver} from "@hookform/resolvers/yup";
+import {parsePhoneNumberFromString} from 'libphonenumber-js'
 import * as Yup from 'yup';
 
 
@@ -54,6 +54,15 @@ const RegisterForm = ({security, currentUser}) => {
 
     }
 
+    const validatePhoneNumber = (value)=>{
+        const phoneNumber = parsePhoneNumberFromString(value)
+        if (!phoneNumber){
+            return value
+        }
+
+        return phoneNumber.formatInternational()
+
+    }
 
     return (
         <div className={RegisterFormStyle.Register}>
@@ -156,6 +165,9 @@ const RegisterForm = ({security, currentUser}) => {
                     name='registerPhone'
                     {...handleRegisterRegister('registerPhone')}
                     defaultValue={currentUser ? currentUser.phone : ''}
+                    onChange={(event)=>{
+                        event.target.value = validatePhoneNumber(event.target.value)
+                    }}
                 />
                 {errors.registerPhone &&
                 <div className={'error'}>
