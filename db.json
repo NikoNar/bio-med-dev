@@ -182,6 +182,7 @@
       "price": 5000,
       "compare_price": 3000,
       "icon": true,
+      "mainCategory": "lab",
       "typeId": 2,
       "eventType": "homeCall",
       "callHome": true,
@@ -195,7 +196,8 @@
       "price": 7000,
       "compare_price": 4500,
       "icon": true,
-      "typeId": 4,
+      "mainCategory": "equip",
+      "typeId": 11,
       "eventType": "event",
       "callHome": false,
       "events": true
@@ -208,7 +210,8 @@
       "price": 15000,
       "compare_price": null,
       "icon": true,
-      "typeId": 8,
+      "mainCategory": "lab",
+      "typeId": 111,
       "eventType": null,
       "callHome": false,
       "events": false
@@ -221,6 +224,7 @@
       "price": 21000,
       "compare_price": 17000,
       "icon": true,
+      "mainCategory": "equip",
       "typeId": 4,
       "eventType": "homeCall",
       "callHome": true,
@@ -234,6 +238,7 @@
       "price": 3500,
       "compare_price": 2200,
       "icon": true,
+      "mainCategory": "lab",
       "typeId": 5,
       "eventType": "homeCall",
       "callHome": true,
@@ -247,6 +252,7 @@
       "price": 8300,
       "compare_price": 6100,
       "icon": true,
+      "mainCategory": "equip",
       "typeId": 4,
       "eventType": "event",
       "callHome": false,
@@ -260,6 +266,7 @@
       "price": 5400,
       "compare_price": 3600,
       "icon": true,
+      "mainCategory": "lab",
       "typeId": 1,
       "eventType": "event",
       "callHome": false,
@@ -273,6 +280,7 @@
       "price": 26000,
       "compare_price": 22450,
       "icon": true,
+      "mainCategory": "lab",
       "typeId": 4,
       "eventType": "event",
       "callHome": false,
@@ -286,6 +294,7 @@
       "price": 3150,
       "compare_price": null,
       "icon": true,
+      "mainCategory": "equip",
       "typeId": 4,
       "eventType": "homeCall",
       "callHome": true,
@@ -299,6 +308,7 @@
       "price": 4500,
       "compare_price": null,
       "icon": true,
+      "mainCategory": "lab",
       "typeId": 2,
       "eventType": "homeCall",
       "callHome": true,
@@ -312,6 +322,7 @@
       "price": 4500,
       "compare_price": 3400,
       "icon": true,
+      "mainCategory": "equip",
       "typeId": 2,
       "eventType": "homeCall",
       "callHome": true,
@@ -405,60 +416,6 @@
     }
   ],
   "homeCallOrders": [],
-  "analyzes-types": [
-    {
-      "id": 1,
-      "title": "ՈՒՁՀ"
-    },
-    {
-      "id": 2,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
-    },
-    {
-      "id": 3,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
-    },
-    {
-      "id": 4,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-1"
-    },
-    {
-      "id": 5,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-1"
-    },
-    {
-      "id": 6,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
-    },
-    {
-      "id": 7,
-      "title": "ՈՒՁՀ-1"
-    },
-    {
-      "id": 8,
-      "title": "ՈՒՁՀ-2"
-    },
-    {
-      "id": 9,
-      "title": "ԱՐՅԱՆ-3"
-    },
-    {
-      "id": 10,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-4"
-    },
-    {
-      "id": 11,
-      "title": "ՈՒՁՀ-4"
-    },
-    {
-      "id": 12,
-      "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
-    },
-    {
-      "id": 13,
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-7"
-    }
-  ],
   "slides": [
     {
       "id": 1,
@@ -782,5 +739,154 @@
     "title": "Որակի վերահսկում",
     "body": "Բիոմեդ ախտորոշման լաբորատորիան աշխատում է որակի վերահսկման միջազգային ստանդարտներին համապատասխան: Որակի հսկողությունն իրականացվում է բազմաթիվ մակարդակներում՝ կիրառելով որակի վերահսկման թե՛ արտաքին և թե՛ ներքին մեխանիզմները: Լաբորատորիան համագործակցում է Գերմանիայի Բիոհետազոտությունների Ռեֆերենս ինստիտուտի հետ (Reference Institute for Bioanalytics), որը հետազոտությունների արտաքին, միջազգային հսկողություն իրականացնող կենտրոն է: Լաբորատորիան ստացել է նաև ISO 9001:2015 որակավորում միջազգային (կանադական) PECB ընկերության կողմից: Հետազոտությունների յուրաքանչյուր փուլ վերահսկվում է որակի վերահսկման մասնագետի կողմից, ինչն օգնում է մինիմումի հասցնել հավանական սխալների հնարավորությունը:",
     "image": "/images/sert.png"
-  }
+  },
+  "categories": [
+    {
+      "main": "lab",
+      "title": "Laboratory",
+      "subcategories": [
+        {
+          "id": 1,
+          "parent": "lab",
+          "title": "ՈՒՁՀ"
+        },
+        {
+          "id": 2,
+          "parent": "lab",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+        },
+        {
+          "id": 3,
+          "parent": "lab",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+        },
+        {
+          "id": 4,
+          "parent": "lab",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-1"
+        },
+        {
+          "id": 5,
+          "parent": "lab",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-1"
+        },
+        {
+          "id": 6,
+          "parent": "lab",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
+        },
+        {
+          "id": 7,
+          "parent": "lab",
+          "title": "ՈՒՁՀ-1"
+        },
+        {
+          "id": 8,
+          "parent": "lab",
+          "title": "ՈՒՁՀ-2"
+        },
+        {
+          "id": 9,
+          "parent": "lab",
+          "title": "ԱՐՅԱՆ-3"
+        },
+        {
+          "id": 10,
+          "parent": "lab",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-4"
+        },
+        {
+          "id": 11,
+          "parent": "lab",
+          "title": "ՈՒՁՀ-4"
+        },
+        {
+          "id": 12,
+          "parent": "lab",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
+        },
+        {
+          "id": 13,
+          "parent": "lab",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-7"
+        }
+      ]
+    },
+    {
+      "main": "equip",
+      "title": "Equipment",
+      "subcategories": [
+        {
+          "id": 11,
+          "parent": "equip",
+          "title": "ՈՒՁՀ-11"
+        },
+        {
+          "id": 21,
+          "parent": "equip",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-21"
+        },
+        {
+          "id": 31,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-31"
+        },
+        {
+          "id": 41,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-41"
+        },
+        {
+          "id": 51,
+          "parent": "equip",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-51"
+        },
+        {
+          "id": 61,
+          "parent": "equip",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-61"
+        },
+        {
+          "id": 71,
+          "parent": "equip",
+          "title": "ՈՒՁՀ-71"
+        },
+        {
+          "id": 81,
+          "parent": "equip",
+          "title": "ՈՒՁՀ-81"
+        },
+        {
+          "id": 91,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ-91"
+        },
+        {
+          "id": 101,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-101"
+        },
+        {
+          "id": 111,
+          "parent": "equip",
+          "title": "ՈՒՁՀ-111"
+        },
+        {
+          "id": 121,
+          "parent": "equip",
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-121"
+        },
+        {
+          "id": 131,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-131"
+        },
+        {
+          "id": 141,
+          "parent": "equip",
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-141"
+        }
+      ]
+    }
+  ]
 }
