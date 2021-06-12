@@ -4,35 +4,35 @@
       "id": "1",
       "handle": "home",
       "title": "Home",
-      "link": "/",
+      "link": "/en",
       "subLinks": null
     },
     {
       "id": "2",
       "handle": "analyzes",
       "title": "Հետազոտություններ",
-      "link": "/analyzes",
+      "link": "/en/analyzes",
       "subLinks": null
     },
     {
       "id": "3",
       "handle": "home-call",
       "title": "Կանչ տուն",
-      "link": "/home-call",
+      "link": "/en/home-call",
       "subLinks": null
     },
     {
       "id": "4",
       "handle": "news",
       "title": "Նորություններ",
-      "link": "/news",
+      "link": "/en/news",
       "subLinks": null
     },
     {
       "id": "5",
       "handle": "about-us",
       "title": "Մեր մասին",
-      "link": "/about-us",
+      "link": "/en/about-us",
       "subLinks": [
         {
           "id": "11",
@@ -743,7 +743,7 @@
   "categories": [
     {
       "main": "lab",
-      "title": "Laboratory",
+      "title": "ԼԱԲՈՐԱՏՈՐ",
       "subcategories": [
         {
           "id": 1,
@@ -814,7 +814,7 @@
     },
     {
       "main": "equip",
-      "title": "Equipment",
+      "title": "ԳՈՐԾԻՔԱՅԻՆ",
       "subcategories": [
         {
           "id": 11,

@@ -7,6 +7,7 @@ import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
 import dynamic from 'next/dynamic'
 const ContactUs = dynamic(()=>import("../components/ContactUs/ContactUs"), {ssr: false})
 import {resetIdCounter} from "react-tabs";
+import {useRouter} from "next/router";
 
 
 const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {

@@ -1,11 +1,12 @@
 import React from 'react';
 import Analyzes from "../analyzes";
 import {resetIdCounter} from "react-tabs";
-import {analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
 import HCStyle from "./home-call.module.scss"
 import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
+import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
-const CallHome = ({analyzesTypes, analyzes, homeCall}) => {
+const CallHome = ({analyzesTypes, analyzes, homeCall, categories}) => {
     return (
         <>
             <section className={HCStyle.HomeCall}>
@@ -39,7 +40,7 @@ const CallHome = ({analyzesTypes, analyzes, homeCall}) => {
                     </div>
                 </div>
             </section>
-            <Analyzes analyzes={analyzes} analyzesTypes={analyzesTypes}/>
+            <AnalyzesList analyzes={analyzes} categories={categories}/>
         </>
     );
 };
@@ -63,12 +64,17 @@ export async function getServerSideProps() {
         .then(res => res.json())
         .then(data => data)
 
+    const categories = await fetch(analyzesCategoryUrl)
+        .then(res=>res.json())
+        .then(data=>data)
+
 
     return {
         props: {
             analyzesTypes: analyzesTypes,
             analyzes: analyzes,
-            homeCall
+            homeCall,
+            categories
         }
     }
 }

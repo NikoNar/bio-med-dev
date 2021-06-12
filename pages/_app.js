@@ -12,6 +12,7 @@ import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
+import {IntlProvider} from "react-intl";
 
 
 
@@ -32,11 +33,13 @@ function BioMedApp({Component, pageProps}) {
                     src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmivibDflTIZyyFvkr4gGsFEJa_Yd4o88&v=3.exp&libraries=geometry,drawing,places`}/>
 
             </Head>
-            <Provider store={store}>
-                <Header pageProps={pageProps}/>
-                <Component {...pageProps}/>
-                <Footer/>
-            </Provider>
+
+                <Provider store={store}>
+                    <Header pageProps={pageProps}/>
+                    <Component {...pageProps}/>
+                    <Footer/>
+                </Provider>
+
         </>
     )
 }

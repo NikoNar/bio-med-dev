@@ -13,6 +13,7 @@ import MobileNavBar from "../NavBar/MobileNavBar/MobileNavBar";
 import AccountIcon from "../SVGIcons/Account/AccountIcon";
 import BagIcon from "../SVGIcons/Bag/BagIcon";
 import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
+import {useRouter} from "next/router";
 
 
 
@@ -50,6 +51,8 @@ const Header = (pageProps) => {
             fontSize: "16px"
         })
     }
+
+
     const LanguageSwitcherOptions = [
         {value: 'hy', label: 'Հայ'},
         {value: 'ru', label: 'Рус'},
