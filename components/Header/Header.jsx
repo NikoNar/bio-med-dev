@@ -14,13 +14,16 @@ import AccountIcon from "../SVGIcons/Account/AccountIcon";
 import BagIcon from "../SVGIcons/Bag/BagIcon";
 import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 import {useRouter} from "next/router";
-
+import { useCookies } from 'react-cookie';
 
 
 const linkText = globalLinkText
 const buttonLink = "/results"
 
 const Header = (pageProps) => {
+    const router = useRouter()
+    const {locale} = router
+    const [ cookie, setCookie ] = useCookies(['NEXT_LOCALE']);
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
@@ -58,10 +61,15 @@ const Header = (pageProps) => {
         {value: 'ru', label: 'Рус'},
         {value: 'en', label: 'Eng'}
     ]
-    const [selectedValue, setSelectedValue] = useState(LanguageSwitcherOptions[0].value);
+    const [selectedValue, setSelectedValue] = useState(locale);
 
-    const handleChange = e => {
-        setSelectedValue(e.value);
+    const handleChange = (e) => {
+        const locale = e.value;
+        setSelectedValue(locale);
+        router.push(router.asPath,router.asPath, { locale }).then();
+        if(cookie.NEXT_LOCALE !== locale){
+            setCookie("NEXT_LOCALE", locale);
+        }
     }
 
     return (
@@ -112,7 +120,7 @@ const Header = (pageProps) => {
                                                 <SelectBox
                                                     options={LanguageSwitcherOptions}
                                                     value={LanguageSwitcherOptions.find(obj => obj.value === selectedValue)}
-                                                    defaultValue={LanguageSwitcherOptions[0]}
+                                                    defaultValue={locale}
                                                     id={1}
                                                     inputId={'header'}
                                                     components={{

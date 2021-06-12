@@ -5,7 +5,11 @@ import {aboutUsUrl, doctorsUsUrl, equipmentUrl, qualityControlUrl} from "../../u
 import InnerSlider from "../../components/InnerSlider/InnerSlider";
 import QualityControl from "../../components/QualityControl/QualityControl";
 
+import useTranslation from "next-translate/useTranslation";
+
 const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
+
+    const {t} = useTranslation()
 
     return (
         <>

@@ -2,9 +2,12 @@ import React from "react";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from './news.module.scss'
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 
 const Index = ({news}) => {
+
+    const {t} = useTranslation()
 
     return (
         <section className={NewsStyle.News}>
@@ -12,7 +15,7 @@ const Index = ({news}) => {
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={NewsStyle.Title}>
-                            <h4>Նորություններ</h4>
+                            <h4>{t('common:news')}</h4>
                         </div>
                     </div>
                 </div>

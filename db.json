@@ -4,35 +4,35 @@
       "id": "1",
       "handle": "home",
       "title": "Home",
-      "link": "/en",
+      "link": "/",
       "subLinks": null
     },
     {
       "id": "2",
       "handle": "analyzes",
       "title": "Հետազոտություններ",
-      "link": "/en/analyzes",
+      "link": "/analyzes",
       "subLinks": null
     },
     {
       "id": "3",
       "handle": "home-call",
       "title": "Կանչ տուն",
-      "link": "/en/home-call",
+      "link": "/home-call",
       "subLinks": null
     },
     {
       "id": "4",
       "handle": "news",
       "title": "Նորություններ",
-      "link": "/en/news",
+      "link": "/news",
       "subLinks": null
     },
     {
       "id": "5",
       "handle": "about-us",
       "title": "Մեր մասին",
-      "link": "/en/about-us",
+      "link": "/about-us",
       "subLinks": [
         {
           "id": "11",

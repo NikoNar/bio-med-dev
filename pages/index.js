@@ -12,6 +12,7 @@ import {useRouter} from "next/router";
 
 const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {
 
+
     return (
         <>
             <MainSlider slides={slides}/>
