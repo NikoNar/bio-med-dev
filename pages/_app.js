@@ -3,7 +3,7 @@ import '../styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import {createWrapper} from "next-redux-wrapper";
-import {Provider, useDispatch, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import store from "../redux/store";
 import Header from "../components/Header/Header";
 import 'swiper/swiper.scss';

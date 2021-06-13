@@ -12,7 +12,8 @@ import useTranslation from "next-translate/useTranslation";
 SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
-const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoints}) => {
+const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCategory}) => {
+
     const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
 
@@ -43,13 +44,15 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoi
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {
-                                return (
-                                    <SwiperSlide className={ISStyle.Slide} key={analyze.number}>
-                                        {
-                                            <AnalyzesCard inner={analyze}/>
-                                        }
-                                    </SwiperSlide>
-                                )
+                                if (mainCategory === analyze.mainCategory){
+                                    return (
+                                        <SwiperSlide className={ISStyle.Slide} key={analyze.number}>
+                                            {
+                                                <AnalyzesCard inner={analyze} id={analyze.id}/>
+                                            }
+                                        </SwiperSlide>
+                                    )
+                                }
                             }) : ''
                         }
                         {
@@ -79,7 +82,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoi
                 </div>
             </div>
             <div className={ISStyle.ShowMore} style={{display: component === 'analyzes' ? 'block' : 'none'}}>
-                <Link href={'/en'}>
+                <Link href={'/'} as={'/'}>
                     <a>{t('common:read_more')}</a>
                 </Link>
             </div>

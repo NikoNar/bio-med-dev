@@ -3,7 +3,6 @@ import AnalyzesStyle from "../../pages/analyzes/Analyzes.module.scss";
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
-import Link from "next/link";
 import AnalyzesCard from "../AnalyzesCard/AnalyzesCard";
 import {useDispatch, useSelector} from "react-redux";
 import {filterAnalyzesByCategory, filterAnalyzesByEvents} from "../../redux/actions/setSelectedFiltersAction";
@@ -128,20 +127,22 @@ const AnalyzesList = ({ analyzes, categories}) => {
                                             <div className={'row'}>
                                                 <div className={'col-lg-12'}>
                                                     {
-                                                        allAnalyzes && allAnalyzes.map(a=>{
+                                                        allAnalyzes && allAnalyzes.length > 0 ? allAnalyzes.map((a, index)=>{
                                                             if (mainCategory === a.mainCategory){
                                                                 return (
                                                                     <div className={'row mb-5'} key={a.id}>
                                                                         <div className={'col-lg-12'}>
                                                                             <div className={AnalyzesStyle.a}>
-                                                                                <Link href={'/single-analyse-page'}><a className={AnalyzesStyle.Link}> </a></Link>
-                                                                                <AnalyzesCard inner={a}/>
+                                                                                <AnalyzesCard inner={a} index={index} id={a.id}/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 )
                                                             }
-                                                        })
+                                                        }) :
+                                                            <div className={AnalyzesStyle.NoMatch}>
+                                                                <h4>There is no any analyzes in this category</h4>
+                                                            </div>
                                                     }
                                                 </div>
                                             </div>

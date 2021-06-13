@@ -1,22 +1,22 @@
 import React from 'react';
-import {aboutUsTextUrl, analyzesUrl, contactInfoUrl, researchesUrl, slidesUrl} from "../utils/url";
+import {aboutUsTextUrl, analyzesCategoryUrl, analyzesUrl, contactInfoUrl, researchesUrl, slidesUrl} from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
 import Researches from "../components/Researches/Researches";
 import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
 import dynamic from 'next/dynamic'
-const ContactUs = dynamic(()=>import("../components/ContactUs/ContactUs"), {ssr: false})
+
+const ContactUs = dynamic(() => import("../components/ContactUs/ContactUs"), {ssr: false})
 import {resetIdCounter} from "react-tabs";
-import {useRouter} from "next/router";
 
 
-const Home = ({analyzes, slides, researches, aboutUs, contactInfo}) => {
 
+const Home = ({analyzes, slides, researches, aboutUs, contactInfo, categories}) => {
 
     return (
         <>
             <MainSlider slides={slides}/>
-            <TabComponent analyzes={analyzes}/>
+            <TabComponent analyzes={analyzes} categories={categories}/>
             <Researches researches={researches}/>
             <AboutUsSection aboutUs={aboutUs}/>
             <ContactUs contactInfo={contactInfo}/>
@@ -51,11 +51,15 @@ export async function getStaticProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-        const contactInfo = await fetch(contactInfoUrl, {
-            method: 'GET',
-        })
-            .then(res => res.json())
-            .then(data => data)
+    const contactInfo = await fetch(contactInfoUrl, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
+    const categories = await fetch(analyzesCategoryUrl)
+        .then(res=>res.json())
+        .then(data=>data)
 
 
     return {
@@ -64,7 +68,8 @@ export async function getStaticProps(ctx) {
             slides,
             researches,
             aboutUs,
-            contactInfo
+            contactInfo,
+            categories
         },
     }
 }

@@ -51,7 +51,8 @@ const Cart = ({contactInfo}) => {
                                         <div
                                             className={'col-lg-12 mt-4'} key={o.number}>
                                             <AnalyzesCard
-                                                inner={o} icon={true}
+                                                inner={o}
+                                                icon={true}
                                                 index={index}
                                               />
                                         </div>

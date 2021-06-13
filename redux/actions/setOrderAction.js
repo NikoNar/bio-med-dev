@@ -14,6 +14,7 @@ export const getAllOrdersItem = () => {
 
 
 export const addItemToCart = (data) => {
+
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
     if (ordersInitialArray.map(o => o.number).indexOf(data.number) === -1) ordersInitialArray = [...ordersInitialArray, data];
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))

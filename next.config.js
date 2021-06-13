@@ -4,7 +4,7 @@ module.exports = {
     ...nextTranslate(),
 }
 
-
+console.log(nextTranslate);
 
 
 

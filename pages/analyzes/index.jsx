@@ -1,5 +1,5 @@
 import React from 'react';
-import {analyzesCategoryUrl, analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import {resetIdCounter} from "react-tabs";
 import Pagination from "../../components/Pagination/Pgination";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";

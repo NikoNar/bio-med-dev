@@ -7,8 +7,8 @@ const styles = {
 }
 
 
-
 const Button = ({text, backgroundColor, type, callBack, icon}) => {
+
     return (
         <>
             <button

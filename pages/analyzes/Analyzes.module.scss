@@ -72,7 +72,6 @@
       }
     }
   }
-
   .Item {
     position: relative;
 
@@ -87,5 +86,9 @@
     &:hover {
       box-shadow: 0 10px 22px rgba(24, 48, 66, 0.3);
     }
+  }
+  .NoMatch{
+    text-align: center;
+    padding: 90px 0;
   }
 }
