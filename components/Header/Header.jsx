@@ -5,7 +5,6 @@ import LinkButton from "../LinkButton/LinkButton";
 import Logo from "../Logo/Logo";
 import Link from "next/link";
 import SelectBox from "../SelectBox/SelectBox";
-import {globalLinkText} from "../../utils/linkTexts";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
@@ -15,12 +14,15 @@ import BagIcon from "../SVGIcons/Bag/BagIcon";
 import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 import {useRouter} from "next/router";
 import { useCookies } from 'react-cookie';
+import useTranslation from "next-translate/useTranslation";
 
 
-const linkText = globalLinkText
-const buttonLink = "/results"
 
-const Header = (pageProps) => {
+const Header = ({pageProps}) => {
+
+    const {t} = useTranslation()
+
+
     const router = useRouter()
     const {locale} = router
     const [ cookie, setCookie ] = useCookies(['NEXT_LOCALE']);
@@ -28,6 +30,8 @@ const Header = (pageProps) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state=>state.orders)
+
+    const buttonLink = user ? "/profile" : "/results"
 
     useEffect(()=>{
         dispatch(getCurrentUserAction())
@@ -79,7 +83,7 @@ const Header = (pageProps) => {
                     <div className={'row'}>
                         <div className="col-lg-12">
                             <div className={HeaderStyle.TopHeader}>
-                                <LinkButton text={linkText} link={buttonLink}/>
+                                <LinkButton text={t('common:analyzes_results')} link={buttonLink}/>
                             </div>
                         </div>
                     </div>
@@ -93,18 +97,18 @@ const Header = (pageProps) => {
                                     <div className={HeaderStyle.Search}>
                                         <form>
                                             <div className={HeaderStyle.SearchWrapper}>
-                                                <input placeholder="Search..." type="text"/>
+                                                <input placeholder={t('common:search')} type="text"/>
                                                 <button></button>
                                             </div>
                                         </form>
                                         <div className={HeaderStyle.UserControl}>
                                             <div className={HeaderStyle.Bag + ' ' + HeaderStyle.Item}>
-                                                <Link href={ !user ? '/account' : '/en/cart'}>
+                                                <Link href={ !user ? '/account' : '/cart'}>
                                                     <a>
                                                         <BagIcon/>
                                                     </a>
                                                 </Link>
-                                                <span className={HeaderStyle.BagCount}>{orders ? orders.length : 0}</span>
+                                                <span className={HeaderStyle.BagCount}>{orders && user ? orders.length : 0}</span>
                                             </div>
                                             <div className={user ? HeaderStyle.Account + ' ' + HeaderStyle.LoggedIn + ' ' + HeaderStyle.Item : HeaderStyle.Account + ' ' + HeaderStyle.Item}>
                                                 {

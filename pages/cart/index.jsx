@@ -6,19 +6,18 @@ import {contactInfoUrl} from "../../utils/url";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import {getAllOrdersItem, removeAllOrdersAction, removeCartItem} from "../../redux/actions/setOrderAction";
 import {useDispatch, useSelector} from "react-redux";
+import useTranslation from "next-translate/useTranslation";
 
 
 const Cart = ({contactInfo}) => {
+    const {t} = useTranslation()
+
     const dispatch = useDispatch()
     const orders = useSelector(state => state.orders)
-
 
     const deleteAllOrders = async () => {
         await dispatch(removeAllOrdersAction())
     }
-
-
-    let calculateOrderItemsTotalPrice = '0'
 
     useEffect(() => {
         dispatch(getAllOrdersItem())
@@ -41,7 +40,7 @@ const Cart = ({contactInfo}) => {
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
                                 <div className={CartStyle.RemoveAll} onClick={deleteAllOrders}>
-                                    <span>Մաքրել ամբողջը</span>
+                                    <span>{t('common:clear_all')}</span>
                                 </div>
                             </div>
                         </div>

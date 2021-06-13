@@ -3,9 +3,10 @@ import {useRouter} from "next/router";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from "./news.module.scss";
 import SocialMedia from "../../components/SocialMedia/SocialMedia";
+import useTranslation from "next-translate/useTranslation";
 
 const SingleNews = (singleNews)=>{
-    const router = useRouter()
+    const {t} = useTranslation()
 
     return (
         <section className={NewsStyle.SingleNews}>
@@ -37,7 +38,7 @@ const SingleNews = (singleNews)=>{
                                     <div className={NewsStyle.Social}>
                                         <div className={NewsStyle.SocialWrapper}>
                                             <div className={NewsStyle.SocialLabel}>
-                                                <span>Share: </span>
+                                                <span>{t('common:share')}: </span>
                                             </div>
                                             <SocialMedia/>
                                         </div>

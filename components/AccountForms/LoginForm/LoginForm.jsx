@@ -8,6 +8,10 @@ import {setCookie} from "nookies";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from 'yup';
+import useTranslation from "next-translate/useTranslation";
+import i18n from 'i18next'
+import {setLocale} from "yup";
+
 
 
 const schema = Yup.object().shape({
@@ -18,8 +22,9 @@ const schema = Yup.object().shape({
 
 
 const LoginForm = () => {
-
+    const {t} = useTranslation()
     const router = useRouter()
+
 
     const {handleSubmit, register, formState: { errors }} = useForm({
         mode: 'onBlur',
@@ -54,7 +59,7 @@ const LoginForm = () => {
         <div className={RegisterFormStyle.Register}>
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
                 <input
-                    placeholder="էլ հասցե կամ հեռախոսի համար*"
+                    placeholder={t('common:mail_or_phone_number')}
                     type="text"
                     name="loginEmail"
                     {...register("loginEmail")}
@@ -67,7 +72,7 @@ const LoginForm = () => {
                 </div>
                 }
                 <input
-                    placeholder="Գաղտնաբառ*"
+                    placeholder={t('common:password')}
                     type="password"
                     name="loginPassword"
                     {...register("loginPassword")}
@@ -80,9 +85,9 @@ const LoginForm = () => {
                 </div>
                 }
                 <Link href={'#'}>
-                    <a>Մոռացել եք Ձեր գաղտնաբառը?</a>
+                    <a>{t('common:forgot_password')}</a>
                 </Link>
-                <Button type={'submit'} text={'Մուտք'}/>
+                <Button type={'submit'} text={t('common:login')}/>
             </form>
         </div>
     );

@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import DCStyle from '../DoctorCard/doctor-card.module.scss'
+import useTranslation from "next-translate/useTranslation";
 
 const EquipmentCard = ({inner, index, callBack, isOpen}) => {
-
+    const {t} = useTranslation()
     return (
         <div className={DCStyle.Item}>
             <div className={DCStyle.Image} style={{backgroundImage: "url(" + inner.image + ")"}}> </div>
@@ -11,7 +12,7 @@ const EquipmentCard = ({inner, index, callBack, isOpen}) => {
                     <p className={DCStyle.Name}>{inner.title}</p>
                     <p className={DCStyle.Desc}>{inner.desc}</p>
                 </div>
-                <span onClick={callBack}>{ isOpen === index ? 'փակել' : 'ՏԵՍՆԵԼ ԱՎԵԼԻՆ' }</span>
+                <span onClick={callBack}>{t(isOpen === index ? 'common:close' : 'common:see_more')}</span>
             </div>
         </div>
     );

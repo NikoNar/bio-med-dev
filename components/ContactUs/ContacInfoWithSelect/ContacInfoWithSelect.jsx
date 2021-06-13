@@ -4,10 +4,11 @@ import BuildingIcon from "../../SVGIcons/Building/BuildingIcon";
 import PhoneIcon from "../../SVGIcons/Phone/PhoneIcon";
 import EmailIcon from "../../SVGIcons/Email/EmailIcon";
 import SelectBox from "../../SelectBox/SelectBox";
+import useTranslation from "next-translate/useTranslation";
 
 const ContactInfoWithSelect = ({contactInfo}) => {
 
-
+    const {t} = useTranslation()
     const Addresses = contactInfo
     const [selectedValue, setSelectedValue] = useState(Addresses[0].label);
     const [phone, setPhone] = useState(Addresses[0].tel)
@@ -75,7 +76,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
                             <PhoneIcon/>
                         </div>
                         <div className={CUWSStyle.Info}>
-                            <strong>Հեռ.: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+                            <strong>{t('common:phone_short')}: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
                         </div>
                     </div>
                 </div>
@@ -85,7 +86,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
                             <EmailIcon/>
                         </div>
                         <div className={CUWSStyle.Info}>
-                            <strong>Email.: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                            <strong>{t('common:email')}: <span className={CUWSStyle.InfoText}>{email}</span></strong>
                         </div>
                     </div>
                 </div>

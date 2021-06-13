@@ -22,6 +22,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import {parsePhoneNumberFromString} from "libphonenumber-js";
+import useTranslation from "next-translate/useTranslation";
 
 
 const editProfileSchema = Yup.object().shape({
@@ -45,6 +46,8 @@ const Profile = ({contactInfo, results, token}) => {
     const [isEdited, setIsEdited] = useState(false)
     const router = useRouter()
     const dispatch = useDispatch()
+
+    const {t} = useTranslation()
 
     useEffect(()=>{
         setIsEdited(false)
@@ -164,7 +167,7 @@ const Profile = ({contactInfo, results, token}) => {
                             Log out
                         </button>
                         <div className={ProfStyle.Title}>
-                            <h4> Անձնական տվյալներ </h4>
+                            <h4>{t('common:personal_data')}</h4>
                         </div>
                     </div>
                 </div>
@@ -172,8 +175,8 @@ const Profile = ({contactInfo, results, token}) => {
                     <div className={'col-lg-12'}>
                         <Tabs>
                             <TabList className={TabStyle.TabList}>
-                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ՊԱՏՎԵՐՆԵՐ'}/></Tab>
-                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԿԱՐԳԱՎՈՐՈՒՄՆԵՐ'}/></Tab>
+                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:orders')}/></Tab>
+                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:edit_profile')}/></Tab>
                             </TabList>
 
                             <TabPanel>
@@ -188,7 +191,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                     <div className={'row'}>
                                                         <div className={'col-8'}>
                                                             <input
-                                                                placeholder="Անուն Ազգանուն*"
+                                                                placeholder={t('common:full_name')}
                                                                 type="text"
                                                                 name='editProfileFullName'
                                                                 defaultValue={currentUser && currentUser.fullName}
@@ -271,7 +274,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                 }
 
                                                 <input
-                                                    placeholder="էլ հասցե*"
+                                                    placeholder={t('common:email')}
                                                     type='email'
                                                     name='editProfileEmail'
                                                     {...registerEditProfile('editProfileEmail')}
@@ -285,7 +288,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                 </div>
                                                 }
                                                 <input
-                                                    placeholder="հեռախոսի համար*"
+                                                    placeholder={t('common:phone_number')}
                                                     type="tel"
                                                     name='editProfilePhone'
                                                     {...registerEditProfile('editProfilePhone')}
@@ -302,16 +305,16 @@ const Profile = ({contactInfo, results, token}) => {
                                                 </div>
                                                 }
                                                 <div style={{textAlign: 'right'}}>
-                                                    <Button type={'submit'} text={'ՈՒղարկել'}/>
+                                                    <Button type={'submit'} text={t('common:submit')}/>
                                                 </div>
                                             </form>
                                         </div>
-                                        <h4 className={'mt-5'}>Անվտանգություն</h4>
+                                        <h4 className={'mt-5'}>{t('common:security')}</h4>
                                         <div className={RegisterFormStyle.Register + ' ' + 'mt-5'}>
                                             <form onSubmit={handleSubmitChangePassword(handleChangePassword)}>
                                                 <input
                                                     type="password"
-                                                    placeholder="Ընթացիկ գաղտնաբառ"
+                                                    placeholder={t('common:current_password')}
                                                     name="editProfileCurrentPassword"
                                                     {...registerChangePassword('editProfileCurrentPassword')}
                                                 />
@@ -324,7 +327,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                 }
                                                 <input
                                                     type="password"
-                                                    placeholder="Նոր գաղտնաբառ"
+                                                    placeholder={t('common:new_password')}
                                                     name="editProfileNewPassword"
                                                     {...registerChangePassword('editProfileNewPassword')}
                                                 />
@@ -337,7 +340,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                 }
                                                 <input
                                                     type="password"
-                                                    placeholder="Գաղտնաբառի կրկնողություն"
+                                                    placeholder={t('common:confirm_password')}
                                                     name="editProfileConfirmPassword"
                                                     {...registerChangePassword('editProfileConfirmPassword')}
                                                 />
@@ -349,7 +352,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                 </div>
                                                 }
                                                 <div style={{textAlign: 'right'}}>
-                                                    <Button type={'submit'} text={'Պահպանել'}/>
+                                                    <Button type={'submit'} text={t('common:save')}/>
                                                 </div>
                                             </form>
                                         </div>
@@ -358,7 +361,7 @@ const Profile = ({contactInfo, results, token}) => {
                                         <div className={ProfStyle.Wrapper}>
                                             <div className={ProfStyle.NoAccount}>
                                                 <div className={ProfStyle.NoAccountTitle}>
-                                                    <h4>Չունես անձնական հաշիվ?</h4>
+                                                    <h4>{t('common:has_no_account')}</h4>
                                                 </div>
                                                 <div className={ProfStyle.NoAccountText}>
                                                     <p>Դուք կկարողանաք ստեղծել այն թեստի արդյունքները վերանայելուց հետո
@@ -366,7 +369,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                         ստանալ հավատարիմ հաճախորդի առավելությունները</p>
                                                 </div>
                                                 <div className={ProfStyle.NoAccountLink}>
-                                                    <LinkButton text={'Հետազոտություն արդյունքները'}/>
+                                                    <LinkButton text={t('common:analyzes_results')}/>
                                                 </div>
                                             </div>
                                         </div>

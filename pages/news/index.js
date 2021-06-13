@@ -38,7 +38,7 @@ const Index = ({news}) => {
                                             </div>
                                             <div className={NewsStyle.Link}>
                                                 <Link href={`/news/${n.id}`}>
-                                                    <a>տեսնել ավելին</a>
+                                                    <a>{t('common:read_more')}</a>
                                                 </Link>
                                             </div>
                                         </div>

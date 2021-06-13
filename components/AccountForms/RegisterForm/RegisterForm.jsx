@@ -7,20 +7,24 @@ import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {parsePhoneNumberFromString} from 'libphonenumber-js'
 import * as Yup from 'yup';
+import useTranslation from "next-translate/useTranslation";
 
 
 const registerSchema = Yup.object().shape({
-    registerFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև անունը և ազգանունը'),
+    registerFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեր անունը և ազգանունը'),
     registerGender: Yup.string().nullable(true).required('Ընտրեք Ձեր սեռը'),
-    registerDate: Yup.string().required('Մուտքագրեք Ձեև ծննդյան ամսաթիվը'),
-    registerEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
-    registerPhone: Yup.string().required('Մուտքագրեք Ձեև էլ․ հեռահոասահամարը'),
+    registerDate: Yup.string().required('Մուտքագրեք Ձեր ծննդյան ամսաթիվը'),
+    registerEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեր էլ․ հասցեն'),
+    registerPhone: Yup.string().required('Մուտքագրեք Ձեր էլ․ հեռահոասահամարը'),
     registerPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required(),
     registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
 })
 
 
 const RegisterForm = ({security, currentUser}) => {
+
+    const {t} = useTranslation()
+
 
     const {
         handleSubmit: handleRegisterSubmit,
@@ -71,7 +75,7 @@ const RegisterForm = ({security, currentUser}) => {
                     <div className={'row'}>
                         <div className={'col-8'}>
                             <input
-                                placeholder="Անուն Ազգանուն*"
+                                placeholder={t('common:full_name')}
                                 type="text"
                                 name='registerFullName'
                                 {...handleRegisterRegister('registerFullName')}
@@ -124,7 +128,7 @@ const RegisterForm = ({security, currentUser}) => {
                                 selected={value}
                                 onChange={onChange}
                                 dateFormat='dd/MM/yyyy'
-                                placeholderText={'Ծննդյան օր ամիս տարեթիվ'}
+                                placeholderText={t('common:birth_date')}
                                 style={{width: "100%"}}
                                 withPortal
                                 showMonthDropdown
@@ -145,7 +149,7 @@ const RegisterForm = ({security, currentUser}) => {
                 }
 
                 <input
-                    placeholder="էլ հասցե*"
+                    placeholder={t('common:email')}
                     type='email'
                     name='registerEmail'
                     {...handleRegisterRegister('registerEmail')}
@@ -159,7 +163,7 @@ const RegisterForm = ({security, currentUser}) => {
                 </div>
                 }
                 <input
-                    placeholder="հեռախոսի համար*"
+                    placeholder={t('common:phone_number')}
                     type="tel"
                     name='registerPhone'
                     {...handleRegisterRegister('registerPhone')}
@@ -176,7 +180,7 @@ const RegisterForm = ({security, currentUser}) => {
                 </div>
                 }
                 <input
-                    placeholder="Գաղտնաբառ*"
+                    placeholder={t('common:password')}
                     type="password"
                     name='registerPassword'
                     {...handleRegisterRegister('registerPassword')}
@@ -190,7 +194,7 @@ const RegisterForm = ({security, currentUser}) => {
                 </div>
                 }
                 <input
-                    placeholder="Գաղտնաբառի կրկնողություն"
+                    placeholder={t('common:confirm_password')}
                     type="password"
                     name='registerConfirmPassword'
                     {...handleRegisterRegister('registerConfirmPassword')}
@@ -204,7 +208,7 @@ const RegisterForm = ({security, currentUser}) => {
                 </div>
                 }
                 <div style={{textAlign: 'right'}}>
-                    <Button type={'submit'} text={'ՈՒղարկել'}/>
+                    <Button type={'submit'} text={t('common:submit')}/>
                 </div>
             </form>
         </div>

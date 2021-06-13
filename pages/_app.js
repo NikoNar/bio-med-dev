@@ -12,7 +12,7 @@ import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
-import {IntlProvider} from "react-intl";
+
 
 
 

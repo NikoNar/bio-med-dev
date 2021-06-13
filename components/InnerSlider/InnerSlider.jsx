@@ -6,13 +6,14 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Mousewheel, Navigation, Pagination} from "swiper";
 import DoctorCard from "../DoctorCard/DoctorCard";
 import EquipmentCard from "../EquipmentCard/EquipmentCard";
+import useTranslation from "next-translate/useTranslation";
 
 
 SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
 const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoints}) => {
-
+    const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
 
     const handleOpen = (index) => {
@@ -79,7 +80,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, breakpoi
             </div>
             <div className={ISStyle.ShowMore} style={{display: component === 'analyzes' ? 'block' : 'none'}}>
                 <Link href={'/en'}>
-                    <a>ՏԵՍՆԵԼ ԱՎԵԼԻՆ</a>
+                    <a>{t('common:read_more')}</a>
                 </Link>
             </div>
         </>

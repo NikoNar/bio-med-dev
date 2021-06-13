@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  a{
+    text-transform: uppercase;
+  }
   .Line{
     margin: 20px 0;
     p{

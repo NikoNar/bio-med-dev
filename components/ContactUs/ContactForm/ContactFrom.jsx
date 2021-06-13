@@ -4,6 +4,7 @@ import {contactFormMessageUrl} from "../../../utils/url";
 import * as Yup from "yup";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
+import useTranslation from "next-translate/useTranslation";
 
 const contactUsFormSchema = Yup.object().shape({
     messageAuthor: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև անունը և ազգանունը'),
@@ -12,6 +13,8 @@ const contactUsFormSchema = Yup.object().shape({
 })
 
 const ContactFrom = () => {
+
+    const {t} = useTranslation()
 
     const {
         handleSubmit: contactUsHandleSubmit,
@@ -27,7 +30,7 @@ const ContactFrom = () => {
 
 
     const handleSubmitMessage = async (messageData) => {
-        console.log(messageData);
+
         await fetch(contactFormMessageUrl, {
             method: 'POST',
             headers: {
@@ -50,7 +53,7 @@ const ContactFrom = () => {
             <input
                 type="text"
                 name="messageAuthor"
-                placeholder="Անուն Ազգանուն*"
+                placeholder={t('common:full_name')}
                 {...contactUsRegister("messageAuthor")}
             />
             {errors.messageAuthor &&
@@ -63,7 +66,7 @@ const ContactFrom = () => {
             <input
                 type="email"
                 name="messageAuthorEmail"
-                placeholder="էլ հասցե*"
+                placeholder={t('common:email')}
                 {...contactUsRegister("messageAuthorEmail")}
             />
             {errors.messageAuthorEmail &&
@@ -75,7 +78,7 @@ const ContactFrom = () => {
             }
             <textarea
                 name="messageBody"
-                placeholder="Տեքստ*"
+                placeholder={t('common:your_message')}
                 {...contactUsRegister("messageBody")}
             />
             {errors.messageBody &&
@@ -85,7 +88,7 @@ const ContactFrom = () => {
                 </p>
             </div>
             }
-            <Button type={'submit'} text={'ՈՒղարկել'}/>
+            <Button type={'submit'} text={t('common:send')}/>
         </form>
     );
 };

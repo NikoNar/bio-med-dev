@@ -13,10 +13,11 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {useForm, Controller} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 import HomeCallCloudText from "../HomeCallCloudText/HomeCallCloudText";
+import useTranslation from "next-translate/useTranslation";
 
 
 const CheckoutForm = ({info, orders}) => {
-
+    const {t} = useTranslation()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const styles = {
         control: (provided) => ({
@@ -135,8 +136,8 @@ const CheckoutForm = ({info, orders}) => {
     return (
         <Tabs>
             <TabList className={TabStyle.TabList}>
-                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԱՄՐԱԳՐԵԼ'}/></Tab>
-                <Tab selectedClassName={TabStyle.Selected} disabled={tabDisabled} onClick={ tabDisabled ? (e)=>homeCallAlert(e,true) : null}><TabButtons text={'ԿԱՆՉ ՏՈՒՆ'}/>
+                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:reserve')}/></Tab>
+                <Tab selectedClassName={TabStyle.Selected} disabled={tabDisabled} onClick={ tabDisabled ? (e)=>homeCallAlert(e,true) : null}><TabButtons text={t('common:home_call')}/>
                     <HomeCallCloudText callback={(e) => homeCallAlert(e, false)} style={homeCloudStyle}/>
                 </Tab>
             </TabList>
@@ -145,7 +146,7 @@ const CheckoutForm = ({info, orders}) => {
                 <div className={CheckoutStyle.Form}>
                     <form onSubmit={handleSubmitReserve((reserveData) => handleSubmitReserveOrders(reserveData))}>
                         <input
-                            placeholder="Անուն Ազգանուն*"
+                            placeholder={t('common:full_name')}
                             type="text"
                             name="reserveFullName"
                             {...registerReserve('reserveFullName', {required: 'Մուտքագրեք Ձեր անունը'})}
@@ -237,7 +238,7 @@ const CheckoutForm = ({info, orders}) => {
                             </div>
                         </div>
                         <input
-                            placeholder="Հեռախոսի համար*"
+                            placeholder={t('common:phone_number')}
                             type="tel"
                             name="reservePhoneNumber"
                             {...registerReserve('reservePhoneNumber', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
@@ -248,7 +249,7 @@ const CheckoutForm = ({info, orders}) => {
                             render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Phone number is required</p></div>}
                         />
                         <input
-                            placeholder="էլ հասցե*"
+                            placeholder={t('common:email')}
                             type="email"
                             name="reserveEmail"
                             {...registerReserve('reserveEmail', {required: true})}
@@ -258,7 +259,7 @@ const CheckoutForm = ({info, orders}) => {
                             name="reserveEmail"
                             render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
                         />
-                        <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                        {/* <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
@@ -266,7 +267,7 @@ const CheckoutForm = ({info, orders}) => {
                             <strong>5000 <span className={'_icon-amd'}> </span></strong>
                         </div>*/}
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
-                            <p>Ընդհանուր</p>
+                            <p>{t('common:total')}</p>
                             <strong>{totalPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                     </div>
@@ -276,7 +277,7 @@ const CheckoutForm = ({info, orders}) => {
                 <div className={CheckoutStyle.Form}>
                     <form onSubmit={handleSubmitHomeCall((homeCallData) => handleSubmitHomeCallOrders(homeCallData))}>
                         <input
-                            placeholder="Անուն Ազգանուն*"
+                            placeholder={t('common:full_name')}
                             type="text"
                             name="homeCallFullName"
                             {...registerHomeCall('homeCallFullName', {required: 'Մուտքագրեք Ձեր անունը'})}
@@ -343,7 +344,7 @@ const CheckoutForm = ({info, orders}) => {
                             </div>
                         </div>
                         <input
-                            placeholder="Հեռախոսի համար*"
+                            placeholder={t('common:phone_number')}
                             type="tel"
                             name="homeCallPhoneNumber"
                             {...registerHomeCall('homeCallPhoneNumber', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
@@ -354,7 +355,7 @@ const CheckoutForm = ({info, orders}) => {
                             render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Phone number is required</p></div>}
                         />
                         <input
-                            placeholder="էլ հասցե*"
+                            placeholder={t('common:email')}
                             type="email"
                             name="homeCallEmail"
                             {...registerHomeCall('homeCallEmail', {required: true})}
@@ -364,15 +365,15 @@ const CheckoutForm = ({info, orders}) => {
                             name="homeCallEmail"
                             render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
                         />
-                        <Button backgroundColor={backgroundColor} text={'ՀԱՍՏԱՏԵԼ ՊԱՏՎԵՐԸ'} type={'submit'}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
-                            <p>Տնային այցի արժեքը</p>
+                            <p>{t('common:home_call_price')}</p>
                             <strong>5000 <span className={'_icon-amd'}> </span></strong>
                         </div>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
-                            <p>Ընդհանուր</p>
+                            <p>{t('common:total')}</p>
                             <strong>{totalPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ const AnalyzesResultsItem = ({res, isOpen, callBack, index}) => {
                     </div>
                     <div className={'col-lg-3 mt-3 mt-lg-0'}>
                         <div className={ARStyle.Date}>
-                            <p>Ամսաթիվ։ <span>{res.date}</span></p>
+                            <p>Ամսաթիվ։ <span>{new Date(res.date).toLocaleDateString()}</span></p>
                         </div>
                     </div>
                 </div>

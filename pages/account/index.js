@@ -11,9 +11,14 @@ import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 
 import dynamic from "next/dynamic";
 import TabButtons from "../../components/TabButtons/TabButtons";
+import useTranslation from "next-translate/useTranslation";
 
 
 const Account = () => {
+
+    const {t} = useTranslation()
+
+
     return (
         <section className={AccStyle.Main}>
             <div className={'container'}>
@@ -27,8 +32,8 @@ const Account = () => {
                         <div className={'col-lg-12'}>
                             <Tabs>
                                 <TabList className={TabStyle.TabList}>
-                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ՄՈՒՏՔ'}/></Tab>
-                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={'ԳՐԱՆՑՎԵԼ'}/></Tab>
+                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:login')}/></Tab>
+                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:register')}/></Tab>
                                 </TabList>
                                 <div className={'row'}>
                                     <div className={'col-lg-6 mb-5 mb-lg-0'}>
@@ -43,15 +48,13 @@ const Account = () => {
                                         <div className={AccStyle.Wrapper}>
                                             <div className={AccStyle.HasNoAccount}>
                                                 <div className={AccStyle.HNTitle}>
-                                                    <h4>Չունես անձնական հաշիվ?</h4>
+                                                    <h4>{t('common:has_no_account')}</h4>
                                                 </div>
                                                 <div className={AccStyle.HNtext}>
-                                                    <p>
-                                                        Դուք կկարողանաք ստեղծել այն թեստի արդյունքները վերանայելուց հետո և ստանալ հավատարիմ հաճախորդի առավելությունները
-                                                    </p>
+                                                    <p>{t('common:has_no_account_text')}</p>
                                                 </div>
                                                 <div className={AccStyle.HNLink}>
-                                                    <LinkButton text={'ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ'}/>
+                                                    <LinkButton text={t('common:analyzes')}/>
                                                 </div>
                                             </div>
                                         </div>
