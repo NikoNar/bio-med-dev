@@ -7,6 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 
 
 const Slide = ({slide, flag}) => {
+
     const {t} = useTranslation()
     return (
         <div className={'row'}>
@@ -22,8 +23,8 @@ const Slide = ({slide, flag}) => {
                         <p>{slide.desc}</p>
                     </div>
                     {!flag ? <div className={SlideStyle.Link}>
-                            <LinkButton text={t('common:read_more')}/>
-                        </div>
+                                <LinkButton text={t('common:read_more')} link={'/'}/>
+                            </div>
                         :
                         <Link href={'/'}>
                             <a style={{textAlign: 'right', color: '#52a4e3'}}>{t('common:see_more')}</a>

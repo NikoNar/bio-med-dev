@@ -1,10 +1,13 @@
 const nextTranslate = require('next-translate')
 
 module.exports = {
-    ...nextTranslate(),
+    ...nextTranslate({
+        future: {
+            webpack5: true,
+        },
+    }),
 }
 
-console.log(nextTranslate);
 
 
 

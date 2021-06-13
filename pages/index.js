@@ -25,7 +25,7 @@ const Home = ({analyzes, slides, researches, aboutUs, contactInfo, categories}) 
 };
 
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
     resetIdCounter();
     const analyzes = await fetch(analyzesUrl, {
         method: 'GET',

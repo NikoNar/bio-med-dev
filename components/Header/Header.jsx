@@ -70,7 +70,7 @@ const Header = ({pageProps}) => {
     const handleChange = (e) => {
         const locale = e.value;
         setSelectedValue(locale);
-        router.push(router.asPath, router.asPath, { locale }).then();
+        router.push('/', router.asPath, { locale }).then();
         if(cookie.NEXT_LOCALE !== locale){
             setCookie("NEXT_LOCALE", locale);
         }

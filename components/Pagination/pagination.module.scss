@@ -11,13 +11,15 @@
     align-items: center;
     li{
       margin: 5px;
-      &.active-page{
-        a{
-          color: lightblue;
-        }
-      }
-      a{
+      button{
+        background: none;
         color: $black;
+        &.Active{
+          color: $light-blue;
+        }
+        &:disabled{
+          color: $brand-gray;
+        }
         span{
           font-family: 'icons';
           font-size: 14px;

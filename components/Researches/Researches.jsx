@@ -32,9 +32,9 @@ const Researches = ({researches}) => {
                                             <span>{item.text}</span>
                                         </div>
                                         <div className={RStyle.Link}>
-                                            <Link href={item.link.link}>
+                                            {/*<Link href={item.link.link}>
                                                 <a>ՏԵՍՆԵԼ ԱՎԵԼԻՆ</a>
-                                            </Link>
+                                            </Link>*/}
                                         </div>
                                     </div>
                                 </div>

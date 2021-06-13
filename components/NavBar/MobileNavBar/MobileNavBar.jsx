@@ -73,13 +73,13 @@ const MobileNavBar = () => {
                 <div className={MNStyle.ControlWrapper}>
                     <div className={MNStyle.Control}>
                         <div className={MNStyle.Bag + ' ' + MNStyle.Item}>
-                            <Link href={'/en/cart'}>
+                            <Link href={'/cart'}>
                                 <a><BagIcon/></a>
                             </Link>
                             <span className={MNStyle.Count}>0</span>
                         </div>
                         <div className={MNStyle.Account + ' ' + MNStyle.Item}>
-                            <Link href={'/en/account'}>
+                            <Link href={'/account'}>
                                 <a><AccountIcon/></a>
                             </Link>
                         </div>

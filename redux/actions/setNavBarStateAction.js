@@ -9,9 +9,6 @@ export const switchMobileNavBarState = (state)=>{
 }
 
 
-
-
-
 const setNavBarOpenAction = (state)=>{
 
     const body = document.querySelector('body')

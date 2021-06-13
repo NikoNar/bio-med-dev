@@ -82,7 +82,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                 </div>
             </div>
             <div className={ISStyle.ShowMore} style={{display: component === 'analyzes' ? 'block' : 'none'}}>
-                <Link href={'/'} as={'/'}>
+                <Link href={'/'}>
                     <a>{t('common:read_more')}</a>
                 </Link>
             </div>
