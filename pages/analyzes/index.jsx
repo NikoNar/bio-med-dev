@@ -28,7 +28,7 @@ export async function getServerSideProps({query:{page=1}}) {
         .then(res=>res.json())
         .then(data=>data)
 
-    const analyzes = await fetch(analyzesUrl + `?_limit=3`, {
+    const analyzes = await fetch(analyzesUrl + `?_mainCategory='equip'&_limit=3`, {
         method: 'GET',
     })
         .then(res => res.json())
