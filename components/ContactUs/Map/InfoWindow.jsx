@@ -4,7 +4,7 @@ import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
 
 
 
-const Marker = ({state, openWindow, closeWindow, info, index, text,})=>{
+const Marker = ({state, openWindow, closeWindow, info, index, text, infoPhone})=>{
 
     const color = '#ffffff'
 
@@ -13,6 +13,7 @@ const Marker = ({state, openWindow, closeWindow, info, index, text,})=>{
         <div>
             <div style={{opacity: state === index ? '1' : '0'}} className={ContStyle.InfoWindow}>
                 <p>{info}</p>
+                <p>{infoPhone}</p>
                 <span onClick={closeWindow}><CloseIcon color={color}/></span>
             </div>
             <div className={ContStyle.MapIcon} onClick={openWindow}>

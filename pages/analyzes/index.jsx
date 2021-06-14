@@ -8,11 +8,16 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 
-const Analyzes = ({ analyzes, categories, page}) => {
-console.log(page);
+const Analyzes = ({ analyzes, categories, analyzesEquip, analyzesLab}) => {
+    console.log(analyzes);
     return (
         <>
-            <AnalyzesList analyzes={analyzes} categories={categories}/>
+            <AnalyzesList
+                analyzes={analyzes}
+                categories={categories}
+                analyzesEquip={analyzesEquip}
+                analyzesLab={analyzesLab}
+            />
             <Pagination/>
         </>
     );
@@ -28,7 +33,19 @@ export async function getServerSideProps({query:{page=1}}) {
         .then(res=>res.json())
         .then(data=>data)
 
-    const analyzes = await fetch(analyzesUrl + `?_mainCategory='equip'&_limit=3`, {
+    const analyzes = await fetch(analyzesUrl, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
+    const analyzesLab = await fetch(analyzesUrl + `?mainCategory=lab`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
+    const analyzesEquip = await fetch(analyzesUrl + `?mainCategory=equip`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -38,7 +55,9 @@ export async function getServerSideProps({query:{page=1}}) {
         props: {
             analyzes: analyzes,
             categories:categories,
-            page
+            page,
+            analyzesLab,
+            analyzesEquip
         }
     }
 }

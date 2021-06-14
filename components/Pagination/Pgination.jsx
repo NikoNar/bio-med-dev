@@ -7,8 +7,7 @@ const Pagination = ({ callBackPrev,
                         totalPageCount,
                         page,
                         link,
-                        router,
-                        limit
+                        router
                     }) => {
     const pages = []
     const lastPage = totalPageCount
@@ -28,7 +27,6 @@ const Pagination = ({ callBackPrev,
                 {
                     pages.map((p) => {
                         if (p >= page && p <= page + 1) {
-                            console.log(page);
                             return (
                                 <li key={p}>
                                     <button

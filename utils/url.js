@@ -22,3 +22,6 @@ export const aboutUsUrl = 'http://localhost:4500/about-us'
 export const doctorsUsUrl = 'http://localhost:4500/doctors'
 export const equipmentUrl = 'http://localhost:4500/equipment'
 export const qualityControlUrl = 'http://localhost:4500/quality-control'
+
+
+

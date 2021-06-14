@@ -8,6 +8,7 @@ import {locationsReducer} from "./locations";
 import {contactInfoReducer} from "./contactInfo";
 import {selectedFiltersReducer} from "./filters";
 import {mobileNavbarReducer} from "./mobileNavbar";
+import {searchReducer} from "./search";
 
 
 export const allReducers = combineReducers({
@@ -19,5 +20,6 @@ export const allReducers = combineReducers({
     locations: locationsReducer,
     contactInfo: contactInfoReducer,
     filters: selectedFiltersReducer,
-    mobileNavBar: mobileNavbarReducer
+    mobileNavBar: mobileNavbarReducer,
+    search: searchReducer
 })

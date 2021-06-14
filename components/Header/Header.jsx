@@ -15,6 +15,7 @@ import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 import {useRouter} from "next/router";
 import { useCookies } from 'react-cookie';
 import useTranslation from "next-translate/useTranslation";
+import {makeSearch} from "../../redux/actions/searchAction";
 
 
 
@@ -26,7 +27,7 @@ const Header = ({pageProps}) => {
     const router = useRouter()
     const {locale} = router
     const [ cookie, setCookie ] = useCookies(['NEXT_LOCALE']);
-
+    const [searchData, setSearchData] = useState('')
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state=>state.orders)
@@ -76,6 +77,17 @@ const Header = ({pageProps}) => {
         }
     }
 
+    const handleSearchData = (e)=>{
+        setSearchData(e.target.value)
+    }
+
+    const handleSearchSubmit = async (e)=>{
+        e.preventDefault()
+        dispatch(makeSearch(searchData))
+        await router.push('/search')
+        setSearchData('')
+    }
+
     return (
         <>
             <header className={HeaderStyle.DesktopHeader}>
@@ -95,10 +107,10 @@ const Header = ({pageProps}) => {
                                 <div className={HeaderStyle.MainHeaderWrapper}>
                                     <Logo/>
                                     <div className={HeaderStyle.Search}>
-                                        <form>
+                                        <form onSubmit={(e)=>handleSearchSubmit(e)}>
                                             <div className={HeaderStyle.SearchWrapper}>
-                                                <input placeholder={t('common:search')} type="text"/>
-                                                <button></button>
+                                                <input placeholder={t('common:search')} type="text" value={searchData} onChange={(e)=>handleSearchData(e)}/>
+                                                <button type='submit' disabled={!searchData}></button>
                                             </div>
                                         </form>
                                         <div className={HeaderStyle.UserControl}>

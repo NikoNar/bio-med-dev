@@ -195,7 +195,7 @@
     {
       "id": "1",
       "number": "1636",
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 1",
+      "title": "Կորտիզոլ (շիճ. / օրվա մեզ)",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
       "price": 5000,
       "compare_price": 3000,
@@ -226,13 +226,13 @@
     {
       "id": "2",
       "number": "1785",
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 2",
+      "title": "Кортизол",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
       "price": 7000,
       "compare_price": 4500,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 11,
+      "typeId": 20,
       "eventType": "event",
       "callHome": false,
       "events": true,
@@ -257,13 +257,13 @@
     {
       "id": "3",
       "number": "1964",
-      "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ - 3",
+      "title": "COR",
       "body": "Թրոմբոֆիլիայի զարգացման\nգենետիկական ռիսկ (12 մուտացիա)",
       "price": 15000,
       "compare_price": null,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 111,
+      "typeId": 25,
       "eventType": null,
       "callHome": false,
       "events": false,
@@ -294,7 +294,7 @@
       "compare_price": 17000,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 41,
+      "typeId": 29,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -325,7 +325,7 @@
       "compare_price": 2200,
       "icon": true,
       "mainCategory": "lab",
-      "typeId": 5,
+      "typeId": 10,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -356,7 +356,7 @@
       "compare_price": 6100,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 4,
+      "typeId": 26,
       "eventType": "event",
       "callHome": false,
       "events": true,
@@ -387,7 +387,7 @@
       "compare_price": 3600,
       "icon": true,
       "mainCategory": "lab",
-      "typeId": 1,
+      "typeId": 9,
       "eventType": "event",
       "callHome": false,
       "events": true,
@@ -418,7 +418,7 @@
       "compare_price": 22450,
       "icon": true,
       "mainCategory": "lab",
-      "typeId": 4,
+      "typeId": 14,
       "eventType": "event",
       "callHome": false,
       "events": true,
@@ -449,7 +449,7 @@
       "compare_price": null,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 4,
+      "typeId": 27,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -480,7 +480,7 @@
       "compare_price": null,
       "icon": true,
       "mainCategory": "lab",
-      "typeId": 2,
+      "typeId": 7,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -511,7 +511,7 @@
       "compare_price": 3400,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 2,
+      "typeId": 30,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -542,7 +542,7 @@
       "compare_price": 1200,
       "icon": true,
       "mainCategory": "lab",
-      "typeId": 2,
+      "typeId": 13,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -573,7 +573,7 @@
       "compare_price": 3400,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 21,
+      "typeId": 29,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -604,7 +604,7 @@
       "compare_price": 13000,
       "icon": true,
       "mainCategory": "equip",
-      "typeId": 2,
+      "typeId": 26,
       "eventType": "homeCall",
       "callHome": true,
       "events": true,
@@ -766,19 +766,22 @@
       "id": 1,
       "lat": 40.2932074974116,
       "lng": 44.35055671336521,
-      "title": "Location-1"
+      "address": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-1",
+      "phone": "+37493558877"
     },
     {
       "id": 2,
       "lat": 40.293804880483705,
       "lng": 44.34864698070171,
-      "title": "Location-2"
+      "address": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-2",
+      "phone": "+37493558877"
     },
     {
       "id": 3,
       "lat": 40.29699906504253,
       "lng": 44.349839328135836,
-      "title": "Location-3"
+      "address": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-3",
+      "phone": "+37493558877"
     }
   ],
   "messages": [
@@ -1040,67 +1043,112 @@
         {
           "id": 1,
           "parent": "lab",
-          "title": "ՈՒՁՀ"
+          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
         },
         {
           "id": 2,
           "parent": "lab",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
+          "title": "ԳԵՆԵՏԻԿԱԿԱՆ ԽԱՆԳԱՐՈՒՄՆԵՐ (ՊՇՌ)"
         },
         {
           "id": 3,
           "parent": "lab",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ"
+          "title": "ՎԱՀԱՆԱՁև ԳԵՂՁԻ ՀԵՏԱԶՈՏՈՒԹՅՈՒՆ"
         },
         {
           "id": 4,
           "parent": "lab",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-1"
+          "title": "ՄԱԿԵՐԻԿԱՄՆԵՐԻ ՀԵՏԱԶՈՏԱԶՈՏՈՒԹՅՈՒՆ"
         },
         {
           "id": 5,
           "parent": "lab",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-1"
+          "title": "ԳԱՍՏՐԻՏՐԻՏԻ ԱԽՏՈՐՈՇՈՒՄ"
         },
         {
           "id": 6,
           "parent": "lab",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-2"
+          "title": "ՎԵՐԱՐՏԱԴՐՈՂԱԿԱՆ ՖՈՒՆԿՑԻԱ"
         },
         {
           "id": 7,
           "parent": "lab",
-          "title": "ՈՒՁՀ-1"
+          "title": "ԱՃԻ ԳՈՐԾՈՆՆԵՐ"
         },
         {
           "id": 8,
           "parent": "lab",
-          "title": "ՈՒՁՀ-2"
+          "title": "ԱՈՒՏՈԻՄՈՒՆ ԱԽՏՈՐՈՇՈՒՄ"
         },
         {
           "id": 9,
           "parent": "lab",
-          "title": "ԱՐՅԱՆ-3"
+          "title": "ՀՈՒՄՈՐԱԼ ԻՄՈՒՆԻՏԵՏ"
         },
         {
           "id": 10,
           "parent": "lab",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-4"
+          "title": "ԻՆՖԵԿՑԻԱՆԵՐ"
         },
         {
           "id": 11,
           "parent": "lab",
-          "title": "ՈՒՁՀ-4"
+          "title": "ՄԱՆՐԷԱԲԱՆԱԿԱՆ ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ"
         },
         {
           "id": 12,
           "parent": "lab",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-5"
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
         },
         {
           "id": 13,
           "parent": "lab",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-7"
+          "title": "ԿՈՄՊԼԵՔՍ ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ (զեղչված գներ)"
+        },
+        {
+          "id": 14,
+          "parent": "lab",
+          "title": "ԹՐՈՄԲՈՖԻԼԻԱՅԻ ԶԱՐԳԱՑՄԱՆ ԳԵՆԵՏԻԿԱԿԱՆ ՌԻՍԿ"
+        },
+        {
+          "id": 16,
+          "parent": "lab",
+          "title": "Փոշտի օրգանների ՈՒՁՀ"
+        },
+        {
+          "id": 17,
+          "parent": "lab",
+          "title": "Միզուղիների ՈՒՁՀ"
+        },
+        {
+          "id": 18,
+          "parent": "lab",
+          "title": "Կրծքագեղձերի ՈՒՁՀ"
+        },
+        {
+          "id": 19,
+          "parent": "lab",
+          "title": "Վահանաձև Գեղձի ՈՒՁՀ"
+        },
+        {
+          "id": 20,
+          "parent": "lab",
+          "title": "Փափուկ հյուսվածքների ՈՒՁՀ"
+        },
+        {
+          "id": 21,
+          "parent": "lab",
+          "title": "Կոնքի խոռոչի օրգանների ՈՒՁՀ"
+        },
+        {
+          "id": 22,
+          "parent": "lab",
+          "title": "ՃԱՐՊԱՅԻՆ ՓՈԽԱՆԱԿՈՒԹՅՈՒՆ"
+        },
+        {
+          "id": 23,
+          "parent": "lab",
+          "title": "ԿԵՆՍԱՔԻՄԻԱԿԱՆ ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ"
         }
       ]
     },
@@ -1109,74 +1157,39 @@
       "title": "ԳՈՐԾԻՔԱՅԻՆ",
       "subcategories": [
         {
-          "id": 11,
+          "id": 24,
           "parent": "equip",
-          "title": "ՈՒՁՀ-11"
+          "title": "ՄԱԿԵՐԻԿԱՄՆԵՐԻ ՀԵՏԱԶՈՏԱԶՈՏՈՒԹՅՈՒՆ"
         },
         {
-          "id": 21,
+          "id": 25,
           "parent": "equip",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-21"
+          "title": "ՄԱՆՐԷԱԲԱՆԱԿԱՆ ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ"
         },
         {
-          "id": 31,
+          "id": 26,
           "parent": "equip",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-31"
+          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ"
         },
         {
-          "id": 41,
+          "id": 27,
           "parent": "equip",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-41"
+          "title": "Ավշային հանգույցների ՈՒՁՀ"
         },
         {
-          "id": 51,
+          "id": 28,
           "parent": "equip",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-51"
+          "title": "Հղիության ՈՒՁՀ"
         },
         {
-          "id": 61,
+          "id": 29,
           "parent": "equip",
           "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-61"
         },
         {
-          "id": 71,
+          "id": 30,
           "parent": "equip",
-          "title": "ՈՒՁՀ-71"
-        },
-        {
-          "id": 81,
-          "parent": "equip",
-          "title": "ՈՒՁՀ-81"
-        },
-        {
-          "id": 91,
-          "parent": "equip",
-          "title": "ԱՐՅԱՆ-91"
-        },
-        {
-          "id": 101,
-          "parent": "equip",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-101"
-        },
-        {
-          "id": 111,
-          "parent": "equip",
-          "title": "ՈՒՁՀ-111"
-        },
-        {
-          "id": 121,
-          "parent": "equip",
-          "title": "ՄԱԿԱԲՈՒՅԾՆԵՐ-121"
-        },
-        {
-          "id": 131,
-          "parent": "equip",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-131"
-        },
-        {
-          "id": 141,
-          "parent": "equip",
-          "title": "ԱՐՅԱՆ ՄԱԿԱՐԴԵԼԻՈՒԹՅՈՒՆ-141"
+          "title": "Թքագեղձերի ՈՒՁՀ"
         }
       ]
     }

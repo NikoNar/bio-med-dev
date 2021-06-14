@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import GoogleMapReact  from 'google-map-react';
-import CustomIcon from "./CustomIcon";
-import InfoWindow from "./InfoWindow";
 import Marker from "./InfoWindow";
 
 
@@ -195,7 +193,8 @@ const MapComponent = ({locations})=>{
                             return  <Marker
                                 state={infoWindowOpen}
                                 closeWindow={closeInfoWindow}
-                                info={loc.title}
+                                info={loc.address}
+                                infoPhone={loc.phone}
                                 index={index}
                                 lat={loc.lat}
                                 lng={loc.lng}

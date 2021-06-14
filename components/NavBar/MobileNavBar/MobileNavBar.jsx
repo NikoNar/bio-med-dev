@@ -101,7 +101,7 @@ const MobileNavBar = () => {
                     </div>
                     <form>
                         <div className={MNStyle.SearchWrapper}>
-                            <input placeholder="Search..." type="text"/>
+                            <input placeholder="Index..." type="text"/>
                             <button></button>
                         </div>
                     </form>
