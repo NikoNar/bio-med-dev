@@ -7,7 +7,7 @@ import Pagination from "../../components/Pagination/Pgination";
 import {useRouter} from "next/router";
 
 
-const Index = ({news, page, totalNumberOfNews}) => {
+const Index = ({news, page, totalNumberOfNews, limit}) => {
 
     const router = useRouter()
     const {t} = useTranslation()
@@ -68,6 +68,7 @@ const Index = ({news, page, totalNumberOfNews}) => {
                 page={page}
                 link={'/news?page='}
                 router={router}
+                limit={limit}
             />
         </>
     )
@@ -77,12 +78,12 @@ const Index = ({news, page, totalNumberOfNews}) => {
 export async function getServerSideProps({query:{page=1}}) {
     debugger
     const start = +page === 1 ? 0 : (+page - 1) * 6
-
+    const limit = 6
     const allNews = await fetch(newsUrl)
         .then(res => res.json())
         .then(data => data)
 
-    const news = await fetch(newsUrl +`?_start=${start}&_limit=6`)
+    const news = await fetch(newsUrl +`?_start=${start}&_limit=${limit}`)
         .then(res => res.json())
         .then(data => data)
 
@@ -92,7 +93,8 @@ export async function getServerSideProps({query:{page=1}}) {
         props: {
             news,
             page: +page,
-            totalNumberOfNews
+            totalNumberOfNews,
+            limit
         },
     }
 }

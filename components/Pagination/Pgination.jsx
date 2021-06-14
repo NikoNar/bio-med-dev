@@ -7,7 +7,9 @@ const Pagination = ({ callBackPrev,
                         totalPageCount,
                         page,
                         link,
-                        router }) => {
+                        router,
+                        limit
+                    }) => {
     const pages = []
     const lastPage = totalPageCount
     for (let i = 1; i <= totalPageCount; i++) {
@@ -15,7 +17,7 @@ const Pagination = ({ callBackPrev,
     }
 
     return (
-        <section className={PaginationStyle.Pagination}>
+        <section className={PaginationStyle.Pagination} style={{display: pages.length <= 1 ? 'none' : 'flex'}}>
             <ul>
                 <li>
                     <button onClick={callBackPrev} disabled={page <= 1}>

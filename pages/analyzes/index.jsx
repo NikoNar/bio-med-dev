@@ -8,8 +8,8 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 
-const Analyzes = ({ analyzes, categories}) => {
-
+const Analyzes = ({ analyzes, categories, page}) => {
+console.log(page);
     return (
         <>
             <AnalyzesList analyzes={analyzes} categories={categories}/>
@@ -21,14 +21,14 @@ const Analyzes = ({ analyzes, categories}) => {
 
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps({query:{page=1}}) {
     resetIdCounter();
 
     const categories = await fetch(analyzesCategoryUrl)
         .then(res=>res.json())
         .then(data=>data)
 
-    const analyzes = await fetch(analyzesUrl, {
+    const analyzes = await fetch(analyzesUrl + `?_limit=3`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -37,7 +37,8 @@ export async function getServerSideProps() {
     return {
         props: {
             analyzes: analyzes,
-            categories:categories
+            categories:categories,
+            page
         }
     }
 }
