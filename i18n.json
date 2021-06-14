@@ -3,6 +3,6 @@
   "defaultLocale": "hy",
   "localeDetection": false,
   "pages": {
-    "*": ["common"]
+    "*": ["common", "errors"]
   }
 }

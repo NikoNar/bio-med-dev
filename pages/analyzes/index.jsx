@@ -9,7 +9,7 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 const Analyzes = ({ analyzes, categories, analyzesEquip, analyzesLab}) => {
-    console.log(analyzes);
+
     return (
         <>
             <AnalyzesList

@@ -10,20 +10,24 @@ import * as Yup from 'yup';
 import useTranslation from "next-translate/useTranslation";
 
 
-const registerSchema = Yup.object().shape({
-    registerFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեր անունը և ազգանունը'),
-    registerGender: Yup.string().nullable(true).required('Ընտրեք Ձեր սեռը'),
-    registerDate: Yup.string().required('Մուտքագրեք Ձեր ծննդյան ամսաթիվը'),
-    registerEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեր էլ․ հասցեն'),
-    registerPhone: Yup.string().required('Մուտքագրեք Ձեր էլ․ հեռահոասահամարը'),
-    registerPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required(),
-    registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
-})
+
 
 
 const RegisterForm = ({security, currentUser}) => {
 
     const {t} = useTranslation()
+    const registerSchema = Yup.object().shape({
+        registerFullName: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')).required(t('errors:name_error')),
+        registerGender: Yup.string().nullable(true).required(t('errors:gender_error')),
+        registerDate: Yup.string().required(t('errors:birthday_error')),
+        registerEmail: Yup.string().email(t('errors:email_format_error')).required(t('errors:enter_email')),
+        registerPhone: Yup.string().required(t('errors:phone_error')),
+        registerPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
+        registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
+    })
+
+
+    console.log({t});
 
 
     const {
@@ -36,7 +40,7 @@ const RegisterForm = ({security, currentUser}) => {
     } = useForm(
         {
             mode: 'onBlur',
-            resolver: yupResolver(registerSchema)
+            resolver: yupResolver(registerSchema && registerSchema)
         }
     );
 

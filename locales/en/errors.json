@@ -1,7 +1,14 @@
 {
-  "required": "This field is required",
-  "email": "Email is invalid",
-  "minLength_plural": "This field needs at least {{count}} characters",
-  "maxLength": "This field needs at most {{count}} character",
-  "maxLength_plural": "This field needs at most {{count}} characters"
+  "enter_email": "Enter your email",
+  "email_format_error": "The entered email address must be in the following format (test@test.am)",
+  "password_min_error": "The password must contain at least 4 characters",
+  "password_max_error": "The password must contain a maximum of 10 characters",
+  "name_format_error": "The name must contain only letters",
+  "name_error": "Enter your first and last name",
+  "gender_error": "Choose your gender",
+  "birthday_error": "Enter your date of birth",
+  "phone_error": "Enter your phone number",
+  "empty_message_error": "You can't send an empty message",
+  "analyze_number_error": "Enter the number provided to you",
+  "confirm_password_error": "Confirm password"
 }

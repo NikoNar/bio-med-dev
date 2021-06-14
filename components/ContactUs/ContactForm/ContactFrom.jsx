@@ -6,15 +6,17 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import useTranslation from "next-translate/useTranslation";
 
-const contactUsFormSchema = Yup.object().shape({
-    messageAuthor: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև անունը և ազգանունը'),
-    messageAuthorEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
-    messageBody: Yup.string().required('Դուք չեք կարող ւղարկել դատարկ հաղորդագրություն'),
-})
+
 
 const ContactFrom = () => {
 
     const {t} = useTranslation()
+
+    const contactUsFormSchema = Yup.object().shape({
+        messageAuthor: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')).required(t('errors:name_error')),
+        messageAuthorEmail: Yup.string().email(t('errors:email_format_error')).required(t('errors:enter_email')),
+        messageBody: Yup.string().required(t('errors:empty_message_error')),
+    })
 
     const {
         handleSubmit: contactUsHandleSubmit,

@@ -25,19 +25,6 @@ import {parsePhoneNumberFromString} from "libphonenumber-js";
 import useTranslation from "next-translate/useTranslation";
 
 
-const editProfileSchema = Yup.object().shape({
-    editProfileFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր'),
-    editProfileGender: Yup.string().nullable(true),
-    editProfileDate: Yup.string(),
-    editProfileEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)'),
-    editProfilePhone: Yup.string(),
-})
-
-const changePasswordSchema = Yup.object().shape({
-    editProfileNewPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required(),
-    editProfileCurrentPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required(),
-    editProfileConfirmPassword: Yup.string().oneOf([Yup.ref('editProfileNewPassword'), null]).required('Մուտքագրեք նոր գաղտնաբառը ևվս մեկ անգամ')
-})
 
 
 const Profile = ({contactInfo, results, token}) => {
@@ -48,6 +35,22 @@ const Profile = ({contactInfo, results, token}) => {
     const dispatch = useDispatch()
 
     const {t} = useTranslation()
+
+
+    const editProfileSchema = Yup.object().shape({
+        editProfileFullName: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')),
+        editProfileGender: Yup.string().nullable(true),
+        editProfileDate: Yup.string(),
+        editProfileEmail: Yup.string().email(t('errors:email_format_error')),
+        editProfilePhone: Yup.string(),
+    })
+
+    const changePasswordSchema = Yup.object().shape({
+        editProfileNewPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
+        editProfileCurrentPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
+        editProfileConfirmPassword: Yup.string().oneOf([Yup.ref('editProfileNewPassword'), null]).required(t('errors:confirm_password_error'))
+    })
+
 
     useEffect(()=>{
         setIsEdited(false)
@@ -91,7 +94,7 @@ const Profile = ({contactInfo, results, token}) => {
             body: JSON.stringify({}),
         })
             .then(() => {
-                router.push('/en')
+                router.push('/')
             })
         setTimeout(() => {
             destroyCookie(null, 'currentUser')

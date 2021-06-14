@@ -12,15 +12,16 @@ import useTranslation from "next-translate/useTranslation";
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
 
 
-const resultsSchema = Yup.object().shape({
-    userFullName: Yup.string().matches(/^([^1-9]*)$/, 'Անունը պետք է պարունակի միայն տառեր').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
-    userBirthDay: Yup.string().required('Մուտքագրեք Ձեր ծննդյան ամսաթիվը'),
-    userKey: Yup.string().required('Մուտքագրեք Ձեզ տրամադրված թիվը')
-})
 
 
 const Results = ({contactInfo}) => {
     const {t} = useTranslation()
+
+    const resultsSchema = Yup.object().shape({
+        userFullName: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')).required(t('errors:enter_email')),
+        userBirthDay: Yup.string().required(t('errors:birthday_error')),
+        userKey: Yup.string().required(t('errors:analyze_number_error'))
+    })
 
     const [results, setResults] = useState(null)
 

@@ -9,15 +9,9 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from 'yup';
 import useTranslation from "next-translate/useTranslation";
-import i18n from 'i18next'
-import {setLocale} from "yup";
 
 
 
-const schema = Yup.object().shape({
-    loginEmail: Yup.string().email('Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (test@test.am)').required('Մուտքագրեք Ձեև էլ․ հասցեն'),
-    loginPassword: Yup.string().min(4, 'Գաղտնաբառը պետք է պարունակի առնվազն 4 նիշ').max(10, 'Գաղտնաբառը պետք է պարունակի առավելագույնը 10 նիշ').required()
-})
 
 
 
@@ -25,6 +19,10 @@ const LoginForm = () => {
     const {t} = useTranslation()
     const router = useRouter()
 
+    const schema = Yup.object().shape({
+        loginEmail: Yup.string().email(t('errors:email_format_error')).required(t('errors:enter_email')),
+        loginPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required()
+    })
 
     const {handleSubmit, register, formState: { errors }} = useForm({
         mode: 'onBlur',
