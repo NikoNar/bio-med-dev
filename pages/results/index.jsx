@@ -132,8 +132,7 @@ const Results = ({contactInfo}) => {
                                         </div>
                                         <div className={'row mt-3 mt-lg-5'}>
                                             <div className={'col-lg-12 text-end text-lg-start'}>
-                                                <Button callBack={() => {
-                                                }} type={'submit'} text={t('common:see_results')}/>
+                                                <Button type={'submit'} text={t('common:see_results')}/>
                                             </div>
                                         </div>
                                     </form>

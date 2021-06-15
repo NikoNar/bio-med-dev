@@ -26,12 +26,10 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
         }
     }, [selectedFilters])
 
-
     const handleCategoryFilter = (e) => {
         const value = e.target.value
         dispatch(filterAnalyzesByCategory(value))
     }
-
 
     const handleEventsFilter = (e) => {
         const value = e.target.value

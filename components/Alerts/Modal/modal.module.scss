@@ -1,0 +1,19 @@
+.MyModal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #ff0000;
+  padding: 30px 50px;
+  button{
+    background: #ff0000;
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+}

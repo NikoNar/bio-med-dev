@@ -10,5 +10,7 @@
   "phone_error": "Enter your phone number",
   "empty_message_error": "You can't send an empty message",
   "analyze_number_error": "Enter the number provided to you",
-  "confirm_password_error": "Confirm password"
+  "confirm_password_error": "Confirm password",
+  "all_required_fields": "Please fill all required fields",
+  "login_or_password_error": "Wrong email or password"
 }

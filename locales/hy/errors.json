@@ -10,5 +10,7 @@
   "phone_error": "Մուտքագրեք Ձեր հեռահոասահամարը",
   "empty_message_error": "Դուք չեք կարող ւղարկել դատարկ հաղորդագրություն",
   "analyze_number_error": "Մուտքագրեք Ձեզ տրամադրված թիվը",
-  "confirm_password_error": "Հաստատեք գաղտնաբառը"
+  "confirm_password_error": "Հաստատեք գաղտնաբառը",
+  "all_required_fields": "Խնդրում ենք լրացնել բոլոր անհրաժեշտ դաշտերը",
+  "login_or_password_error": "Էլ․ փոստը կամ գաղտնաբառը սխալ են"
 }

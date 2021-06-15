@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {useForm, Controller} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
-import HomeCallCloudText from "../HomeCallCloudText/HomeCallCloudText";
+import HomeCallCloudText from "../Alerts/HomeCallCloudText/HomeCallCloudText";
 import useTranslation from "next-translate/useTranslation";
 
 

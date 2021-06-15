@@ -10,5 +10,7 @@
   "phone_error": "Введите Ваш номер телефона",
   "empty_message_error": "Вы не можете отправить пустое сообщение",
   "analyze_number_error": "Введите предоставленное вам число",
-  "confirm_password_error": "Подтвердите пароль"
+  "confirm_password_error": "Подтвердите пароль",
+  "all_required_fields": "Пожалуйста, заполните все необходимые поля",
+  "login_or_password_error": "Неверный адрес эл. почты или пароль"
 }

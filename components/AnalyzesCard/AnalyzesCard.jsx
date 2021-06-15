@@ -62,8 +62,8 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <p
                                 className={inner.compare_price ? AStyle.SellPrice : null}
                                 style={{visibility: inner.compare_price ? 'visible' : 'hidden'}}
-                            >{inner.price}<span>AMD</span></p>
-                            <p>{inner.compare_price ? inner.compare_price : inner.price}<span>AMD</span></p>
+                            >{inner.price}<span className={'_icon-amd'}></span></p>
+                            <p>{inner.compare_price ? inner.compare_price : inner.price}<span className={'_icon-amd'}></span></p>
                         </div>
                     </div>
                     <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>

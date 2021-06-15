@@ -3,7 +3,7 @@
 .Register{
   form{
     input{
-      border: none;
+      border: 1px solid transparent;
       border-radius: 5px;
       width: 100%;
       background-color: $white;
@@ -27,6 +27,11 @@
     }
     .DatePicker{
       width: 100%;
+      &.DatePickerWithError{
+        input{
+          border-color: #ff0000;
+        }
+      }
       .react-datepicker-wrapper{
         width: 100%;
         .react-datepicker__year-dropdown--scrollable{

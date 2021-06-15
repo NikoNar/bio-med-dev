@@ -1,6 +1,6 @@
 import React from 'react';
 import HCStyle from './home-cloud.module.scss'
-import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
+import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
 import useTranslation from "next-translate/useTranslation";
 
 
