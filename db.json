@@ -709,6 +709,54 @@
       "orders": [],
       "totalPrice": 3000,
       "id": 1
+    },
+    {
+      "reservePhone": "6546",
+      "reserveEmail": "res@res.am",
+      "reserveDate": "Fri Jun 25 2021 00:00:00 GMT+0400 (Armenia Standard Time)",
+      "reserveFullName": "sdadasd",
+      "reserveBranches": {
+        "value": "address-2",
+        "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-2",
+        "tel": "(010) 11 22 33",
+        "email": "test-2@test.com"
+      },
+      "reserveTime": "2021-06-15T11:45:00.399Z",
+      "orders": [],
+      "totalPrice": "0",
+      "id": 2
+    },
+    {
+      "reservePhone": "534564",
+      "reserveEmail": "res-3@res.am",
+      "reserveDate": "Sat Jun 19 2021 00:00:00 GMT+0400 (Armenia Standard Time)",
+      "reserveFullName": "asdasdsadas",
+      "reserveBranches": {
+        "value": "address-3",
+        "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-3",
+        "tel": "(010) 33 44 55",
+        "email": "test-3@test.com"
+      },
+      "reserveTime": "2021-06-15T15:00:00.375Z",
+      "orders": [],
+      "totalPrice": "0",
+      "id": 3
+    },
+    {
+      "reservePhone": "534564",
+      "reserveEmail": "res-2@res.am",
+      "reserveDate": "Sat Jun 12 2021 00:00:00 GMT+0400 (Armenia Standard Time)",
+      "reserveFullName": "dasasdasdasd",
+      "reserveBranches": {
+        "value": "address-4",
+        "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-4",
+        "tel": "(010) 12 34 56",
+        "email": "test-4@test.com"
+      },
+      "reserveTime": "2021-06-15T10:30:00.815Z",
+      "orders": [],
+      "totalPrice": "0",
+      "id": 4
     }
   ],
   "homeCallOrders": [],

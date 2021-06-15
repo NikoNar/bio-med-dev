@@ -8,7 +8,8 @@ import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
 import {homeCallOrdersUrl, orderUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
-
+import * as Yup from 'yup';
+import {yupResolver} from "@hookform/resolvers/yup";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {useForm, Controller} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
@@ -16,14 +17,42 @@ import HomeCallCloudText from "../Alerts/HomeCallCloudText/HomeCallCloudText";
 import useTranslation from "next-translate/useTranslation";
 
 
+const reserveSchema = Yup.object().shape({
+    reserveFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
+    reserveDate: Yup.string().required(),
+    reserveBranches: Yup.string().required().matches(/(?!^\d+$)^[\s\S]+$/, 'Please enter a valid description'),
+    reserveEmail: Yup.string().email().required(),
+    reservePhone: Yup.string().required(),
+})
+
+
+
+
+
 const CheckoutForm = ({info, orders}) => {
+
+
+    const {
+        handleSubmit: handleSubmitReserve,
+        register: registerReserve,
+        control: controlReserve,
+        watch: registerWatch,
+        formState: {errors},
+        reset: reserveReset
+    } = useForm(
+        {
+            mode: 'onBlur',
+            resolver: yupResolver(reserveSchema)
+        }
+    );
+
     const {t} = useTranslation()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const styles = {
         control: (provided) => ({
             ...provided,
             boxShadow: "none",
-            border: "none",
+            border: errors.reserveBranches ? "1px solid #ff0000" :"1px solid transparent",
             backgroundColor: "#f5faff",
             padding: 6
         }),
@@ -60,23 +89,13 @@ const CheckoutForm = ({info, orders}) => {
 
 
 
-    const {
-        handleSubmit: handleSubmitReserve,
-        control: controlReserve,
-        reset: reserveReset,
-        register: registerReserve,
-        formState:{errors: errorsReserve}
-    }= useForm();
-
-    const {
+/*    const {
         handleSubmit:handleSubmitHomeCall,
         control: controlHomeCall,
         reset: homeCallReset,
         register: registerHomeCall,
-        formState:{errors: errorsHomeCall}
-    } = useForm();
-
-
+        formState:{errors: errors}
+    } = useForm();*/
 
 
     /*--- Reserve Form data ---*/
@@ -87,7 +106,7 @@ const CheckoutForm = ({info, orders}) => {
 
 
     const handleSubmitReserveOrders = async (reserveData) => {
-
+        console.log(reserveData);
         await fetch(orderUrl, {
             method: 'POST',
             headers: {
@@ -113,6 +132,9 @@ const CheckoutForm = ({info, orders}) => {
     const homeCloudStyle = {
         display: showAlert ? 'block' : 'none'
     }
+
+    console.log(errors);
+
 
     const handleSubmitHomeCallOrders = async (homeCallData) => {
 
@@ -150,16 +172,12 @@ const CheckoutForm = ({info, orders}) => {
                             type="text"
                             name="reserveFullName"
                             {...registerReserve('reserveFullName', {required: 'Մուտքագրեք Ձեր անունը'})}
-                        />
-                        <ErrorMessage
-                            errors={errorsReserve}
-                            name="reserveFullName"
-                            render={({message}) =>  <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Մուտքագրեք Ձեր անունը</p></div>}
+                            style={{borderColor: errors.reserveFullName ? '#ff0000' : 'transparent'}}
                         />
                         <Controller
                             control={controlReserve}
                             defaultValue={info.contactInfo[0]}
-                            name="branches"
+                            name="reserveBranches"
                             rules={{ required: true }}
                             render={({field: {onChange, value, ref}}) => (
                                 <SelectBox
@@ -167,8 +185,8 @@ const CheckoutForm = ({info, orders}) => {
                                     inputRef={ref}
                                     inputId={CheckoutStyle.CheckoutSelect}
                                     isSearchable={false}
-                                    value={info.contactInfo.filter(c => value ? value.label : info.contactInfo[0].label === c.label)}
                                     onChange={val => onChange(val)}
+                                    value={value}
                                     options={info.contactInfo}
                                     components={{
                                         IndicatorSeparator: () => null,
@@ -176,12 +194,9 @@ const CheckoutForm = ({info, orders}) => {
                                 />
                             )}
                         />
-                        <ErrorMessage
-                            errors={errorsReserve}
-                            name="branches"
-                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select branch first</p></div>}
-                        />
-                        <div className={CheckoutStyle.DatePicker}>
+                        <div className={
+                            errors.reserveDate ? CheckoutStyle.DatePicker + ' ' + CheckoutStyle.DatePickerWithError : CheckoutStyle.DatePicker
+                        }>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
                                     <Controller
@@ -202,11 +217,6 @@ const CheckoutForm = ({info, orders}) => {
                                                 yearDropdownItemNumber={100}
                                             />
                                         )}
-                                    />
-                                    <ErrorMessage
-                                        errors={errorsReserve}
-                                        name="reserveDate"
-                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select date first</p></div>}
                                     />
                                 </div>
                                 <div className={'col-lg-6' + ' ' + CheckoutStyle.Portal}>
@@ -229,36 +239,25 @@ const CheckoutForm = ({info, orders}) => {
                                             />
                                         )}
                                     />
-                                    <ErrorMessage
-                                        errors={errorsReserve}
-                                        name="reserveTime"
-                                        render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Please select time first</p></div>}
-                                    />
                                 </div>
                             </div>
                         </div>
                         <input
                             placeholder={t('common:phone_number')}
                             type="tel"
-                            name="reservePhoneNumber"
-                            {...registerReserve('reservePhoneNumber', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
+                            name="reservePhone"
+                            {...registerReserve('reservePhone', {required: true, pattern: /^[\s()+-]*([0-9][\s()+-]*){6,20}$/})}
+                            style={{borderColor: errors.reservePhone ? '#ff0000' : 'transparent'}}
                         />
-                        <ErrorMessage
-                            errors={errorsReserve}
-                            name="reservePhoneNumber"
-                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Phone number is required</p></div>}
-                        />
+
                         <input
                             placeholder={t('common:email')}
                             type="email"
                             name="reserveEmail"
                             {...registerReserve('reserveEmail', {required: true})}
+                            style={{borderColor: errors.reserveEmail ? '#ff0000' : 'transparent'}}
                         />
-                        <ErrorMessage
-                            errors={errorsReserve}
-                            name="reserveEmail"
-                            render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
-                        />
+
                         <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
@@ -275,7 +274,7 @@ const CheckoutForm = ({info, orders}) => {
             </TabPanel>
             <TabPanel>
                 <div className={CheckoutStyle.Form}>
-                    <form onSubmit={handleSubmitHomeCall((homeCallData) => handleSubmitHomeCallOrders(homeCallData))}>
+                    {/*<form onSubmit={handleSubmitHomeCall((homeCallData) => handleSubmitHomeCallOrders(homeCallData))}>
                         <input
                             placeholder={t('common:full_name')}
                             type="text"
@@ -366,7 +365,7 @@ const CheckoutForm = ({info, orders}) => {
                             render={({message}) => <div className={CheckoutStyle.Error}><p style={{color: '#ff0000'}}>Email is required</p></div>}
                         />
                         <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'}/>
-                    </form>
+                    </form>*/}
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
                             <p>{t('common:home_call_price')}</p>

@@ -28,10 +28,17 @@
         color: $brand-gray;
       }
     }
+    .DatePicker{
+      &.DatePickerWithError{
+        input{
+          border-color: #ff0000;
+        }
+      }
+    }
     input{
       width: 100%;
       padding: 20px;
-      border: none;
+      border: 1px solid transparent;
       background-color: #f5faff;
       margin-bottom: 30px;
       &::placeholder{
