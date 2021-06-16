@@ -8,15 +8,15 @@ Modal.setAppElement('#__next')
 
 
 
-const ModalComponent = ({error, callBack, isOpen}) => {
+const ModalComponent = ({error, callBack, isOpen, text}) => {
 
     return (
         <Modal
             isOpen={isOpen}
-            className={ModalStyle.MyModal}
+            className={error ? ModalStyle.MyModal + ' ' + ModalStyle.Error : ModalStyle.MyModal + ' ' + ModalStyle.Success}
         >
-            <p>{error}</p>
-            <button onClick={callBack}>X</button>
+            <p>{error ? error : text}</p>
+            <button onClick={callBack} className={error ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>
         </Modal>
     );
 };

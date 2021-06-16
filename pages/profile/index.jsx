@@ -28,7 +28,7 @@ import useTranslation from "next-translate/useTranslation";
 
 
 const Profile = ({contactInfo, results, token}) => {
-
+    console.log(token);
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
     const router = useRouter()
@@ -152,8 +152,6 @@ const Profile = ({contactInfo, results, token}) => {
         return phoneNumber.formatInternational()
 
     }
-
-
 
     return (
         <section className={ProfStyle.Profile}>
@@ -281,50 +279,37 @@ const Profile = ({contactInfo, results, token}) => {
                                                 </div>
                                             </form>
                                         </div>
-                                        <h4 className={'mt-5'}>{t('common:security')}</h4>
-                                        <div className={RegisterFormStyle.Register + ' ' + 'mt-5'}>
-                                            <form onSubmit={handleSubmitChangePassword(handleChangePassword)}>
-                                                <input
-                                                    type="password"
-                                                    placeholder={t('common:current_password')}
-                                                    name="editProfileCurrentPassword"
-                                                    {...registerChangePassword('editProfileCurrentPassword')}
-                                                    style={{borderColor: errorsChangePassword.editProfileCurrentPassword ? '#ff0000' : 'transparent'}}
-                                                />
-                                                <input
-                                                    type="password"
-                                                    placeholder={t('common:new_password')}
-                                                    name="editProfileNewPassword"
-                                                    {...registerChangePassword('editProfileNewPassword')}
-                                                    style={{borderColor: errorsChangePassword.editProfileNewPassword ? '#ff0000' : 'transparent'}}
-                                                />
-                                                <input
-                                                    type="password"
-                                                    placeholder={t('common:confirm_password')}
-                                                    name="editProfileConfirmPassword"
-                                                    {...registerChangePassword('editProfileConfirmPassword')}
-                                                    style={{borderColor: errorsChangePassword.editProfileConfirmPassword ? '#ff0000' : 'transparent'}}
-                                                />
-                                                <div style={{textAlign: 'right'}}>
-                                                    <Button type={'submit'} text={t('common:save')}/>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                     <div className={'col-lg-5 offset-0 offset-lg-1'}>
                                         <div className={ProfStyle.Wrapper}>
-                                            <div className={ProfStyle.NoAccount}>
-                                                <div className={ProfStyle.NoAccountTitle}>
-                                                    <h4>{t('common:has_no_account')}</h4>
-                                                </div>
-                                                <div className={ProfStyle.NoAccountText}>
-                                                    <p>Դուք կկարողանաք ստեղծել այն թեստի արդյունքները վերանայելուց հետո
-                                                        և
-                                                        ստանալ հավատարիմ հաճախորդի առավելությունները</p>
-                                                </div>
-                                                <div className={ProfStyle.NoAccountLink}>
-                                                    <LinkButton text={t('common:analyzes_results')}/>
-                                                </div>
+                                            <h4 className={'mt-5'}>{t('common:security')}</h4>
+                                            <div className={RegisterFormStyle.Register + ' ' + 'mt-5'}>
+                                                <form onSubmit={handleSubmitChangePassword(handleChangePassword)}>
+                                                    <input
+                                                        type="password"
+                                                        placeholder={t('common:current_password')}
+                                                        name="editProfileCurrentPassword"
+                                                        {...registerChangePassword('editProfileCurrentPassword')}
+                                                        style={{borderColor: errorsChangePassword.editProfileCurrentPassword ? '#ff0000' : 'transparent'}}
+                                                    />
+                                                    <input
+                                                        type="password"
+                                                        placeholder={t('common:new_password')}
+                                                        name="editProfileNewPassword"
+                                                        {...registerChangePassword('editProfileNewPassword')}
+                                                        style={{borderColor: errorsChangePassword.editProfileNewPassword ? '#ff0000' : 'transparent'}}
+                                                    />
+                                                    <input
+                                                        type="password"
+                                                        placeholder={t('common:confirm_password')}
+                                                        name="editProfileConfirmPassword"
+                                                        {...registerChangePassword('editProfileConfirmPassword')}
+                                                        style={{borderColor: errorsChangePassword.editProfileConfirmPassword ? '#ff0000' : 'transparent'}}
+                                                    />
+                                                    <div style={{textAlign: 'right'}}>
+                                                        <Button type={'submit'} text={t('common:save')}/>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

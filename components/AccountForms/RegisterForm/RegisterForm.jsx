@@ -8,22 +8,28 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from 'yup';
 import useTranslation from "next-translate/useTranslation";
 import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
+import ModalComponent from "../../Alerts/Modal/ModalComponent";
 
 
-const registerSchema = Yup.object().shape({
-    registerFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
-    registerGender: Yup.string().nullable(true).required(),
-    registerDate: Yup.string().required(),
-    registerEmail: Yup.string().email().required(),
-    registerPhone: Yup.string().required(),
-    registerPassword: Yup.string().min(4).max(10).required(),
-    registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
-})
+
 
 
 const RegisterForm = ({security, currentUser}) => {
 
     const {t} = useTranslation()
+    const [isOpen, setIsOpen] = useState(false)
+    const [resError, setResError] = useState('')
+
+    const registerSchema = Yup.object().shape({
+        registerFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
+        registerGender: Yup.string().nullable(true).required(),
+        registerDate: Yup.string().required(),
+        registerEmail: Yup.string().email().required(),
+        registerPhone: Yup.string().required(),
+        registerPassword: Yup.string().min(4).max(10).required(),
+        registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
+    })
+
 
     const {
         handleSubmit: handleRegisterSubmit,
@@ -35,10 +41,10 @@ const RegisterForm = ({security, currentUser}) => {
     } = useForm(
         {
             mode: 'onBlur',
-            resolver: yupResolver(registerSchema && registerSchema)
+            resolver: yupResolver(registerSchema),
+            reValidateMode: "onChange"
         }
     );
-
 
 
     const registerHandleSubmit = async (registerData) => {
@@ -49,11 +55,18 @@ const RegisterForm = ({security, currentUser}) => {
             },
             body: JSON.stringify(registerData)
         })
-            .then(res => {
-                    res.json()
-                    registerFormReset({})
-                }
-            )
+            .then(res => res.json() )
+            .then(data=>{
+                registerFormReset({
+                    registerFullName: '',
+                    registerEmail: '',
+                    registerPhone: '',
+                    registerPassword: '',
+                    registerConfirmPassword: ''
+                })
+                setResError(data.message ? data.message : undefined)
+                setIsOpen(true)
+            })
 
     }
 
@@ -61,6 +74,10 @@ const RegisterForm = ({security, currentUser}) => {
     return (
         <div className={RegisterFormStyle.Register}>
             <RequiredFields errors={errors}/>
+            <ModalComponent callBack={() => setIsOpen(false)} isOpen={isOpen}
+                            text={'You have successfully registered and now can log in to your profile'}
+                            error={resError}
+            />
             <form onSubmit={handleRegisterSubmit(registerHandleSubmit)}>
                 <div className={RegisterFormStyle.FullName}>
                     <div className={'row'}>
@@ -104,6 +121,7 @@ const RegisterForm = ({security, currentUser}) => {
                 <Controller
                     control={registerControl}
                     name="registerDate"
+                    defaultValue={''}
                     render={({field: {onChange, value}}) => (
                         <div className={
                             errors.registerDate ? RegisterFormStyle.DatePicker + ' ' + RegisterFormStyle.DatePickerWithError : RegisterFormStyle.DatePicker
@@ -148,7 +166,10 @@ const RegisterForm = ({security, currentUser}) => {
                     type="password"
                     name='registerPassword'
                     {...handleRegisterRegister('registerPassword')}
-                    style={{display: security ? 'none' : 'block', borderColor: errors.registerPassword ? '#ff0000' : 'transparent'}}
+                    style={{
+                        display: security ? 'none' : 'block',
+                        borderColor: errors.registerPassword ? '#ff0000' : 'transparent'
+                    }}
                 />
 
                 <input
@@ -156,7 +177,10 @@ const RegisterForm = ({security, currentUser}) => {
                     type="password"
                     name='registerConfirmPassword'
                     {...handleRegisterRegister('registerConfirmPassword')}
-                    style={{display: security ? 'none' : 'block', borderColor: errors.registerConfirmPassword ? '#ff0000' : 'transparent'}}
+                    style={{
+                        display: security ? 'none' : 'block',
+                        borderColor: errors.registerConfirmPassword ? '#ff0000' : 'transparent'
+                    }}
                 />
 
                 <div style={{textAlign: 'right'}}>

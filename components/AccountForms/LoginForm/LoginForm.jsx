@@ -64,8 +64,13 @@ const LoginForm = () => {
             })
     }
 
+
+
+
+
     return (
         <div className={RegisterFormStyle.Register}>
+
             <RequiredFields errors={errors}/>
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
                 <input

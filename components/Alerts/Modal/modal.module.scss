@@ -8,12 +8,24 @@
   transform: translate(-50%, -50%);
   text-align: center;
   background-color: #ffffff;
-  border: 1px solid #ff0000;
-  padding: 30px 50px;
+  border: 1px solid transparent;
+  padding: 30px 35px;
+  max-width: 380px;
+  &.Error{
+    border-color: #ff0000;
+  }
+  &.Success{
+    border-color: green;
+  }
   button{
-    background: #ff0000;
-    width:30px;
-    height: 30px;
+    width:40px;
+    height: 40px;
     border-radius: 50%;
+    &.ErrorBtn{
+      background: #ff0000;
+    }
+    &.SuccessBtn{
+      background: green;
+    }
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import Analyzes from "../analyzes";
 import {resetIdCounter} from "react-tabs";
 import {analyzesCategoryUrl, analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
 import HCStyle from "./home-call.module.scss"
 import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
-const CallHome = ({analyzesTypes, analyzes, homeCall, categories}) => {
+const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab}) => {
+
     return (
         <>
             <section className={HCStyle.HomeCall}>
@@ -40,7 +40,12 @@ const CallHome = ({analyzesTypes, analyzes, homeCall, categories}) => {
                     </div>
                 </div>
             </section>
-            <AnalyzesList analyzes={analyzes} categories={categories}/>
+            <AnalyzesList
+                analyzes={analyzes}
+                categories={categories}
+                analyzesEquip={analyzesEquip}
+                analyzesLab={analyzesLab}
+            />
         </>
     );
 };
@@ -48,6 +53,7 @@ const CallHome = ({analyzesTypes, analyzes, homeCall, categories}) => {
 
 export async function getServerSideProps() {
     resetIdCounter();
+
     const analyzesTypes = await fetch(analyzesTypesUrl)
         .then(res => res.json())
         .then(data => data)
@@ -68,13 +74,27 @@ export async function getServerSideProps() {
         .then(res=>res.json())
         .then(data=>data)
 
+    const analyzesLab = await fetch(analyzesUrl + `?mainCategory=lab`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
+    const analyzesEquip = await fetch(analyzesUrl + `?mainCategory=equip`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
 
     return {
         props: {
             analyzesTypes: analyzesTypes,
             analyzes: analyzes,
             homeCall,
-            categories
+            categories,
+            analyzesLab,
+            analyzesEquip
         }
     }
 }
