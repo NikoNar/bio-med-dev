@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import useTranslation from "next-translate/useTranslation";
 
 
+
 const Cart = ({contactInfo}) => {
     const {t} = useTranslation()
 
@@ -68,7 +69,7 @@ const Cart = ({contactInfo}) => {
                 </div>
                 <div className={'row'}>
                     <div className={'col-lg12'}>
-                        <ContactInfoWithSelect contactInfo={contactInfo}/>
+                        <ContactInfoWithSelect contactInfo={contactInfo} orders={orders}/>
                     </div>
                 </div>
             </div>

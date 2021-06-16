@@ -10,8 +10,8 @@ import RegisterFormStyle from "../../components/AccountForms/RegisterForm/regist
 import DatePicker from "react-datepicker";
 import useTranslation from "next-translate/useTranslation";
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
-
-
+import CheckoutStyle from "../../components/CheckoutForm/checkout.module.scss";
+import RequiredFields from "../../components/Alerts/RequiredFields/RequiredFields";
 
 
 const Results = ({contactInfo}) => {
@@ -45,9 +45,9 @@ const Results = ({contactInfo}) => {
         await fetch(resultsUrl + `?number=${resultsData.userKey}&${resultsData.userFullName}&${resultsData.userBirthDay}`, {
             method: 'GET'
         })
-            .then(res=>res.json())
-            .then(data=>setResults(data))
-            .then(()=>resultsFormReset({}))
+            .then(res => res.json())
+            .then(data => setResults(data))
+            .then(() => resultsFormReset({}))
     }
 
     return (
@@ -67,75 +67,61 @@ const Results = ({contactInfo}) => {
                             {
                                 !results ?
                                     <div className={ResStyle.Form}>
-                                        <form onSubmit={handleResultsSubmit(submitResultsForm)} >
-                                        <div className={'row'}>
-                                            <div className={'col-lg-4'}>
-                                                <input
-                                                    type="text"
-                                                    placeholder={t('common:full_name')}
-                                                    name="userFullName"
-                                                    {...resultsRegister("userFullName")}
-                                                />
-                                                {errors.userFullName &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errors.userFullName.message}
-                                                    </p>
+                                        <RequiredFields errors={errors}/>
+                                        <form onSubmit={handleResultsSubmit(submitResultsForm)}>
+                                            <div className={'row'}>
+                                                <div className={'col-lg-4'}>
+                                                    <input
+                                                        type="text"
+                                                        placeholder={t('common:full_name')}
+                                                        name="userFullName"
+                                                        {...resultsRegister("userFullName")}
+                                                        style={{borderColor: errors.userFullName ? '#ff0000' : 'transparent'}}
+                                                    />
                                                 </div>
-                                                }
-                                            </div>
-                                            <div className={'col-lg-4'}>
-                                                <Controller
-                                                    control={resultsControl}
-                                                    name="userBirthDay"
-                                                    render={({field: {onChange, value}}) => (
-                                                        <div className={RegisterFormStyle.DatePicker}>
-                                                            <DatePicker
-                                                                selected={value}
-                                                                onChange={onChange}
-                                                                dateFormat='dd/MM/yyyy'
-                                                                placeholderText={t('common:birth_date')}
-                                                                style={{width: "100%"}}
-                                                                withPortal
-                                                                showMonthDropdown
-                                                                showYearDropdown
-                                                                dropdownMode="select"
-                                                                yearDropdownItemNumber={100}
-                                                                maxDate={new Date()}
+                                                <div className={'col-lg-4'}>
+                                                    <div className={RegisterFormStyle.DatePicker + ' ' + ResStyle.DatePicker}>
+                                                        <div
+                                                            className={errors.userBirthDay ? ResStyle.Date + ' ' + ResStyle.DateWithError : ResStyle.Date}>
+                                                            <Controller
+                                                                control={resultsControl}
+                                                                name="userBirthDay"
+                                                                render={({field: {onChange, value}}) => (
+
+                                                                    <DatePicker
+                                                                        selected={value}
+                                                                        onChange={onChange}
+                                                                        dateFormat='dd/MM/yyyy'
+                                                                        placeholderText={t('common:birth_date')}
+                                                                        style={{width: "100%"}}
+                                                                        withPortal
+                                                                        showMonthDropdown
+                                                                        showYearDropdown
+                                                                        dropdownMode="select"
+                                                                        yearDropdownItemNumber={100}
+                                                                        maxDate={new Date()}
+                                                                    />
+                                                                )}
                                                             />
                                                         </div>
-                                                    )}
-                                                />
-                                                {errors.userBirthDay &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errors.userBirthDay.message}
-                                                    </p>
+                                                    </div>
                                                 </div>
-                                                }
-                                            </div>
-                                            <div className={'col-lg-4'}>
-                                                <input
-                                                    type="text"
-                                                    placeholder={t('common:code')}
-                                                    name="userKey"
-                                                    {...resultsRegister("userKey")}
-                                                />
-                                                {errors.userKey &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errors.userKey.message}
-                                                    </p>
+                                                <div className={'col-lg-4'}>
+                                                    <input
+                                                        type="text"
+                                                        placeholder={t('common:code')}
+                                                        name="userKey"
+                                                        {...resultsRegister("userKey")}
+                                                        style={{borderColor: errors.userKey ? '#ff0000' : 'transparent'}}
+                                                    />
                                                 </div>
-                                                }
                                             </div>
-                                        </div>
-                                        <div className={'row mt-3 mt-lg-5'}>
-                                            <div className={'col-lg-12 text-end text-lg-start'}>
-                                                <Button type={'submit'} text={t('common:see_results')}/>
+                                            <div className={'row mt-3 mt-lg-5'}>
+                                                <div className={'col-lg-12 text-end text-lg-start'}>
+                                                    <Button type={'submit'} text={t('common:see_results')}/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
                                     </div>
                                     :
                                     <div className={'row'}>

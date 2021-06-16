@@ -29,9 +29,20 @@
       }
     }
     .DatePicker{
-      &.DatePickerWithError{
-        input{
-          border-color: #ff0000;
+      .Date{
+        &.DateWithError{
+          input{
+            border-color: #ff0000;
+          }
+        }
+      }
+    }
+    .Portal{
+      .Time{
+        &.TimeWithError{
+          input{
+            border-color: #ff0000;
+          }
         }
       }
     }

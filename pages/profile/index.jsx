@@ -38,17 +38,17 @@ const Profile = ({contactInfo, results, token}) => {
 
 
     const editProfileSchema = Yup.object().shape({
-        editProfileFullName: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')),
-        editProfileGender: Yup.string().nullable(true),
-        editProfileDate: Yup.string(),
-        editProfileEmail: Yup.string().email(t('errors:email_format_error')),
-        editProfilePhone: Yup.string(),
+        editProfileFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
+        editProfileGender: Yup.string().nullable(true).required(),
+        editProfileDate: Yup.string().required(),
+        editProfileEmail: Yup.string().email().required(),
+        editProfilePhone: Yup.string().required(),
     })
 
     const changePasswordSchema = Yup.object().shape({
-        editProfileNewPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
-        editProfileCurrentPassword: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
-        editProfileConfirmPassword: Yup.string().oneOf([Yup.ref('editProfileNewPassword'), null]).required(t('errors:confirm_password_error'))
+        editProfileNewPassword: Yup.string().min(4).max(10).required(),
+        editProfileCurrentPassword: Yup.string().min(4).max(10).required(),
+        editProfileConfirmPassword: Yup.string().oneOf([Yup.ref('editProfileNewPassword'), null]).required()
     })
 
 
@@ -65,7 +65,6 @@ const Profile = ({contactInfo, results, token}) => {
         formState: {errors: errorsChangePassword}
     } = useForm(
         {
-            mode: 'onBlur',
             resolver: yupResolver(changePasswordSchema)
         }
     );
@@ -199,14 +198,8 @@ const Profile = ({contactInfo, results, token}) => {
                                                                 name='editProfileFullName'
                                                                 defaultValue={currentUser && currentUser.fullName}
                                                                 {...registerEditProfile('editProfileFullName')}
+                                                                style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
-                                                            {errorsEditProfile.editProfileFullName &&
-                                                            <div className={'error mt-3'}>
-                                                                <p style={{color: '#ff0000'}}>
-                                                                    {errorsEditProfile.editProfileFullName.message}
-                                                                </p>
-                                                            </div>
-                                                            }
                                                         </div>
                                                         <div className={'col-4'}>
                                                             <div className={RegisterFormStyle.GenderBlock}>
@@ -218,6 +211,7 @@ const Profile = ({contactInfo, results, token}) => {
                                                                         value='male'
                                                                         defaultChecked={!!(currentUser && currentUser.gender === 'male')}
                                                                         {...registerEditProfile('editProfileGender')}
+                                                                        style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
                                                                     <span className="_icon-male"></span>
                                                                 </label>
@@ -229,17 +223,11 @@ const Profile = ({contactInfo, results, token}) => {
                                                                         value='female'
                                                                         defaultChecked={!!(currentUser && currentUser.gender === 'female')}
                                                                         {...registerEditProfile('editProfileGender')}
+                                                                        style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
                                                                     <span className="_icon-female"></span>
                                                                 </label>
                                                             </div>
-                                                            {errorsEditProfile.editProfileGender &&
-                                                            <div className={'error mt-3'}>
-                                                                <p style={{color: '#ff0000'}}>
-                                                                    {errorsEditProfile.editProfileGender.message}
-                                                                </p>
-                                                            </div>
-                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -249,13 +237,14 @@ const Profile = ({contactInfo, results, token}) => {
                                                     defaultValue={new Date(currentUser && currentUser.date)}
                                                     render={({field: {onChange, value, ref}}) => {
                                                         return (
+
                                                             <div className={ProfStyle.ProfileDatePicker}>
                                                                 <DatePicker
                                                                     selected={value}
                                                                     onChange={onChange}
                                                                     dateFormat='dd/MM/yyyy'
                                                                     //placeholderText={new Date(currentUser && currentUser.date).toLocaleDateString()}
-                                                                    style={{width: "100%"}}
+                                                                    style={{width: "100%", borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     withPortal
                                                                     showMonthDropdown
                                                                     showYearDropdown
@@ -268,28 +257,14 @@ const Profile = ({contactInfo, results, token}) => {
                                                         )
                                                     }}
                                                 />
-                                                {errorsEditProfile.editProfileDate &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsEditProfile.editProfileDate.message}
-                                                    </p>
-                                                </div>
-                                                }
-
                                                 <input
                                                     placeholder={t('common:email')}
                                                     type='email'
                                                     name='editProfileEmail'
                                                     {...registerEditProfile('editProfileEmail')}
                                                     defaultValue={currentUser && currentUser.email}
+                                                    style={{borderColor: errorsEditProfile.editProfileEmail ? '#ff0000' : 'transparent'}}
                                                 />
-                                                {errorsEditProfile.editProfileEmail &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsEditProfile.editProfileEmail.message}
-                                                    </p>
-                                                </div>
-                                                }
                                                 <input
                                                     placeholder={t('common:phone_number')}
                                                     type="tel"
@@ -299,14 +274,8 @@ const Profile = ({contactInfo, results, token}) => {
                                                     onChange={(event)=>{
                                                         event.target.value = validatePhoneNumber(event.target.value)
                                                     }}
+                                                    style={{borderColor: errorsEditProfile.editProfilePhone ? '#ff0000' : 'transparent'}}
                                                 />
-                                                {errorsEditProfile.editProfilePhone &&
-                                                <div className={'error'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsEditProfile.editProfilePhone.message}
-                                                    </p>
-                                                </div>
-                                                }
                                                 <div style={{textAlign: 'right'}}>
                                                     <Button type={'submit'} text={t('common:submit')}/>
                                                 </div>
@@ -320,40 +289,22 @@ const Profile = ({contactInfo, results, token}) => {
                                                     placeholder={t('common:current_password')}
                                                     name="editProfileCurrentPassword"
                                                     {...registerChangePassword('editProfileCurrentPassword')}
+                                                    style={{borderColor: errorsChangePassword.editProfileCurrentPassword ? '#ff0000' : 'transparent'}}
                                                 />
-                                                {errorsChangePassword.editProfileCurrentPassword &&
-                                                <div className={'error mt-3'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsChangePassword.editProfileCurrentPassword.message}
-                                                    </p>
-                                                </div>
-                                                }
                                                 <input
                                                     type="password"
                                                     placeholder={t('common:new_password')}
                                                     name="editProfileNewPassword"
                                                     {...registerChangePassword('editProfileNewPassword')}
+                                                    style={{borderColor: errorsChangePassword.editProfileNewPassword ? '#ff0000' : 'transparent'}}
                                                 />
-                                                {errorsChangePassword.editProfileNewPassword &&
-                                                <div className={'error mt-3'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsChangePassword.editProfileNewPassword.message}
-                                                    </p>
-                                                </div>
-                                                }
                                                 <input
                                                     type="password"
                                                     placeholder={t('common:confirm_password')}
                                                     name="editProfileConfirmPassword"
                                                     {...registerChangePassword('editProfileConfirmPassword')}
+                                                    style={{borderColor: errorsChangePassword.editProfileConfirmPassword ? '#ff0000' : 'transparent'}}
                                                 />
-                                                {errorsChangePassword.editProfileConfirmPassword &&
-                                                <div className={'error mt-3'}>
-                                                    <p style={{color: '#ff0000'}}>
-                                                        {errorsChangePassword.editProfileConfirmPassword.message}
-                                                    </p>
-                                                </div>
-                                                }
                                                 <div style={{textAlign: 'right'}}>
                                                     <Button type={'submit'} text={t('common:save')}/>
                                                 </div>

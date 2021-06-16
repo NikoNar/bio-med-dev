@@ -27,6 +27,9 @@
     }
     .DatePicker{
       width: 100%;
+      input{
+        border: 1px solid transparent;
+      }
       &.DatePickerWithError{
         input{
           border-color: #ff0000;

@@ -7,7 +7,7 @@ const styles = {
 }
 
 
-const Button = ({text, backgroundColor, type, callBack, icon}) => {
+const Button = ({text, backgroundColor, type, callBack, icon, disabled}) => {
 
     return (
         <>
@@ -16,6 +16,7 @@ const Button = ({text, backgroundColor, type, callBack, icon}) => {
                 className={buttonStyles.Button}
                 type={type}
                 onClick={callBack}
+                disabled={disabled}
             >{text}
                 <span className={buttonStyles.Icon} style={{display: type === 'submit' ? 'none' : 'inline-block'}}>
                     <svg version="1.1" viewBox="0 0 36 30">

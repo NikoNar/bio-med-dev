@@ -15,14 +15,22 @@
       width: 100%;
       background-color: $white;
       padding: 19px 20px;
-      border: none;
+      border: 1px solid transparent;
       margin-bottom: 15px;
       &::placeholder {
         color: $brand-gray;
       }
-
       &:focus {
         outline: none
+      }
+    }
+    .DatePicker{
+      .Date{
+        &.DateWithError{
+          input{
+            border-color: #ff0000!important;
+          }
+        }
       }
     }
   }

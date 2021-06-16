@@ -757,6 +757,22 @@
       "orders": [],
       "totalPrice": "0",
       "id": 4
+    },
+    {
+      "reservePhoneNumber": "+374 55 112233",
+      "reserveEmail": "test@test.am",
+      "reserveBranches": {
+        "value": "address-2",
+        "label": "Գրիգոր Նարեկացի 120 (Ք. Աշտարակ)-2",
+        "tel": "(010) 11 22 33",
+        "email": "test-2@test.com"
+      },
+      "reserveTime": "Wed Jun 16 2021 18:45:00 GMT+0400 (Armenia Standard Time)",
+      "reserveDate": "Sat Jun 26 2021 00:00:00 GMT+0400 (Armenia Standard Time)",
+      "reserveFullName": "Test Anun",
+      "orders": [],
+      "totalPrice": 0,
+      "id": 5
     }
   ],
   "homeCallOrders": [],

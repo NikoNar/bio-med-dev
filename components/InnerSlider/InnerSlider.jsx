@@ -46,7 +46,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {
                                 if (mainCategory === analyze.mainCategory){
                                     return (
-                                        <SwiperSlide className={ISStyle.Slide} key={analyze.number}>
+                                        <SwiperSlide className={ISStyle.Slide} key={Math.random()}>
                                             {
                                                 <AnalyzesCard inner={analyze} id={analyze.id}/>
                                             }
