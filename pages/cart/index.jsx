@@ -20,11 +20,12 @@ const Cart = ({contactInfo}) => {
         await dispatch(removeAllOrdersAction())
     }
 
+
     useEffect(() => {
         dispatch(getAllOrdersItem())
     }, [])
 
-
+   // console.log(orders);
 
     return (
         <section className={CartStyle.Cart}>

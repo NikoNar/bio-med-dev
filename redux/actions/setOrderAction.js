@@ -3,6 +3,7 @@ import {ADD_ORDER_TO_CART, GET_ALL_ORDER_ITEMS, REMOVE_ALL_ORDERS_FROM_CART, REM
 let ordersInitialArray = []
 
 export const getAllOrdersItem = () => {
+
     const json = window.localStorage.getItem('orders')
     const orders = JSON.parse(json)
 
@@ -27,6 +28,7 @@ export const addItemToCart = (data) => {
 
 
 export const removeAllOrdersAction = () => {
+
     window.localStorage.removeItem('orders')
     ordersInitialArray = []
 
@@ -38,9 +40,11 @@ export const removeAllOrdersAction = () => {
 
 
 export const removeCartItem = (index) => {
-
-    ordersInitialArray = ordersInitialArray.filter((data, idx) => idx !== index )
+    const json = window.localStorage.getItem('orders')
+    ordersInitialArray = JSON.parse(json)
+    ordersInitialArray = ordersInitialArray.filter((data, idx) => idx !== index)
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
+    ordersInitialArray.length === 0 && window.localStorage.removeItem('orders')
 
     return {
         type: REMOVE_ITEM_FROM_CART,

@@ -14,13 +14,14 @@ export const makeSearch = (data)=>{
             ...results.filter((item)=>item.body.toLowerCase().includes(data.toLowerCase()))
         ]
 
-        dispatch(searchAction(searchResults))
+        dispatch(searchAction(searchResults, data))
     }
 }
 
-const searchAction = (results)=>{
+const searchAction = (results, keyWord)=>{
     return {
         type: SEARCH,
-        payload: results
+        payload: results,
+        keyWord: keyWord
     }
 }

@@ -6,8 +6,7 @@ import SearchStyle from './search.module.scss'
 const Search = () => {
 
     const results = useSelector(state => state.search)
-
-    console.log(process.env.HOSTNAME)
+    console.log(results);
     return (
         <section className={SearchStyle.Search}>
             <div className={'container'}>
@@ -18,13 +17,13 @@ const Search = () => {
                 </div>
                 <div className={'row'}>
                     {
-                        results && results.map((res) => {
+                        Object.entries(results).length > 0 && results.results.length > 0 ? results.results.map((res) => {
                             return (
                                 <div className={'col-lg-12 mb-5'} key={res.title}>
                                     <AnalyzesCard inner={res}/>
                                 </div>
                             )
-                        })
+                        }) : <p>Sorry no any matches with your keyword <strong style={{color: '#ff0000'}}>{results.keyWord}</strong> found</p>
                     }
                 </div>
             </div>
