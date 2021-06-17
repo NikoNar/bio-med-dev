@@ -31,7 +31,6 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}) => {
     }, [])
 
     const handleAddToCart = (data) => {
-        console.log(data);
         dispatch(addItemToCart(data))
     }
 

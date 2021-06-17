@@ -1,3 +1,4 @@
+export const dynamicPageUrl = 'http://localhost:4500/page'
 export const newsUrl = 'http://localhost:4500/news/'
 export const navigationUrl = 'http://localhost:4500/pages'
 export const socialMediaUrl = 'http://localhost:4500/social'

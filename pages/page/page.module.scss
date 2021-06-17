@@ -1,0 +1,19 @@
+.DynamicPage{
+  padding-top: 100px;
+  .Title{
+    margin-bottom: 40px;
+  }
+  .Text{
+    p{
+      font-size: 18px;
+      line-height: 27px;
+      color: #b0b8c0;
+    }
+  }
+  .Image{
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
