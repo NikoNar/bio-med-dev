@@ -87,7 +87,7 @@ const LoginForm = () => {
                     {...register("loginPassword")}
                     style={{borderColor: errors.loginPassword ? '#ff0000' : 'transparent'}}
                 />
-                <Link href={'#'}>
+                <Link href={'/forgot-password'}>
                     <a>{t('common:forgot_password')}</a>
                 </Link>
                 <Button type={'submit'} text={t('common:login')}/>
