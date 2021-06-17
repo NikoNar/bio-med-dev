@@ -5,7 +5,10 @@ import ModalStyle from './modal.module.scss'
 
 Modal.setAppElement('#__next')
 
-
+const customStyles = {
+    content : {},
+    overlay: {zIndex: 1000}
+};
 
 
 const ModalComponent = ({error, callBack, isOpen, text}) => {
@@ -14,6 +17,7 @@ const ModalComponent = ({error, callBack, isOpen, text}) => {
         <Modal
             isOpen={isOpen}
             className={error ? ModalStyle.MyModal + ' ' + ModalStyle.Error : ModalStyle.MyModal + ' ' + ModalStyle.Success}
+            style={customStyles}
         >
             <p>{error ? error : text}</p>
             <button onClick={callBack} className={error ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>

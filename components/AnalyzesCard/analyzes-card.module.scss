@@ -21,17 +21,17 @@
     filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
   }
   .Top{
-    margin-bottom: 110px;
+    margin-bottom: 30px;
     .Number{
       font-size: 12px;
       font-weight: 300;
       color: $brand-gray;
     }
     .Title{
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
       color: $brand-red;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
     .Desc{
       font-size: 20px;
@@ -48,12 +48,12 @@
     .Price{
       p{
         color: $black;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 900;
         margin: 0;
         span{
           font-family: icons;
-          font-size: 18px;
+          font-size: 14px;
           line-height: 30px;
           margin-left: 4px;
         }

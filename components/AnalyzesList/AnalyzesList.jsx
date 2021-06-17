@@ -17,7 +17,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
     const dispatch = useDispatch()
     const selectedFilters = useSelector(state => state.filters)
     const [allAnalyzes, setAllAnalyzes] = useState(analyzesLab)
-
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         if (selectedFilters) {
@@ -85,7 +85,8 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                         <div className={'row'}>
                                                             <div className={'col-lg-12'}>
                                                                 <div className={AnalyzesStyle.Tags}>
-                                                                    <ul>
+                                                                    <ul className={isOpen ? AnalyzesStyle.Open : ''}>
+                                                                        <span className={'_icon-chevrone-down'} onClick={()=>setIsOpen(!isOpen)}></span>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
                                                                                 id={'events-1'}

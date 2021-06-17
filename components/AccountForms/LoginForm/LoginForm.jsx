@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Button from "../../Button/Button";
 import RegisterFormStyle from "../RegisterForm/register-form.module.scss";
@@ -27,6 +27,14 @@ const LoginForm = () => {
 
     const {t} = useTranslation()
     const router = useRouter()
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isOpen]);
 
     const {handleSubmit, register, formState: { errors }} = useForm({
         mode: 'onBlur',

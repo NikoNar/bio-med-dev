@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ResStyle from './results.module.scss'
 import ContactUs from "../../components/ContactUs/ContactUs";
 import {contactInfoUrl, resultsUrl} from "../../utils/url";
@@ -12,6 +12,7 @@ import useTranslation from "next-translate/useTranslation";
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
 import CheckoutStyle from "../../components/CheckoutForm/checkout.module.scss";
 import RequiredFields from "../../components/Alerts/RequiredFields/RequiredFields";
+import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 const Results = ({contactInfo}) => {
@@ -24,7 +25,8 @@ const Results = ({contactInfo}) => {
     })
 
     const [results, setResults] = useState(null)
-
+    const [error, setError] = useState(null)
+    const [isOpen, setIsOpen] = useState(false)
 
     const {
         handleSubmit: handleResultsSubmit,
@@ -40,18 +42,38 @@ const Results = ({contactInfo}) => {
     );
 
 
-    const submitResultsForm = async (resultsData) => {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isOpen]);
 
+
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
+    const submitResultsForm = async (resultsData) => {
+        console.log(resultsData);
         await fetch(resultsUrl + `?number=${resultsData.userKey}&${resultsData.userFullName}&${resultsData.userBirthDay}`, {
             method: 'GET'
         })
             .then(res => res.json())
-            .then(data => setResults(data))
+            .then(data => {
+                data.length <= 0 ? setIsOpen(true) : null
+                setResults(data)
+                setError(`Sorry there are no any matches with your number ${resultsData.userKey}. Please try again later`)
+            })
             .then(() => resultsFormReset({}))
     }
 
+
     return (
         <>
+            <ModalComponent callBack={closeModal} isOpen={isOpen} error={error}/>
             <section className={ResStyle.Results}>
                 <div className={'container' + ' ' + ResStyle.Info}>
                     <div className={'row'}>
@@ -65,7 +87,7 @@ const Results = ({contactInfo}) => {
                     <div className={'row mt-4'}>
                         <div className={'col-lg-12'}>
                             {
-                                !results ?
+                                !results || results.length <= 0 ?
                                     <div className={ResStyle.Form}>
                                         <RequiredFields errors={errors}/>
                                         <form onSubmit={handleResultsSubmit(submitResultsForm)}>
@@ -80,7 +102,8 @@ const Results = ({contactInfo}) => {
                                                     />
                                                 </div>
                                                 <div className={'col-lg-4'}>
-                                                    <div className={RegisterFormStyle.DatePicker + ' ' + ResStyle.DatePicker}>
+                                                    <div
+                                                        className={RegisterFormStyle.DatePicker + ' ' + ResStyle.DatePicker}>
                                                         <div
                                                             className={errors.userBirthDay ? ResStyle.Date + ' ' + ResStyle.DateWithError : ResStyle.Date}>
                                                             <Controller
@@ -118,7 +141,7 @@ const Results = ({contactInfo}) => {
                                             </div>
                                             <div className={'row mt-3 mt-lg-5'}>
                                                 <div className={'col-lg-12 text-end text-lg-start'}>
-                                                    <Button type={'submit'} text={t('common:see_results')}/>
+                                                    <Button type={'submit'} text={t('common:see_results')} padding={'10px'}/>
                                                 </div>
                                             </div>
                                         </form>
@@ -132,10 +155,10 @@ const Results = ({contactInfo}) => {
                                                         <div className={ResStyle.Header}>
                                                             <div className={ResStyle.Name}>
                                                                 <span className="_icon-male"></span>
-                                                                <h4>{results[0].fullName}</h4>
+                                                                <h4>{results && results[0].fullName}</h4>
                                                             </div>
                                                             <div className={ResStyle.BirthDay}>
-                                                                <h4>{new Date(results[0].date).toLocaleDateString()}</h4>
+                                                                <h4>{results && new Date(results[0].date).toLocaleDateString()}</h4>
                                                             </div>
                                                         </div>
                                                     </div>

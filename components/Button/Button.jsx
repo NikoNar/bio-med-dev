@@ -7,12 +7,15 @@ const styles = {
 }
 
 
-const Button = ({text, backgroundColor, type, callBack, icon, disabled}) => {
-
+const Button = ({text, backgroundColor, type, callBack, icon, disabled, padding}) => {
+    console.log(padding);
     return (
         <>
             <button
-                style={{background: backgroundColor ? backgroundColor : styles.background, display: icon ? 'none' : 'inline-block'}}
+                style={{
+                    background: backgroundColor ? backgroundColor : styles.background, display: icon ? 'none' : 'inline-block',
+                    padding: padding
+                }}
                 className={buttonStyles.Button}
                 type={type}
                 onClick={callBack}

@@ -19,6 +19,7 @@ const Account = () => {
     const {t} = useTranslation()
 
 
+
     return (
         <section className={AccStyle.Main}>
             <div className={'container'}>

@@ -15,92 +15,94 @@
     .MainHeaderWrapper{
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      .Search{
-        display: flex;
-        align-items: center;
-        .SearchWrapper{
-          position: relative;
-          input{
-            background: $body-color;
-            border: none;
-            padding: 6px 35px 6px 22px;
-            border-radius: 5px;
-            &:focus {
-              outline: none;
-            }
-          }
-          button {
-            background: transparent;
-            border: none;
-            outline: none;
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
+      justify-content: flex-end;
+      height: 100%;
+    }
+  }
+}
 
-            &:before {
-              content: '';
-              width: 20px;
-              height: 20px;
-              position: absolute;
-              top: 0;
-              left: 0;
-              background-image: url("/images/icons/search.svg");
-              background-size: cover;
-              background-position: center;
-              background-repeat: no-repeat;
-            }
-          }
-        }
+.Search{
+  display: flex;
+  align-items: center;
+  .SearchWrapper{
+    position: relative;
+    margin-left: 20px;
+    input{
+      background: $body-color;
+      border: none;
+      padding: 6px 35px 6px 22px;
+      border-radius: 5px;
+      &:focus {
+        outline: none;
       }
-      .UserControl{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .Item{
-          margin-left: 40px;
-        }
-        .Bag{
-          width: 35px;
-          position: relative;
-          .BagCount{
-            position: absolute;
-            display: block;
-            width: 18px;
-            height: 22px;
-            line-height: 22px;
-            background-color: $icons-blue;
-            text-align: center;
-            color: $white;
-            font-size: 9px;
-            font-weight: 700;
-            top: 0;
-            right: -7px;
-            clip-path: $hexagonal;
-          }
-          svg {
-            width: 100%;
-          }
-        }
-        .Account{
-          width: 25px;
-          &.LoggedIn{
-            width: 140px;
-            text-align: center;
-          }
-          a{
-            font-size: 14px;
-          }
-        }
-        .LanguageSwitcher{
-          width: 85px;
-          .ReactSelect{
-            border: none;
-          }
-        }
+    }
+    button {
+      background: transparent;
+      border: none;
+      outline: none;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url("/images/icons/search.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
+    }
+  }
+}
+.UserControl{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .Item{
+    margin-left: 40px;
+  }
+  .Bag{
+    width: 35px;
+    position: relative;
+    .BagCount{
+      position: absolute;
+      display: block;
+      width: 18px;
+      height: 22px;
+      line-height: 22px;
+      background-color: $icons-blue;
+      text-align: center;
+      color: $white;
+      font-size: 9px;
+      font-weight: 700;
+      top: 0;
+      right: -7px;
+      clip-path: $hexagonal;
+    }
+    svg {
+      width: 100%;
+    }
+  }
+  .Account{
+    width: 25px;
+    &.LoggedIn{
+      width: 140px;
+      text-align: center;
+    }
+    a{
+      font-size: 14px;
+    }
+  }
+  .LanguageSwitcher{
+    .ReactSelect{
+      border: none;
     }
   }
 }
@@ -116,6 +118,9 @@
 @media (max-width: 991px){
   .DesktopHeader{
     display: none;
+  }
+  .SearchWrapper{
+    margin-left: 0!important;
   }
 }
 

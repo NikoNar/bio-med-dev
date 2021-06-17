@@ -78,6 +78,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <Button text={buttonText}
                                     backgroundColor={backgroundColor}
                                     icon={icon}
+                                    padding={'10px'}
                                     callBack={
                                         currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text) :
                                             ()=>{router.push('/account')}

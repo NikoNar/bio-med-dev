@@ -8,21 +8,17 @@
   transform: translate(-50%, -50%);
   text-align: center;
   background-color: #ffffff;
-  border: 1px solid transparent;
   padding: 30px 35px;
   max-width: 380px;
-  &.Error{
-    border-color: #ff0000;
-  }
-  &.Success{
-    border-color: green;
-  }
+  z-index: 100;
+  filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
   button{
     width:40px;
-    height: 40px;
-    border-radius: 50%;
+    height: 45px;
+    clip-path: polygon(50% 0, 100% 23%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    font-weight: 900;
     &.ErrorBtn{
-      background: #ff0000;
+      background: #932322;
     }
     &.SuccessBtn{
       background: green;

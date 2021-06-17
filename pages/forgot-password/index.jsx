@@ -18,7 +18,6 @@ const schema = Yup.object().shape({
 const ForgotPassword = ({contactInfo}) => {
 
     const {handleSubmit, register, formState: {errors}} = useForm({
-        mode: "onBlur",
         resolver: yupResolver(schema)
     })
 

@@ -6,12 +6,16 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import useTranslation from "next-translate/useTranslation";
 import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
+import ModalComponent from "../../Alerts/Modal/ModalComponent";
 
 
 
 const ContactFrom = () => {
 
     const {t} = useTranslation()
+    const [error, setError] = useState(null)
+    const [isOpen, setIsOpen] = useState(false)
+    const [text, setText] = useState(null)
 
     const contactUsFormSchema = Yup.object().shape({
         messageAuthor: Yup.string().matches(/^([^1-9]*)$/).required(),
@@ -41,19 +45,26 @@ const ContactFrom = () => {
             },
             body: JSON.stringify(messageData)
         })
-            .then(res => {
-                res.json()
+            .then(res => res.json())
+            .then(data=>{
+                console.log(data);
+                data.message ? setError(data.message) : setText('Your message has been successfully sent')
+                setIsOpen(true)
                 contactUsFormReset({})
             })
             .catch((err) => {
                 console.log(err)
             })
     }
+    const closeModal = ()=>{
+        setIsOpen(false)
+    }
 
 
     return (
         <>
             <RequiredFields errors={errors}/>
+            <ModalComponent error={error} isOpen={isOpen} callBack={closeModal} text={text}/>
             <form onSubmit={contactUsHandleSubmit(handleSubmitMessage)}>
                 <input
                     type="text"
