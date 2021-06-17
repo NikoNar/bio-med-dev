@@ -53,7 +53,7 @@ const RegisterForm = ({security, currentUser}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(registerData)
+            body: JSON.stringify({...registerData, orders:[]})
         })
             .then(res => res.json() )
             .then(data=>{

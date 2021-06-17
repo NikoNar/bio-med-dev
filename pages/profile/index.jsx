@@ -27,8 +27,8 @@ import useTranslation from "next-translate/useTranslation";
 
 
 
-const Profile = ({contactInfo, results, token}) => {
-    console.log(token);
+const Profile = ({contactInfo, results, token, user}) => {
+
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
     const router = useRouter()
@@ -135,7 +135,6 @@ const Profile = ({contactInfo, results, token}) => {
                 return res.json()
             })
             .then((data)=>{
-                console.log(data);
                 const user = JSON.stringify(data.user)
                 setCookie(null, 'currentUser', user)
                 setCookie(null, 'token', data.access_token)
@@ -326,8 +325,18 @@ const Profile = ({contactInfo, results, token}) => {
 }
 
 export async function getServerSideProps(ctx) {
-    const token = ctx.req.cookies.token
-    //const user = ctx.req ? ctx.req.cookies.currentUser : null
+
+    if (Object.entries(ctx.req.cookies).length<=0){
+        return {
+            redirect: {
+                destination: '/account',
+                permanent: false,
+            }
+        }
+    }
+    const token = ctx.req.cookies.token && ctx.req.cookies.token
+    const user = ctx.req ? ctx.req.cookies.currentUser : null
+
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
     })
@@ -340,7 +349,7 @@ export async function getServerSideProps(ctx) {
 
 
     return {
-        props: {contactInfo, results, token},
+        props: {contactInfo, results, token, user},
     }
 }
 
