@@ -29,7 +29,7 @@ const Search = ({setIsOpen}) => {
 
     return (
         <>
-            <form onSubmit={(e)=>handleSearchSubmit(e)}>
+            <form onSubmit={(e)=>handleSearchSubmit(e)} className={'mb-4 mb-lg-0 mb-md-0'}>
                 <div className={HeaderStyle.SearchWrapper}>
                     <input placeholder={t('common:search')} type="text" value={searchData} onChange={(e)=>handleSearchData(e)}/>
                     <button type='submit' disabled={!searchData}></button>

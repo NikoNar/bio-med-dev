@@ -47,6 +47,7 @@
       "handle": "test",
       "title": "Test",
       "link": "/page?title=test",
+      "urlMask": "/test",
       "subLinks": null
     },
     {
@@ -54,6 +55,7 @@
       "handle": "one",
       "title": "One",
       "link": "/page?title=one",
+      "urlMask": "/one",
       "subLinks": null
     }
   ],
@@ -1213,7 +1215,7 @@
         "title": "Test Dynamic Page",
         "text": "Բիոմեդ» ախտորոշման լաբորատորիան հիմնադրվել է 2009 թվականին: Լաբորատորիայում աշխատում են որակավորում ստացած ինչպես փորձառու, այնպես էլ երիատասարդ բժիշկ-լաբորանտներ: Հետազոտություններն իրականացվում են ոլորտում լավագույն, համաշխարհային ճանաչում ունեցող ընկերությունների ամենավերջին սարքավորումներով, իչպիսիք են՝ Cobas e 411, Cobas c 311, 9180 Electrolyte analyser (Roche, Շվեյցարիա), XN-350, XS 500i (Sysmex, Ճապոնիա), Start 4, Start Max (Stago, Ֆրանսիա), Rotor Gene Q (Qiagen, Գերմանիա)",
         "link": {
-          "link": "/page?title=test"
+          "link": "/test"
         },
         "image": "/images/a-bg.jpg"
       }
@@ -1225,7 +1227,7 @@
         "title": "Dynamic Page With Title One",
         "text": "Բիոմեդ» ախտորոշման լաբորատորիան հիմնադրվել է 2009 թվականին: Լաբորատորիայում աշխատում են որակավորում ստացած ինչպես փորձառու, այնպես էլ երիատասարդ բժիշկ-լաբորանտներ: Հետազոտություններն իրականացվում են ոլորտում լավագույն, համաշխարհային ճանաչում ունեցող ընկերությունների ամենավերջին սարքավորումներով, իչպիսիք են՝ Cobas e 411, Cobas c 311, 9180 Electrolyte analyser (Roche, Շվեյցարիա), XN-350, XS 500i (Sysmex, Ճապոնիա), Start 4, Start Max (Stago, Ֆրանսիա), Rotor Gene Q (Qiagen, Գերմանիա)",
         "link": {
-          "link": "/page?title=one"
+          "link": "/one"
         },
         "image": "/images/a-bg.jpg"
       }

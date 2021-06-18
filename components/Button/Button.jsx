@@ -8,7 +8,6 @@ const styles = {
 
 
 const Button = ({text, backgroundColor, type, callBack, icon, disabled, padding}) => {
-    console.log(padding);
     return (
         <>
             <button

@@ -17,7 +17,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 
 function BioMedApp({Component, pageProps}) {
-
     return (
         <>
             <Head>

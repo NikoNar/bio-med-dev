@@ -9,8 +9,7 @@ const UserControlComponent = ({user, orders, setIsOpen}) => {
     return (
         <div className={HeaderStyle.Search}>
             <div className={HeaderStyle.UserControl}>
-                <Search setIsOpen={setIsOpen}/>
-                <BagIconComponent orders={orders} user={user}/>
+                <BagIconComponent orders={orders} user={user} callBack={()=>setIsOpen(false)}/>
                 <AccountIconComponent user={user} callBack={()=>setIsOpen(false)}/>
                 <LanguageSwitcher/>
             </div>

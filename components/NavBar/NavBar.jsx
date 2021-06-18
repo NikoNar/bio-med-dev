@@ -4,14 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {getNavBarItems} from "../../redux/actions/navBarAction";
 import NavStyle from './navigation.module.scss'
 import DropDownNavBarInner from "./SubLinks/DropDownNavBarInner";
-import { withRouter } from "next/router";
+import {useRouter, withRouter} from "next/router";
 
 
 const NavBar = ()=>{
     const text = 'Հետազոտություններ'
     const dispatch = useDispatch()
     const pages =useSelector(state=>state.navigation)
-
+    const router = useRouter()
+    const {locale} = router
 
     useEffect(()=>{
         dispatch(getNavBarItems())
@@ -24,9 +25,10 @@ const NavBar = ()=>{
             <ul>
                 {
                     pages.map((item)=>{
+                        console.log(item.dLinks);
                         return(
                             <li key={item.id} className={ item.subLinks ? NavStyle.HasChild : null }>
-                                <Link href={item.link ? item.link : ''}>
+                                <Link href={item.link ? item.link : ''} as={item.urlMask ? `${item.urlMask}` : ''}>
                                     <a>
                                             {item.title}
                                     </a>

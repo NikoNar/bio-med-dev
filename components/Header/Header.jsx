@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../NavBar/NavBar";
 import HeaderStyle from './header.module.scss'
 import LinkButton from "../LinkButton/LinkButton";
@@ -20,7 +20,7 @@ const Header = ({pageProps}) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state => state.orders)
-
+    const [isOpen, setIsOpen] = useState(false)
     const buttonLink = user ? "/profile" : "/results"
 
     useEffect(() => {
@@ -42,11 +42,24 @@ const Header = ({pageProps}) => {
                     </div>
                 </div>
                 <section className={HeaderStyle.MainHeader}>
-                    <div className={HeaderStyle.MainHeaderWrapper}>
-                        <Logo/>
-                        <UserControlComponent user={user} orders={orders}/>
+                    <div className={'container'}>
+                        <div className={'row'}>
+                            <div className={'col-lg-12'}>
+                                <div className={HeaderStyle.MainHeaderWrapper}>
+                                    <Logo/>
+                                    <div className={HeaderStyle.UserControl}>
+                                    <Search setIsOpen={setIsOpen}/>
+                                    <UserControlComponent user={user} orders={orders}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'row'}>
+                            <div className={'col-lg-12'}>
+                                <NavBar/>
+                            </div>
+                        </div>
                     </div>
-                    <NavBar/>
                 </section>
             </header>
             <MobileNavBar/>

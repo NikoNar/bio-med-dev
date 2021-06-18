@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MNStyle from './mobile-navbar.module.scss'
 import Logo from "../../Logo/Logo";
-import AccountIcon from "../../SVGIcons/Account/AccountIcon";
-import BagIcon from "../../SVGIcons/Bag/BagIcon";
 import BurgerMenu from "../../SVGIcons/BurgerMenu/BurgerMenu";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,10 +8,9 @@ import {getNavBarItems} from "../../../redux/actions/navBarAction";
 import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
 import {switchMobileNavBarState} from "../../../redux/actions/setNavBarStateAction";
 import Search from "../../UserControlComponent/Search/Search";
-import LanguageSwitcher from "../../UserControlComponent/LanguageSwitcher/LanguageSwitcher";
-import AccountIconComponent from "../../UserControlComponent/AccountIconComponent/AccountIconComponent";
 import {getCurrentUserAction} from "../../../redux/actions/getCurrentUserAction";
 import UserControlComponent from "../../UserControlComponent/UserControlComponent";
+import {useRouter} from "next/router";
 
 const MobileNavBar = () => {
     const dispatch = useDispatch()
@@ -21,6 +18,7 @@ const MobileNavBar = () => {
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state=>state.orders)
     const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
 
 
     useEffect(()=>{
@@ -40,6 +38,11 @@ const MobileNavBar = () => {
         setIsOpen(!isOpen)
     }
 
+    const closeSideBar = ()=>{
+        setTimeout(()=>{
+            setIsOpen(false)
+        },2000)
+    }
 
     return (
         <header className={MNStyle.Mobile}>
@@ -53,6 +56,7 @@ const MobileNavBar = () => {
             </div>
             <div className={isOpen ? MNStyle.Menu + ' ' + MNStyle.Open : MNStyle.Menu}>
                 <div className={MNStyle.ControlWrapper}>
+                    <Search setIsOpen={setIsOpen}/>
                     <UserControlComponent user={user} orders={orders}  setIsOpen={setIsOpen}/>
                 </div>
                 <div className={MNStyle.Links}>
@@ -60,8 +64,13 @@ const MobileNavBar = () => {
                         <ul>
                             {
                                 pages ? pages.map((p, index)=>{
-                                    return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index}>
-                                        <Link href={p.link}><a onClick={()=>setIsOpen(false)}>{p.title}</a></Link>
+                                    return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
+                                        closeSideBar()
+                                        router.replace(p.urlMask ? p.urlMask : null).then()
+                                    }}>
+                                        <Link href={p.link} as={p.dLink ? `${p.dLink}` : ''}>
+                                            <a>{p.title}</a>
+                                        </Link>
                                     </li>
                                 }) : ''
                             }
