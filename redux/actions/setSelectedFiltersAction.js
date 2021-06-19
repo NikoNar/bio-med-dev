@@ -2,8 +2,7 @@ import {SET_SELECTED_FILTERS} from "../types";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 
 
-export const filterAnalyzesByCategory = (filterValue)=>{
-
+export const filterAnalyzesByCategory = (filterValue, mainCategory)=>{
     return async (dispatch)=>{
         const filters = await fetch(`${analyzesUrl}` + '?' + `typeId=${filterValue}`)
             .then(res=>res.json())
@@ -13,9 +12,9 @@ export const filterAnalyzesByCategory = (filterValue)=>{
     }
 }
 
-export const filterAnalyzesByEvents = (filterValue)=>{
+export const filterAnalyzesByEvents = (filterValue, mainCategory)=>{
     return async (dispatch)=>{
-        const filters = await fetch(`${analyzesUrl}` + '?' + `eventType=${filterValue}`)
+        const filters = await fetch(`${analyzesUrl}` + '?' + `eventType=${filterValue}`+ `&mainCategory=${mainCategory}`)
             .then(res=>res.json())
             .then(data=>data)
 

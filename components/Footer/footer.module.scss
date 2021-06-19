@@ -43,3 +43,15 @@
     }
   }
 }
+
+@media (max-width: 991px) {
+  .Footer {
+    .FooterMain {
+      .Wrapper {
+        .Logo{
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}

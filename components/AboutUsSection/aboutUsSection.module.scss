@@ -1,12 +1,13 @@
 @import "styles/variables";
 
-.About{
+.About {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   position: relative;
   margin-top: 150px;
-  &:before{
+
+  &:before {
     content: '';
     position: absolute;
     width: 50%;
@@ -16,20 +17,24 @@
     bottom: 0;
     right: 0;
   }
-  .Empty{
+
+  .Empty {
 
   }
-  .Info{
+
+  .Info {
     padding: 220px 0 220px 36px;
     position: relative;
     z-index: 2;
-    .Title{
-      h2{
+
+    .Title {
+      h2 {
         font-size: 45px;
         font-weight: 700;
       }
     }
-    .Text{
+
+    .Text {
       font-size: 18px;
       font-weight: 400;
       line-height: 27px;
@@ -45,17 +50,64 @@
       min-height: 275px;
       max-height: 275px;
     }
-    .Link{
+
+    .Link {
       text-align: right;
-      a{
+
+      a {
         font-size: 15px;
         font-weight: 500;
         line-height: 24px;
         letter-spacing: 0.05em;
         color: #52A4E3;
         text-transform: uppercase;
-        &:hover{
+
+        &:hover {
           color: $light-blue;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .About {
+    background-position: 83%;
+    &:before {
+      width: 100%;
+      height: 55%;
+      top: unset;
+    }
+    .Empty{
+      height: 480px;
+    }
+    .Info{
+      padding: 50px 10px;
+    }
+  }
+}
+
+@media (max-width: 476px) {
+  .About {
+    margin-top: 80px;
+    background-position: 78%;
+    .Empty{
+      height: 360px;
+    }
+    .Info{
+      padding: 20px 15px;
+      .Title {
+        h2 {
+          font-size: 20px;
+        }
+      }
+      .Text{
+        font-size: 14px;
+        line-height: 21px;
+      }
+      .Link{
+        a{
+          font-size: 14px;
         }
       }
     }

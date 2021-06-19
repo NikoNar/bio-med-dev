@@ -21,3 +21,17 @@
         }    
     }
 }
+
+
+@media (max-width: 991px){
+    .TabList{
+        display: flex;
+        li{
+            &:last-child{
+                span{
+                    padding-left: 30px!important;
+                }
+            }
+        }
+    }
+}

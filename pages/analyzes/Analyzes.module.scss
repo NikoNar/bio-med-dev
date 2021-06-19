@@ -4,7 +4,21 @@
 .Main {
   padding-top: 109px;
   padding-bottom: 60px;
+  .SelectedFiltersName{
+    display: flex;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 21px;
+    strong{
+      margin: 0 60px 0 20px;
 
+    }
+    span{
+      color: $brand-red;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
   .Header {
     .Tags {
       margin-top: 34px;

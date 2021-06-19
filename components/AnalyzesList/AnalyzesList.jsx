@@ -9,7 +9,10 @@ import {filterAnalyzesByCategory, filterAnalyzesByEvents} from "../../redux/acti
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 
+
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
+
+
 
 
 const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
@@ -18,6 +21,10 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
     const selectedFilters = useSelector(state => state.filters)
     const [allAnalyzes, setAllAnalyzes] = useState(analyzesLab)
     const [isOpen, setIsOpen] = useState(false)
+    const [mainCategory, setMainCategory] = useState(categories[0].main)
+    const [filterName, setFilterName] = useState(null)
+
+
 
     useEffect(() => {
         if (selectedFilters) {
@@ -28,17 +35,21 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
 
     const handleCategoryFilter = (e) => {
         const value = e.target.value
+        const name = e.target.id
+        setFilterName(name)
         dispatch(filterAnalyzesByCategory(value))
+        setIsOpen(false)
     }
 
     const handleEventsFilter = (e) => {
         const value = e.target.value
-        dispatch(filterAnalyzesByEvents(value))
+        dispatch(filterAnalyzesByEvents(value, mainCategory))
     }
 
     const handleMainCategoryName = (e) => {
         const tabName = e.target.getAttribute("data-value")
-
+        setMainCategory(tabName)
+        setFilterName(null)
         switch (tabName) {
             case 'lab':
                 return setAllAnalyzes(analyzesLab)
@@ -49,12 +60,23 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
         }
     }
 
+    const handleClearFilters = ()=>{
+        setFilterName(null)
+        switch (mainCategory) {
+            case 'lab':
+                return setAllAnalyzes(analyzesLab)
+            case 'equip':
+                return setAllAnalyzes(analyzesEquip)
+
+        }
+    }
+
     return (
         <section className={AnalyzesStyle.Main}>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-6 col-sm-12'}>
-                        <h4>Հետազոտություններ</h4>
+                        <h4>{t('common:analyzes')}</h4>
                     </div>
                 </div>
                 <Tabs>
@@ -127,6 +149,14 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={'row'}>
+                                                <div className={'col-lg-12'}>
+                                                    <div className={AnalyzesStyle.SelectedFiltersName}>
+                                                        <article>Selected filter: <strong>{filterName ? filterName : 'There are no any filter selected yet'}</strong></article>
+                                                        {filterName ? <span onClick={handleClearFilters}>Clear filter</span> : null}
                                                     </div>
                                                 </div>
                                             </div>

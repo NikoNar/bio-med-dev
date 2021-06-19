@@ -29,7 +29,7 @@ function BioMedApp({Component, pageProps}) {
 
                 <title>Bio med</title>
                 <script
-                    src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCmivibDflTIZyyFvkr4gGsFEJa_Yd4o88&v=3.exp&libraries=geometry,drawing,places`}/>
+                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`}/>
 
             </Head>
 

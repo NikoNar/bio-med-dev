@@ -1,28 +1,77 @@
 @import "styles/variables";
+.InfoBlock{
+  .Item{
+    position: relative;
+    padding-top: 135px;
+    text-align: center;
+    margin: 145px auto 0;
+    font-size: 15px;
+    .Image{
+      max-width: 119px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .Info{
+      background-color: $white;
+      padding: 13px;
+      .InfoText{
 
-.Item{
-  position: relative;
-  padding-top: 135px;
-  text-align: center;
-  margin: 145px auto 0;
-  font-size: 15px;
-  .Image{
-    max-width: 119px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .Info{
-    background-color: $white;
-    padding: 13px;
-    .InfoText{
-
+      }
     }
   }
-  .Select{
-    .container{
-      
+}
+
+
+@media (max-width: 991px) {
+  .InfoBlock{
+    margin-top: 350px;
+    .Item{
+      display: flex;
+      align-items: center;
+      padding: 0;
+      width: 100%;
+      text-align: left;
+      margin-top: 20px;
+      .Select{
+        width: calc(100% - 66px);
+      }
+      .Image{
+        position: relative;
+        max-width: 35px;
+        top: unset;
+        left: unset;
+        transform: none;
+      }
+      .Info{
+        width: 100%;
+        margin-left: 30px;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px){
+  .InfoBlock{
+    margin-top: 270px;
+    .Item{
+      .Info{
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 376px){
+  .InfoBlock{
+    margin-top: 180px;
+    .Item{
+      .Info{
+        padding-left: 8px;
+        padding-right: 8px;
+      }
     }
   }
 }

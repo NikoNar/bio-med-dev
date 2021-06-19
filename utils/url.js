@@ -24,5 +24,3 @@ export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST}/doctors`
 export const equipmentUrl = `${process.env.NEXT_PUBLIC_HOST}/equipment`
 export const qualityControlUrl = `${process.env.NEXT_PUBLIC_HOST}/quality-control`
 
-
-

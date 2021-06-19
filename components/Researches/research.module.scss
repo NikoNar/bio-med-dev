@@ -61,3 +61,21 @@
     }
   }
 }
+
+@media (max-width: 476px) {
+  .Research{
+    .Item{
+      .Image{
+        max-width: 90px;
+        padding-top: 100px;
+      }
+      .Title{
+        font-size: 18px;
+        line-height: 27px;
+      }
+      .Desc{
+        font-size: 16px;
+      }
+    }
+  }
+}

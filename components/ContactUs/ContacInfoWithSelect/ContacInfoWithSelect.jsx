@@ -34,59 +34,73 @@ const ContactInfoWithSelect = ({contactInfo}) => {
             ...provided,
             border: "none",
             boxShadow: "none",
-            backgroundColor: ""
+            backgroundColor: "",
+            "@media only screen and (max-width: 991px)": {
+                ...provided["@media only screen and (max-width: 991px)"],
+                marginLeft: '30px',
+                width: '100%',
+                maxHeight: '52px',
+                marginBottom: '0',
+                fontSize: '14px'
+            },
         }),
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isFocused && "#F5FAFF",
             color: "#183042",
-            fontSize: "16px"
+            fontSize: "16px",
+            "@media only screen and (max-width: 991px)": {
+                ...provided["@media only screen and (max-width: 991px)"],
+                fontSize: '14px'
+            },
         })
     }
 
 
     return (
-        <div className={'container'}>
-            <div className={'row'}>
-                <div className={'col-lg-4'}>
-                    <div className={CUWSStyle.Item}>
-                        <div className={CUWSStyle.Image}>
-                            <BuildingIcon/>
-                        </div>
-                        <div className={CUWSStyle.Select}>
-                            <SelectBox
-                                options={Addresses}
-                                value={Addresses.find(obj => obj.label === selectedValue)}
-                                defaultValue={Addresses[0]}
-                                id={1}
-                                inputId={'contactInfo'}
-                                components={{
-                                    IndicatorSeparator: () => null,
-                                }}
-                                styles={styles}
-                                isSearchable={false}
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className={'col-lg-4'}>
-                    <div className={CUWSStyle.Item}>
-                        <div className={CUWSStyle.Image}>
-                            <PhoneIcon/>
-                        </div>
-                        <div className={CUWSStyle.Info}>
-                            <strong>{t('common:phone_short')}: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+        <div className={CUWSStyle.InfoBlock}>
+            <div className={'container'}>
+                <div className={'row'}>
+                    <div className={'col-lg-4'}>
+                        <div className={CUWSStyle.Item}>
+                            <div className={CUWSStyle.Image}>
+                                <BuildingIcon/>
+                            </div>
+                            <div className={CUWSStyle.Select}>
+                                <SelectBox
+                                    options={Addresses}
+                                    value={Addresses.find(obj => obj.label === selectedValue)}
+                                    defaultValue={Addresses[0]}
+                                    id={1}
+                                    inputId={'contactInfo'}
+                                    components={{
+                                        IndicatorSeparator: () => null,
+                                    }}
+                                    styles={styles}
+                                    isSearchable={false}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className={'col-lg-4'}>
-                    <div className={CUWSStyle.Item}>
-                        <div className={CUWSStyle.Image}>
-                            <EmailIcon/>
+                    <div className={'col-lg-4'}>
+                        <div className={CUWSStyle.Item}>
+                            <div className={CUWSStyle.Image}>
+                                <PhoneIcon/>
+                            </div>
+                            <div className={CUWSStyle.Info}>
+                                <strong>{t('common:phone_short')}: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+                            </div>
                         </div>
-                        <div className={CUWSStyle.Info}>
-                            <strong>{t('common:email')}: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                    </div>
+                    <div className={'col-lg-4'}>
+                        <div className={CUWSStyle.Item}>
+                            <div className={CUWSStyle.Image}>
+                                <EmailIcon/>
+                            </div>
+                            <div className={CUWSStyle.Info}>
+                                <strong>{t('common:email')}: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                            </div>
                         </div>
                     </div>
                 </div>

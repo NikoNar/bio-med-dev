@@ -34,7 +34,7 @@ const TabComponent = ({analyzes, categories}) => {
                     {
                         categories && categories.map((m)=>{
                             return (
-                                <Tab selectedClassName={TabStyle.Selected} key={m.main}>
+                                <Tab selectedClassName={TabStyle.Selected} key={m.main} >
                                     <TabButtons
                                         text={m.title}
                                         dataName={m.main}

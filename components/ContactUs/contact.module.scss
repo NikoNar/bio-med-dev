@@ -137,7 +137,13 @@
 }
 
 @media (max-width: 768px){
-
+  .ContactUs{
+    .Wrapper{
+      .DecorH{
+        top: 232px;
+      }
+    }
+  }
 }
 
 @media (max-width: 576px) {
@@ -148,6 +154,9 @@
   .ContactUs{
     margin: 70px 0 0;
     .Form{
+      p{
+        font-size: 14px;
+      }
       form {
         input, textarea {
           padding: 10px;
@@ -175,5 +184,11 @@
 }
 
 @media (max-width: 376px){
-
+  .ContactUs{
+    .Wrapper{
+      .DecorH{
+        top: 270px;
+      }
+    }
+  }
 }

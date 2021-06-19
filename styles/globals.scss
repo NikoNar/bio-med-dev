@@ -32,6 +32,10 @@ body ul{
 body h4{
   font-size: 30px;
   font-weight: 700;
+  text-transform: lowercase;
+  &:first-letter{
+    text-transform: uppercase;
+  }
 }
 
 body input, body textarea{
@@ -127,6 +131,12 @@ svg{
 @media (max-width: 991px){
   body h4{
     text-align: center;
+  }
+}
+
+@media (max-width: 476px){
+  body h4{
+    font-size: 22px;
   }
 }
 

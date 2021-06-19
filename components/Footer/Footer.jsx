@@ -28,7 +28,7 @@ const Footer = ()=>{
             <div className={FooterStyle.FooterMain}>
                 <div className={'container'}>
                     <div className={'row'}>
-                        <div className={'col-lg-3 mb-5'}>
+                        <div className={'col-lg-3 mb-5 col-12'}>
                             <div className={FooterStyle.Wrapper}>
                                 <div className={FooterStyle.Logo}>
                                     <Link href={'/'}>
@@ -65,7 +65,7 @@ const Footer = ()=>{
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-lg-3 mb-3 mb-lg-0 col-sm-12'}>
+                        <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12 col-3'}>
                             <div className={FooterStyle.List}>
                                 <ul>
                                     {
@@ -82,7 +82,7 @@ const Footer = ()=>{
                                 </ul>
                             </div>
                         </div>
-                        <div className={'col-lg-3 mb-3 mb-lg-0 order-last order-lg-3' + ' ' + FooterStyle.News}>
+                        <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12 col-3 order-last order-lg-3' + ' ' + FooterStyle.News}>
                             <div className={FooterStyle.NewsTitle}>
                                 <h5>Նորություններ</h5>
                             </div>
@@ -101,6 +101,8 @@ const Footer = ()=>{
                                     }): ''
                                 }
                             </div>
+                        </div>
+                        <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12 col-3'}>
                         </div>
                     </div>
                 </div>

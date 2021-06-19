@@ -2,17 +2,18 @@ import React from 'react';
 import RStyle from './research.module.scss'
 import Image from "../Image/Image";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 
 const Researches = ({researches}) => {
-
+    const {t} = useTranslation()
     return (
         <section className={RStyle.Research}>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={RStyle.Title}>
-                            <h4>Հետազոտություններ</h4>
+                            <h4>{t('common:analyzes')}</h4>
                         </div>
                     </div>
                 </div>
