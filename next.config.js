@@ -5,7 +5,11 @@ module.exports = {
         future: {
             webpack5: true,
         },
-        trailingSlash: true
+        trailingSlash: true,
+        env: {
+            HOST: process.env.NEXT_PUBLIC_HOST,
+            SERVER_HOST: process.env.NEXT_PUBLIC_SERVER_HOST
+          },
     }),
 }
 

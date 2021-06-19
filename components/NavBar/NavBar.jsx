@@ -25,10 +25,9 @@ const NavBar = ()=>{
             <ul>
                 {
                     pages.map((item)=>{
-                        console.log(item.dLinks);
                         return(
                             <li key={item.id} className={ item.subLinks ? NavStyle.HasChild : null }>
-                                <Link href={item.link ? item.link : ''} as={item.urlMask ? `${item.urlMask}` : ''}>
+                                <Link href={item.link ? item.link : ''}>
                                     <a>
                                             {item.title}
                                     </a>

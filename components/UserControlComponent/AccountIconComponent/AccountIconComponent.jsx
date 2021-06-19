@@ -7,7 +7,7 @@ import AccountIcon from "../../SVGIcons/Account/AccountIcon";
 const AccountIconComponent = ({user, callBack}) => {
     return (
         <div
-            onClick={callBack}
+            onClick={callBack && callBack}
             className={user ? HeaderStyle.Account + ' ' + HeaderStyle.LoggedIn + ' ' + HeaderStyle.Item : HeaderStyle.Account + ' ' + HeaderStyle.Item}
         >
             {

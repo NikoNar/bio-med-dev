@@ -57,7 +57,7 @@ const MobileNavBar = () => {
             <div className={isOpen ? MNStyle.Menu + ' ' + MNStyle.Open : MNStyle.Menu}>
                 <div className={MNStyle.ControlWrapper}>
                     <Search setIsOpen={setIsOpen}/>
-                    <UserControlComponent user={user} orders={orders}  setIsOpen={setIsOpen}/>
+                    <UserControlComponent user={user} orders={orders}  setIsOpen={()=>setIsOpen(false)}/>
                 </div>
                 <div className={MNStyle.Links}>
                     <nav>
@@ -65,10 +65,9 @@ const MobileNavBar = () => {
                             {
                                 pages ? pages.map((p, index)=>{
                                     return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
-                                        closeSideBar()
-                                        router.replace(p.urlMask ? p.urlMask : null).then()
+                                        closeSideBar()                    
                                     }}>
-                                        <Link href={p.link} as={p.dLink ? `${p.dLink}` : ''}>
+                                        <Link href={p.link}>
                                             <a>{p.title}</a>
                                         </Link>
                                     </li>
