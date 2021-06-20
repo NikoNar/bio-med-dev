@@ -25,10 +25,11 @@ const NavBar = ()=>{
             <ul>
                 {
                     pages.map((item)=>{
+                        /*console.log(router.pathname, item.link);*/
                         return(
                             <li key={item.id} className={ item.subLinks ? NavStyle.HasChild : null }>
-                                <Link href={item.link ? item.link : ''}>
-                                    <a>
+                                <Link href={item.link ? item.link : ''} activeClassName="active">
+                                    <a className={router.asPath === `${item.link}` ? NavStyle.Active : ""}>
                                             {item.title}
                                     </a>
                                 </Link>

@@ -112,7 +112,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                                         <span className={'_icon-chevrone-down'} onClick={()=>setIsOpen(!isOpen)}></span>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
-                                                                                id={'events-1'}
+                                                                                id={m.main}
                                                                                 type='radio'
                                                                                 name={'events-1'}
                                                                                 value='event'
@@ -122,7 +122,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                                         </li>
                                                                         <li className={AnalyzesStyle.Emergency}>
                                                                             <input
-                                                                                id={'homeCall-1'}
+                                                                                id={m.main}
                                                                                 type="radio"
                                                                                 name={'events-1'}
                                                                                 value='homeCall'

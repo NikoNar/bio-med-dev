@@ -57,8 +57,8 @@ const LanguageSwitcher = () => {
                 options={LanguageSwitcherOptions}
                 value={LanguageSwitcherOptions.find(obj => obj.value === selectedValue)}
                 defaultValue={locale}
-                id={1}
-                inputId={'header'}
+                id={2}
+                inputId={router.asPath}
                 components={{
                     IndicatorSeparator: () => null,
                 }}

@@ -17,6 +17,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 
 function BioMedApp({Component, pageProps}) {
+
     return (
         <>
             <Head>
@@ -25,7 +26,10 @@ function BioMedApp({Component, pageProps}) {
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-
+                <meta name="description" content={`${pageProps.aboutUs && pageProps.aboutUs.text}`}/>
+                <meta property="og:image" content={`${pageProps.singleNews && pageProps.singleNews.image}`}/>
+                <meta property="og:title" content={`${pageProps.singleNews && pageProps.singleNews.title}`}/>
+                <meta property="og:description" content={`${pageProps.singleNews && pageProps.singleNews.body}`}/>
 
                 <title>Bio med</title>
                 <script

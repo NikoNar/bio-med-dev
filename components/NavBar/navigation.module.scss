@@ -32,6 +32,7 @@
           }
         }
       }
+
       .Dropdown{
         .HasChild{
           &:before{
@@ -59,6 +60,9 @@
         color: $brand-blue;
         padding: 5px 0;
         display: inline-block;
+        &.Active{
+          color: $brand-red;
+        }
         &:hover{
           color: $brand-red;
         }

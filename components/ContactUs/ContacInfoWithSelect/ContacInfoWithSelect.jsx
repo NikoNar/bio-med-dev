@@ -5,9 +5,10 @@ import PhoneIcon from "../../SVGIcons/Phone/PhoneIcon";
 import EmailIcon from "../../SVGIcons/Email/EmailIcon";
 import SelectBox from "../../SelectBox/SelectBox";
 import useTranslation from "next-translate/useTranslation";
+import {useRouter} from "next/router";
 
 const ContactInfoWithSelect = ({contactInfo}) => {
-
+    const router = useRouter()
     const {t} = useTranslation()
     const Addresses = contactInfo
     const [selectedValue, setSelectedValue] = useState(Addresses[0].label);
@@ -72,7 +73,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
                                     value={Addresses.find(obj => obj.label === selectedValue)}
                                     defaultValue={Addresses[0]}
                                     id={1}
-                                    inputId={'contactInfo'}
+                                    inputId={router.asPath}
                                     components={{
                                         IndicatorSeparator: () => null,
                                     }}
