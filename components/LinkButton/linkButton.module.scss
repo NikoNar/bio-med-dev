@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+
+.Link{
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  background: linear-gradient(208deg, transparent 11px,#b0b8c0 0);  
+  display: inline-block;
+  line-height: 22px;
+  letter-spacing: 0.05em;
+  padding: 16px 25px 16px 33px;
+  color: $white;
+  text-transform: uppercase;
+  &:hover{
+    color: $white;
+  }
+}
+
+@media (max-width: 991px){
+  .Link{
+    padding: 12px 20px!important;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 476px){
+  .Link{
+    padding: 10px 14px!important;
+    font-size: 12px;
+  }
+}

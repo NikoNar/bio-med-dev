@@ -1,0 +1,30 @@
+@import "styles/variables";
+
+.Pagination{
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 159px;
+  ul{
+    display: flex;
+    align-items: center;
+    li{
+      margin: 5px;
+      button{
+        background: none;
+        color: $black;
+        &.Active{
+          color: $light-blue!important;
+        }
+        &:disabled{
+          color: $brand-gray;
+        }
+        span{
+          font-family: 'icons';
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

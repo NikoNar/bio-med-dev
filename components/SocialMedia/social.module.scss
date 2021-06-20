@@ -1,0 +1,43 @@
+@import "styles/variables";
+
+.List{
+  display: flex;
+  button{
+    margin-left: 20px;
+  }
+  span{
+    font-family: 'icons';
+    font-size: 30px;
+    color: $brand-blue;
+    &:hover{
+      color: $light-blue;
+    }
+  }
+  ul{
+
+    margin: 0;
+    li{
+
+      &:first-child{
+        margin-left: 20px;
+      }
+      a{
+
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px){
+  .List{
+    ul{
+      li{
+        margin-left: 20px;
+        a{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

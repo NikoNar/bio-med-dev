@@ -6,6 +6,15 @@
   font-style: normal;
 }
 
+
+@font-face {
+  font-family: "icons";
+  font-display: swap;
+  src: url("/fonts/icons.woff") format("woff"), url("/fonts/icons.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @font-face {
   font-family: "Montserrat arm";
   font-display: swap;
@@ -44,4 +53,44 @@
   src: url("/fonts/Montserratarm-Bold.woff") format("woff"), url("/fonts/Montserratarm-Bold.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
+}
+
+._icon-amd:before {
+  content: "\e900";
+}
+._icon-bag:before {
+  content: "\e901";
+}
+._icon-chevrone_left:before {
+  content: "\e902";
+}
+._icon-chevrone_right:before {
+  content: "\e903";
+}
+._icon-chevrone-down:before {
+  content: "\e904";
+}
+._icon-fb:before {
+  content: "\e905";
+}
+._icon-female:before {
+  content: "\e906";
+}
+._icon-gp:before {
+  content: "\e907";
+}
+._icon-insta:before {
+  content: "\e908";
+}
+._icon-male:before {
+  content: "\e909";
+}
+._icon-search:before {
+  content: "\e90a";
+}
+._icon-user:before {
+  content: "\e90b";
+}
+._icon-whatsapp:before {
+  content: "\e90c";
 }

@@ -1,0 +1,193 @@
+@import "styles/variables";
+
+.DesktopHeader{
+  .TopHeader{
+    padding: 10px 0;
+    display: flex;
+    justify-content: flex-end;
+    a{
+      background: linear-gradient(208deg, transparent 11px, #183042 0);
+    }
+  }
+  .MainHeader{
+    background-color: $white;
+    padding: 20px 0;
+    .MainHeaderWrapper{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+  }
+}
+
+.Search{
+  display: flex;
+  align-items: center;
+  .SearchWrapper{
+    position: relative;
+    margin-left: 20px;
+    input{
+      background: $body-color;
+      border: none;
+      padding: 6px 35px 6px 22px;
+      border-radius: 5px;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      background: transparent;
+      border: none;
+      outline: none;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url("/images/icons/search.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+.UserControl{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  form{
+    position: relative;
+    margin-right: 40px;
+    input {
+      background: #f5faff;
+      border: none;
+      padding: 6px 22px;
+      border-radius: 5px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      background: 0 0;
+      border: none;
+      outline: 0;
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 2px;
+        left: 0;
+        background-image: url('/images/icons/search.svg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+  .Item{
+    margin-right: 40px;
+  }
+  .Bag{
+    width: 35px;
+    position: relative;
+    .BagCount{
+      position: absolute;
+      display: block;
+      width: 18px;
+      height: 22px;
+      line-height: 22px;
+      background-color: $icons-blue;
+      text-align: center;
+      color: $white;
+      font-size: 9px;
+      font-weight: 700;
+      top: 0;
+      right: -7px;
+      clip-path: $hexagonal;
+    }
+    svg {
+      width: 100%;
+    }
+  }
+  .Account{
+    width: 25px;
+    &.LoggedIn{
+      width: 202px;
+      text-align: center;
+    }
+    a{
+      font-size: 16px;
+    }
+  }
+  .LanguageSwitcher{
+    .ReactSelect{
+      border: none;
+    }
+  }
+}
+
+@media (max-width: 1550px) {
+
+}
+
+@media (max-width: 1200px){
+
+}
+
+@media (max-width: 991px){
+  .DesktopHeader{
+    display: none;
+  }
+  .SearchWrapper{
+    margin-left: 0!important;
+  }
+  .UserControl{
+    .Account{
+      &.LoggedIn{
+        text-align: left;
+        a{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px){
+
+}
+
+@media (max-width: 576px) {
+
+}
+
+@media (max-width: 476px){
+  .Account{
+    &.LoggedIn{
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 376px){
+
+}

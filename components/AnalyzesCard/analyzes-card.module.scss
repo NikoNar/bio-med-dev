@@ -1,0 +1,183 @@
+@import "styles/variables";
+
+.Item{
+  background-color: $white;
+  padding: 10px 20px 20px;
+  position: relative;
+  .RemoveBtn{
+    width: 45px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    fill: $brand-gray;
+    button{
+      background-color: unset;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  &:hover{
+    filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
+  }
+  .Top{
+    margin-bottom: 30px;
+    .Number{
+      font-size: 12px;
+      font-weight: 300;
+      color: $brand-gray;
+    }
+    .Title{
+      font-size: 18px;
+      font-weight: 900;
+      color: $brand-red;
+      margin-bottom: 10px;
+    }
+    .Desc{
+      font-size: 20px;
+      font-weight: 900;
+      color: $brand-blue;
+      line-height: 30px;
+      letter-spacing: 0.05em;
+    }
+  }
+  .Info{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .Price{
+      p{
+        color: $black;
+        font-size: 20px;
+        font-weight: 900;
+        margin: 0;
+        span{
+          font-family: icons;
+          font-size: 14px;
+          line-height: 30px;
+          margin-left: 4px;
+        }
+        &.SellPrice{
+          color: rgba(30, 34, 36, 0.5);
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          position: relative;
+          display: inline-block;
+          &:before{
+            content: '';
+            width: 100%;
+            height: 1px;
+            background-color: rgba(30, 34, 36, 0.5);
+            position: absolute;
+            transform: rotate(8deg);
+            top: 13px;
+            left: 0;
+            right: 0;
+          }
+          span{
+            font-size: 12px;
+          }
+        }
+        line-height: 24px;
+        letter-spacing: 0.05em;
+      }
+    }
+    .Options{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .Emergency{
+        width: 43px;
+        margin-right: 20px;
+        button{
+          background: linear-gradient(208deg, transparent 11px, $light-blue 0)!important;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1200px){
+  .Item{
+    .Top{
+      margin-bottom: 40px;
+      .Title{
+        font-size: 16px;
+      }
+      .Desc{
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px){
+  .Item{
+    .RemoveBtn{
+      top: 9px;
+      right: 9px;
+    }
+  }
+}
+
+@media (max-width: 576px){
+  .Item{
+    &:hover{
+      filter: drop-shadow(0px 5px 6px rgba(24, 48, 66, 0.3));
+    }
+    .Top{
+      margin-bottom: 20px;
+      .Title{
+        font-size: 12px;
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        margin-top: 10px;
+        min-height: 35px;
+        max-height: 35px;
+      }
+      .Desc{
+        font-size: 12px;
+        line-height: 18px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        margin-top: 10px;
+        min-height: 35px;
+        max-height: 35px;
+      }
+    }
+    .Info{
+      .Price{
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align: center;
+        p{
+          font-size: 20px;
+          line-height: 30px;
+        }
+      }
+      .Options{
+        justify-content: center;
+        .Emergency{
+          width: 32px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+

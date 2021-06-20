@@ -1,0 +1,140 @@
+@import "styles/variables";
+
+.Form{
+  background-color: $white;
+  box-shadow: 0 10px 22px rgb(39 39 39 / 30%);
+  padding: 40px;
+  form{
+    text-align: center;
+    display: inline-block;
+    .Error{
+      background-color: $error-background-color;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      p{
+        margin: 0;
+      }
+    }
+    .Portal, .DatePicker{
+      input{
+        text-align: center!important;
+        color: $brand-gray;
+      }
+    }
+    .DatePicker{
+      .Date{
+        &.DateWithError{
+          input{
+            border-color: #ff0000;
+          }
+        }
+      }
+    }
+    .Portal{
+      .Time{
+        &.TimeWithError{
+          input{
+            border-color: #ff0000;
+          }
+        }
+      }
+    }
+    input{
+      width: 100%;
+      padding: 20px;
+      border: 1px solid transparent;
+      background-color: #f5faff;
+      margin-bottom: 30px;
+      &::placeholder{
+        color: $brand-gray;
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+    button{
+      float: right;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  .Price{
+    margin-top: 40px;
+    .PriceItem{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #183042;
+      line-height: 22px;
+      letter-spacing: .05em;
+      padding: 5px 20px;
+      width: 100%;
+      p{
+        font-size: 16px;
+        margin: 0;
+      }
+      strong{
+        font-size: 24px;
+        font-weight: 500;
+      }
+      span{
+        font-family: icons;
+        font-size: 16px;
+        font-weight: 400;
+      }
+      &.CallHomePrice{
+
+      }
+    }
+    .Total{
+
+    }
+  }
+}
+
+@media(max-width: 991px){
+  .Form{
+    padding: 40px 15px;
+    form{
+      width: 100%;
+      input{
+        padding: 10px;
+        &::placeholder{
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+    .Price{
+      .PriceItem{
+        padding: 0;
+        p{
+          font-size: 14px;
+          line-height: 21px;
+        }
+        strong{
+          font-size: 18px;
+          line-height: 27px;
+        }
+        span{
+          font-size: 12px;
+          line-height: 18px;
+        }
+        &.CallHomePrice{
+
+        }
+      }
+      .Total{
+
+      }
+    }
+  }
+
+}
+
+
