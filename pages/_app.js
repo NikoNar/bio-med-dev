@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react'
 import '../styles/styles.scss'
-<<<<<<< HEAD
-=======
 import '../styles/globals.scss'
 import '../styles/fonts.scss'
->>>>>>> 9dd471683ba672614426b02997b53b50f409a5e7
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import {createWrapper} from "next-redux-wrapper";
@@ -17,12 +14,6 @@ import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 9dd471683ba672614426b02997b53b50f409a5e7
-
 
 function BioMedApp({Component, pageProps}) {
 
@@ -50,13 +41,6 @@ function BioMedApp({Component, pageProps}) {
                     <Component {...pageProps}/>
                     <Footer/>
                 </Provider>
-
-<<<<<<< HEAD
-=======
-            <Provider store={store}>
-                <Component {...pageProps} />
-            </Provider>
->>>>>>> 9dd471683ba672614426b02997b53b50f409a5e7
         </>
     )
 }
