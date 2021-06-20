@@ -135,7 +135,7 @@
       text-align: center;
     }
     a{
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   .LanguageSwitcher{
@@ -159,6 +159,15 @@
   }
   .SearchWrapper{
     margin-left: 0!important;
+  }
+  .Account{
+    &.LoggedIn{
+      margin-top: 20px;
+      a{
+        text-align: left;
+        font-size: 18px;
+      }
+    }
   }
 }
 

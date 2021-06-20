@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SAnalyseStyle from "./single-analyse.module.scss";
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
-import InnerSlider from "../../components/InnerSlider/InnerSlider";
 import dynamic from "next/dynamic";
 import Button from "../../components/Button/Button";
-import {analyzesCategoryUrl, analyzesUrl, contactInfoUrl, newsUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesUrl, contactInfoUrl} from "../../utils/url";
 import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
 import useTranslation from "next-translate/useTranslation";
 import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
@@ -17,8 +16,9 @@ import {useRouter} from "next/router";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
-const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}) => {
 
+const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageProps) => {
+    console.log(analyzes);
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
@@ -50,7 +50,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}) => {
                             </div>
                         </div>
                     </div>
-                    <div className={'row'}>
+                    <div className={'row mb-5'}>
                         <div className={'col-lg-8'}>
                             <div className={SAnalyseStyle.Title}>
                                 <p>{singleAnalyse.body}</p>
@@ -115,8 +115,8 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}) => {
                     </div>
                 </div>
             </section>
-            <section>
-                <TabComponent analyzes={analyzes} categories={categories}/>
+            <section className={SAnalyseStyle.Slider}>
+                <TabComponent categories={categories} analyzes={analyzes}/>
             </section>
             <section>
                 <div className={'container'}>

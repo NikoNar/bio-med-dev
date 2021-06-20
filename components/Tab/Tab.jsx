@@ -10,7 +10,6 @@ import {Tab, TabList, TabPanel} from 'react-tabs';
 
 const TabComponent = ({analyzes, categories}) => {
 
-
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes)
     const [mainCategory, setMainCategory] = useState(categories[0].main)
 
@@ -20,7 +19,6 @@ const TabComponent = ({analyzes, categories}) => {
         setAllAnalyzes(analyzes)
         setMainCategory(tabName)
     }
-
 
     return (
         <div className={'container'}>

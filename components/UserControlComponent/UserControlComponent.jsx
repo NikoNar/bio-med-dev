@@ -10,8 +10,8 @@ const UserControlComponent = ({user, orders, setIsOpen}) => {
         <div className={HeaderStyle.Search}>
             <div className={HeaderStyle.UserControl}>
                 <BagIconComponent orders={orders} user={user} callBack={setIsOpen}/>
-                <AccountIconComponent user={user} callBack={setIsOpen}/>
                 <LanguageSwitcher/>
+                <AccountIconComponent user={user} callBack={setIsOpen}/>
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {useRouter} from "next/router";
 
 const AnalyzesCard = ({inner, icon, index, id}) => {
+
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
 
@@ -21,9 +22,9 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
     const text = 'ԱՎԵԼԱՑՆԵԼ'
 
 
-    useEffect(() => {
-        dispatch(getCurrentUserAction())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getCurrentUserAction())
+    // }, [])
 
     const handleAddToCart = (data) => {
         dispatch(addItemToCart(data))
@@ -46,7 +47,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                         <div className={AStyle.Top}>
                             <small className={AStyle.Number}>№{inner.number}</small>
                             <div className={AStyle.Title}>
-                                <Link href={`/analyzes/${id}`}>
+                                <Link href={`/analyzes/${inner.id}`}>
                                     <a><span>{inner.title}</span></a>
                                 </Link>
                             </div>
