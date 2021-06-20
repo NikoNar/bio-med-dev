@@ -23,3 +23,4 @@ export const allReducers = combineReducers({
     mobileNavBar: mobileNavbarReducer,
     search: searchReducer
 })
+
