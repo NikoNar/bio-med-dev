@@ -102,6 +102,14 @@
 }
 
 @media (max-width: 768px){
+  .Text {
+    .Line {
+      p{
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+  }
   .Wrapper{
     width: 50vw;
     height: 55vw;

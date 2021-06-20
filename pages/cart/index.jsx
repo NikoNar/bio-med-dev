@@ -39,13 +39,19 @@ const Cart = ({contactInfo}) => {
                 </div>
                 <div className={'row'}>
                     <div className={'col-lg-6'}>
-                        <div className={'row'}>
-                            <div className={'col-lg-12'}>
+                        {
+                            orders && orders.length > 0
+                            ?
+                            <div className={'row'}>
+                            <div className={'col-lg-12 mt-5'}>
                                 <div className={CartStyle.RemoveAll} onClick={deleteAllOrders}>
                                     <span>{t('common:clear_all')}</span>
                                 </div>
                             </div>
                         </div>
+                            : ''
+                        }
+
                         <div className={'row'}>
                             {
                                 orders ? orders.map((o, index) => {
@@ -70,7 +76,7 @@ const Cart = ({contactInfo}) => {
                 </div>
                 <div className={'row'}>
                     <div className={'col-lg12'}>
-                        <ContactInfoWithSelect contactInfo={contactInfo} orders={orders}/>
+                        <ContactInfoWithSelect contactInfo={contactInfo}/>
                     </div>
                 </div>
             </div>

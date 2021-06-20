@@ -75,19 +75,19 @@ svg{
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center;
-  width: 20px!important;
+  width: 15px!important;
   top: 3%!important;
 }
 
 
 .swiper-button-next {
   background-image: url('/images/icons/chevron-right.svg');
-  right: 22%!important;
+  right: 0!important;
 }
 
 .swiper-button-prev {
   background-image: url('/images/icons/chevron-left.svg');
-  left: 72%!important;
+  left: calc(100% - 50px)!important;
 }
 
 .swiper-button-next {
@@ -126,17 +126,27 @@ svg{
 }
 
 
+#checkoutBranch{
+  padding: 4px;
+  margin: 0;
+}
+
 
 
 @media (max-width: 991px){
   body h4{
     text-align: center;
+    font-size: 22px;
+    line-height: 33px;
   }
+
+  .swiper-button-next, .swiper-button-prev{
+    width: 12px!important;
+  }
+
 }
 
 @media (max-width: 476px){
-  body h4{
-    font-size: 22px;
-  }
+
 }
 

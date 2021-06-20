@@ -62,15 +62,24 @@
   }
   .FullName{
     margin-bottom: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .GenderBlock{
+      width: 134px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     input{
-      margin: 0;
+      margin: 0 15px 0 0;
+      width: calc(100% - 134px);
     }
     label{
       font-family: 'icons';
       display: inline-block;
       text-align: center;
-      min-width: 75px;
-      margin-left: 10px;
+      min-width: 48%;
       height: 67px;
       position: relative;
       &.FemaleActive{
@@ -98,18 +107,53 @@
         }
       }
       span{
-        font-size: 40px;
+        font-size: 32px;
         position: absolute;
         left: 50%;
-        top: 4px;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50% );
         color: $white;
       }
     }
   }
-  .GenderBlock{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+@media(max-width: 991px){
+  .Register{
+    form{
+      input{
+        padding: 10px;
+        &::placeholder{
+          font-size: 14px;
+        }
+      }
+    }
+    .GenderBlock{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      label{
+        height: 50px;
+        span{
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 991px){
+  .Register{
+    .GenderBlock{
+      justify-content: flex-start;
+      label{
+        height: 50px;
+        min-width: 50px;
+        margin-right: 15px;
+        span{
+          font-size: 24px;
+        }
+      }
+    }
   }
 }

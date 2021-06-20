@@ -61,3 +61,24 @@
     }
   }
 }
+
+@media (max-width: 991px){
+  .Item{
+    .Image{
+      height: 200px;
+    }
+    .Info{
+      span{
+        font-size: 16px;
+      }
+      .Name{
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .Desc{
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+  }
+}

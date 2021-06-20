@@ -88,3 +88,32 @@
     }
   }
 }
+
+
+@media (max-width: 991px) {
+  .Item{
+    .Header{
+      .HeaderTitle{
+        p{
+          font-size: 16px;
+        }
+      }
+      .Date{
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+    .Body{
+      table{
+        tr{
+          th{
+            font-size: 12px;
+          }
+          td{
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

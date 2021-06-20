@@ -35,3 +35,21 @@
     }
   }
 }
+
+
+@media (max-width: 991px){
+  .HomeCall{
+    .Wrapper{
+      p{
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    .IconWrapper{
+      .Icon{
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+  }
+}

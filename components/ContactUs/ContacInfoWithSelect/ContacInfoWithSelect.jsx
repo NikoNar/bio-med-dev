@@ -30,7 +30,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
             backgroundColor: "#FFFFFF",    
             padding: "6px"
         }),
-        container: (provided, state) => ({
+        container: (provided) => ({
             ...provided,
             border: "none",
             boxShadow: "none",

@@ -11,9 +11,24 @@
     }
   }
   .Image{
-    height: 100%;
+    min-height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+  }
+}
+
+
+@media(max-width: 991px){
+  .DynamicPage{
+    .Text{
+      p{
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+    .Image{
+      height: 280px;
+    }
   }
 }

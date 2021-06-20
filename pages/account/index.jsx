@@ -29,40 +29,40 @@ const Account = () => {
                             <h4> Ձեր անձնական հաշիվը </h4>
                         </div>
                     </div>
-                    <div className={'row'}>
-                        <div className={'col-lg-12'}>
-                            <Tabs>
-                                <TabList className={TabStyle.TabList}>
-                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:login')}/></Tab>
-                                    <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:register')}/></Tab>
-                                </TabList>
-                                <div className={'row'}>
-                                    <div className={'col-lg-6 mb-5 mb-lg-0'}>
-                                        <TabPanel>
-                                            <LoginForm/>
-                                        </TabPanel>
-                                        <TabPanel>
-                                            <RegisterForm/>
-                                        </TabPanel>
-                                    </div>
-                                    <div className={'col-lg-5 offset-0 offset-lg-1'}>
-                                        <div className={AccStyle.Wrapper}>
-                                            <div className={AccStyle.HasNoAccount}>
-                                                <div className={AccStyle.HNTitle}>
-                                                    <h4>{t('common:has_no_account')}</h4>
-                                                </div>
-                                                <div className={AccStyle.HNtext}>
-                                                    <p>{t('common:has_no_account_text')}</p>
-                                                </div>
-                                                <div className={AccStyle.HNLink}>
-                                                    <LinkButton text={t('common:analyzes')} link={'/results'}/>
-                                                </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-lg-12'}>
+                        <Tabs>
+                            <TabList className={TabStyle.TabList}>
+                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:login')}/></Tab>
+                                <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:register')}/></Tab>
+                            </TabList>
+                            <div className={'row'}>
+                                <div className={'col-lg-6 mb-5 mb-lg-0'}>
+                                    <TabPanel>
+                                        <LoginForm/>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <RegisterForm/>
+                                    </TabPanel>
+                                </div>
+                                <div className={'col-lg-5 offset-0 offset-lg-1'}>
+                                    <div className={AccStyle.Wrapper}>
+                                        <div className={AccStyle.HasNoAccount}>
+                                            <div className={AccStyle.HNTitle}>
+                                                <h4>{t('common:has_no_account')}</h4>
+                                            </div>
+                                            <div className={AccStyle.HNtext}>
+                                                <p>{t('common:has_no_account_text')}</p>
+                                            </div>
+                                            <div className={AccStyle.HNLink}>
+                                                <LinkButton text={t('common:analyzes')} link={'/results'}/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </Tabs>
-                        </div>
+                            </div>
+                        </Tabs>
                     </div>
                 </div>
             </div>

@@ -76,9 +76,11 @@
       margin-bottom: 20px;
     }
     .WrapperDate{
-      font-size: 15px;
+      font-size: 16px;
+      line-height: 24px;
       font-weight: 700;
       color: $light-blue;
+      margin-bottom: 20px;
     }
     .WrapperTitle{
       font-size: 26px;
@@ -98,6 +100,56 @@
         font-size: 20px;
         color: $light-blue;
         font-weight: 700;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px){
+  .News{
+    padding-bottom: 40px;
+    .Item{
+      .Body{
+        .Date{
+          font-size: 14px;
+          line-height: 21px;
+        }
+        .ItemTitle{
+          font-size: 18px;
+          line-height: 27px;
+        }
+        .ItemText{
+          font-size: 14px;
+          line-height: 21px;
+          min-height: 45px;
+          max-height: 45px;
+        }
+        .Link{
+          a{
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  .SingleNews{
+    .Wrapper {
+      .WrapperImg {
+        min-height: 250px;
+      }
+      .WrapperDate{
+        font-size: 14px;
+      }
+      .WrapperTitle{
+        font-size: 20px;
+        line-height: 30px;
+      }
+      .WrapperText{
+        font-size: 14px;
+        line-height: 21px;
       }
     }
   }

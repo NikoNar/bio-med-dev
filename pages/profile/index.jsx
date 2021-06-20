@@ -186,39 +186,32 @@ const Profile = ({contactInfo, results, token, user}) => {
                                     <div className={'col-lg-6'}>
                                         <div className={RegisterFormStyle.Register}>
                                             <form onSubmit={handleSubmitProfileEdit(handleProfileEdit)}>
-                                                <div className={RegisterFormStyle.FullName}>
-                                                    <div className={'row'}>
-                                                        <div className={'col-8'}>
+                                                <div className={'row'}>
+                                                    <div className={'col-lg-12'}>
+                                                        <div className={RegisterFormStyle.FullName}>
                                                             <input
                                                                 placeholder={t('common:full_name')}
                                                                 type="text"
-                                                                name='editProfileFullName'
-                                                                defaultValue={currentUser && currentUser.fullName}
+                                                                name='registerFullName'
                                                                 {...registerEditProfile('editProfileFullName')}
                                                                 style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
-                                                        </div>
-                                                        <div className={'col-4'}>
                                                             <div className={RegisterFormStyle.GenderBlock}>
-                                                                <label htmlFor="editProfileMale"
-                                                                       className={RegisterFormStyle.MaleActive}>
+                                                                <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
                                                                     <input
                                                                         type="radio"
-                                                                        id="editProfileMale"
+                                                                        id="male"
                                                                         value='male'
-                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'male')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
                                                                     <span className="_icon-male"></span>
                                                                 </label>
-                                                                <label htmlFor="editProfileFemale"
-                                                                       className={RegisterFormStyle.FemaleActive}>
+                                                                <label htmlFor="female" className={RegisterFormStyle.FemaleActive}>
                                                                     <input
                                                                         type="radio"
-                                                                        id="editProfileFemale"
+                                                                        id="female"
                                                                         value='female'
-                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'female')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -334,7 +327,7 @@ export async function getServerSideProps(ctx) {
             }
         }
     }
-    const token = ctx.req.cookies.token && ctx.req.cookies.token
+    const token = ctx.req.cookies.token
     const user = ctx.req ? ctx.req.cookies.currentUser : null
 
     const contactInfo = await fetch(contactInfoUrl, {

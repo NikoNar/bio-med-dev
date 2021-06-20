@@ -27,7 +27,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
 
     const breakpointsValue =
              component === 'analyzes' ? { 1700:{ slidesPerView: 3,}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} :
-             component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4,}, 991: { slidesPerView: 3,}, 0: {slidesPerView: 1,}} : null
+             component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4,}, 991: { slidesPerView: 3,}, 476: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} : null
 
 
     return (

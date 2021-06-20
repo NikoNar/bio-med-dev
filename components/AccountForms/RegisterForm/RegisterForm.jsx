@@ -11,9 +11,6 @@ import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 import ModalComponent from "../../Alerts/Modal/ModalComponent";
 
 
-
-
-
 const RegisterForm = ({security, currentUser}) => {
 
     const {t} = useTranslation()
@@ -61,10 +58,10 @@ const RegisterForm = ({security, currentUser}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...registerData, orders:[]})
+            body: JSON.stringify({...registerData, orders: []})
         })
-            .then(res => res.json() )
-            .then(data=>{
+            .then(res => res.json())
+            .then(data => {
                 registerFormReset({
                     registerFullName: '',
                     registerEmail: '',
@@ -87,9 +84,9 @@ const RegisterForm = ({security, currentUser}) => {
                             error={resError}
             />
             <form onSubmit={handleRegisterSubmit(registerHandleSubmit)}>
-                <div className={RegisterFormStyle.FullName}>
-                    <div className={'row'}>
-                        <div className={'col-8'}>
+                <div className={'row'}>
+                    <div className={'col-lg-12'}>
+                        <div className={RegisterFormStyle.FullName}>
                             <input
                                 placeholder={t('common:full_name')}
                                 type="text"
@@ -97,9 +94,6 @@ const RegisterForm = ({security, currentUser}) => {
                                 {...handleRegisterRegister('registerFullName')}
                                 style={{borderColor: errors.registerFullName ? '#ff0000' : 'transparent'}}
                             />
-
-                        </div>
-                        <div className={'col-4'}>
                             <div className={RegisterFormStyle.GenderBlock}>
                                 <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
                                     <input
@@ -122,7 +116,6 @@ const RegisterForm = ({security, currentUser}) => {
                                     <span className="_icon-female"></span>
                                 </label>
                             </div>
-
                         </div>
                     </div>
                 </div>

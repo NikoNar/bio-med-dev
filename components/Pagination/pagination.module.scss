@@ -15,7 +15,7 @@
         background: none;
         color: $black;
         &.Active{
-          color: $light-blue;
+          color: $light-blue!important;
         }
         &:disabled{
           color: $brand-gray;

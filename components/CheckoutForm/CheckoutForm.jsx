@@ -44,44 +44,56 @@ const homeCallSchema = Yup.object().shape({
 const CheckoutForm = ({info, orders}) => {
     const {t} = useTranslation()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
-    const styles = {
+    const customStyle = {
         control: (provided) => ({
             ...provided,
             boxShadow: "none",
             border: "none",
             backgroundColor: "#f5faff",
-            padding: 6
+            padding: 6,
         }),
-        container: (provided, state) => ({
+        container: (provided) => ({
             ...provided,
             border: "1px solid transparent",
             borderColor: errorsReserve.reserveBranches ? '#ff0000' : 'transparent',
             boxShadow: "none",
             backgroundColor: "",
-            marginBottom: 30,
+            marginBottom: '30px',
         }),
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isFocused && "#F5FAFF",
             color: "#183042",
-            fontSize: "16px"
-        })
+            fontSize: "16px",
+        }),
+        indicatorsContainer: (provided, state) => ({
+            ...provided,
+        }),
+        valueContainer: (provided, state) => ({
+            ...provided,
+        }),
+        dropdownIndicator: (styles) => ({
+            ...styles,
+            paddingTop: 7,
+            paddingBottom: 7,
+        }),
     }
 
     /*Total Price Calculating*/
-
+    const homeCallPrice = 5000
     const [totalPrice, setTotalPrice] = useState(0)
+    const [totalHomeCallPrice, setTotalHomeCallPrice] = useState(0)
     const [tabDisabled, setTabDisabled] = useState(false)
-
     let calculateOrderItemsTotalPrice = '0'
-
     useEffect(() => {
         setTabDisabled(orders && orders.some((o)=>!o.callHome))
 
         calculateOrderItemsTotalPrice =  orders ? orders.reduce((acc, value)=>{
             return acc + (value.compare_price ? value.compare_price : value.price)
         }, 0) : 0
-        setTotalPrice(calculateOrderItemsTotalPrice.toFixed(2));
+        setTotalPrice(calculateOrderItemsTotalPrice.toFixed(2) );
+        setTotalHomeCallPrice(
+            calculateOrderItemsTotalPrice !== 0 && homeCallPrice ? (calculateOrderItemsTotalPrice + homeCallPrice).toFixed(2) : calculateOrderItemsTotalPrice.toFixed(2))
     }, [orders])
 
     const {
@@ -108,7 +120,6 @@ const CheckoutForm = ({info, orders}) => {
     /*--- Reserve Form data ---*/
     const reserveOrderDate = new Date().toLocaleDateString()
     const reserveOrderTime = new Date().toLocaleTimeString().slice(0, 4)
-
     const handleSubmitReserveOrders = async (reserveData) => {
 
         await fetch(orderUrl, {
@@ -125,18 +136,15 @@ const CheckoutForm = ({info, orders}) => {
             })
             .then(data=>data)
     }
-
     /* ---- Home Call Form ----*/
     const [showAlert, setShowAlert] = useState(false)
     const homeCallAlert = (e,value)=>{
         e.stopPropagation()
         setShowAlert(value)
     }
-
     const homeCloudStyle = {
         display: showAlert ? 'block' : 'none'
     }
-
     const handleSubmitHomeCallOrders = async (homeCallData) => {
 
         await fetch(homeCallOrdersUrl, {
@@ -179,14 +187,13 @@ const CheckoutForm = ({info, orders}) => {
 
                         <Controller
                             control={controlReserve}
-                            //defaultValue={info.contactInfo[0]}
                             name="reserveBranches"
                             rules={{ required: true }}
                             render={({field: {onChange, value, ref}}) => (
                                 <SelectBox
-                                    styles={styles}
+                                    styles={customStyle}
                                     inputRef={ref}
-                                    inputId={CheckoutStyle.CheckoutSelect}
+                                    inputId={'checkoutBranch'}
                                     isSearchable={false}
                                     value={value}
                                     onChange={onChange}
@@ -262,7 +269,7 @@ const CheckoutForm = ({info, orders}) => {
                             {...registerReserve('reserveEmail')}
                             style={{borderColor: errorsReserve.reserveEmail ? '#ff0000' : 'transparent'}}
                         />
-                        <Button backgroundColor={backgroundColor} text={t('common:reserve')} type={'submit'} disabled={orders.length === 0}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:reserve')} type={'submit'} disabled={orders && orders.length === 0}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
@@ -347,16 +354,16 @@ const CheckoutForm = ({info, orders}) => {
                             {...registerHomeCall('homeCallEmail', {required: true})}
                             style={{borderColor: errorsHomeCall.homeCallEmail ? '#ff0000' : 'transparent'}}
                         />
-                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'} disabled={orders.length === 0}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'} disabled={orders && orders.length === 0}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
                             <p>{t('common:home_call_price')}</p>
-                            <strong>5000 <span className={'_icon-amd'}> </span></strong>
+                            <strong>{homeCallPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
                             <p>{t('common:total')}</p>
-                            <strong>{totalPrice} <span className={'_icon-amd'}> </span></strong>
+                            <strong>{totalHomeCallPrice} <span className={'_icon-amd'}> </span></strong>
                         </div>
                     </div>
                 </div>

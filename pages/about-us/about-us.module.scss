@@ -25,3 +25,18 @@
     }
   }
 }
+
+@media(max-width: 991px){
+  .AboutUs{
+    margin-bottom: 60px;
+  }
+
+  .WithSlider{
+    .Desc{
+      p{
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+  }
+}

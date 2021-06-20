@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {filterAnalyzesByCategory, filterAnalyzesByEvents} from "../../redux/actions/setSelectedFiltersAction";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
+import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
@@ -156,7 +157,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                 <div className={'col-lg-12'}>
                                                     <div className={AnalyzesStyle.SelectedFiltersName}>
                                                         <article>Selected filter: <strong>{filterName ? filterName : 'There are no any filter selected yet'}</strong></article>
-                                                        {filterName ? <span onClick={handleClearFilters}>Clear filter</span> : null}
+                                                        {filterName ? <span onClick={handleClearFilters}><CloseIcon/></span> : null}
                                                     </div>
                                                 </div>
                                             </div>

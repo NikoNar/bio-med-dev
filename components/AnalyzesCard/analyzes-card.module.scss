@@ -113,6 +113,15 @@
   }
 }
 
+@media (max-width: 991px){
+  .Item{
+    .RemoveBtn{
+      top: 9px;
+      right: 9px;
+    }
+  }
+}
+
 @media (max-width: 576px){
   .Item{
     &:hover{

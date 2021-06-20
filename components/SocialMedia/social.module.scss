@@ -13,6 +13,23 @@
         font-family: 'icons';
         font-size: 30px;
         color: $brand-blue;
+        &:hover{
+          color: $light-blue;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px){
+  .List{
+    ul{
+      li{
+        margin-left: 20px;
+        a{
+          font-size: 20px;
+        }
       }
     }
   }
