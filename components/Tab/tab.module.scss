@@ -1,0 +1,38 @@
+.TabList{
+    text-align: right;
+    margin-top: 20px;
+    li{
+        &:focus{
+            border: none;
+            box-shadow: unset;
+        }
+        &:first-child{
+            right: -48px;
+            z-index: 5;
+        }
+            span{
+                background: linear-gradient(208deg, transparent 11px,#b0b8c0 0)
+            }            
+
+        &.Selected{
+            span{
+                background: linear-gradient(208deg, transparent 11px,#183042 0)
+            }        
+        }    
+    }
+}
+
+
+@media (max-width: 991px){
+    .TabList{
+        display: flex;
+        justify-content: flex-end;
+        li{
+            &:last-child{
+                span{
+                    padding-left: 30px!important;
+                }
+            }
+        }
+    }
+}

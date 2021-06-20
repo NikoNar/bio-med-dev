@@ -1,0 +1,13 @@
+.Account{
+  width: 25px;
+  &.LoggedIn{
+    width: 140px;
+    text-align: center;
+  }
+  a{
+    font-size: 14px;
+  }
+}
+.Item{
+    margin-right: 40px;
+}

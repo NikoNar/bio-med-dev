@@ -1,0 +1,67 @@
+@import "styles/variables";
+
+.Results{
+  padding-top: 100px;
+  .Info{
+    .Title{
+      small {
+        font-size: 18px;
+        color: $brand-gray;
+      }
+    }
+  }
+  .Form{
+    input {
+      width: 100%;
+      background-color: $white;
+      padding: 19px 20px;
+      border: 1px solid transparent;
+      margin-bottom: 15px;
+      &::placeholder {
+        color: $brand-gray;
+      }
+      &:focus {
+        outline: none
+      }
+    }
+    .DatePicker{
+      .Date{
+        &.DateWithError{
+          input{
+            border-color: #ff0000!important;
+          }
+        }
+      }
+    }
+  }
+  .FullName{
+    margin-bottom: 40px;
+    .Header{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .Name{
+        position: relative;
+        padding-left: 45px;
+        h4{
+          margin-bottom: 0;
+        }
+        span{
+          font-family: 'icons';
+          font-size: 30px;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+      .BirthDay{
+        padding-left: 45px;
+        line-height: 30px;
+        h4{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
