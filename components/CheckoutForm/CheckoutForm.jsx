@@ -79,12 +79,16 @@ const CheckoutForm = ({info, orders}) => {
         }),
     }
 
+
     /*Total Price Calculating*/
     const homeCallPrice = 5000
     const [totalPrice, setTotalPrice] = useState(0)
     const [totalHomeCallPrice, setTotalHomeCallPrice] = useState(0)
+
     const [tabDisabled, setTabDisabled] = useState(false)
     let calculateOrderItemsTotalPrice = '0'
+
+
     useEffect(() => {
         setTabDisabled(orders && orders.some((o)=>!o.callHome))
 
@@ -120,6 +124,7 @@ const CheckoutForm = ({info, orders}) => {
     /*--- Reserve Form data ---*/
     const reserveOrderDate = new Date().toLocaleDateString()
     const reserveOrderTime = new Date().toLocaleTimeString().slice(0, 4)
+
     const handleSubmitReserveOrders = async (reserveData) => {
 
         await fetch(orderUrl, {
@@ -136,6 +141,7 @@ const CheckoutForm = ({info, orders}) => {
             })
             .then(data=>data)
     }
+
     /* ---- Home Call Form ----*/
     const [showAlert, setShowAlert] = useState(false)
     const homeCallAlert = (e,value)=>{
@@ -269,7 +275,7 @@ const CheckoutForm = ({info, orders}) => {
                             {...registerReserve('reserveEmail')}
                             style={{borderColor: errorsReserve.reserveEmail ? '#ff0000' : 'transparent'}}
                         />
-                        <Button backgroundColor={backgroundColor} text={t('common:reserve')} type={'submit'} disabled={orders && orders.length === 0}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:reserve')} type={'submit'} disabled={!orders || orders.length === 0}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.Total}>
@@ -354,7 +360,7 @@ const CheckoutForm = ({info, orders}) => {
                             {...registerHomeCall('homeCallEmail', {required: true})}
                             style={{borderColor: errorsHomeCall.homeCallEmail ? '#ff0000' : 'transparent'}}
                         />
-                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'} disabled={orders && orders.length === 0}/>
+                        <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'} disabled={!orders || orders.length === 0}/>
                     </form>
                     <div className={CheckoutStyle.Price}>
                         <div className={CheckoutStyle.PriceItem + ' ' + CheckoutStyle.CallHomePrice}>
