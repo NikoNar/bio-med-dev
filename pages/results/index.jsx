@@ -182,7 +182,7 @@ const Results = ({contactInfo}) => {
 };
 
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
     })
