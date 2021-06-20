@@ -5,11 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-<<<<<<< HEAD
-    "start": "next start",
-=======
     "start": "NODE_ENV=production node server.js",
->>>>>>> 9dd471683ba672614426b02997b53b50f409a5e7
     "mock": "json-server -w db.json -p 4500 -d 450"
   },
   "dependencies": {
