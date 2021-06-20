@@ -157,14 +157,20 @@ const Profile = ({contactInfo, results, token, user}) => {
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
-                        <button
-                            className={'btn btn-primary'}
-                            onClick={(e) => {
-                                handleLogOut(e).then()
-                            }}
-                        >
-                            Log out
-                        </button>
+                        <div className={ProfStyle.Logout}>
+                            <button
+                                className={'btn btn-primary'}
+                                onClick={(e) => {
+                                    handleLogOut(e).then()
+                                }}
+                            >
+                                Log out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className={'row'}>
+                    <div className={'col-lg-12'}>
                         <div className={ProfStyle.Title}>
                             <h4>{t('common:personal_data')}</h4>
                         </div>
@@ -193,6 +199,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                 placeholder={t('common:full_name')}
                                                                 type="text"
                                                                 name='registerFullName'
+                                                                defaultValue={currentUser && currentUser.fullName}
                                                                 {...registerEditProfile('editProfileFullName')}
                                                                 style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
@@ -202,6 +209,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                         type="radio"
                                                                         id="male"
                                                                         value='male'
+                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'male')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -212,6 +220,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                         type="radio"
                                                                         id="female"
                                                                         value='female'
+                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'female')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -274,7 +283,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                     </div>
                                     <div className={'col-lg-5 offset-0 offset-lg-1'}>
                                         <div className={ProfStyle.Wrapper}>
-                                            <h4 className={'mt-5'}>{t('common:security')}</h4>
+                                            <h4 className={'mt-5 mt-lg-0'}>{t('common:security')}</h4>
                                             <div className={RegisterFormStyle.Register + ' ' + 'mt-5'}>
                                                 <form onSubmit={handleSubmitChangePassword(handleChangePassword)}>
                                                     <input

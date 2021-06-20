@@ -2,6 +2,19 @@
 
 .Profile {
   padding-top: 100px;
+  .Logout{
+    button{
+      float: right;
+      background-color: transparent;
+      border: none;
+      color: $light-blue;
+      text-decoration: underline;
+      &:focus{
+        outline: none;
+        box-shadow: unset;
+      }
+    }
+  }
   .Wrapper {
     height: 100%;
     flex-direction: column;

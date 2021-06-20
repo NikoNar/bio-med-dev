@@ -1,21 +1,28 @@
 @import "styles/variables";
 
 .List{
+  display: flex;
+  button{
+    margin-left: 20px;
+  }
+  span{
+    font-family: 'icons';
+    font-size: 30px;
+    color: $brand-blue;
+    &:hover{
+      color: $light-blue;
+    }
+  }
   ul{
-    display: flex;
+
     margin: 0;
     li{
-      margin-left: 40px;
+
       &:first-child{
         margin-left: 20px;
       }
       a{
-        font-family: 'icons';
-        font-size: 30px;
-        color: $brand-blue;
-        &:hover{
-          color: $light-blue;
-        }
+
       }
     }
   }

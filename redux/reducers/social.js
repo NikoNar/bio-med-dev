@@ -1,6 +1,6 @@
 import {GET_SOCIAL_MEDIA} from "../types";
 
-export const socialMediaReducer = (state = [], action)=>{
+export const socialMediaReducer = (state = null, action)=>{
     switch (action.type) {
         case GET_SOCIAL_MEDIA:
             return action.payload

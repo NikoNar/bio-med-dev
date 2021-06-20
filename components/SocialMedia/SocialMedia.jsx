@@ -3,8 +3,15 @@ import SocialStyle from './social.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSocialMedia} from "../../redux/actions/getSocialMediaAction";
 import Link from "next/link";
-
-const SocialMedia = () => {
+import {
+    FacebookIcon,
+    FacebookShareButton,
+    InstapaperIcon,
+    InstapaperShareButton,
+    TelegramIcon, TelegramShareButton,
+    VKShareButton
+} from 'react-share'
+const SocialMedia = ({link}) => {
 
     const social = useSelector(state => state.social)
     const dispatch = useDispatch()
@@ -16,22 +23,15 @@ const SocialMedia = () => {
 
     return (
         <div className={SocialStyle.List}>
-            <ul>
-                {
-                    social ? social.map((soc) => {
-                        return (
-                            <li key={soc.id}>
-                                <Link href={soc.link} key={soc.id}>
-
-                                    <a>
-                                        <span className={soc.icon}></span>
-                                    </a>
-                                </Link>
-                            </li>
-                        )
-                    }) : ''
-                }
-            </ul>
+                <FacebookShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                    <FacebookIcon size={32} round={true}/>
+                </FacebookShareButton>
+                <InstapaperShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                    <InstapaperIcon size={32} round={true}/>
+                </InstapaperShareButton>
+                <TelegramShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                    <TelegramIcon size={32} round={true}/>
+                </TelegramShareButton>
         </div>
     );
 };

@@ -8,7 +8,8 @@ module.exports = {
         env: {
             HOST: process.env.NEXT_PUBLIC_HOST,
             SERVER_HOST: process.env.NEXT_PUBLIC_SERVER_HOST,
-            GOOGLE_API: process.env.NEXT_PUBLIC_GOOGLE_API
+            GOOGLE_API: process.env.NEXT_PUBLIC_GOOGLE_API,
+            local_host: process.env.NEXT_PUBLIC_LOCAL_HOST
           },
     }),
 }
