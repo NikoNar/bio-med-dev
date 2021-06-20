@@ -149,7 +149,7 @@ export async function getServerSideProps(context) {
         .then(res => res.json())
         .then(data => data)
 
-    const singleAnalyse = await fetch(analyzesUrl + context.query.id)
+    const singleAnalyse = await fetch(analyzesUrl + '/' + context.query.id)
         .then(res => res.json())
         .then(data => data)
 

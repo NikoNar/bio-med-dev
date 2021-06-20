@@ -1,8 +1,8 @@
 export const dynamicPageUrl = `${process.env.NEXT_PUBLIC_HOST}/page`
-export const newsUrl = `${process.env.NEXT_PUBLIC_HOST}/news/`
+export const newsUrl = `${process.env.NEXT_PUBLIC_HOST}/news`
 export const navigationUrl = `${process.env.NEXT_PUBLIC_HOST}/pages`
 export const socialMediaUrl = `${process.env.NEXT_PUBLIC_HOST}/social`
-export const analyzesUrl = `${process.env.NEXT_PUBLIC_HOST}/analyzes/`
+export const analyzesUrl = `${process.env.NEXT_PUBLIC_HOST}/analyzes`
 export const registerUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/register`
 export const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/login`
 export const changePasswordUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/change-password`

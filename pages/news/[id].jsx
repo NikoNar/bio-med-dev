@@ -5,7 +5,7 @@ import SocialMedia from "../../components/SocialMedia/SocialMedia";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 
-const SingleNews = ({singleNews, link, page})=>{
+const SingleNews = ({singleNews, link})=>{
     const {t} = useTranslation()
 
     return (
@@ -64,9 +64,8 @@ const SingleNews = ({singleNews, link, page})=>{
 export async function getServerSideProps(context) {
 
     const link = context.resolvedUrl
-    const page = context.page
 
-    const singleNews = await fetch(newsUrl + context.query.id)
+    const singleNews = await fetch(newsUrl + '/' + context.query.id)
         .then(res => res.json())
         .then(data => data)
     return {

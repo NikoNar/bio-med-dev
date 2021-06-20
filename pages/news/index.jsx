@@ -76,7 +76,7 @@ const Index = ({news, page, totalNumberOfNews, limit}) => {
 
 
 export async function getServerSideProps({query:{page=1}}) {
-    debugger
+
     const start = +page === 1 ? 0 : (+page - 1) * 6
     const limit = 6
     const allNews = await fetch(newsUrl)
