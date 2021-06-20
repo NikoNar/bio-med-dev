@@ -1,9 +1,10 @@
 import React from 'react';
 import AUStyle from './aboutUsSection.module.scss'
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 const AboutUsSection = ({aboutUs}) => {
-
+    const {t} = useTranslation()
     return (
         <section className={AUStyle.About} style={{ backgroundImage: `url(${aboutUs.image})` }}>
             <div className={'container'}>
@@ -21,7 +22,7 @@ const AboutUsSection = ({aboutUs}) => {
                             </div>
                             <div className={AUStyle.Link}>
                                 <Link href={aboutUs.link.link}>
-                                    <a>տեսնել ավելին</a>
+                                    <a>{t('common:see_more')}</a>
                                 </Link>
                             </div>
                         </div>

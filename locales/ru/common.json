@@ -45,5 +45,17 @@
   "your_message": "Ваше сообщение...",
   "send": "Отправить",
   "add_to_cart": "Добавить",
-  "event": "Акция"
+  "event": "Акция",
+  "no_analysis_found_in_this_category": "Не найдено ни одного анализа в данной категории",
+  "no_filters_selected": "Нет выбранных фильтров",
+  "selected_filter": "Выбранный фильтр",
+  "date": "Дата",
+  "select_branch": "Выберите филиал",
+  "frequently_passed_tests": "Часто сдаваемые анализы",
+  "your_personal_account": "Ваш личный кабинет",
+  "enter_your_password_recovery_email": "Введите адрес электронной почты для восстановления пароля",
+  "search_results": "Результаты поиска",
+  "nothing_was_found_for_your_search": "По вашему запросу ничего не найдено",
+  "you_were_looking_for": "Вы искали",
+  "results": "Результатов поиска:"
 }

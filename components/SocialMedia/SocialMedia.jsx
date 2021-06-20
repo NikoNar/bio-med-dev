@@ -2,14 +2,12 @@ import React, {useEffect} from 'react';
 import SocialStyle from './social.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSocialMedia} from "../../redux/actions/getSocialMediaAction";
-import Link from "next/link";
 import {
     FacebookIcon,
     FacebookShareButton,
     InstapaperIcon,
     InstapaperShareButton,
     TelegramIcon, TelegramShareButton,
-    VKShareButton
 } from 'react-share'
 const SocialMedia = ({link}) => {
 

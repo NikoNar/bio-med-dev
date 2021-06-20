@@ -3,7 +3,7 @@ import HeaderStyle from "../Header/header.module.scss";
 import AccountIconComponent from "./AccountIconComponent/AccountIconComponent";
 import LanguageSwitcher from "./LanguageSwitcher/LanguageSwitcher";
 import BagIconComponent from "./BagIconComponent/BagIconComponent";
-import Search from "./Search/Search";
+
 
 const UserControlComponent = ({user, orders, setIsOpen}) => {
     return (

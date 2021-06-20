@@ -156,7 +156,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                             <div className={'row'}>
                                                 <div className={'col-lg-12'}>
                                                     <div className={AnalyzesStyle.SelectedFiltersName}>
-                                                        <article>Selected filter: <strong>{filterName ? filterName : 'There are no any filter selected yet'}</strong></article>
+                                                        <article>{t('common:selected_filter')}: <strong>{filterName ? filterName : t('common:no_filters_selected')}</strong></article>
                                                         {filterName ? <span onClick={handleClearFilters}><CloseIcon/></span> : null}
                                                     </div>
                                                 </div>
@@ -175,7 +175,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                         )
                                                     }) :
                                                     <div className={AnalyzesStyle.NoMatch}>
-                                                        <h4>There is no any analyzes in this category</h4>
+                                                        <h4>{t('common:no_analysis_found_in_this_category')}</h4>
                                                     </div>
                                             }
                                         </TabPanel>

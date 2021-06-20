@@ -25,7 +25,6 @@ const Cart = ({contactInfo}) => {
         dispatch(getAllOrdersItem())
     }, [])
 
-   // console.log(orders);
 
     return (
         <section className={CartStyle.Cart}>

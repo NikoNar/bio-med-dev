@@ -204,7 +204,7 @@ const CheckoutForm = ({info, orders}) => {
                                     value={value}
                                     onChange={onChange}
                                     options={info.contactInfo}
-                                    placeholder={<span style={{color: '#b0b8c0'}}>Ընտրեք մասնաճյուղը</span>}
+                                    placeholder={<span style={{color: '#b0b8c0'}}>{t('common:select_branch')}</span>}
                                     components={{
                                         IndicatorSeparator: () => null,
                                     }}

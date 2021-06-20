@@ -5,10 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getNavBarItems} from "../../redux/actions/navBarAction";
 import {getAllNews} from "../../redux/actions/getAllNewsAction";
 import MiniFooter from "../MiniFooter/MiniFooter";
+import useTranslation from "next-translate/useTranslation";
 
 
 const Footer = ()=>{
-
+    const {t} = useTranslation()
     const navigation = useSelector(state=>state.navigation)
     const news = useSelector(state => state.news)
     const dispatch = useDispatch()
@@ -84,7 +85,7 @@ const Footer = ()=>{
                         </div>
                         <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12 order-last order-lg-3' + ' ' + FooterStyle.News}>
                             <div className={FooterStyle.NewsTitle}>
-                                <h5>Նորություններ</h5>
+                                <h5>{t('common:news')}</h5>
                             </div>
                             <div className={'row'}>
                                 {

@@ -18,15 +18,13 @@ const Account = () => {
 
     const {t} = useTranslation()
 
-
-
     return (
         <section className={AccStyle.Main}>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={AccStyle.Title}>
-                            <h4> Ձեր անձնական հաշիվը </h4>
+                            <h4>{t('common:your_personal_account')}</h4>
                         </div>
                     </div>
                 </div>

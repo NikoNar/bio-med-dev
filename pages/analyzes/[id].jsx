@@ -13,12 +13,13 @@ import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import TabComponent from "../../components/Tab/Tab";
 import {useRouter} from "next/router";
 
+
+
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
-
 const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageProps) => {
-    console.log(analyzes);
+
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'

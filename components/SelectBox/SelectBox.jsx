@@ -11,8 +11,7 @@ const SelectBox = ({
                        isSearchable,
                        value,
                        onChange,
-                       placeholder,
-                       classname
+                       placeholder
 }) => {
 
     const defaultValue = (options, value)=>{

@@ -5,11 +5,12 @@ import dynamic from 'next/dynamic'
 import TabButtons from "../TabButtons/TabButtons";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: true })
 import {Tab, TabList, TabPanel} from 'react-tabs';
+import useTranslation from "next-translate/useTranslation";
 
 
 
 const TabComponent = ({analyzes, categories}) => {
-
+    const {t} = useTranslation()
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes)
     const [mainCategory, setMainCategory] = useState(categories[0].main)
 
@@ -24,7 +25,7 @@ const TabComponent = ({analyzes, categories}) => {
         <div className={'container'}>
             <div className={'row'}>
                 <div className={'col-lg-12'}>
-                    <h4> Հաճախ հանձնվող անալիզներ </h4>
+                    <h4>{t('common:frequently_passed_tests')}</h4>
                 </div>
             </div>
             <Tabs>

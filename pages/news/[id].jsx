@@ -1,5 +1,4 @@
 import React from "react";
-import {useRouter} from "next/router";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from "./news.module.scss";
 import SocialMedia from "../../components/SocialMedia/SocialMedia";

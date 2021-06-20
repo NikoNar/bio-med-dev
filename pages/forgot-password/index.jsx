@@ -9,6 +9,7 @@ import RequiredFields from "../../components/Alerts/RequiredFields/RequiredField
 import ContactFrom from "../../components/ContactUs/ContactForm/ContactFrom";
 import ContactUs from "../../components/ContactUs/ContactUs";
 import {contactInfoUrl} from "../../utils/url";
+import useTranslation from "next-translate/useTranslation";
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required()
@@ -16,6 +17,9 @@ const schema = Yup.object().shape({
 
 
 const ForgotPassword = ({contactInfo}) => {
+
+    const {t} = useTranslation()
+
 
     const {handleSubmit, register, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
@@ -32,8 +36,8 @@ const ForgotPassword = ({contactInfo}) => {
                     <div className={'row'}>
                         <div className={'col-lg-6'}>
                             <div className={'pb-5'}>
-                                <h4>Մոռացել եք Ձեր գաղտնաբառը?</h4>
-                                <small>Մուտքագրեք Ձեր էլ հասցեն, գաղտնաբառը վերականգնելու համար</small>
+                                <h4>{t('common:forgot_password')}</h4>
+                                <small>{t('common:enter_your_password_recovery_email')}</small>
                             </div>
                             <RequiredFields errors={errors}/>
                             <form onSubmit={handleSubmit(handlePasswordEmail)}>

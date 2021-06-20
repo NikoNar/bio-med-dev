@@ -45,5 +45,17 @@
   "your_message": "Ձեր հաղորդագրությունը․․․",
   "send": "Ուղարկել",
   "add_to_cart": "Ավելացնել",
-  "event": "Ակցիա"
+  "event": "Ակցիա",
+  "no_analysis_found_in_this_category": "Այս կատեգորիայում ոչ մի հետազոտություն չի հայտնաբերվել",
+  "no_filters_selected": "Ընտրված Ֆիլտրեր չկան",
+  "selected_filter": "Ընտրված Ֆիլտր",
+  "date": "Ամսաթիվ",
+  "select_branch": "Ընտրեք մասնաճյուղը",
+  "frequently_passed_tests": "Հաճախ հանձնվող անալիզներ",
+  "your_personal_account": "Ձեր անձնական հաշիվը",
+  "enter_your_password_recovery_email": "Մուտքագրեք Ձեր էլ հասցեն, գաղտնաբառը վերականգնելու համար",
+  "search_results": "Որոնման արդյունքներ",
+  "nothing_was_found_for_your_search": "Ձեր հարցումով ոչինչ չի գտնվել",
+  "you_were_looking_for": "Դուք փնտրում եք",
+  "results": "Արդյունքների քանակը՝"
 }

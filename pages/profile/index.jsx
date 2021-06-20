@@ -242,7 +242,6 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                     selected={value}
                                                                     onChange={onChange}
                                                                     dateFormat='dd/MM/yyyy'
-                                                                    //placeholderText={new Date(currentUser && currentUser.date).toLocaleDateString()}
                                                                     style={{width: "100%", borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     withPortal
                                                                     showMonthDropdown
@@ -319,7 +318,6 @@ const Profile = ({contactInfo, results, token, user}) => {
                         </Tabs>
                     </div>
                 </div>
-                {/*<ContactInfoWithSelect contactInfo={contactInfo}/>*/}
                 <ContactUs contactInfo={contactInfo}/>
             </div>
         </section>

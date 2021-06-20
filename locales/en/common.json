@@ -46,5 +46,17 @@
     "your_message": "Your message here...",
     "send": "Send",
     "add_to_cart": "Add to cart",
-    "event": "Event"
+    "event": "Event",
+    "no_analysis_found_in_this_category": "No analysis found in this category",
+    "selected_filter": "Selected filter",
+    "no_filters_selected": "No filters selected",
+    "date": "Date",
+    "select_branch": "Select branch",
+    "frequently_passed_tests": "Frequently passed tests",
+    "your_personal_account": "Your personal account",
+    "enter_your_password_recovery_email": "Enter your password recovery email address",
+    "search_results": "Search results",
+    "nothing_was_found_for_your_search": "Nothing was found for your search",
+    "you_were_looking_for": "You were looking for",
+    "results": "Results:"
   }

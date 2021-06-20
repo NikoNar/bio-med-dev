@@ -8,23 +8,19 @@ import {addItemToCart,  removeCartItem} from "../../redux/actions/setOrderAction
 import EmergencyIcon from "../SVGIcons/Emergency/EmergencyIcon";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {useRouter} from "next/router";
+import useTranslation from "next-translate/useTranslation";
 
 const AnalyzesCard = ({inner, icon, index, id}) => {
-
+    const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
 
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
 
-    const [buttonText, setButtonText] = useState('ԱՎԵԼԱՑՆԵԼ')
+    const [buttonText, setButtonText] = useState(t('common:add_to_cart'))
 
-    const text = 'ԱՎԵԼԱՑՆԵԼ'
-
-
-    // useEffect(() => {
-    //     dispatch(getCurrentUserAction())
-    // }, [])
+    const text = t('common:add_to_cart')
 
     const handleAddToCart = (data) => {
         dispatch(addItemToCart(data))
