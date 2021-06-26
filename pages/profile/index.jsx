@@ -8,7 +8,7 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../../components/Tab/tab.module.scss";
 import TabButtons from "../../components/TabButtons/TabButtons";
-import {changePasswordUrl, contactInfoUrl, editProfileUrl, resultsUrl} from "../../utils/url";
+import {changePasswordUrl, contactInfoUrl, editProfileUrl, loggedInUserInfo, resultsUrl} from "../../utils/url";
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 const ContactUs = dynamic(() => import("../../components/ContactUs/ContactUs"), {ssr: false});
@@ -28,13 +28,13 @@ import useTranslation from "next-translate/useTranslation";
 
 
 const Profile = ({contactInfo, results, token, user}) => {
-
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
     const router = useRouter()
     const dispatch = useDispatch()
 
     const {t} = useTranslation()
+
 
 
     const editProfileSchema = Yup.object().shape({
@@ -83,7 +83,7 @@ const Profile = ({contactInfo, results, token, user}) => {
         }
     );
 
-    const handleLogOut = async (e) => {
+    /*const handleLogOut = async (e) => {
         e.preventDefault()
         await fetch('/api/logout', {
             method: 'POST',
@@ -99,11 +99,11 @@ const Profile = ({contactInfo, results, token, user}) => {
             destroyCookie(null, 'currentUser')
             destroyCookie(null, 'token')
         }, 1000)
-    }
+    }*/
 
     const handleChangePassword = async (passwordData) => {
 
-        const userCredentials = {...passwordData, loginEmail: currentUser.email, loginPassword: currentUser.password}
+        const userCredentials = {...passwordData, loginEmail: user.email, loginPassword: user.password}
         await fetch(changePasswordUrl, {
             method: 'PUT',
             headers: {
@@ -122,7 +122,7 @@ const Profile = ({contactInfo, results, token, user}) => {
     }
 
     const handleProfileEdit = async (editProfileData) => {
-        const userCredentials = {...editProfileData, loginEmail: currentUser.email, loginPassword: currentUser.password}
+        const userCredentials = {...editProfileData, loginEmail: user.email, loginPassword: user.password}
         await fetch(editProfileUrl, {
             method: 'PUT',
             headers: {
@@ -137,7 +137,7 @@ const Profile = ({contactInfo, results, token, user}) => {
             .then((data)=>{
                 const user = JSON.stringify(data.user)
                 setCookie(null, 'currentUser', user)
-                setCookie(null, 'token', data.access_token)
+                setCookie(null, 'token', data.token)
                 setIsEdited(true)
             })
     }
@@ -158,14 +158,14 @@ const Profile = ({contactInfo, results, token, user}) => {
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={ProfStyle.Logout}>
-                            <button
-                                className={'btn btn-primary'}
-                                onClick={(e) => {
-                                    handleLogOut(e).then()
-                                }}
-                            >
-                                Log out
-                            </button>
+                            {/*<button*/}
+                            {/*    className={'btn btn-primary'}*/}
+                            {/*    onClick={(e) => {*/}
+                            {/*        handleLogOut(e).then()*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    Log out*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 </div>
@@ -184,9 +184,9 @@ const Profile = ({contactInfo, results, token, user}) => {
                                 <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:edit_profile')}/></Tab>
                             </TabList>
 
-                            <TabPanel>
-                                <AnalyzesResults results={results}/>
-                            </TabPanel>
+                            {/*<TabPanel>*/}
+                            {/*    <AnalyzesResults results={results}/>*/}
+                            {/*</TabPanel>*/}
                             <TabPanel>
                                 <div className={'row pt-5'}>
                                     <div className={'col-lg-6'}>
@@ -199,7 +199,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                 placeholder={t('common:full_name')}
                                                                 type="text"
                                                                 name='registerFullName'
-                                                                defaultValue={currentUser && currentUser.fullName}
+                                                                defaultValue={currentUser && currentUser.user_display_name}
                                                                 {...registerEditProfile('editProfileFullName')}
                                                                 style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
@@ -209,7 +209,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                         type="radio"
                                                                         id="male"
                                                                         value='male'
-                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'male')}
+                                                                        //defaultChecked={!!(currentUser && currentUser.gender === 'male')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -220,7 +220,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                         type="radio"
                                                                         id="female"
                                                                         value='female'
-                                                                        defaultChecked={!!(currentUser && currentUser.gender === 'female')}
+                                                                        //defaultChecked={!!(currentUser && currentUser.gender === 'female')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -233,7 +233,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                 <Controller
                                                     control={controlEditProfile}
                                                     name="editProfileDate"
-                                                    defaultValue={new Date(currentUser && currentUser.date)}
+                                                    //defaultValue={new Date(currentUser && currentUser.date)}
                                                     render={({field: {onChange, value, ref}}) => {
                                                         return (
 
@@ -260,7 +260,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                     type='email'
                                                     name='editProfileEmail'
                                                     {...registerEditProfile('editProfileEmail')}
-                                                    defaultValue={currentUser && currentUser.email}
+                                                    defaultValue={currentUser && currentUser.user_email}
                                                     style={{borderColor: errorsEditProfile.editProfileEmail ? '#ff0000' : 'transparent'}}
                                                 />
                                                 <input
@@ -268,7 +268,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                     type="tel"
                                                     name='editProfilePhone'
                                                     {...registerEditProfile('editProfilePhone')}
-                                                    defaultValue={currentUser && currentUser.phone}
+                                                    //defaultValue={currentUser && currentUser.phone}
                                                     onChange={(event)=>{
                                                         event.target.value = validatePhoneNumber(event.target.value)
                                                     }}
@@ -318,7 +318,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                         </Tabs>
                     </div>
                 </div>
-                <ContactUs contactInfo={contactInfo}/>
+                {/*<ContactUs contactInfo={contactInfo}/>*/}
             </div>
         </section>
     )
@@ -334,22 +334,42 @@ export async function getServerSideProps(ctx) {
             }
         }
     }
-    const token = ctx.req.cookies.token
-    const user = ctx.req ? ctx.req.cookies.currentUser : null
 
-    const contactInfo = await fetch(contactInfoUrl, {
-        method: 'GET',
+    const token = ctx.req.cookies.token ? ctx.req.cookies.token : null
+    //const user = ctx.req ? ctx.req.cookies.currentUser : null
+
+
+
+
+  /*  const user = await fetch('https://biomed.codemanstudio.com/wp-json/testone/loggedinuser',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
-        .then(res => res.json())
-        .then(data => data)
+        .then(res=>res.json())
+        .then(data=>data)*/
 
-    const results = await fetch(resultsUrl)
+
+    // const contactInfo = await fetch(contactInfoUrl, {
+    //     method: 'GET',
+    // })
+    //     .then(res => res.json())
+    //     .then(data => data)
+
+    /*const results = await fetch(resultsUrl)
         .then(res => res.json())
-        .then(data => data)
+        .then(data => data)*/
 
 
     return {
-        props: {contactInfo, results, token, user},
+        props: {
+            //contactInfo,
+            //results,
+            token,
+            //user
+        },
     }
 }
 

@@ -28,7 +28,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getCurrentUserAction())
+        //dispatch(getCurrentUserAction())
     }, [])
 
     const handleAddToCart = (data) => {
@@ -117,7 +117,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
                 </div>
             </section>
             <section className={SAnalyseStyle.Slider}>
-                <TabComponent categories={categories} analyzes={analyzes}/>
+                <TabComponent analyzes={analyzes}/>
             </section>
             <section>
                 <div className={'container'}>
@@ -143,11 +143,11 @@ export async function getServerSideProps(context) {
         .then(res => res.json())
         .then(data => data)
 
-    const contactInfo = await fetch(contactInfoUrl, {
-        method: 'GET',
-    })
-        .then(res => res.json())
-        .then(data => data)
+    // const contactInfo = await fetch(contactInfoUrl, {
+    //     method: 'GET',
+    // })
+    //     .then(res => res.json())
+    //     .then(data => data)
 
     const singleAnalyse = await fetch(analyzesUrl + '/' + context.query.id)
         .then(res => res.json())
@@ -160,7 +160,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             analyzes,
-            contactInfo,
+            //contactInfo,
             singleAnalyse,
             categories
         }

@@ -14,7 +14,7 @@ const Analyzes = ({ analyzes, categories, analyzesEquip, analyzesLab}) => {
         <>
             <AnalyzesList
                 analyzes={analyzes}
-                categories={categories}
+                //categories={categories}
                 analyzesEquip={analyzesEquip}
                 analyzesLab={analyzesLab}
             />

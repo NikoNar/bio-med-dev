@@ -17,70 +17,71 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                 <div className={'container'}>
                     <div className={'row'}>
                         <div className={'col-lg-12'}>
-                            <Slide flag={true} slide={aboutUsContent.slide}/>
+                            <Slide flag={true} slide={aboutUsContent[0]}/>
                         </div>
                     </div>
                 </div>
             </section>
-            <section className={AUStyle.WithSlider}>
-                <div className={'container'}>
-                    <div className={'row'}>
-                        <div className={'col-lg-12'}>
-                            <div className={AUStyle.Title}>
-                                <h4>{aboutUsContent.doctors.title}</h4>
-                            </div>
-                            <div className={'row'}>
-                                <div className={'col-lg-6'}>
-                                    <div className={AUStyle.Desc}>
-                                        <p>{aboutUsContent.doctors.body}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={'row'}>
-                                <div className={'col-lg-12'}>
-                                    <InnerSlider component={'doctors'} doctors={doctors} perPage={4}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className={AUStyle.WithSlider}>
-                <div className={'container'}>
-                    <div className={'row'}>
-                        <div className={'col-lg-12'}>
-                            <div className={AUStyle.Title}>
-                                <h4>{aboutUsContent.equipment.title}</h4>
-                            </div>
-                            <div className={'row'}>
-                                <div className={'col-lg-6'}>
-                                    <div className={AUStyle.Desc}>
-                                        <p>{aboutUsContent.equipment.body}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={'row'}>
-                                <div className={'col-lg-12'}>
-                                    <InnerSlider component={'equipment'} equipment={equipment} perPage={4}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <QualityControl qualityControl={qualityControl}/>
+            {/*<section className={AUStyle.WithSlider}>*/}
+            {/*    <div className={'container'}>*/}
+            {/*        <div className={'row'}>*/}
+            {/*            <div className={'col-lg-12'}>*/}
+            {/*                <div className={AUStyle.Title}>*/}
+            {/*                    <h4>{aboutUsContent.doctors.title}</h4>*/}
+            {/*                </div>*/}
+            {/*                <div className={'row'}>*/}
+            {/*                    <div className={'col-lg-6'}>*/}
+            {/*                        <div className={AUStyle.Desc}>*/}
+            {/*                            <p>{aboutUsContent.doctors.body}</p>*/}
+            {/*                        </div>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*                <div className={'row'}>*/}
+            {/*                    <div className={'col-lg-12'}>*/}
+            {/*                        <InnerSlider component={'doctors'} doctors={doctors} perPage={4}/>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
+            {/*<section className={AUStyle.WithSlider}>*/}
+            {/*    <div className={'container'}>*/}
+            {/*        <div className={'row'}>*/}
+            {/*            <div className={'col-lg-12'}>*/}
+            {/*                <div className={AUStyle.Title}>*/}
+            {/*                    <h4>{aboutUsContent.equipment.title}</h4>*/}
+            {/*                </div>*/}
+            {/*                <div className={'row'}>*/}
+            {/*                    <div className={'col-lg-6'}>*/}
+            {/*                        <div className={AUStyle.Desc}>*/}
+            {/*                            <p>{aboutUsContent.equipment.body}</p>*/}
+            {/*                        </div>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*                <div className={'row'}>*/}
+            {/*                    <div className={'col-lg-12'}>*/}
+            {/*                        <InnerSlider component={'equipment'} equipment={equipment} perPage={4}/>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
+            {/*<QualityControl qualityControl={qualityControl}/>*/}
         </>
     );
 };
 
 
 
-export async function getServerSideProps() {
-    const aboutUsContent = await fetch(aboutUsUrl)
+export async function getServerSideProps(ctx) {
+    console.log(aboutUsUrl);
+    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}`)
         .then(res=>res.json())
         .then(data=>data)
-
-    const doctors = await fetch(doctorsUsUrl)
+    //console.log(aboutUsContent);
+    /*const doctors = await fetch(doctorsUsUrl)
         .then(res=>res.json())
         .then(data=>data)
 
@@ -90,15 +91,15 @@ export async function getServerSideProps() {
 
     const qualityControl = await fetch(qualityControlUrl)
         .then(res=>res.json())
-        .then(data=>data)
+        .then(data=>data)*/
 
 
     return {
         props:{
             aboutUsContent,
-            doctors,
-            equipment,
-            qualityControl
+            //doctors,
+            //equipment,
+            //qualityControl
         }
     }
 }

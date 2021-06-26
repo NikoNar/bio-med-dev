@@ -9,6 +9,7 @@ import SwiperCore, {Mousewheel, Navigation, Pagination} from "swiper";
 
 const MainSlider = (slides) => {
 
+    //console.log(slides)
     return (
         <section className={MainSliderStyle.Slider}>
             <div className={'container'}>

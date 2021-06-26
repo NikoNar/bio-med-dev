@@ -34,7 +34,7 @@ const MobileNavBar = () => {
 
     const handleOpen = (state)=>{
         dispatch(switchMobileNavBarState(state))
-        dispatch(getCurrentUserAction())
+        //dispatch(getCurrentUserAction())
         setIsOpen(!isOpen)
     }
 

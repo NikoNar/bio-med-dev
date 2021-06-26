@@ -62,7 +62,7 @@ const Header = ({pageProps}) => {
                     </div>
                 </section>
             </header>
-            <MobileNavBar/>
+            {/*<MobileNavBar/>*/}
         </>
     )
 }

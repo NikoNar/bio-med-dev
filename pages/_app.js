@@ -14,9 +14,11 @@ import 'swiper/components/pagination/pagination.scss'
 import 'react-tabs/style/react-tabs.scss';
 import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
+import I18nProvider from 'next-translate/I18nProvider'
+import useTranslation from "next-translate/useTranslation";
 
 function BioMedApp({Component, pageProps}) {
-
+    const { t, lang } = useTranslation()
     return (
         <>
             <Head>
@@ -35,12 +37,13 @@ function BioMedApp({Component, pageProps}) {
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`}/>
 
             </Head>
-
+            <I18nProvider lang={lang}>
                 <Provider store={store}>
-                    <Header pageProps={pageProps}/>
-                    <Component {...pageProps}/>
-                    <Footer/>
+                    <Header pageProps={pageProps} loc={lang}/>
+                    <Component {...pageProps} t={t}/>
+                    {/*<Footer/>*/}
                 </Provider>
+            </I18nProvider>
         </>
     )
 }
@@ -54,6 +57,16 @@ export async function getServerSideProps({Component, ctx}) {
     }
 }
 */
+
+
+export async function getServerSideProps(ctx){
+
+    return {
+        props:{}
+    }
+}
+
+
 
 
 const makeStore = () => store

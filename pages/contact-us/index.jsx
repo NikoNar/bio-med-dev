@@ -14,7 +14,7 @@ const ContactUsPage = ({contactInfo}) => {
 
 export async function getServerSideProps(ctx) {
 
-    const contactInfo = await fetch(contactInfoUrl, {
+    const contactInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
         method: 'GET',
     })
         .then(res => res.json())

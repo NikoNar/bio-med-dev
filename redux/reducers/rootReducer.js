@@ -22,6 +22,5 @@ export const allReducers = combineReducers({
     filters: selectedFiltersReducer,
     mobileNavBar: mobileNavbarReducer,
     search: searchReducer
-
 })
 

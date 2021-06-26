@@ -18,18 +18,17 @@ const SingleNews = ({singleNews, link})=>{
                                 <div className={'col-lg-12'}>
                                     <div className={NewsStyle.WrapperImg} style={{ backgroundImage: "url(" + singleNews.image + ")" }}> </div>
                                     <div className={NewsStyle.WrapperDate}>
-                                        <span>{singleNews.date}</span>
+                                        <span>{new Date(singleNews.date).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             </div>
                             <div className={'row'}>
                                 <div className={'col-lg-8'}>
                                     <div className={NewsStyle.WrapperTitle}>
-                                        <p>{singleNews.title}</p>
+                                        <p>{singleNews.title.rendered}</p>
                                     </div>
                                     <div className={NewsStyle.WrapperText}>
-                                        <p>{singleNews.body}</p>
-                                        <p>{singleNews.body}</p>
+                                        <p>{singleNews.content.rendered}</p>
                                     </div>
                                 </div>
                             </div>

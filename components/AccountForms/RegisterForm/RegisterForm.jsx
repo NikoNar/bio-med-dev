@@ -18,13 +18,13 @@ const RegisterForm = ({security, currentUser}) => {
     const [resError, setResError] = useState('')
 
     const registerSchema = Yup.object().shape({
-        registerFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
+        first_name: Yup.string().matches(/^([^1-9]*)$/).required(),
         registerGender: Yup.string().nullable(true).required(),
         registerDate: Yup.string().required(),
-        registerEmail: Yup.string().email().required(),
+        email: Yup.string().email().required(),
         registerPhone: Yup.string().required(),
-        registerPassword: Yup.string().min(4).max(10).required(),
-        registerConfirmPassword: Yup.string().oneOf([Yup.ref('registerPassword'), null])
+        password: Yup.string().min(4).max(10).required(),
+        registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null])
     })
 
 
@@ -53,6 +53,7 @@ const RegisterForm = ({security, currentUser}) => {
 
 
     const registerHandleSubmit = async (registerData) => {
+        console.log(registerData)
         await fetch(registerUrl, {
             method: 'POST',
             headers: {
@@ -66,7 +67,7 @@ const RegisterForm = ({security, currentUser}) => {
                     registerFullName: '',
                     registerEmail: '',
                     registerPhone: '',
-                    registerPassword: '',
+                    password: '',
                     registerConfirmPassword: ''
                 })
                 setResError(data.message ? data.message : undefined)
@@ -90,9 +91,9 @@ const RegisterForm = ({security, currentUser}) => {
                             <input
                                 placeholder={t('common:full_name')}
                                 type="text"
-                                name='registerFullName'
-                                {...handleRegisterRegister('registerFullName')}
-                                style={{borderColor: errors.registerFullName ? '#ff0000' : 'transparent'}}
+                                name='first_name'
+                                {...handleRegisterRegister('first_name')}
+                                style={{borderColor: errors.first_name ? '#ff0000' : 'transparent'}}
                             />
                             <div className={RegisterFormStyle.GenderBlock}>
                                 <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
@@ -147,10 +148,10 @@ const RegisterForm = ({security, currentUser}) => {
                 <input
                     placeholder={t('common:email')}
                     type='email'
-                    name='registerEmail'
-                    {...handleRegisterRegister('registerEmail')}
+                    name='email'
+                    {...handleRegisterRegister('email')}
                     defaultValue={currentUser ? currentUser.email : ''}
-                    style={{borderColor: errors.registerEmail ? '#ff0000' : 'transparent'}}
+                    style={{borderColor: errors.email ? '#ff0000' : 'transparent'}}
                 />
 
                 <input
@@ -165,11 +166,11 @@ const RegisterForm = ({security, currentUser}) => {
                 <input
                     placeholder={t('common:password')}
                     type="password"
-                    name='registerPassword'
-                    {...handleRegisterRegister('registerPassword')}
+                    name='password'
+                    {...handleRegisterRegister('password')}
                     style={{
                         display: security ? 'none' : 'block',
-                        borderColor: errors.registerPassword ? '#ff0000' : 'transparent'
+                        borderColor: errors.password ? '#ff0000' : 'transparent'
                     }}
                 />
 

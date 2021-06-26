@@ -13,7 +13,7 @@ const Researches = ({researches}) => {
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={RStyle.Title}>
-                            <h4>{t('common:analyzes')}</h4>
+                            <h4>{t('common:researches')}</h4>
                         </div>
                     </div>
                 </div>

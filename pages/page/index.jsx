@@ -5,26 +5,25 @@ import PageStyle from './page.module.scss'
 
 function Page({pageContent}) {
 
-    const [content] = pageContent
-
+    const content = pageContent[0]
     return (
         <section className={PageStyle.DynamicPage}>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
-                        <div className={'row'} key={content.content.id}>
+                        <div className={'row'} key={content.id}>
                             <div className={'col-lg-6'}>
                                 <div className={PageStyle.Title}>
-                                    <h4>{content.content.title}</h4>
+                                    <h4>{content.title.rendered}</h4>
                                 </div>
                                 <div className={PageStyle.Text}>
-                                    <p>{content.content.text}</p>
+                                    <p>{content.content.rendered}</p>
                                 </div>
                             </div>
                             <div className={'col-lg-6'}>
-                                <div className={PageStyle.Image} style={{backgroundImage: 'url(' + content.content.image + ')'}}>
+                                {/*<div className={PageStyle.Image} style={{backgroundImage: 'url(' + content.content.image + ')'}}>*/}
 
-                                </div>
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>
@@ -36,12 +35,13 @@ function Page({pageContent}) {
 
 
 export async function getServerSideProps(ctx) {
+    debugger
     const title = ctx.query.title ? ctx.query.title : null
-
-    const pageContent = await fetch(dynamicPageUrl + `?title=${title}`)
+    const pageContent = await fetch(dynamicPageUrl + `&slug=${title}` + `&lang=${ctx.locale}`)
         .then(res => res.json())
         .then(data => data)
 
+    console.log(pageContent)
 
     return {
         props: {

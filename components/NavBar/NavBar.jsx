@@ -6,17 +6,18 @@ import NavStyle from './navigation.module.scss'
 import DropDownNavBarInner from "./SubLinks/DropDownNavBarInner";
 import {useRouter, withRouter} from "next/router";
 
+const NavBar = (loc)=>{
 
-const NavBar = ()=>{
-    const text = 'Հետազոտություններ'
+
     const dispatch = useDispatch()
     const pages =useSelector(state=>state.navigation)
     const router = useRouter()
     const {locale} = router
 
+
     useEffect(()=>{
-        dispatch(getNavBarItems())
-    }, [])
+        dispatch(getNavBarItems(locale))
+    }, [loc, dispatch])
 
 
 
@@ -24,16 +25,15 @@ const NavBar = ()=>{
         <nav className={NavStyle.NavBarMain}>
             <ul>
                 {
-                    pages.map((item)=>{
-                        /*console.log(router.pathname, item.link);*/
+                    pages.items && pages.items.map((item)=>{
                         return(
-                            <li key={item.id} className={ item.subLinks ? NavStyle.HasChild : null }>
-                                <Link href={item.link ? item.link : ''} activeClassName="active">
-                                    <a className={router.asPath === `${item.link}` ? NavStyle.Active : ""}>
+                            <li key={item.ID} className={ item.child_items ? NavStyle.HasChild : null }>
+                                <Link href={item.slug && item.menu_item_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`} activeClassName="active">
+                                    <a className={router.asPath === `/${item.slug}` ? NavStyle.Active : " "}>
                                             {item.title}
                                     </a>
                                 </Link>
-                                <DropDownNavBarInner subLink={item.subLinks ? item.subLinks : null}/>
+                                <DropDownNavBarInner subLink={item.child_items ? item.child_items : null}/>
                             </li>
                         )
                     })

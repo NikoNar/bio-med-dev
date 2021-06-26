@@ -13,7 +13,7 @@
   "email_format_error": "Մուտքագրած էլ․ հասցեն պետք է լինի հետևյալ ֆորմատով (example@example.am)",
   "login": "Մուտք",
   "register": "Գրանցվել",
-  "analyzes": "ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ",
+  "researches": "ՀԵՏԱԶՈՏՈՒԹՅՈՒՆՆԵՐ",
   "full_name": "Անուն Ազգանուն",
   "birth_date": "Ծննդյան օր ամիս տարեթիվ",
   "email": "Էլ․ հասցե",
@@ -58,5 +58,5 @@
   "nothing_was_found_for_your_search": "Ձեր հարցումով ոչինչ չի գտնվել",
   "you_were_looking_for": "Դուք փնտրում եք",
   "results": "Արդյունքների քանակը՝",
-  "back_to_all_news": "Վերադառնալ բոլոր նորոըթյուններին"
+  "back_to_all_news": "Վերադառնալ բոլոր նորություններին"
 }

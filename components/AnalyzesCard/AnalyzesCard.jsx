@@ -11,6 +11,8 @@ import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
 
 const AnalyzesCard = ({inner, icon, index, id}) => {
+    //console.log(inner)
+
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
@@ -44,11 +46,11 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <small className={AStyle.Number}>№{inner.number}</small>
                             <div className={AStyle.Title}>
                                 <Link href={`/analyzes/${inner.id}`}>
-                                    <a><span>{inner.title}</span></a>
+                                    <a><span>{inner.name}</span></a>
                                 </Link>
                             </div>
                             <div className={AStyle.Desc}>
-                                <p>{inner.body}</p>
+                                {inner.description}
                             </div>
                         </div>
                     </div>
@@ -57,10 +59,10 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                     <div className={'col-12 col-sm-4 col-md-4 col-lg-4'}>
                         <div className={AStyle.Price}>
                             <p
-                                className={inner.compare_price ? AStyle.SellPrice : null}
-                                style={{visibility: inner.compare_price ? 'visible' : 'hidden'}}
-                            >{inner.price}<span className={'_icon-amd'}></span></p>
-                            <p>{inner.compare_price ? inner.compare_price : inner.price}<span className={'_icon-amd'}></span></p>
+                                className={inner.sale_price ? AStyle.SellPrice : null}
+                                style={{visibility: inner.sale_price !== "" ? 'visible' : 'hidden'}}
+                            >{inner.regular_price}<span className={'_icon-amd'}></span></p>
+                            <p>{inner.sale_price !== "" ? inner.sale_price : inner.regular_price}<span className={'_icon-amd'}></span></p>
                         </div>
                     </div>
                     <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>

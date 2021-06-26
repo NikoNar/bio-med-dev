@@ -9,8 +9,10 @@ import useTranslation from "next-translate/useTranslation";
 
 
 
-const TabComponent = ({analyzes, categories}) => {
-    const {t} = useTranslation()
+const TabComponent = ({analyzes, categories, t}) => {
+    //const {t} = useTranslation()
+
+
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes)
     const [mainCategory, setMainCategory] = useState(categories[0].main)
 
@@ -33,10 +35,10 @@ const TabComponent = ({analyzes, categories}) => {
                     {
                         categories && categories.map((m)=>{
                             return (
-                                <Tab selectedClassName={TabStyle.Selected} key={m.main} >
+                                <Tab selectedClassName={TabStyle.Selected} key={m.id} >
                                     <TabButtons
-                                        text={m.title}
-                                        dataName={m.main}
+                                        text={m.name}
+                                        //dataName={m.main}
                                         callBack={(e)=>handleMainCategoryName(e)}
                                     />
                                 </Tab>

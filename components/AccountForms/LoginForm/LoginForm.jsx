@@ -16,8 +16,8 @@ import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 
 
 const schema = Yup.object().shape({
-    loginEmail: Yup.string().email().required(),
-    loginPassword: Yup.string().min(4).max(10).required()
+    username: Yup.string().required(),
+    password: Yup.string().min(4).max(10).required()
 })
 
 
@@ -57,10 +57,10 @@ const LoginForm = () => {
                 return res.json()
             })
             .then(data => {
-                const user = JSON.stringify(data.user)
-                if (data.user){
+                const user = JSON.stringify(data)
+                if (data){
                     setCookie(null, 'currentUser', user)
-                    setCookie(null, 'token', data.access_token)
+                    setCookie(null, 'token', data.token)
                     router.push('/profile')
                 }else {
                     setError(t('errors:login_or_password_error'))
@@ -84,16 +84,16 @@ const LoginForm = () => {
                 <input
                     placeholder={t('common:mail_or_phone_number')}
                     type="text"
-                    name="loginEmail"
-                    {...register("loginEmail")}
-                    style={{borderColor: errors.loginEmail ? '#ff0000' : 'transparent'}}
+                    name="username"
+                    {...register("username")}
+                    style={{borderColor: errors.username ? '#ff0000' : 'transparent'}}
                 />
                 <input
                     placeholder={t('common:password')}
                     type="password"
-                    name="loginPassword"
-                    {...register("loginPassword")}
-                    style={{borderColor: errors.loginPassword ? '#ff0000' : 'transparent'}}
+                    name="password"
+                    {...register("password")}
+                    style={{borderColor: errors.password ? '#ff0000' : 'transparent'}}
                 />
                 <Link href={'/forgot-password'}>
                     <a>{t('common:forgot_password')}</a>

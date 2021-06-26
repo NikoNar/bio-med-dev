@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import AnalyzesStyle from "../../pages/analyzes/Analyzes.module.scss";
+import AnalyzesStyle from "../../pages/researches/Analyzes.module.scss";
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
@@ -22,7 +22,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
     const selectedFilters = useSelector(state => state.filters)
     const [allAnalyzes, setAllAnalyzes] = useState(analyzesLab)
     const [isOpen, setIsOpen] = useState(false)
-    const [mainCategory, setMainCategory] = useState(categories[0].main)
+    //const [mainCategory, setMainCategory] = useState(categories[0].main)
     const [filterName, setFilterName] = useState(null)
 
 
@@ -77,7 +77,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-6 col-sm-12'}>
-                        <h4>{t('common:analyzes')}</h4>
+                        <h4>{t('common:researches')}</h4>
                     </div>
                 </div>
                 <Tabs>

@@ -54,7 +54,7 @@ const Account = () => {
                                                 <p>{t('common:has_no_account_text')}</p>
                                             </div>
                                             <div className={AccStyle.HNLink}>
-                                                <LinkButton text={t('common:analyzes')} link={'/results'}/>
+                                                <LinkButton text={t('common:researches')} link={'/results'}/>
                                             </div>
                                         </div>
                                     </div>

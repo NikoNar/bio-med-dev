@@ -15,7 +15,7 @@ const AccountIconComponent = ({user, callBack}) => {
                     <a>
                         <AccountIcon/>
                     </a>
-                </Link> : <Link href={'/profile'}><a>{user.fullName}</a></Link>
+                </Link> : <Link href={'/profile'}><a>{user.user_display_name}</a></Link>
             }
 
         </div>
