@@ -3,7 +3,7 @@ import {navigationUrl} from "../../utils/url";
 
 
 
-export function getNavBarItems(locale) {
+/*export function getNavBarItems(locale) {
 
     return async (dispatch)=>{
         const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${locale}`)
@@ -14,7 +14,7 @@ export function getNavBarItems(locale) {
             })
         dispatch(navBarAction(navBarItems))
     }
-}
+}*/
 
 export const navBarAction = (items)=>{
     return {

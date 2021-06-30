@@ -22,53 +22,53 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                     </div>
                 </div>
             </section>
-            {/*<section className={AUStyle.WithSlider}>*/}
-            {/*    <div className={'container'}>*/}
-            {/*        <div className={'row'}>*/}
-            {/*            <div className={'col-lg-12'}>*/}
-            {/*                <div className={AUStyle.Title}>*/}
-            {/*                    <h4>{aboutUsContent.doctors.title}</h4>*/}
-            {/*                </div>*/}
-            {/*                <div className={'row'}>*/}
-            {/*                    <div className={'col-lg-6'}>*/}
-            {/*                        <div className={AUStyle.Desc}>*/}
-            {/*                            <p>{aboutUsContent.doctors.body}</p>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*                <div className={'row'}>*/}
-            {/*                    <div className={'col-lg-12'}>*/}
-            {/*                        <InnerSlider component={'doctors'} doctors={doctors} perPage={4}/>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
-            {/*<section className={AUStyle.WithSlider}>*/}
-            {/*    <div className={'container'}>*/}
-            {/*        <div className={'row'}>*/}
-            {/*            <div className={'col-lg-12'}>*/}
-            {/*                <div className={AUStyle.Title}>*/}
-            {/*                    <h4>{aboutUsContent.equipment.title}</h4>*/}
-            {/*                </div>*/}
-            {/*                <div className={'row'}>*/}
-            {/*                    <div className={'col-lg-6'}>*/}
-            {/*                        <div className={AUStyle.Desc}>*/}
-            {/*                            <p>{aboutUsContent.equipment.body}</p>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*                <div className={'row'}>*/}
-            {/*                    <div className={'col-lg-12'}>*/}
-            {/*                        <InnerSlider component={'equipment'} equipment={equipment} perPage={4}/>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
-            {/*<QualityControl qualityControl={qualityControl}/>*/}
+            <section className={AUStyle.WithSlider}>
+                <div className={'container'}>
+                    <div className={'row'}>
+                        <div className={'col-lg-12'}>
+                            <div className={AUStyle.Title}>
+                                <h4>{aboutUsContent.doctors.title}</h4>
+                            </div>
+                            <div className={'row'}>
+                                <div className={'col-lg-6'}>
+                                    <div className={AUStyle.Desc}>
+                                        <p>{aboutUsContent.doctors.body}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'row'}>
+                                <div className={'col-lg-12'}>
+                                    <InnerSlider component={'doctors'} doctors={doctors} perPage={4}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className={AUStyle.WithSlider}>
+                <div className={'container'}>
+                    <div className={'row'}>
+                        <div className={'col-lg-12'}>
+                            <div className={AUStyle.Title}>
+                                <h4>{aboutUsContent.equipment.title}</h4>
+                            </div>
+                            <div className={'row'}>
+                                <div className={'col-lg-6'}>
+                                    <div className={AUStyle.Desc}>
+                                        <p>{aboutUsContent.equipment.body}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'row'}>
+                                <div className={'col-lg-12'}>
+                                    <InnerSlider component={'equipment'} equipment={equipment} perPage={4}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <QualityControl qualityControl={qualityControl}/>
         </>
     );
 };
@@ -76,7 +76,6 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
 
 
 export async function getServerSideProps(ctx) {
-    console.log(aboutUsUrl);
     const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}`)
         .then(res=>res.json())
         .then(data=>data)

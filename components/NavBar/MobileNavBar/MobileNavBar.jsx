@@ -4,21 +4,18 @@ import Logo from "../../Logo/Logo";
 import BurgerMenu from "../../SVGIcons/BurgerMenu/BurgerMenu";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
-import {getNavBarItems} from "../../../redux/actions/navBarAction";
 import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
 import {switchMobileNavBarState} from "../../../redux/actions/setNavBarStateAction";
 import Search from "../../UserControlComponent/Search/Search";
-import {getCurrentUserAction} from "../../../redux/actions/getCurrentUserAction";
 import UserControlComponent from "../../UserControlComponent/UserControlComponent";
-import {useRouter} from "next/router";
 
-const MobileNavBar = () => {
+
+const MobileNavBar = ({menu}) => {
+
     const dispatch = useDispatch()
-    const pages =useSelector(state=>state.navigation)
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state=>state.orders)
     const [isOpen, setIsOpen] = useState(false)
-    const router = useRouter()
 
 
     useEffect(()=>{
@@ -27,7 +24,6 @@ const MobileNavBar = () => {
         } else {
             document.body.style.overflow = 'unset';
         }
-        dispatch(getNavBarItems())
     }, [isOpen])
 
 
@@ -63,11 +59,12 @@ const MobileNavBar = () => {
                     <nav>
                         <ul>
                             {
-                                pages ? pages.map((p, index)=>{
+                                menu.items ? menu.items.map((p, index)=>{
+                                    console.log(p);
                                     return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
-                                        closeSideBar()                    
+                                        closeSideBar()
                                     }}>
-                                        <Link href={p.link}>
+                                        <Link href={`/${p.slug}`}>
                                             <a>{p.title}</a>
                                         </Link>
                                     </li>

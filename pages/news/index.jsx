@@ -7,10 +7,12 @@ import Pagination from "../../components/Pagination/Pgination";
 import {useRouter} from "next/router";
 import parse from 'html-react-parser'
 
-const News = ({news, page, totalNumberOfNews, limit, loc}) => {
+const News = ({news, page, totalNumberOfNews, limit}) => {
     const router = useRouter()
     const {t} = useTranslation()
     const lastPage = Math.ceil(totalNumberOfNews / 6)
+
+
     const prev = ()=>router.push(`/news?page=${page-1}`)
     const next = ()=>router.push(`/news?page=${page+1}`)
 

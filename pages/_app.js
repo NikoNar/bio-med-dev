@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import '../styles/styles.scss'
 import '../styles/globals.scss'
 import '../styles/fonts.scss'
@@ -17,8 +17,21 @@ import 'react-datepicker/dist/react-datepicker.css'
 import I18nProvider from 'next-translate/I18nProvider'
 import useTranslation from "next-translate/useTranslation";
 
-function BioMedApp({Component, pageProps}) {
+function BioMedApp({Component, pageProps, navBarItems}) {
     const { t, lang } = useTranslation()
+    const [menu, setMenu] = useState({})
+
+
+    useEffect(async ()=>{
+        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${lang}`)
+            .then(res=>res.json())
+            .then(items=>items)
+            .catch((error)=>{
+                console.log(error)
+            })
+        setMenu(navBarItems)
+    },[lang])
+
     return (
         <>
             <Head>
@@ -39,9 +52,9 @@ function BioMedApp({Component, pageProps}) {
             </Head>
             <I18nProvider lang={lang}>
                 <Provider store={store}>
-                    <Header pageProps={pageProps} loc={lang}/>
+                    <Header pageProps={pageProps} loc={lang} menu={menu}/>
                     <Component {...pageProps} t={t} loc={lang}/>
-                    <Footer loc={lang}/>
+                    <Footer loc={lang} menu={menu}/>
                 </Provider>
             </I18nProvider>
         </>
@@ -60,6 +73,7 @@ export async function getServerSideProps({Component, ctx}) {
 
 
 export async function getServerSideProps(ctx){
+
 
     return {
         props:{}

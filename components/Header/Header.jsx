@@ -13,7 +13,7 @@ import Search from "../UserControlComponent/Search/Search";
 import UserControlComponent from "../UserControlComponent/UserControlComponent";
 
 
-const Header = ({pageProps, loc}) => {
+const Header = ({pageProps, loc, menu}) => {
 
     const {t} = useTranslation()
 
@@ -56,13 +56,13 @@ const Header = ({pageProps, loc}) => {
                         </div>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <NavBar loc={loc}/>
+                                <NavBar loc={loc} menu={menu}/>
                             </div>
                         </div>
                     </div>
                 </section>
             </header>
-            {/*<MobileNavBar/>*/}
+            <MobileNavBar menu={menu}/>
         </>
     )
 }

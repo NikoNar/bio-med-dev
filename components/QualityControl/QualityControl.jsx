@@ -1,10 +1,10 @@
 import React from 'react';
 import QCStyle from './quality-control.module.scss'
 import Image from "../Image/Image";
+import parse from "html-react-parser"
+
 
 const QualityControl = ({qualityControl}) => {
-
-
     return (
         <section className={QCStyle.Quality}>
             <div className={'container'}>
@@ -13,7 +13,7 @@ const QualityControl = ({qualityControl}) => {
                         <div className={QCStyle.Text}>
                             <div className={QCStyle.Inner}>
                                 <h4>{qualityControl.title}</h4>
-                                <p>{qualityControl.body}</p>
+                                {parse(qualityControl.body)}
                             </div>
                         </div>
                     </div>

@@ -2,15 +2,13 @@ import React, {useEffect} from 'react'
 import FooterStyle from './footer.module.scss'
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
-import {getNavBarItems} from "../../redux/actions/navBarAction";
 import {getAllNews} from "../../redux/actions/getAllNewsAction";
 import MiniFooter from "../MiniFooter/MiniFooter";
 import useTranslation from "next-translate/useTranslation";
 
 
-const Footer = ({loc})=>{
+const Footer = ({loc, menu})=>{
     const {t} = useTranslation()
-    const navigation = useSelector(state=>state.navigation)
     const news = useSelector(state => state.news)
     const dispatch = useDispatch()
     const size = 3
@@ -21,6 +19,7 @@ const Footer = ({loc})=>{
     useEffect(()=>{
         dispatch(getAllNews(loc))
     },[loc])
+
 
     return(
         <footer className={FooterStyle.Footer}>
@@ -68,7 +67,7 @@ const Footer = ({loc})=>{
                             <div className={FooterStyle.List}>
                                 <ul>
                                     {
-                                        navigation.items ? navigation.items.map((item)=>{
+                                        menu.items ? menu.items.map((item)=>{
                                             return(
                                                 <li key={item.ID}>
                                                     <Link href={`/${item.slug}`}>
@@ -91,7 +90,7 @@ const Footer = ({loc})=>{
                                         return (
                                             <div className={'col-lg-12 mt-2 mt-lg-3'} key={n.id}>
                                                 <div className={FooterStyle.NewsItem}>
-                                                    <Link href={`/news/${n.id}`}>
+                                                    <Link href={`/news/${n.slug}`}>
                                                         <a>{n.title.rendered}</a>
                                                     </Link>
                                                 </div>

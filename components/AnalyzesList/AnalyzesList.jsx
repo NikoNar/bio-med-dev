@@ -13,7 +13,6 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const AnalyzesList = ({categories, loc, allCategories}) => {
-
     const {t} = useTranslation()
     const [allAnalyzes, setAllAnalyzes] = useState([])
     const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
@@ -132,7 +131,11 @@ const AnalyzesList = ({categories, loc, allCategories}) => {
                                                             <div className={'col-lg-12'}>
                                                                 <div className={AnalyzesStyle.Tags}>
                                                                     <ul className={isOpen ? AnalyzesStyle.Open : ''}>
-                                                                        <span className={'_icon-chevrone-down'} onClick={()=>setIsOpen(!isOpen)}></span>
+                                                                        <span
+                                                                            className={'_icon-chevrone-down'}
+                                                                            onClick={()=>setIsOpen(!isOpen)}
+                                                                            style={{display: allByFilterCategories && allByFilterCategories.length > 2 ? 'block' : 'none'}}
+                                                                        > </span>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
                                                                                 id={m.main}
