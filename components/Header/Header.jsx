@@ -11,14 +11,16 @@ import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
 import useTranslation from "next-translate/useTranslation";
 import Search from "../UserControlComponent/Search/Search";
 import UserControlComponent from "../UserControlComponent/UserControlComponent";
+import {getNavBarItems} from "../../redux/actions/navBarAction";
 
 
-const Header = ({pageProps, loc, menu}) => {
+const Header = ({pageProps, loc}) => {
 
     const {t} = useTranslation()
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
+    const pages =useSelector(state=>state.navigation)
     const orders = useSelector(state => state.orders)
     const [isOpen, setIsOpen] = useState(false)
     const buttonLink = user ? "/profile" : "/results"
@@ -26,7 +28,8 @@ const Header = ({pageProps, loc, menu}) => {
     useEffect(() => {
         dispatch(getCurrentUserAction())
         dispatch(getAllOrdersItem())
-    }, [pageProps])
+        dispatch(getNavBarItems(loc && loc))
+    }, [pageProps, loc])
 
 
     return (
@@ -56,13 +59,13 @@ const Header = ({pageProps, loc, menu}) => {
                         </div>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <NavBar loc={loc} menu={menu}/>
+                                <NavBar loc={loc} pages={pages}/>
                             </div>
                         </div>
                     </div>
                 </section>
             </header>
-            <MobileNavBar menu={menu}/>
+            <MobileNavBar pages={pages}/>
         </>
     )
 }

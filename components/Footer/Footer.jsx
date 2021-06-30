@@ -2,13 +2,15 @@ import React, {useEffect} from 'react'
 import FooterStyle from './footer.module.scss'
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
+import {getNavBarItems} from "../../redux/actions/navBarAction";
 import {getAllNews} from "../../redux/actions/getAllNewsAction";
 import MiniFooter from "../MiniFooter/MiniFooter";
 import useTranslation from "next-translate/useTranslation";
 
 
-const Footer = ({loc, menu})=>{
+const Footer = ({loc})=>{
     const {t} = useTranslation()
+    const navigation = useSelector(state=>state.navigation)
     const news = useSelector(state => state.news)
     const dispatch = useDispatch()
     const size = 3
@@ -16,10 +18,11 @@ const Footer = ({loc, menu})=>{
         return i
     })
 
+
+
     useEffect(()=>{
         dispatch(getAllNews(loc))
     },[loc])
-
 
     return(
         <footer className={FooterStyle.Footer}>
@@ -67,7 +70,7 @@ const Footer = ({loc, menu})=>{
                             <div className={FooterStyle.List}>
                                 <ul>
                                     {
-                                        menu.items ? menu.items.map((item)=>{
+                                        navigation.items ? navigation.items.map((item)=>{
                                             return(
                                                 <li key={item.ID}>
                                                     <Link href={`/${item.slug}`}>

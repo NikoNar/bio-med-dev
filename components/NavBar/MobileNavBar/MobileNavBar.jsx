@@ -10,7 +10,7 @@ import Search from "../../UserControlComponent/Search/Search";
 import UserControlComponent from "../../UserControlComponent/UserControlComponent";
 
 
-const MobileNavBar = ({menu}) => {
+const MobileNavBar = ({pages}) => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
@@ -59,7 +59,7 @@ const MobileNavBar = ({menu}) => {
                     <nav>
                         <ul>
                             {
-                                menu.items ? menu.items.map((p, index)=>{
+                                pages.items ? pages.items.map((p, index)=>{
                                     return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
                                         closeSideBar()
                                     }}>

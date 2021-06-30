@@ -19,13 +19,13 @@ import useTranslation from "next-translate/useTranslation";
 
 function BioMedApp({Component, pageProps, navBarItems}) {
     const { t, lang } = useTranslation()
-    const [menu, setMenu] = useState({})
+    //const [menu, setMenu] = useState({})
 
 
-    useEffect(async ()=>{
+/*    useEffect(async ()=>{
         const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${lang}`,{
             method: 'GET',
-            mode: 'no-cors'
+
         })
             .then(res=>res.json())
             .then(items=>items)
@@ -33,7 +33,7 @@ function BioMedApp({Component, pageProps, navBarItems}) {
                 console.log(error)
             })
         setMenu(navBarItems)
-    },[lang])
+    },[lang])*/
 
     return (
         <>
@@ -55,9 +55,9 @@ function BioMedApp({Component, pageProps, navBarItems}) {
             </Head>
             <I18nProvider lang={lang}>
                 <Provider store={store}>
-                    <Header pageProps={pageProps} loc={lang} menu={menu}/>
+                    <Header pageProps={pageProps} loc={lang}/>
                     <Component {...pageProps} t={t} loc={lang}/>
-                    <Footer loc={lang} menu={menu}/>
+                    <Footer loc={lang} />
                 </Provider>
             </I18nProvider>
         </>
