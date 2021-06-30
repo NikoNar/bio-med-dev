@@ -40,8 +40,8 @@ function BioMedApp({Component, pageProps}) {
             <I18nProvider lang={lang}>
                 <Provider store={store}>
                     <Header pageProps={pageProps} loc={lang}/>
-                    <Component {...pageProps} t={t}/>
-                    {/*<Footer/>*/}
+                    <Component {...pageProps} t={t} loc={lang}/>
+                    <Footer loc={lang}/>
                 </Provider>
             </I18nProvider>
         </>

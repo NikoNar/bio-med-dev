@@ -8,15 +8,14 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 
-const Analyzes = ({ analyzes, categories, analyzesEquip, analyzesLab}) => {
-
+const Analyzes = ({ analyzes, categories, allCategories, loc}) => {
     return (
         <>
             <AnalyzesList
                 analyzes={analyzes}
-                //categories={categories}
-                analyzesEquip={analyzesEquip}
-                analyzesLab={analyzesLab}
+                categories={categories}
+                allCategories={allCategories}
+                loc={loc}
             />
             <Pagination/>
         </>
@@ -26,26 +25,23 @@ const Analyzes = ({ analyzes, categories, analyzesEquip, analyzesLab}) => {
 
 
 
-export async function getServerSideProps({query:{page=1}}) {
+export async function getServerSideProps(ctx) {
     resetIdCounter();
 
-    const categories = await fetch(analyzesCategoryUrl)
-        .then(res=>res.json())
-        .then(data=>data)
+    const page = ctx.query.page = 1
 
-    const analyzes = await fetch(analyzesUrl, {
-        method: 'GET',
-    })
+
+    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
 
-    const analyzesLab = await fetch(analyzesUrl + `?mainCategory=lab`, {
-        method: 'GET',
-    })
+    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`)
         .then(res => res.json())
         .then(data => data)
 
-    const analyzesEquip = await fetch(analyzesUrl + `?mainCategory=equip`, {
+
+
+    const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -53,11 +49,10 @@ export async function getServerSideProps({query:{page=1}}) {
 
     return {
         props: {
-            analyzes: analyzes,
-            categories:categories,
+            analyzes,
+            categories,
             page,
-            analyzesLab,
-            analyzesEquip
+            allCategories,
         }
     }
 }

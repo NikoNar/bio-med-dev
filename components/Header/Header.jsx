@@ -13,7 +13,7 @@ import Search from "../UserControlComponent/Search/Search";
 import UserControlComponent from "../UserControlComponent/UserControlComponent";
 
 
-const Header = ({pageProps}) => {
+const Header = ({pageProps, loc}) => {
 
     const {t} = useTranslation()
 
@@ -56,7 +56,7 @@ const Header = ({pageProps}) => {
                         </div>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <NavBar/>
+                                <NavBar loc={loc}/>
                             </div>
                         </div>
                     </div>

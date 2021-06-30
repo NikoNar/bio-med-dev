@@ -6,19 +6,14 @@ import NavStyle from './navigation.module.scss'
 import DropDownNavBarInner from "./SubLinks/DropDownNavBarInner";
 import {useRouter, withRouter} from "next/router";
 
-const NavBar = (loc)=>{
-
-
+const NavBar = ({loc})=>{
     const dispatch = useDispatch()
     const pages =useSelector(state=>state.navigation)
     const router = useRouter()
-    const {locale} = router
-
 
     useEffect(()=>{
-        dispatch(getNavBarItems(locale))
-    }, [loc, dispatch])
-
+        dispatch(getNavBarItems(loc && loc))
+    }, [loc])
 
 
     return (

@@ -4,73 +4,95 @@ import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
 import AnalyzesCard from "../AnalyzesCard/AnalyzesCard";
-import {useDispatch, useSelector} from "react-redux";
-import {filterAnalyzesByCategory, filterAnalyzesByEvents} from "../../redux/actions/setSelectedFiltersAction";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
-
+import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
+const AnalyzesList = ({categories, loc, allCategories}) => {
 
-
-const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
     const {t} = useTranslation()
-    const dispatch = useDispatch()
-    const selectedFilters = useSelector(state => state.filters)
-    const [allAnalyzes, setAllAnalyzes] = useState(analyzesLab)
+    const [allAnalyzes, setAllAnalyzes] = useState([])
+    const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
     const [isOpen, setIsOpen] = useState(false)
-    //const [mainCategory, setMainCategory] = useState(categories[0].main)
+    const [mainCategory, setMainCategory] = useState(categories[0].id)
     const [filterName, setFilterName] = useState(null)
 
 
+    async function setInitialState (){
+        const activeTabLi = document.querySelector('.react-tabs ul li[aria-selected=true] span')
+        const activeTab = activeTabLi && activeTabLi.getAttribute("data-value")
+        setMainCategory(activeTab)
+        allCategories = allCategories.filter((cat)=>cat.parent === +activeTab)
+
+        setAllByFilterCategories(allCategories)
+
+        const currentCategoryTests = await fetch(analyzesUrl +
+            `?lang=${loc}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+            `&category=${activeTab && activeTab}`)
+            .then(res=>res.json())
+            .then(data=>data)
+        setAllAnalyzes(currentCategoryTests)
+    }
+
 
     useEffect(() => {
-        if (selectedFilters) {
-            analyzes = selectedFilters
-            setAllAnalyzes(analyzes)
-        }
-    }, [selectedFilters])
+        setInitialState().then()
+    }, [loc, mainCategory])
 
-    const handleCategoryFilter = (e) => {
+
+    const handleCategoryFilter = async (e) => {
         const value = e.target.value
         const name = e.target.id
         setFilterName(name)
-        dispatch(filterAnalyzesByCategory(value))
+
+        const filteredTest = await fetch(analyzesUrl + `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
+            .then(res=>res.json())
+            .then(data=>data)
+        setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
 
-    const handleEventsFilter = (e) => {
-        const value = e.target.value
-        dispatch(filterAnalyzesByEvents(value, mainCategory))
-    }
 
-    const handleMainCategoryName = (e) => {
+    const handleMainCategoryName = async (e) => {
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
         setFilterName(null)
-        switch (tabName) {
-            case 'lab':
-                return setAllAnalyzes(analyzesLab)
-            case 'equip':
-                return setAllAnalyzes(analyzesEquip)
-            default:
-                return setAllAnalyzes(analyzes)
-        }
+        const tests = await fetch(analyzesCategoryUrl +
+            `?lang=${loc}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
+            `&parent=${tabName}`)
+            .then(res=>res.json())
+            .then(data=>data)
+
+        const currentCategoryTests = await fetch(analyzesUrl +
+            `?lang=${loc}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+            `&category=${tabName}`)
+            .then(res=>res.json())
+            .then(data=>data)
+
+        setAllAnalyzes(currentCategoryTests)
+        setAllByFilterCategories(tests)
     }
 
-    const handleClearFilters = ()=>{
+
+    const handleClearFilters = async ()=>{
         setFilterName(null)
-        switch (mainCategory) {
-            case 'lab':
-                return setAllAnalyzes(analyzesLab)
-            case 'equip':
-                return setAllAnalyzes(analyzesEquip)
+        const currentCategoryTests = await fetch(analyzesUrl +
+            `?lang=${loc}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+            `&category=${mainCategory}`)
+            .then(res=>res.json())
+            .then(data=>data)
 
-        }
+        setAllAnalyzes(currentCategoryTests)
     }
+
 
     return (
         <section className={AnalyzesStyle.Main}>
@@ -80,15 +102,15 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                         <h4>{t('common:researches')}</h4>
                     </div>
                 </div>
-                <Tabs>
+                <Tabs defaultIndex={0}>
                     <TabList className={TabStyle.TabList}>
                         {
                             categories && categories.map((m) => {
                                 return (
-                                    <Tab selectedClassName={TabStyle.Selected} key={m.main}>
+                                    <Tab selectedClassName={TabStyle.Selected} key={m.id}>
                                         <TabButtons
-                                            text={m.title}
-                                            dataName={m.main}
+                                            text={m.name}
+                                            dataName={m.id}
                                             callBack={(e) => handleMainCategoryName(e)}
                                         />
                                     </Tab>
@@ -100,8 +122,9 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                         <div className={'col-lg-12'}>
                             {
                                 categories && categories.map((m) => {
+
                                     return (
-                                        <TabPanel key={m.title}>
+                                        <TabPanel key={m.name}>
                                             <div className={'row'}>
                                                 <div className={'col-lg-12'}>
                                                     <div className={AnalyzesStyle.Header}>
@@ -131,17 +154,17 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                                             <label htmlFor={'homeCall-1'}>{t('common:home_call')}</label>
                                                                         </li>
                                                                         {
-                                                                            m.subcategories ? m.subcategories.map((item, index) => {
+                                                                            allByFilterCategories ? allByFilterCategories.map((item, index) => {
                                                                                 return (
                                                                                     <li key={item.id}>
                                                                                         <input type="radio"
-                                                                                               id={item.title}
+                                                                                               id={item.name}
                                                                                                name={item.parent}
                                                                                                value={item.id}
                                                                                                onChange={(e) => handleCategoryFilter(e)}
                                                                                         />
                                                                                         <label
-                                                                                            htmlFor={item.title}>{item.title}</label>
+                                                                                            htmlFor={item.name}>{item.name}</label>
                                                                                     </li>
                                                                                 )
                                                                             }) : ''
@@ -157,7 +180,7 @@ const AnalyzesList = ({analyzes, categories, analyzesEquip, analyzesLab}) => {
                                                 <div className={'col-lg-12'}>
                                                     <div className={AnalyzesStyle.SelectedFiltersName}>
                                                         <article>{t('common:selected_filter')}: <strong>{filterName ? filterName : t('common:no_filters_selected')}</strong></article>
-                                                        {filterName ? <span onClick={handleClearFilters}><CloseIcon/></span> : null}
+                                                        {filterName ? <span><CloseIcon callBack={handleClearFilters}/></span> : null}
                                                     </div>
                                                 </div>
                                             </div>

@@ -8,21 +8,19 @@ import MiniFooter from "../MiniFooter/MiniFooter";
 import useTranslation from "next-translate/useTranslation";
 
 
-const Footer = ()=>{
+const Footer = ({loc})=>{
     const {t} = useTranslation()
     const navigation = useSelector(state=>state.navigation)
     const news = useSelector(state => state.news)
     const dispatch = useDispatch()
-
     const size = 3
     const footerNews = news.slice(0, size).map(i => {
         return i
     })
 
     useEffect(()=>{
-        dispatch(getNavBarItems())
-        dispatch(getAllNews())
-    },[])
+        dispatch(getAllNews(loc))
+    },[loc])
 
     return(
         <footer className={FooterStyle.Footer}>
@@ -70,10 +68,10 @@ const Footer = ()=>{
                             <div className={FooterStyle.List}>
                                 <ul>
                                     {
-                                        navigation ? navigation.map((item)=>{
+                                        navigation.items ? navigation.items.map((item)=>{
                                             return(
-                                                <li key={item.id}>
-                                                    <Link href={item.link}>
+                                                <li key={item.ID}>
+                                                    <Link href={`/${item.slug}`}>
                                                         <a>{item.title}</a>
                                                     </Link>
                                                 </li>
@@ -93,8 +91,8 @@ const Footer = ()=>{
                                         return (
                                             <div className={'col-lg-12 mt-2 mt-lg-3'} key={n.id}>
                                                 <div className={FooterStyle.NewsItem}>
-                                                    <Link href={'/en'}>
-                                                        <a>{n.title}</a>
+                                                    <Link href={`/news/${n.id}`}>
+                                                        <a>{n.title.rendered}</a>
                                                     </Link>
                                                 </div>
                                             </div>

@@ -9,7 +9,7 @@ import ContactInfoWithSelect from "./ContacInfoWithSelect/ContacInfoWithSelect";
 
 
 const ContactUs = ({contactInfo}) => {
-
+    console.log(contactInfo)
     const locations = useSelector(state=>state.locations)
     const dispatch = useDispatch()
 
@@ -25,9 +25,8 @@ const ContactUs = ({contactInfo}) => {
                     <div className={'col-lg-5'}>
                         <div className={ContStyle.Form}>
                             <div className={ContStyle.Title}>
-                                <h4>Հետադարձ կապ</h4>
-                                <p>հանդիսացել է տպագրական արդյունաբերության ստանդարտ մոդելային տեքստ, ինչը մի անհայտ
-                                    տպագրիչի</p>
+                                <h4>{contactInfo.title.rendered}</h4>
+                                <p>{contactInfo.content.rendered}</p>
                             </div>
                             <ContactFrom/>
                         </div>
@@ -47,7 +46,7 @@ const ContactUs = ({contactInfo}) => {
                     </div>
                 </div>
             </div>
-            <ContactInfoWithSelect contactInfo={contactInfo}/>
+            {/*<ContactInfoWithSelect contactInfo={contactInfo}/>*/}
         </section>
     );
 };

@@ -5,8 +5,9 @@ const ContactUs = dynamic(()=>import("../../components/ContactUs/ContactUs"), {s
 
 
 const ContactUsPage = ({contactInfo}) => {
+
     return (
-        <ContactUs contactInfo={contactInfo}/>
+        <ContactUs contactInfo={contactInfo[0]}/>
     );
 };
 

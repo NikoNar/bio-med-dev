@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import TabComponent from "../../components/Tab/Tab";
 import {useRouter} from "next/router";
-
+import parse from 'html-react-parser'
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
@@ -23,7 +23,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
-
+    console.log(singleAnalyse);
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
 
@@ -43,10 +43,10 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
                         <div className={'col-lg-12'}>
                             <div className={SAnalyseStyle.Header}>
                                 <div className={SAnalyseStyle.Number}>
-                                    <p>№ <span>{singleAnalyse.number}</span></p>
+                                    <p>№ <span>{singleAnalyse.id}</span></p>
                                 </div>
                                 <div className={SAnalyseStyle.Category}>
-                                    <p>{singleAnalyse.title}</p>
+                                    {parse(singleAnalyse.name)}
                                 </div>
                             </div>
                         </div>
@@ -54,13 +54,13 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
                     <div className={'row mb-5'}>
                         <div className={'col-lg-8'}>
                             <div className={SAnalyseStyle.Title}>
-                                <p>{singleAnalyse.body}</p>
+                                {parse(singleAnalyse.description)}
                             </div>
                         </div>
                         <div className={'col-lg-4'}>
                             <div className={SAnalyseStyle.Price}>
-                                <p style={{display: singleAnalyse.compare_price ? 'block': 'none'}}>{singleAnalyse.compare_price}<span className="_icon-amd"></span></p>
-                                <p className={singleAnalyse.compare_price ? SAnalyseStyle.OldPrice : ''}>{singleAnalyse.price}<span className="_icon-amd"></span></p>
+                                <p style={{display: singleAnalyse.sale_price ? 'block': 'none'}}>{singleAnalyse.sale_price}<span className="_icon-amd"></span></p>
+                                <p className={singleAnalyse.sale_price ? SAnalyseStyle.OldPrice : ''}>{singleAnalyse.regular_price}<span className="_icon-amd"></span></p>
                             </div>
                         </div>
                     </div>
@@ -71,27 +71,27 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
                                     <div className={SAnalyseStyle.Inner}>
                                         <Tabs>
                                             <TabList className={SAnalyseStyle.TabList}>
-                                                {
-                                                    singleAnalyse.content.map((cont)=>{
-                                                        return (
-                                                            <Tab selectedClassName={SAnalyseStyle.Selected} key={cont.tabTitle}>
-                                                                <span>{cont.tabTitle}</span>
-                                                            </Tab>
-                                                        )
-                                                    })
-                                                }
+                                                {/*{*/}
+                                                {/*    singleAnalyse.description.map((cont)=>{*/}
+                                                {/*        return (*/}
+                                                {/*            <Tab selectedClassName={SAnalyseStyle.Selected} key={cont.tabTitle}>*/}
+                                                {/*                <span>{cont.tabTitle}</span>*/}
+                                                {/*            </Tab>*/}
+                                                {/*        )*/}
+                                                {/*    })*/}
+                                                {/*}*/}
                                             </TabList>
-                                            {
-                                                singleAnalyse.content.map((cont)=>{
-                                                    return(
-                                                        <TabPanel key={cont.id}>
-                                                            <div className={SAnalyseStyle.InnerText}>
-                                                                <p>{cont.body}</p>
-                                                            </div>
-                                                        </TabPanel>
-                                                    )
-                                                })
-                                            }
+                                            {/*{*/}
+                                            {/*    singleAnalyse.content.map((cont)=>{*/}
+                                            {/*        return(*/}
+                                            {/*            <TabPanel key={cont.id}>*/}
+                                            {/*                <div className={SAnalyseStyle.InnerText}>*/}
+                                            {/*                    <p>{cont}</p>*/}
+                                            {/*                </div>*/}
+                                            {/*            </TabPanel>*/}
+                                            {/*        )*/}
+                                            {/*    })*/}
+                                            {/*}*/}
                                         </Tabs>
                                     </div>
                                 </div>
@@ -116,24 +116,24 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
                     </div>
                 </div>
             </section>
-            <section className={SAnalyseStyle.Slider}>
-                <TabComponent analyzes={analyzes}/>
-            </section>
-            <section>
-                <div className={'container'}>
-                    <div className={'row'}>
-                        <div className={'col-lg-12'}>
-                            <ContactInfoWithSelect contactInfo={contactInfo}/>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/*<section className={SAnalyseStyle.Slider}>*/}
+            {/*    <TabComponent analyzes={analyzes}/>*/}
+            {/*</section>*/}
+            {/*<section>*/}
+            {/*    <div className={'container'}>*/}
+            {/*        <div className={'row'}>*/}
+            {/*            <div className={'col-lg-12'}>*/}
+            {/*                <ContactInfoWithSelect contactInfo={contactInfo}/>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
         </>
 
     );
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(ctx) {
 
     resetIdCounter();
 
@@ -149,7 +149,7 @@ export async function getServerSideProps(context) {
     //     .then(res => res.json())
     //     .then(data => data)
 
-    const singleAnalyse = await fetch(analyzesUrl + '/' + context.query.id)
+    const singleAnalyse = await fetch(analyzesUrl + `/${ctx.query.id}` + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`)
         .then(res => res.json())
         .then(data => data)
 

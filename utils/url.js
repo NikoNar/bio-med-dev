@@ -6,10 +6,9 @@ export const analyzesUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/products`
 export const registerUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/customers?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`
 export const loginUrl = `${process.env.NEXT_PUBLIC_HOST_LOGIN}/token`
 export const changePasswordUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/change-password`
-export const editProfileUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/edit-profile`
+export const editProfileUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/customers`
 export const orderUrl = `${process.env.NEXT_PUBLIC_HOST}/orders`
 export const homeCallOrdersUrl = `${process.env.NEXT_PUBLIC_HOST}/homeCallOrders`
-export const analyzesTypesUrl = `${process.env.NEXT_PUBLIC_HOST}/analyzes-types`
 export const analyzesCategoryUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/products/categories`
 export const slidesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/home_slider`
 export const researchesUrl = `${process.env.NEXT_PUBLIC_HOST}/researches`
@@ -18,7 +17,7 @@ export const locationsUrl = `${process.env.NEXT_PUBLIC_HOST}/locations`
 export const contactFormMessageUrl = `${process.env.NEXT_PUBLIC_HOST}/messages`
 export const contactInfoUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=contact-us`
 export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST}/results`
-export const callHomeUrl = `${process.env.NEXT_PUBLIC_HOST}/call-home-text`
+export const callHomeUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=call-home`
 export const aboutUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=about-us`
 export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST}/doctors`
 export const equipmentUrl = `${process.env.NEXT_PUBLIC_HOST}/equipment`

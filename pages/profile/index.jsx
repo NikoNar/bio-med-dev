@@ -23,6 +23,8 @@ import * as Yup from "yup";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import {parsePhoneNumberFromString} from "libphonenumber-js";
 import useTranslation from "next-translate/useTranslation";
+import Account from "../account";
+import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 
@@ -30,6 +32,8 @@ import useTranslation from "next-translate/useTranslation";
 const Profile = ({contactInfo, results, token, user}) => {
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+    const [resError, setResError] = useState('')
     const router = useRouter()
     const dispatch = useDispatch()
 
@@ -83,23 +87,30 @@ const Profile = ({contactInfo, results, token, user}) => {
         }
     );
 
-    /*const handleLogOut = async (e) => {
+    const handleLogOut = async (e) => {
         e.preventDefault()
-        await fetch('/api/logout', {
+        await fetch('https://biomed.codemanstudio.com/wp-json/wpoauthserver/v1/logout', {
             method: 'POST',
+            mode:"no-cors",
             headers: {
-                Content0Type: 'application/json',
+                'ContentType': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({}),
+            body: JSON.stringify({
+                "first_name": "",
+                "email": ""
+            }),
         })
             .then(() => {
                 router.push('/')
             })
-        setTimeout(() => {
+        /*setTimeout(() => {
             destroyCookie(null, 'currentUser')
             destroyCookie(null, 'token')
-        }, 1000)
-    }*/
+        }, 1000)*/
+    }
+
+
 
     const handleChangePassword = async (passwordData) => {
 
@@ -122,25 +133,36 @@ const Profile = ({contactInfo, results, token, user}) => {
     }
 
     const handleProfileEdit = async (editProfileData) => {
-        const userCredentials = {...editProfileData, loginEmail: user.email, loginPassword: user.password}
-        await fetch(editProfileUrl, {
+        await fetch(editProfileUrl  + `/${currentUser.user_id}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userCredentials)
+            body: JSON.stringify({
+                "first_name": editProfileData.editProfileFullName,
+                "email": editProfileData.editProfileEmail,
+                "consumer_key": "ck_a47e7fe464749514bb12d991f377ca074edf2f93",
+                "consumer_secret": "cs_537e132ca0f429c320cf6a51c29332a9409d5432"
+            })
         })
             .then(res => {
                 return res.json()
             })
             .then((data)=>{
                 const user = JSON.stringify(data.user)
-                setCookie(null, 'currentUser', user)
-                setCookie(null, 'token', data.token)
                 setIsEdited(true)
+                setResError(data.message ? data.message : undefined)
+                setIsOpen(true)
+            })
+            .then(()=>{
+                !isOpen ? setTimeout( () => {
+                    destroyCookie(null, 'currentUser')
+                    destroyCookie(null, 'token')
+                    router.push('/account')
+                }, 1000) : false
             })
     }
+
 
     const validatePhoneNumber = (value)=>{
         const phoneNumber = parsePhoneNumberFromString(value)
@@ -153,19 +175,23 @@ const Profile = ({contactInfo, results, token, user}) => {
     }
 
     return (
-        <section className={ProfStyle.Profile}>
+               <section className={ProfStyle.Profile}>
+                   <ModalComponent callBack={() => setIsOpen(false)} isOpen={isOpen}
+                                   text={'You have successfully edited your profile'}
+                                   error={resError}
+                   />
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={ProfStyle.Logout}>
-                            {/*<button*/}
-                            {/*    className={'btn btn-primary'}*/}
-                            {/*    onClick={(e) => {*/}
-                            {/*        handleLogOut(e).then()*/}
-                            {/*    }}*/}
-                            {/*>*/}
-                            {/*    Log out*/}
-                            {/*</button>*/}
+                            <button
+                                className={'btn btn-primary'}
+                                onClick={(e) => {
+                                    handleLogOut(e).then()
+                                }}
+                            >
+                                Log out
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -184,9 +210,9 @@ const Profile = ({contactInfo, results, token, user}) => {
                                 <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:edit_profile')}/></Tab>
                             </TabList>
 
-                            {/*<TabPanel>*/}
-                            {/*    <AnalyzesResults results={results}/>*/}
-                            {/*</TabPanel>*/}
+                            <TabPanel>
+                                <AnalyzesResults results={results}/>
+                            </TabPanel>
                             <TabPanel>
                                 <div className={'row pt-5'}>
                                     <div className={'col-lg-6'}>
@@ -199,7 +225,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                                                                 placeholder={t('common:full_name')}
                                                                 type="text"
                                                                 name='registerFullName'
-                                                                defaultValue={currentUser && currentUser.user_display_name}
+                                                                defaultValue={currentUser && currentUser.user_meta.first_name[0]}
                                                                 {...registerEditProfile('editProfileFullName')}
                                                                 style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
@@ -326,7 +352,7 @@ const Profile = ({contactInfo, results, token, user}) => {
 
 export async function getServerSideProps(ctx) {
 
-    if (Object.entries(ctx.req.cookies).length<=0){
+    if (Object.entries(ctx.req.cookies).length<=0 || !ctx.req.cookies.currentUser){
         return {
             redirect: {
                 destination: '/account',
@@ -336,32 +362,6 @@ export async function getServerSideProps(ctx) {
     }
 
     const token = ctx.req.cookies.token ? ctx.req.cookies.token : null
-    //const user = ctx.req ? ctx.req.cookies.currentUser : null
-
-
-
-
-  /*  const user = await fetch('https://biomed.codemanstudio.com/wp-json/testone/loggedinuser',{
-        method: 'POST',
-        headers:{
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-        .then(res=>res.json())
-        .then(data=>data)*/
-
-
-    // const contactInfo = await fetch(contactInfoUrl, {
-    //     method: 'GET',
-    // })
-    //     .then(res => res.json())
-    //     .then(data => data)
-
-    /*const results = await fetch(resultsUrl)
-        .then(res => res.json())
-        .then(data => data)*/
-
 
     return {
         props: {

@@ -9,9 +9,11 @@ import EmergencyIcon from "../SVGIcons/Emergency/EmergencyIcon";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
+import parse from 'html-react-parser';
+
+
 
 const AnalyzesCard = ({inner, icon, index, id}) => {
-    //console.log(inner)
 
     const {t} = useTranslation()
     const router = useRouter()
@@ -45,12 +47,12 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                         <div className={AStyle.Top}>
                             <small className={AStyle.Number}>№{inner.number}</small>
                             <div className={AStyle.Title}>
-                                <Link href={`/analyzes/${inner.id}`}>
+                                <Link href={`/researches/${inner.id}`}>
                                     <a><span>{inner.name}</span></a>
                                 </Link>
                             </div>
                             <div className={AStyle.Desc}>
-                                {inner.description}
+                                {parse(inner.description)}
                             </div>
                         </div>
                     </div>

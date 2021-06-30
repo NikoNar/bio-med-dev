@@ -12,15 +12,13 @@ import useTranslation from "next-translate/useTranslation";
 const TabComponent = ({analyzes, categories, t}) => {
     //const {t} = useTranslation()
 
-
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes)
-    const [mainCategory, setMainCategory] = useState(categories[0].main)
-
+    const [mainCategory, setMainCategory] = useState('')
 
     const handleMainCategoryName = (e)=>{
         const tabName = e.target.getAttribute("data-value")
         setAllAnalyzes(analyzes)
-        setMainCategory(tabName)
+        //setMainCategory(tabName)
     }
 
     return (
@@ -38,7 +36,7 @@ const TabComponent = ({analyzes, categories, t}) => {
                                 <Tab selectedClassName={TabStyle.Selected} key={m.id} >
                                     <TabButtons
                                         text={m.name}
-                                        //dataName={m.main}
+                                        dataName={m.slug}
                                         callBack={(e)=>handleMainCategoryName(e)}
                                     />
                                 </Tab>
@@ -51,7 +49,7 @@ const TabComponent = ({analyzes, categories, t}) => {
                     <div className={'container'}>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <InnerSlider analyzes={allAnalyzes} component={'analyzes'} mainCategory={mainCategory}/>
+                                <InnerSlider analyzes={allAnalyzes} component={'analyzes'}/>
                             </div>
                         </div>
                     </div>
@@ -60,7 +58,7 @@ const TabComponent = ({analyzes, categories, t}) => {
                     <div className={'container'}>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <InnerSlider analyzes={allAnalyzes} component={'analyzes'} mainCategory={mainCategory}/>
+                                <InnerSlider analyzes={allAnalyzes} component={'analyzes'}/>
                             </div>
                         </div>
                     </div>

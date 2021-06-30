@@ -2,7 +2,7 @@ import {SET_SELECTED_FILTERS} from "../types";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 
 
-export const filterAnalyzesByCategory = (filterValue, mainCategory)=>{
+/*export const filterAnalyzesByCategory = (filterValue, mainCategory)=>{
     return async (dispatch)=>{
         const filters = await fetch(`${analyzesUrl}` + '?' + `typeId=${filterValue}`)
             .then(res=>res.json())
@@ -10,9 +10,10 @@ export const filterAnalyzesByCategory = (filterValue, mainCategory)=>{
 
         await dispatch(setSelectedFiltersAction(filters))
     }
-}
+}*/
 
-export const filterAnalyzesByEvents = (filterValue, mainCategory)=>{
+/*export const filterAnalyzesByEvents = (filterValue, mainCategory)=>{
+    console.log(mainCategory);
     return async (dispatch)=>{
         const filters = await fetch(`${analyzesUrl}` + '?' + `eventType=${filterValue}`+ `&mainCategory=${mainCategory}`)
             .then(res=>res.json())
@@ -20,18 +21,20 @@ export const filterAnalyzesByEvents = (filterValue, mainCategory)=>{
 
         await dispatch(setSelectedFiltersAction(filters))
     }
-}
+}*/
 
-export const getCategories = ()=>{
-    return async (dispatch)=>{
+/*
+export function setInitialState (loc, activeTab){
+   return async (dispatch)=>{
+       const currentCategoryTests = await fetch(analyzesUrl +
+           `?lang=${loc}` +
+           `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+           `&category=${activeTab && activeTab}`)
+           .then(res=>res.json())
+           .then(data=>data)
 
-        const categories = await fetch(analyzesCategoryUrl)
-            .then(res=>res.json())
-            .then(data=>data)
-
-
-        dispatch(setSelectedFiltersAction(categories))
-    }
+       dispatch(setSelectedFiltersAction(currentCategoryTests))
+   }
 }
 
 
@@ -44,4 +47,4 @@ export const setSelectedFiltersAction = (filters) => {
         type: SET_SELECTED_FILTERS,
         payload: filters
     }
-}
+}*/

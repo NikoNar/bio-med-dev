@@ -1,22 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from './news.module.scss'
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import Pagination from "../../components/Pagination/Pgination";
 import {useRouter} from "next/router";
+import parse from 'html-react-parser'
 
-
-const Index = ({news, page, totalNumberOfNews, limit}) => {
-    console.log(news);
+const News = ({news, page, totalNumberOfNews, limit, loc}) => {
     const router = useRouter()
     const {t} = useTranslation()
-
     const lastPage = Math.ceil(totalNumberOfNews / 6)
-
     const prev = ()=>router.push(`/news?page=${page-1}`)
     const next = ()=>router.push(`/news?page=${page+1}`)
-
 
     return (
         <>
@@ -31,23 +27,23 @@ const Index = ({news, page, totalNumberOfNews, limit}) => {
                     </div>
                     <div className={'row'}>
                         {news && news.map((n) => {
-                                return (
+                            return (
                                     <div className={'col-lg-4 mb-5'} key={n.id}>
                                         <div className={NewsStyle.Item}>
                                             <div className={NewsStyle.Img}
-                                                 style={{backgroundImage: "url(" + n.image + ")"}}></div>
+                                                 style={{backgroundImage: "url(" + n._embedded['wp:featuredmedia']['0'].source_url + ")"}}> </div>
                                             <div className={NewsStyle.Body}>
                                                 <div className={NewsStyle.Date}>
                                                     <span>{new Date(n.date).toLocaleDateString()}</span>
                                                 </div>
                                                 <div className={NewsStyle.ItemTitle}>
-                                                    <p>{n.title.rendered}</p>
+                                                    {parse(n.title.rendered)}
                                                 </div>
                                                 <div className={NewsStyle.ItemText}>
-                                                    <p>{n.content.rendered}</p>
+                                                    {parse(n.content.rendered)}
                                                 </div>
                                                 <div className={NewsStyle.Link}>
-                                                    <Link href={'/news/' + n.id}>
+                                                    <Link href={'/news/' + n.slug}>
                                                         <a>{t('common:read_more')}</a>
                                                     </Link>
                                                 </div>
@@ -75,16 +71,14 @@ const Index = ({news, page, totalNumberOfNews, limit}) => {
 }
 
 
-export async function getServerSideProps(ctx) {
-    const page = ctx.query.page = 1
-
-    const start = page === 1 ? 0 : (page - 1) * 6
-    const limit = 6
-    const allNews = await fetch(newsUrl + `?lang=${ctx.locale}` + '&status=publish')
+export async function getServerSideProps({locale: locale ,query:{page=1}}) {
+    const start = page === 1 ? 0 : (page - 1) * 9
+    const limit = 9
+    const allNews = await fetch(`${newsUrl}?status=publish&lang=${locale}&_embed`)
         .then(res => res.json())
         .then(data => data)
 
-    const news = await fetch(newsUrl + `?lang=${ctx.locale}` + '&status=publish' +`&_start=${start}&_limit=${limit}`)
+    const news = await fetch(`${newsUrl}?status=publish&page=${page}&lang=${locale}&_embed&per_page=${limit}&offset=${start}`)
         .then(res => res.json())
         .then(data => data)
 
@@ -93,7 +87,7 @@ export async function getServerSideProps(ctx) {
     return {
         props: {
             news,
-            page: page,
+            page: +page,
             totalNumberOfNews,
             limit
         },
@@ -101,4 +95,4 @@ export async function getServerSideProps(ctx) {
 }
 
 
-export default Index
+export default News

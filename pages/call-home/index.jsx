@@ -1,11 +1,13 @@
 import React from 'react';
 import {resetIdCounter} from "react-tabs";
-import {analyzesCategoryUrl, analyzesTypesUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesUrl, callHomeUrl} from "../../utils/url";
 import HCStyle from "./home-call.module.scss"
 import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
+import parse from 'html-react-parser';
 
-const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab}) => {
+
+const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, loc, allCategories}) => {
 
     return (
         <>
@@ -13,22 +15,14 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab}) 
                 <div className={'container'}>
                     <div className={'row'}>
                         <div className={'col-lg-6'}>
-                            {
-                                homeCall ? homeCall.map((text, index) => {
-                                    return (
-                                        <div className={HCStyle.Wrapper} key={index}>
-                                            <div className={HCStyle.Title}>
-                                                <h4>{text.title}</h4>
-                                                {
-                                                    text.body ? text.body.map((p, index) => {
-                                                        return <p key={index}>{p}</p>
-                                                    }) : ''
-                                                }
-                                            </div>
-                                        </div>
-                                    )
-                                }) : ''
-                            }
+                            <div className={HCStyle.Wrapper}>
+                                {/*<div className={HCStyle.Title}>*/}
+                                {/*    <h4>{homeCall[0].title.rendered}</h4>*/}
+                                {/*</div>*/}
+                                <div className={HCStyle.Content}>
+                                    {parse(homeCall[0].content.rendered)}
+                                </div>
+                            </div>
                         </div>
                         <div className={'col-lg-6 order-first order-lg-last mb-5 mb-lg-0'}>
                             <div className={HCStyle.IconWrapper}>
@@ -45,20 +39,18 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab}) 
                 categories={categories}
                 analyzesEquip={analyzesEquip}
                 analyzesLab={analyzesLab}
+                allCategories={allCategories}
+                loc={loc}
             />
         </>
     );
 };
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
     resetIdCounter();
 
-    const analyzesTypes = await fetch(analyzesTypesUrl)
-        .then(res => res.json())
-        .then(data => data)
-
-    const analyzes = await fetch(analyzesUrl, {
+    const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -70,31 +62,22 @@ export async function getServerSideProps() {
         .then(res => res.json())
         .then(data => data)
 
-    const categories = await fetch(analyzesCategoryUrl)
-        .then(res=>res.json())
-        .then(data=>data)
-
-    const analyzesLab = await fetch(analyzesUrl + `?mainCategory=lab`, {
-        method: 'GET',
-    })
+    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
 
-    const analyzesEquip = await fetch(analyzesUrl + `?mainCategory=equip`, {
-        method: 'GET',
-    })
+    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`)
         .then(res => res.json())
         .then(data => data)
+
 
 
     return {
         props: {
-            analyzesTypes: analyzesTypes,
             analyzes: analyzes,
             homeCall,
             categories,
-            analyzesLab,
-            analyzesEquip
+            allCategories
         }
     }
 }

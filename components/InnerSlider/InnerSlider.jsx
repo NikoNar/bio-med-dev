@@ -41,6 +41,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                         className={ISStyle.SliderContainer}
                         navigation={component !== 'analyzes'}
                         breakpoints={breakpointsValue}
+                        autoHeight={true}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {

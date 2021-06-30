@@ -58,12 +58,13 @@ const LoginForm = () => {
             })
             .then(data => {
                 const user = JSON.stringify(data)
-                if (data){
+                console.log(data);
+                if (!data.message){
                     setCookie(null, 'currentUser', user)
                     setCookie(null, 'token', data.token)
                     router.push('/profile')
                 }else {
-                    setError(t('errors:login_or_password_error'))
+                    setError(data.message)
                     setIsOpen(true)
                 }
             })
