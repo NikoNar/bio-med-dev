@@ -23,7 +23,10 @@ function BioMedApp({Component, pageProps, navBarItems}) {
 
 
     useEffect(async ()=>{
-        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${lang}`)
+        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${lang}`,{
+            method: 'GET',
+            mode: 'no-cors'
+        })
             .then(res=>res.json())
             .then(items=>items)
             .catch((error)=>{

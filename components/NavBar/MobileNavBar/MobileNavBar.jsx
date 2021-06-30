@@ -60,7 +60,6 @@ const MobileNavBar = ({menu}) => {
                         <ul>
                             {
                                 menu.items ? menu.items.map((p, index)=>{
-                                    console.log(p);
                                     return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
                                         closeSideBar()
                                     }}>
