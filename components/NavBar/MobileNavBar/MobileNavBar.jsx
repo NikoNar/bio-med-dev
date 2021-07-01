@@ -30,14 +30,13 @@ const MobileNavBar = ({pages}) => {
 
     const handleOpen = (state)=>{
         dispatch(switchMobileNavBarState(state))
-        //dispatch(getCurrentUserAction())
         setIsOpen(!isOpen)
     }
 
     const closeSideBar = ()=>{
         setTimeout(()=>{
             setIsOpen(false)
-        },2000)
+        },3000)
     }
 
     return (

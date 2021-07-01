@@ -29,7 +29,7 @@ const Header = ({pageProps, loc}) => {
         dispatch(getCurrentUserAction())
         dispatch(getAllOrdersItem())
         dispatch(getNavBarItems(loc && loc))
-    }, [pageProps, loc])
+    }, [loc, pageProps])
 
 
     return (
@@ -52,7 +52,7 @@ const Header = ({pageProps, loc}) => {
                                     <Logo/>
                                     <div className={HeaderStyle.UserControl}>
                                     <Search setIsOpen={setIsOpen}/>
-                                    <UserControlComponent user={user} orders={orders}/>
+                                    <UserControlComponent user={user && user} orders={orders}/>
                                     </div>
                                 </div>
                             </div>

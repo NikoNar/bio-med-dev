@@ -8,40 +8,34 @@ import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
+import Pagination from "../Pagination/Pgination";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
-const AnalyzesList = ({categories, loc, allCategories}) => {
+const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
+
     const {t} = useTranslation()
-    const [allAnalyzes, setAllAnalyzes] = useState([])
     const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
     const [isOpen, setIsOpen] = useState(false)
     const [mainCategory, setMainCategory] = useState(categories[0].id)
     const [filterName, setFilterName] = useState(null)
 
-
-    async function setInitialState (){
-        const activeTabLi = document.querySelector('.react-tabs ul li[aria-selected=true] span')
-        const activeTab = activeTabLi && activeTabLi.getAttribute("data-value")
-        setMainCategory(activeTab)
-        allCategories = allCategories.filter((cat)=>cat.parent === +activeTab)
-
-        setAllByFilterCategories(allCategories)
-
-        const currentCategoryTests = await fetch(analyzesUrl +
-            `?lang=${loc}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
-            `&category=${activeTab && activeTab}`)
-            .then(res=>res.json())
-            .then(data=>data)
-        setAllAnalyzes(currentCategoryTests)
-    }
+    const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
+    const [tabIndex, setTabIndex] = useState(0);
 
 
     useEffect(() => {
-        setInitialState().then()
-    }, [loc, mainCategory])
+        setTabIndex(0)
+        setAllAnalyzes(analyzes)
+        setAllByFilterCategories(allCategories)
+    }, [loc])
+
+
+    useEffect(() => {
+        setTabIndex(0)
+        setAllAnalyzes(analyzes)
+    }, [loc])
 
 
     const handleCategoryFilter = async (e) => {
@@ -49,13 +43,13 @@ const AnalyzesList = ({categories, loc, allCategories}) => {
         const name = e.target.id
         setFilterName(name)
 
-        const filteredTest = await fetch(analyzesUrl + `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
+        const filteredTest = await fetch(analyzesUrl +
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
             .then(res=>res.json())
             .then(data=>data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-
 
     const handleMainCategoryName = async (e) => {
         const tabName = e.target.getAttribute("data-value")
@@ -79,7 +73,6 @@ const AnalyzesList = ({categories, loc, allCategories}) => {
         setAllByFilterCategories(tests)
     }
 
-
     const handleClearFilters = async ()=>{
         setFilterName(null)
         const currentCategoryTests = await fetch(analyzesUrl +
@@ -101,7 +94,7 @@ const AnalyzesList = ({categories, loc, allCategories}) => {
                         <h4>{t('common:researches')}</h4>
                     </div>
                 </div>
-                <Tabs defaultIndex={0}>
+                <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
                     <TabList className={TabStyle.TabList}>
                         {
                             categories && categories.map((m) => {
@@ -204,6 +197,7 @@ const AnalyzesList = ({categories, loc, allCategories}) => {
                                                         <h4>{t('common:no_analysis_found_in_this_category')}</h4>
                                                     </div>
                                             }
+                                            <Pagination/>
                                         </TabPanel>
                                     )
                                 })

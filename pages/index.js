@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {aboutUsTextUrl, analyzesCategoryUrl, analyzesUrl, contactInfoUrl, researchesUrl, slidesUrl} from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
@@ -10,11 +10,14 @@ const ContactUs = dynamic(() => import("../components/ContactUs/ContactUs"), {ss
 import {resetIdCounter} from "react-tabs";
 
 
-const Home = ({analyzes, slides, categories, t}) => {
+const Home = ({ slides, categories, t, loc, analyzes}) => {
+
+    const initId = categories && categories[0].id
+
     return (
         <>
             <MainSlider slides={slides}/>
-            <TabComponent analyzes={analyzes} categories={categories} t={t}/>
+            <TabComponent categories={categories} t={t} loc={loc} initId={initId} analyzes={analyzes}/>
             {/*<Researches researches={researches}/>
             <AboutUsSection aboutUs={aboutUs}/>
             <ContactUs contactInfo={contactInfo}/>*/}
@@ -27,11 +30,16 @@ export async function getServerSideProps(ctx) {
 
     resetIdCounter();
 
-    const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + '&consumer_key=ck_a47e7fe464749514bb12d991f377ca074edf2f93&consumer_secret=cs_537e132ca0f429c320cf6a51c29332a9409d5432', {
-        method: 'GET',
-    })
+    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
+
+    const analyzes = await fetch(analyzesUrl +
+        `?lang=${ctx.locale}` +
+        `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+        `&category=${categories[0].id}`)
+        .then(res=>res.json())
+        .then(data=>data)
 
     const slides = await fetch(slidesUrl + `?lang=${ctx.locale}` + `&_embed`, {
         method: 'GET',
@@ -57,18 +65,16 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)*/
 
-    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0`)
-        .then(res => res.json())
-        .then(data => data)
+
 
     return {
         props: {
-            analyzes,
             slides,
             //researches,
             //aboutUs,
             // contactInfo,
-            categories: categories
+            categories: categories,
+            analyzes
         },
     }
 }

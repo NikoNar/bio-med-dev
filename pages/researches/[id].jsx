@@ -23,13 +23,9 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories}, pageP
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
-    console.log(singleAnalyse);
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        //dispatch(getCurrentUserAction())
-    }, [])
 
     const handleAddToCart = (data) => {
         dispatch(addItemToCart(data))

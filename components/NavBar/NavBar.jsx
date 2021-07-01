@@ -1,17 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Link from "next/link";
-import {useDispatch, useSelector} from "react-redux";
-import {getNavBarItems} from "../../redux/actions/navBarAction";
 import NavStyle from './navigation.module.scss'
 import DropDownNavBarInner from "./SubLinks/DropDownNavBarInner";
 import {useRouter, withRouter} from "next/router";
 
-const NavBar = ({loc, pages})=>{
-    const dispatch = useDispatch()
+const NavBar = ({pages})=>{
+
     const router = useRouter()
-    console.log(pages);
-
-
 
     return (
         <nav className={NavStyle.NavBarMain}>
@@ -20,7 +15,7 @@ const NavBar = ({loc, pages})=>{
                     pages.items && pages.items.map((item)=>{
                         return(
                             <li key={item.ID} className={ item.child_items ? NavStyle.HasChild : null }>
-                                <Link href={item.slug && item.menu_item_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`} activeClassName="active">
+                                <Link href={item.slug && item.menu_item_parent === '0' ? `/${item.slug}` : !item.slug  ? '/' : `/page?title=${item.slug}`} activeClassName="active">
                                     <a className={router.asPath === `/${item.slug}` ? NavStyle.Active : " "}>
                                             {item.title}
                                     </a>

@@ -56,7 +56,7 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-    const homeCall = await fetch(callHomeUrl, {
+    const homeCall = await fetch(`${callHomeUrl}&lang=${ctx.locale}`, {
         method: 'GET',
     })
         .then(res => res.json())

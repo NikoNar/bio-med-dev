@@ -58,7 +58,6 @@ const LoginForm = () => {
             })
             .then(data => {
                 const user = JSON.stringify(data)
-                console.log(data);
                 if (!data.message){
                     setCookie(null, 'currentUser', user)
                     setCookie(null, 'token', data.token)

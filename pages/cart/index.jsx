@@ -11,8 +11,8 @@ import useTranslation from "next-translate/useTranslation";
 
 
 const Cart = ({contactInfo}) => {
-    const {t} = useTranslation()
 
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const orders = useSelector(state => state.orders)
 
@@ -65,7 +65,7 @@ const Cart = ({contactInfo}) => {
                                         </div>
                                     )
 
-                                }) : ''
+                                }) : 'Your cart is empty'
                             }
                         </div>
                     </div>
@@ -84,7 +84,11 @@ const Cart = ({contactInfo}) => {
 };
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+    //console.log(JSON.parse(ctx.req.cookies.currentUser))
+
+    const userId = JSON.parse(ctx.req.cookies.currentUser).user_id
+    const token = JSON.parse(ctx.req.cookies.currentUser).token
 
     const contactInfo = await fetch(contactInfoUrl, {
         method: 'GET',
@@ -92,6 +96,19 @@ export async function getServerSideProps() {
         .then(res => res.json())
         .then(data => data)
 
+    const orders = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST_V2}/orders?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer=${userId}`,{
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    )
+        .then(res=>res.json())
+        .then(data=>data)
+
+    console.log(orders)
 
     return {
         props: {

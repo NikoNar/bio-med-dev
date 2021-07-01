@@ -16,24 +16,21 @@ import Footer from "../components/Footer/Footer";
 import 'react-datepicker/dist/react-datepicker.css'
 import I18nProvider from 'next-translate/I18nProvider'
 import useTranslation from "next-translate/useTranslation";
+import NProgress from 'nprogress';
+import Router from "next/router";
 
-function BioMedApp({Component, pageProps, navBarItems}) {
+
+
+Router.events.on('routeChangeStart', (url) => {
+    NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
+
+
+
+function BioMedApp({Component, pageProps}) {
     const { t, lang } = useTranslation()
-    //const [menu, setMenu] = useState({})
-
-
-/*    useEffect(async ()=>{
-        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}?lang=${lang}`,{
-            method: 'GET',
-
-        })
-            .then(res=>res.json())
-            .then(items=>items)
-            .catch((error)=>{
-                console.log(error)
-            })
-        setMenu(navBarItems)
-    },[lang])*/
 
     return (
         <>

@@ -13,7 +13,6 @@ SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
 const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCategory}) => {
-
     const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
 
@@ -26,7 +25,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
 
 
     const breakpointsValue =
-             component === 'analyzes' ? { 1700:{ slidesPerView: 3,}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} :
+             component === 'analyzes' ? { 1700:{ slidesPerView: analyzes.length > 2 ? 3 : 2,}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} :
              component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4,}, 991: { slidesPerView: 3,}, 476: { slidesPerView: 2,}, 0: {slidesPerView: 1,}} : null
 
 
@@ -35,7 +34,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
             <div className={ISStyle.Products}>
                 <div className={ISStyle.Inner}>
                     <Swiper
-                        slidesPerView={component === 'analyzes' ? 3 : perPage}
+                        slidesPerView={component === 'analyzes' && analyzes && analyzes.length > 2 ? 3 : analyzes && analyzes.length <= 2 ? 2 : perPage}
                         spaceBetween={20}
                         mousewheel={true}
                         className={ISStyle.SliderContainer}

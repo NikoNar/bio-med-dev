@@ -55,7 +55,7 @@ const ForgotPassword = ({contactInfo}) => {
                     </div>
                 </div>
             </section>
-            <ContactUs contactInfo={contactInfo}/>
+           {/* <ContactUs contactInfo={contactInfo}/>*/}
         </>
     );
 };
