@@ -1,13 +1,14 @@
 import React from 'react';
-import {contactInfoUrl} from "../../utils/url";
+import {contactInfoUrl, locationsUrl} from "../../utils/url";
 import dynamic from 'next/dynamic'
 const ContactUs = dynamic(()=>import("../../components/ContactUs/ContactUs"), {ssr:false}) //from "../../components/ContactUs/ContactUs";
 
 
-const ContactUsPage = ({contactInfo}) => {
+const ContactUsPage = ({contactInfo, contactPageInfo, loc, t}) => {
+
 
     return (
-        <ContactUs contactInfo={contactInfo[0]}/>
+        <ContactUs contactInfo={contactInfo} loc={loc} t={t} contactPageInfo={contactPageInfo}/>
     );
 };
 
@@ -15,14 +16,19 @@ const ContactUsPage = ({contactInfo}) => {
 
 export async function getServerSideProps(ctx) {
 
-    const contactInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
+    const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
 
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
+        .then(res => res.json())
+        .then(data => data)
+
+
     return {
-        props: {contactInfo},
+        props: {contactPageInfo, contactInfo},
     }
 }
 

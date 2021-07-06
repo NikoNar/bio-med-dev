@@ -7,6 +7,7 @@ import Marker from "./InfoWindow";
 
 const MapComponent = ({locations})=>{
 
+
     const monoChromeMapStyles = [
         {
             "elementType": "geometry",
@@ -168,7 +169,6 @@ const MapComponent = ({locations})=>{
         }
     ];
 
-
     const [infoWindowOpen, setInfoWindowOpen] = useState(false)
     const openInfoWindow = (index)=>{
         setInfoWindowOpen(index)
@@ -193,11 +193,11 @@ const MapComponent = ({locations})=>{
                             return  <Marker
                                 state={infoWindowOpen}
                                 closeWindow={closeInfoWindow}
-                                info={loc.address}
-                                infoPhone={loc.phone}
+                                info={loc.location_address}
+                                infoPhone={loc.location_phone}
                                 index={index}
-                                lat={loc.lat}
-                                lng={loc.lng}
+                                lat={loc.location_latitide}
+                                lng={loc.location_longitude}
                                 key={loc.id}
                                 openWindow={()=>openInfoWindow(index)}
                             />

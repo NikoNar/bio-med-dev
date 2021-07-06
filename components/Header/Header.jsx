@@ -51,7 +51,7 @@ const Header = ({pageProps, loc}) => {
                                 <div className={HeaderStyle.MainHeaderWrapper}>
                                     <Logo/>
                                     <div className={HeaderStyle.UserControl}>
-                                    <Search setIsOpen={setIsOpen}/>
+                                    <Search setIsOpen={setIsOpen} loc={loc}/>
                                     <UserControlComponent user={user && user} orders={orders}/>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@ const Header = ({pageProps, loc}) => {
                     </div>
                 </section>
             </header>
-            <MobileNavBar pages={pages}/>
+            <MobileNavBar pages={pages} loc={loc}/>
         </>
     )
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import DCStyle from './doctor-card.module.scss'
+import render from 'html-react-parser'
 
 const DoctorCard = ({inner}) => {
-
     return (
         <div className={DCStyle.Item}>
-            <div className={DCStyle.Image} style={{backgroundImage: "url(" + inner.image + ")"}}> </div>
+            <div className={DCStyle.Image} style={{backgroundImage: `url(${inner._embedded ? inner._embedded['wp:featuredmedia']['0'].source_url : ""})`}}> </div>
             <div className={DCStyle.Info}>
-                <p className={DCStyle.Name}>{inner.name}</p>
-                <p className={DCStyle.Desc}>{inner.desc}</p>
+                <div className={DCStyle.Name}>{render(inner.title.rendered)}</div>
+                <div className={DCStyle.Desc}>{render(inner.content.rendered)}</div>
             </div>
         </div>
     );

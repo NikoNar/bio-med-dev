@@ -25,7 +25,7 @@ const Slide = ({slide, flag}) => {
                                 <LinkButton text={t('common:read_more')} link={'/'}/>
                             </div>
                         :
-                        <Link href={'/'}>
+                        <Link href={slide.link}>
                             <a style={{textAlign: 'right', color: '#52a4e3'}}>{t('common:see_more')}</a>
                         </Link>}
                 </div>

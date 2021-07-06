@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {aboutUsTextUrl, analyzesCategoryUrl, analyzesUrl, contactInfoUrl, researchesUrl, slidesUrl} from "../utils/url";
+import {
+    aboutUsTextUrl,
+    analyzesCategoryUrl,
+    analyzesUrl,
+    contactInfoUrl, locationsUrl,
+    researchesUrl,
+    slidesUrl
+} from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
 import Researches from "../components/Researches/Researches";
@@ -8,19 +15,19 @@ import dynamic from 'next/dynamic'
 
 const ContactUs = dynamic(() => import("../components/ContactUs/ContactUs"), {ssr: false})
 import {resetIdCounter} from "react-tabs";
+import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
 
 
-const Home = ({ slides, categories, t, loc, analyzes}) => {
+const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo}) => {
 
     const initId = categories && categories[0].id
-
     return (
         <>
             <MainSlider slides={slides}/>
             <TabComponent categories={categories} t={t} loc={loc} initId={initId} analyzes={analyzes}/>
-            {/*<Researches researches={researches}/>
-            <AboutUsSection aboutUs={aboutUs}/>
-            <ContactUs contactInfo={contactInfo}/>*/}
+           {/* <Researches researches={researches}/>
+            <AboutUsSection aboutUs={aboutUs}/>*/}
+            <ContactUs contactInfo={contactInfo} t={t} contactPageInfo={contactPageInfo}/>
         </>
     );
 };
@@ -59,12 +66,15 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)*/
 
-    /*const contactInfo = await fetch(contactInfoUrl, {
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
+        .then(res => res.json())
+        .then(data => data)
+
+    const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
         method: 'GET',
     })
         .then(res => res.json())
-        .then(data => data)*/
-
+        .then(data => data)
 
 
     return {
@@ -72,9 +82,10 @@ export async function getServerSideProps(ctx) {
             slides,
             //researches,
             //aboutUs,
-            // contactInfo,
+            contactInfo,
             categories: categories,
-            analyzes
+            analyzes,
+            contactPageInfo
         },
     }
 }

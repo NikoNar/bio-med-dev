@@ -8,6 +8,9 @@ const Search = () => {
     const {t} = useTranslation()
     const results = useSelector(state => state.search)
 
+
+    console.log(results);
+
     return (
         <section className={SearchStyle.Search}>
             <div className={'container'}>
@@ -22,7 +25,7 @@ const Search = () => {
                     {
                         Object.entries(results).length > 0 && results.results.length > 0 ? results.results.map((res) => {
                             return (
-                                <div className={'col-lg-12 mb-5'} key={res.title}>
+                                <div className={'col-lg-12 mb-5'} key={Math.random()}>
                                     <AnalyzesCard inner={res} id={res.id}/>
                                 </div>
                             )

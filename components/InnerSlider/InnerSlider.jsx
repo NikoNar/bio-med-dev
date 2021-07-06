@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import ISStyle from './inner-slider.module.scss'
-import Link from "next/link";
 import AnalyzesCard from "../AnalyzesCard/AnalyzesCard";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Mousewheel, Navigation, Pagination} from "swiper";
 import DoctorCard from "../DoctorCard/DoctorCard";
 import EquipmentCard from "../EquipmentCard/EquipmentCard";
-import useTranslation from "next-translate/useTranslation";
 
 
 SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 
 const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCategory}) => {
-    const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
 
     const handleOpen = (index) => {
@@ -36,11 +33,11 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                     <Swiper
                         slidesPerView={component === 'analyzes' && analyzes && analyzes.length > 2 ? 3 : analyzes && analyzes.length <= 2 ? 2 : perPage}
                         spaceBetween={20}
-                        mousewheel={true}
+                        mousewheel={component === 'analyzes'}
                         className={ISStyle.SliderContainer}
                         navigation={component !== 'analyzes'}
                         breakpoints={breakpointsValue}
-                        autoHeight={true}
+                        autoHeight={isOpen && true}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {

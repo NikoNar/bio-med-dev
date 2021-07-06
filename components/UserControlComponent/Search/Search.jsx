@@ -5,7 +5,8 @@ import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import {useDispatch} from "react-redux";
 
-const Search = ({setIsOpen}) => {
+const Search = ({setIsOpen, loc}) => {
+    console.log(loc);
     const {t} = useTranslation()
     const dispatch = useDispatch()
 
@@ -18,7 +19,7 @@ const Search = ({setIsOpen}) => {
 
     const handleSearchSubmit = async (e)=>{
         e.preventDefault()
-        dispatch(makeSearch(searchData))
+        dispatch(makeSearch(searchData, loc))
         await router.push('/search')
         setSearchData('')
         setTimeout(()=>{

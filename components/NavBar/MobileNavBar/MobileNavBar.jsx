@@ -10,7 +10,7 @@ import Search from "../../UserControlComponent/Search/Search";
 import UserControlComponent from "../../UserControlComponent/UserControlComponent";
 
 
-const MobileNavBar = ({pages}) => {
+const MobileNavBar = ({pages, loc}) => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
@@ -51,7 +51,7 @@ const MobileNavBar = ({pages}) => {
             </div>
             <div className={isOpen ? MNStyle.Menu + ' ' + MNStyle.Open : MNStyle.Menu}>
                 <div className={MNStyle.ControlWrapper}>
-                    <Search setIsOpen={setIsOpen}/>
+                    <Search setIsOpen={setIsOpen} loc={loc}/>
                     <UserControlComponent user={user} orders={orders}  setIsOpen={()=>setIsOpen(false)}/>
                 </div>
                 <div className={MNStyle.Links}>

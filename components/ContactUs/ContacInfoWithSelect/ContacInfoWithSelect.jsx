@@ -7,17 +7,18 @@ import SelectBox from "../../SelectBox/SelectBox";
 import useTranslation from "next-translate/useTranslation";
 import {useRouter} from "next/router";
 
-const ContactInfoWithSelect = ({contactInfo}) => {
+const ContactInfoWithSelect = ({addresses, loc}) => {
+
+
     const router = useRouter()
     const {t} = useTranslation()
-    const Addresses = contactInfo
+    const Addresses = addresses
     const [selectedValue, setSelectedValue] = useState(Addresses[0].label);
     const [phone, setPhone] = useState(Addresses[0].tel)
     const [email, setEmail] = useState(Addresses[0].email)
 
 
     const handleChange = e => {
-        
         setSelectedValue(e.label);
         setPhone(e.tel)
         setEmail(e.email)
@@ -28,7 +29,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
             ...provided,
             boxShadow: "none",
             border: "none",
-            backgroundColor: "#FFFFFF",    
+            backgroundColor: "#FFFFFF",
             padding: "6px"
         }),
         container: (provided) => ({
@@ -71,7 +72,7 @@ const ContactInfoWithSelect = ({contactInfo}) => {
                                 <SelectBox
                                     options={Addresses}
                                     value={Addresses.find(obj => obj.label === selectedValue)}
-                                    defaultValue={Addresses[0]}
+                                    defaultValue={loc && Addresses[0].label}
                                     id={1}
                                     inputId={router.asPath}
                                     components={{

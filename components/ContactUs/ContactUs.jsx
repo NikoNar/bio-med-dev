@@ -5,17 +5,30 @@ import {useDispatch, useSelector} from "react-redux";
 import {getLocation} from "../../redux/actions/getLocationsAction";
 import ContactFrom from "./ContactForm/ContactFrom";
 import ContactInfoWithSelect from "./ContacInfoWithSelect/ContacInfoWithSelect";
+import parse from 'html-react-parser'
+
+
+const ContactUs = ({contactInfo, loc, t, contactPageInfo}) => {
 
 
 
-const ContactUs = ({contactInfo}) => {
-    console.log(contactInfo)
     const locations = useSelector(state=>state.locations)
     const dispatch = useDispatch()
-
     useEffect(()=>{
-        dispatch(getLocation())
-    },[])
+        dispatch(getLocation(loc))
+    },[loc])
+
+
+
+    const addresses = contactInfo.map((cont)=>{
+        return{
+            value: cont.slug,
+            label: cont.location_address,
+            email: cont.location_email,
+            tel: cont.location_phone
+        }
+    })
+
 
 
     return (
@@ -25,8 +38,8 @@ const ContactUs = ({contactInfo}) => {
                     <div className={'col-lg-5'}>
                         <div className={ContStyle.Form}>
                             <div className={ContStyle.Title}>
-                                <h4>{contactInfo.title.rendered}</h4>
-                                <p>{contactInfo.content.rendered}</p>
+                                <h4>{t('common:contact_us')}</h4>
+                                {parse(contactPageInfo[0].content && contactPageInfo[0].content.rendered)}
                             </div>
                             <ContactFrom/>
                         </div>
@@ -46,7 +59,7 @@ const ContactUs = ({contactInfo}) => {
                     </div>
                 </div>
             </div>
-            {/*<ContactInfoWithSelect contactInfo={contactInfo}/>*/}
+            <ContactInfoWithSelect addresses={addresses} loc={loc}/>
         </section>
     );
 };

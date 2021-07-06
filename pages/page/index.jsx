@@ -37,7 +37,6 @@ function Page({pageContent}) {
 
 
 export async function getServerSideProps(ctx) {
-    debugger
     const title = ctx.query.title ? ctx.query.title : null
     const pageContent = await fetch(`${dynamicPageUrl}&slug=${title}&lang=${ctx.locale}&_embed`)
         .then(res => res.json())

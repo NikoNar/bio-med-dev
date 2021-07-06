@@ -8,9 +8,8 @@ import QualityControl from "../../components/QualityControl/QualityControl";
 import useTranslation from "next-translate/useTranslation";
 
 const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
-
     const {t} = useTranslation()
-
+    console.log(aboutUsContent);
     return (
         <>
             <section className={AUStyle.AboutUs}>
@@ -27,12 +26,12 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                     <div className={'row'}>
                         <div className={'col-lg-12'}>
                             <div className={AUStyle.Title}>
-                                <h4>{aboutUsContent.doctors.title}</h4>
+                                {/*<h4>{aboutUsContent.doctors.title}</h4>*/}
                             </div>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
                                     <div className={AUStyle.Desc}>
-                                        <p>{aboutUsContent.doctors.body}</p>
+                                        {/*<p>{aboutUsContent.doctors.body}</p>*/}
                                     </div>
                                 </div>
                             </div>
@@ -50,12 +49,12 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                     <div className={'row'}>
                         <div className={'col-lg-12'}>
                             <div className={AUStyle.Title}>
-                                <h4>{aboutUsContent.equipment.title}</h4>
+                                {/*<h4>{aboutUsContent.equipment.title}</h4>*/}
                             </div>
                             <div className={'row'}>
                                 <div className={'col-lg-6'}>
                                     <div className={AUStyle.Desc}>
-                                        <p>{aboutUsContent.equipment.body}</p>
+                                        {/*<p>{aboutUsContent.equipment.body}</p>*/}
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +67,7 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                     </div>
                 </div>
             </section>
-            <QualityControl qualityControl={qualityControl}/>
+            {/*<QualityControl qualityControl={qualityControl}/>*/}
         </>
     );
 };
@@ -76,19 +75,20 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
 
 
 export async function getServerSideProps(ctx) {
-    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}`)
+    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
     //console.log(aboutUsContent);
-    /*const doctors = await fetch(doctorsUsUrl)
+    const doctors = await fetch(`${doctorsUsUrl}&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const equipment = await fetch(equipmentUrl)
+
+    const equipment = await fetch(`${equipmentUrl}&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const qualityControl = await fetch(qualityControlUrl)
+    /*const qualityControl = await fetch(qualityControlUrl)
         .then(res=>res.json())
         .then(data=>data)*/
 
@@ -96,8 +96,8 @@ export async function getServerSideProps(ctx) {
     return {
         props:{
             aboutUsContent,
-            //doctors,
-            //equipment,
+            doctors,
+            equipment,
             //qualityControl
         }
     }
