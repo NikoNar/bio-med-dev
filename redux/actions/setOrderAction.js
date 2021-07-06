@@ -15,9 +15,9 @@ export const getAllOrdersItem = () => {
 
 
 export const addItemToCart = (data) => {
-
+    console.log(data)
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
-    if (ordersInitialArray.map(o => o.number).indexOf(data.number) === -1) ordersInitialArray = [...ordersInitialArray, data];
+    if (ordersInitialArray.map(o => o.id).indexOf(data.id) === -1) ordersInitialArray = [...ordersInitialArray, data];
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
     return {
         type: ADD_ORDER_TO_CART,

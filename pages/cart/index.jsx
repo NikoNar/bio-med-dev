@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import CartStyle from './cart.module.scss'
 import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
-import {contactInfoUrl} from "../../utils/url";
+import {contactInfoUrl, locationsUrl} from "../../utils/url";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import {getAllOrdersItem, removeAllOrdersAction, removeCartItem} from "../../redux/actions/setOrderAction";
 import {useDispatch, useSelector} from "react-redux";
@@ -24,6 +24,15 @@ const Cart = ({contactInfo}) => {
     useEffect(() => {
         dispatch(getAllOrdersItem())
     }, [])
+
+    const addresses = contactInfo.map((cont)=>{
+        return{
+            value: cont.slug,
+            label: cont.location_address,
+            email: cont.location_email,
+            tel: cont.location_phone
+        }
+    })
 
 
     return (
@@ -53,10 +62,10 @@ const Cart = ({contactInfo}) => {
 
                         <div className={'row'}>
                             {
-                                orders ? orders.map((o, index) => {
+                                orders && orders.length > 0 ? orders.map((o, index) => {
                                     return (
                                         <div
-                                            className={'col-lg-12 mt-4'} key={o.number}>
+                                            className={'col-lg-12 mt-4'} key={o.id}>
                                             <AnalyzesCard
                                                 inner={o}
                                                 icon={true}
@@ -65,7 +74,7 @@ const Cart = ({contactInfo}) => {
                                         </div>
                                     )
 
-                                }) : 'Your cart is empty'
+                                }) : t('common:your_cart_is_empty')
                             }
                         </div>
                     </div>
@@ -75,7 +84,7 @@ const Cart = ({contactInfo}) => {
                 </div>
                 <div className={'row'}>
                     <div className={'col-lg12'}>
-                        <ContactInfoWithSelect contactInfo={contactInfo}/>
+                        <ContactInfoWithSelect addresses={addresses}/>
                     </div>
                 </div>
             </div>
@@ -87,28 +96,10 @@ const Cart = ({contactInfo}) => {
 export async function getServerSideProps(ctx) {
     //console.log(JSON.parse(ctx.req.cookies.currentUser))
 
-    const userId = JSON.parse(ctx.req.cookies.currentUser).user_id
-    const token = JSON.parse(ctx.req.cookies.currentUser).token
 
-    const contactInfo = await fetch(contactInfoUrl, {
-        method: 'GET',
-    })
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
         .then(res => res.json())
         .then(data => data)
-
-    const orders = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST_V2}/orders?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer=${userId}`,{
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        }
-    )
-        .then(res=>res.json())
-        .then(data=>data)
-
-    console.log(orders)
 
     return {
         props: {

@@ -14,8 +14,10 @@ import AboutUsSection from "../components/AboutUsSection/AboutUsSection";
 import dynamic from 'next/dynamic'
 
 const ContactUs = dynamic(() => import("../components/ContactUs/ContactUs"), {ssr: false})
+
 import {resetIdCounter} from "react-tabs";
 import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
+
 
 
 const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo}) => {
