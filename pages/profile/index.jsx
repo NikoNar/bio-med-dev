@@ -8,7 +8,14 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../../components/Tab/tab.module.scss";
 import TabButtons from "../../components/TabButtons/TabButtons";
-import {changePasswordUrl, contactInfoUrl, editProfileUrl, loggedInUserInfo, resultsUrl} from "../../utils/url";
+import {
+    changePasswordUrl,
+    contactInfoUrl,
+    editProfileUrl,
+    locationsUrl,
+    loggedInUserInfo,
+    resultsUrl
+} from "../../utils/url";
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 const ContactUs = dynamic(() => import("../../components/ContactUs/ContactUs"), {ssr: false});
@@ -29,16 +36,13 @@ import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 
-const Profile = ({contactInfo, results, token, user}) => {
+const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
     const router = useRouter()
     const dispatch = useDispatch()
-
-    const {t} = useTranslation()
-
 
 
     const editProfileSchema = Yup.object().shape({
@@ -109,8 +113,6 @@ const Profile = ({contactInfo, results, token, user}) => {
             destroyCookie(null, 'token')
         }, 1000)*/
     }
-
-
 
     const handleChangePassword = async (passwordData) => {
 
@@ -344,7 +346,7 @@ const Profile = ({contactInfo, results, token, user}) => {
                         </Tabs>
                     </div>
                 </div>
-                {/*<ContactUs contactInfo={contactInfo}/>*/}
+                <ContactUs contactInfo={contactInfo} contactPageInfo={contactPageInfo} t={t}/>
             </div>
         </section>
     )
@@ -363,11 +365,22 @@ export async function getServerSideProps(ctx) {
 
     const token = ctx.req.cookies.token ? ctx.req.cookies.token : null
 
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
+        .then(res => res.json())
+        .then(data => data)
+
+    const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
+
     return {
         props: {
-            //contactInfo,
+            contactInfo,
             //results,
             token,
+            contactPageInfo
             //user
         },
     }

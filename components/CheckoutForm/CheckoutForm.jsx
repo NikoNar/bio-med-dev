@@ -41,7 +41,7 @@ const homeCallSchema = Yup.object().shape({
 
 
 
-const CheckoutForm = ({info, orders}) => {
+const CheckoutForm = ({info, orders, addresses}) => {
 
 
     const {t} = useTranslation()
@@ -92,7 +92,7 @@ const CheckoutForm = ({info, orders}) => {
 
 
     useEffect(() => {
-        setTabDisabled(orders && orders.some((o)=>!o.callHome))
+        setTabDisabled(orders && orders.some((o)=>o.shipping_class !== 'home-call-2'))
 
         calculateOrderItemsTotalPrice =  orders ? orders.reduce((acc, value)=>{
             return acc + (+value.sale_price ? +value.sale_price : +value.regular_price)
@@ -204,7 +204,7 @@ const CheckoutForm = ({info, orders}) => {
                                     isSearchable={false}
                                     value={value}
                                     onChange={onChange}
-                                    options={info.contactInfo}
+                                    options={addresses}
                                     placeholder={<span style={{color: '#b0b8c0'}}>{t('common:select_branch')}</span>}
                                     components={{
                                         IndicatorSeparator: () => null,

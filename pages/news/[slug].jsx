@@ -7,6 +7,7 @@ import Link from "next/link";
 import parse from 'html-react-parser'
 
 const SingleNews = ({singleNews, link})=>{
+
     const {t} = useTranslation()
     return (
         <section className={NewsStyle.SingleNews}>

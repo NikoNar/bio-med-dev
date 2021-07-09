@@ -74,12 +74,12 @@ const Cart = ({contactInfo}) => {
                                         </div>
                                     )
 
-                                }) : t('common:your_cart_is_empty')
+                                }) : <h4>{t('common:your_cart_is_empty')}</h4>
                             }
                         </div>
                     </div>
                     <div className={'col-lg-6'}>
-                        <CheckoutForm info={{contactInfo}} orders={orders}/>
+                        <CheckoutForm info={{contactInfo}} orders={orders} addresses={addresses}/>
                     </div>
                 </div>
                 <div className={'row'}>

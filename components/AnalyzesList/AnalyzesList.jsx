@@ -31,13 +31,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllByFilterCategories(allCategories)
     }, [loc])
 
-
-    useEffect(() => {
-        setTabIndex(0)
-        setAllAnalyzes(analyzes)
-    }, [loc])
-
-
     const handleCategoryFilter = async (e) => {
         const value = e.target.value
         const name = e.target.id

@@ -6,7 +6,7 @@ import useTranslation from "next-translate/useTranslation";
 import {useDispatch} from "react-redux";
 
 const Search = ({setIsOpen, loc}) => {
-    console.log(loc);
+
     const {t} = useTranslation()
     const dispatch = useDispatch()
 

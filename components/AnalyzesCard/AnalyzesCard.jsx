@@ -47,7 +47,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                         <div className={AStyle.Top}>
                             <small className={AStyle.Number}>№{inner.number}</small>
                             <div className={AStyle.Title}>
-                                <Link href={`/researches/${inner.id}`}>
+                                <Link href={`/researches/${inner.slug}`}>
                                     <a><span>{inner.name}</span></a>
                                 </Link>
                             </div>
@@ -72,7 +72,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <div className={AStyle.Emergency}>
                                 <Link href={'/'}>
                                     <a>
-                                        {inner.callHome ? <EmergencyIcon/> : null}
+                                        {inner.shipping_class === 'home-call-2' ? <EmergencyIcon/> : null}
                                     </a>
                                 </Link>
                             </div>

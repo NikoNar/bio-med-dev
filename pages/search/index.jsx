@@ -8,9 +8,6 @@ const Search = () => {
     const {t} = useTranslation()
     const results = useSelector(state => state.search)
 
-
-    console.log(results);
-
     return (
         <section className={SearchStyle.Search}>
             <div className={'container'}>

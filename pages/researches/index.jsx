@@ -9,6 +9,7 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 const Analyzes = ({ analyzes, categories, allCategories, loc}) => {
+
     return (
         <>
             <AnalyzesList

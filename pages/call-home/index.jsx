@@ -66,7 +66,7 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`)
+    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0].id}`)
         .then(res => res.json())
         .then(data => data)
 
