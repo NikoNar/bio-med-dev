@@ -13,7 +13,7 @@ import parse from 'html-react-parser';
 
 
 
-const AnalyzesCard = ({inner, icon, index, id}) => {
+const AnalyzesCard = ({inner, icon, index, id, loc}) => {
 
     const {t} = useTranslation()
     const router = useRouter()
@@ -72,7 +72,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <div className={AStyle.Emergency}>
                                 <Link href={'/'}>
                                     <a>
-                                        {inner.shipping_class === 'home-call-2' ? <EmergencyIcon/> : null}
+                                        {inner.shipping_class === `home-call` ? <EmergencyIcon/> : null}
                                     </a>
                                 </Link>
                             </div>

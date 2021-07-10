@@ -37,17 +37,20 @@ const ContactFrom = () => {
 
 
     const handleSubmitMessage = async (messageData) => {
-
-        await fetch(contactFormMessageUrl, {
+        console.log(messageData);
+        await fetch('https://biomed.codemanstudio.com/wp-json/contact-form-7/v1/contact-forms/236/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(messageData)
+            body: JSON.stringify({
+                fullname: messageData.messageAuthor,
+                email: messageData.messageAuthorEmail,
+                message: messageData.messageBody
+            })
         })
             .then(res => res.json())
             .then(data=>{
-                console.log(data);
                 data.message ? setError(data.message) : setText('Your message has been successfully sent')
                 setIsOpen(true)
                 contactUsFormReset({})

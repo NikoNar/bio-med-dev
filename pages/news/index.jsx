@@ -10,7 +10,7 @@ import parse from 'html-react-parser'
 const News = ({news, page, totalNumberOfNews, limit}) => {
     const router = useRouter()
     const {t} = useTranslation()
-    const lastPage = Math.ceil(totalNumberOfNews / 6)
+    const lastPage = Math.ceil(totalNumberOfNews / 9)
 
 
     const prev = ()=>router.push(`/news?page=${page-1}`)

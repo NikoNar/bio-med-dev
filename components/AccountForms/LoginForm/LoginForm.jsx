@@ -45,7 +45,7 @@ const LoginForm = () => {
 
     const handleSubmitLogin = async (loginData) => {
 
-        await fetch(loginUrl, {
+        await fetch(`${loginUrl}`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -53,9 +53,7 @@ const LoginForm = () => {
             },
             body: JSON.stringify(loginData)
         })
-            .then(res => {
-                return res.json()
-            })
+            .then(res => res.json())
             .then(data => {
                 const user = JSON.stringify(data)
                 if (!data.message){

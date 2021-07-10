@@ -36,13 +36,14 @@ import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 
-const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
+const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
     const currentUser = useSelector(state => state.currentUser)
     const [isEdited, setIsEdited] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
     const router = useRouter()
     const dispatch = useDispatch()
+    const results = []
 
 
     const editProfileSchema = Yup.object().shape({
@@ -60,10 +61,10 @@ const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
     })
 
 
-    useEffect(()=>{
+    useEffect(async ()=>{
         setIsEdited(false)
         dispatch(getCurrentUserAction())
-    },[isEdited])
+    },[])
 
     const {
         handleSubmit: handleSubmitChangePassword,
@@ -107,11 +108,9 @@ const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
         })
             .then(() => {
                 router.push('/')
+                destroyCookie(null, 'currentUser')
+                destroyCookie(null, 'token')
             })
-        /*setTimeout(() => {
-            destroyCookie(null, 'currentUser')
-            destroyCookie(null, 'token')
-        }, 1000)*/
     }
 
     const handleChangePassword = async (passwordData) => {
@@ -165,7 +164,6 @@ const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
             })
     }
 
-
     const validatePhoneNumber = (value)=>{
         const phoneNumber = parsePhoneNumberFromString(value)
         if (!phoneNumber){
@@ -192,7 +190,7 @@ const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
                                     handleLogOut(e).then()
                                 }}
                             >
-                                Log out
+                                {t('common:logout')}
                             </button>
                         </div>
                     </div>
@@ -213,7 +211,10 @@ const Profile = ({contactInfo, results, token, user, contactPageInfo, t}) => {
                             </TabList>
 
                             <TabPanel>
-                                <AnalyzesResults results={results}/>
+                                {
+                                    results.length > 0 ? <AnalyzesResults/> : <h5 style={{margin: '35px 0'}}>{t('common:history_message')}</h5>
+                                }
+
                             </TabPanel>
                             <TabPanel>
                                 <div className={'row pt-5'}>

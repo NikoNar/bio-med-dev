@@ -13,6 +13,7 @@
     "password": "Password",
     "email_format_error": "The entered email address must be in the following format (example@example.am)",
     "login": "Login",
+    "logout": "Logout",
     "register": "Register",
     "researches": "Researches",
     "full_name": "Full name",
@@ -61,5 +62,9 @@
     "results": "Results:",
     "back_to_all_news": "Back to all news",
     "contact_us": "Contact Us",
-    "your_cart_is_empty": "Your cart is empty"
+    "your_cart_is_empty": "Your cart is empty",
+    "home_address": "Home call address",
+    "yerevan": "Yerevan",
+    "armenia": "Armenia",
+    "history_message": "There is no data in the history of your research yet"
   }

@@ -10,7 +10,7 @@ import useTranslation from "next-translate/useTranslation";
 
 
 
-const Cart = ({contactInfo}) => {
+const Cart = ({contactInfo, token}) => {
 
     const {t} = useTranslation()
     const dispatch = useDispatch()
@@ -41,7 +41,7 @@ const Cart = ({contactInfo}) => {
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
                         <div className={CartStyle.Title}>
-                            <h4>Զամբյուղ</h4>
+                            <h4>{t('common:shopping_cart')}</h4>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ const Cart = ({contactInfo}) => {
                         </div>
                     </div>
                     <div className={'col-lg-6'}>
-                        <CheckoutForm info={{contactInfo}} orders={orders} addresses={addresses}/>
+                        <CheckoutForm info={{contactInfo}} orders={orders} addresses={addresses} token={token}/>
                     </div>
                 </div>
                 <div className={'row'}>
@@ -95,7 +95,7 @@ const Cart = ({contactInfo}) => {
 
 export async function getServerSideProps(ctx) {
     //console.log(JSON.parse(ctx.req.cookies.currentUser))
-
+    const token = ctx.req.cookies.token ? ctx.req.cookies.token : null
 
     const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
         .then(res => res.json())
@@ -103,7 +103,8 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            contactInfo
+            contactInfo,
+            token
         }
     }
 }

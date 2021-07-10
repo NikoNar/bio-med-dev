@@ -15,22 +15,29 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: false})
 import HomeCallCloudText from "../Alerts/HomeCallCloudText/HomeCallCloudText";
 import useTranslation from "next-translate/useTranslation";
 import RequiredFields from "../Alerts/RequiredFields/RequiredFields";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
+import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
+import {getNavBarItems} from "../../redux/actions/navBarAction";
 
 
 
 
 const reserveSchema = Yup.object().shape({
-    reserveFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
+    first_name: Yup.string().matches(/^([^1-9]*)$/).required(),
     reserveDate: Yup.string().required(),
     reserveTime: Yup.string().required(),
-    reserveBranches: Yup.object().required(),
-    reserveEmail: Yup.string().email().required(),
-    reservePhoneNumber: Yup.string().required(),
+    reserveAddress: Yup.object().required(),
+    email: Yup.string().email().required(),
+    phone: Yup.string().required(),
 })
 
 const homeCallSchema = Yup.object().shape({
     homeCallFullName: Yup.string().matches(/^([^1-9]*)$/).required(),
     homeCallDate: Yup.string().required(),
+    homeCallAddress: Yup.string().required(),
+    homeCallCity: Yup.string(),
+    homeCallCountry: Yup.string(),
     homeCallTime: Yup.string().required(),
     homeCallEmail: Yup.string().email().required(),
     homeCallPhoneNumber: Yup.string().required(),
@@ -41,9 +48,10 @@ const homeCallSchema = Yup.object().shape({
 
 
 
-const CheckoutForm = ({info, orders, addresses}) => {
+const CheckoutForm = ({info, orders, addresses, token}) => {
 
-
+    const user = useSelector(state => state.currentUser)
+    const dispatch = useDispatch()
     const {t} = useTranslation()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const customStyle = {
@@ -81,7 +89,6 @@ const CheckoutForm = ({info, orders, addresses}) => {
         }),
     }
 
-
     /*Total Price Calculating*/
     const homeCallPrice = 5000
     const [totalPrice, setTotalPrice] = useState('0')
@@ -92,7 +99,8 @@ const CheckoutForm = ({info, orders, addresses}) => {
 
 
     useEffect(() => {
-        setTabDisabled(orders && orders.some((o)=>o.shipping_class !== 'home-call-2'))
+        dispatch(getCurrentUserAction())
+        setTabDisabled(orders && orders.some((o)=>o.shipping_class !== 'home-call'))
 
         calculateOrderItemsTotalPrice =  orders ? orders.reduce((acc, value)=>{
             return acc + (+value.sale_price ? +value.sale_price : +value.regular_price)
@@ -128,40 +136,121 @@ const CheckoutForm = ({info, orders, addresses}) => {
     const reserveOrderTime = new Date().toLocaleTimeString().slice(0, 4)
 
     const handleSubmitReserveOrders = async (reserveData) => {
+        const lineItems = orders.map(order=>{
+            return {
+                product_id: order.id,
+                quantity: 1
+            }
+        })
+        const data = {
+            billing: {
+                first_name: reserveData.first_name,
+                last_name: "",
+                address_1: reserveData.reserveAddress.label,
+                address_2: '',
+                city: 'Yerevan',
+                state: 'Yerevan',
+                postcode: '',
+                country: 'Armenia',
+                email: reserveData.email,
+                phone: reserveData.phone,
+            },
+            customer_note: new Date(reserveData.reserveDate).toLocaleDateString() + ' ' + new Date(reserveData.reserveTime).toLocaleTimeString(),
+            shipping:{
+                first_name: reserveData.first_name,
+                last_name: "",
+                address_1: reserveData.reserveAddress.label,
+                address_2: '',
+                city: 'Yerevan',
+                state: 'Yerevan',
+                postcode: '',
+                country: 'Armenia'
+            },
+            line_items: lineItems,
+            payment_method: "cod",
+            payment_method_title: "Cash on delivery",
+            set_paid: false,
+            shipping_lines: [
+                {
+                    method_id: "appointment",
+                    method_title: "Appointment",
+                    total: '0'
+                }
+            ]
+        }
 
-        await fetch(orderUrl, {
+        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.user_id}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'credentials': 'include'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...reserveData, orders: orders, totalPrice: calculateOrderItemsTotalPrice})
+            body: JSON.stringify(data)
         })
-            .then(res => {
-                res.json()
-                reserveReset({})
-            })
+            .then(res => res.json())
             .then(data=>data)
+            .then(()=> reserveReset({}))
     }
 
     /* ---- Home Call Form ----*/
     const [showAlert, setShowAlert] = useState(false)
+
     const homeCallAlert = (e,value)=>{
         e.stopPropagation()
         setShowAlert(value)
     }
+
     const homeCloudStyle = {
         display: showAlert ? 'block' : 'none'
     }
     const handleSubmitHomeCallOrders = async (homeCallData) => {
-
-        await fetch(homeCallOrdersUrl, {
+        const lineItems = orders.map(order=>{
+            return {
+                product_id: order.id,
+                quantity: 1
+            }
+        })
+        const data = {
+            billing: {
+                first_name: homeCallData.homeCallFullName,
+                last_name: "",
+                address_1: "",
+                address_2: '',
+                city: homeCallData.homeCallCity,
+                state: homeCallData.homeCallCity,
+                postcode: '',
+                country: homeCallData.homeCallCountry,
+                email: homeCallData.homeCallEmail,
+                phone: homeCallData.homeCallPhoneNumber,
+            },
+            customer_note: new Date(homeCallData.homeCallDate).toLocaleDateString() + ' ' + new Date(homeCallData.homeCallTime).toLocaleTimeString(),
+            shipping:{
+                first_name: homeCallData.first_name,
+                last_name: "",
+                address_1: homeCallData.homeCallAddress,
+                address_2: '',
+                city: homeCallData.homeCallCity,
+                state: homeCallData.homeCallCity,
+                postcode: '',
+                country: homeCallData.homeCallCountry
+            },
+            line_items: lineItems,
+            payment_method: "cod",
+            payment_method_title: "Cash on delivery",
+            set_paid: false,
+            shipping_lines: [
+                {
+                    method_id: "flat-rate",
+                    method_title: "Flat rate",
+                    total: '5000'
+                }
+            ]
+        }
+        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.user_id}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'credential': 'include'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...homeCallData, orders: orders, totalPrice: calculateOrderItemsTotalPrice})
+            body: JSON.stringify(data)
         })
             .then(res => {
                 res.json()
@@ -187,14 +276,14 @@ const CheckoutForm = ({info, orders, addresses}) => {
                         <input
                             placeholder={t('common:full_name')}
                             type="text"
-                            name="reserveFullName"
-                            {...registerReserve('reserveFullName')}
-                            style={{borderColor: errorsReserve.reserveFullName ? '#ff0000' : 'transparent'}}
+                            name="first_name"
+                            {...registerReserve('first_name')}
+                            style={{borderColor: errorsReserve.first_name ? '#ff0000' : 'transparent'}}
                         />
 
                         <Controller
                             control={controlReserve}
-                            name="reserveBranches"
+                            name="reserveAddress"
                             rules={{ required: true }}
                             render={({field: {onChange, value, ref}}) => (
                                 <SelectBox
@@ -265,16 +354,16 @@ const CheckoutForm = ({info, orders, addresses}) => {
                         <input
                             placeholder={t('common:phone_number')}
                             type="tel"
-                            name="reservePhoneNumber"
-                            {...registerReserve('reservePhoneNumber')}
-                            style={{borderColor: errorsReserve.reservePhoneNumber ? '#ff0000' : 'transparent'}}
+                            name="phone"
+                            {...registerReserve('phone')}
+                            style={{borderColor: errorsReserve.phone ? '#ff0000' : 'transparent'}}
                         />
                         <input
                             placeholder={t('common:email')}
                             type="email"
-                            name="reserveEmail"
-                            {...registerReserve('reserveEmail')}
-                            style={{borderColor: errorsReserve.reserveEmail ? '#ff0000' : 'transparent'}}
+                            name="email"
+                            {...registerReserve('email')}
+                            style={{borderColor: errorsReserve.email ? '#ff0000' : 'transparent'}}
                         />
                         <Button backgroundColor={backgroundColor} text={t('common:reserve')} type={'submit'} disabled={!orders || orders.length === 0}/>
                     </form>
@@ -347,6 +436,31 @@ const CheckoutForm = ({info, orders, addresses}) => {
                                 </div>
                             </div>
                         </div>
+                        <input
+                            placeholder={t('common:home_address')}
+                            type="text"
+                            name="homeCallAddress"
+                            {...registerHomeCall('homeCallAddress')}
+                            style={{borderColor: errorsHomeCall.homeCallAddress ? '#ff0000' : 'transparent'}}
+                        />
+                        <input
+                            placeholder={t('common:yerevan')}
+                            type="tel"
+                            disabled={true}
+                            name="homeCallCity"
+                            defaultValue={t('common:yerevan')}
+                            {...registerHomeCall('homeCallCity')}
+                            style={{borderColor: errorsHomeCall.homeCallCity ? '#ff0000' : 'transparent'}}
+                        />
+                        <input
+                            placeholder={t('common:armenia')}
+                            type="tel"
+                            disabled={true}
+                            defaultValue={t('common:armenia')}
+                            name="homeCallCountry"
+                            {...registerHomeCall('homeCallCountry')}
+                            style={{borderColor: errorsHomeCall.homeCallCountry ? '#ff0000' : 'transparent'}}
+                        />
                         <input
                             placeholder={t('common:phone_number')}
                             type="tel"

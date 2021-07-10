@@ -29,20 +29,15 @@ const Analyzes = ({ analyzes, categories, allCategories, loc}) => {
 export async function getServerSideProps(ctx) {
     resetIdCounter();
 
-    const page = ctx.query.page = 1
-
-
-    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
+    const categories = await fetch( `${analyzesCategoryUrl}?lang=${ctx.locale}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
 
-    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0].id}`)
+    const allCategories = await fetch(`${analyzesCategoryUrl}?lang=${ctx.locale}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0].id}`)
         .then(res => res.json())
         .then(data => data)
 
-
-
-    const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0].id}`, {
+    const analyzes = await fetch( `${analyzesUrl}?lang=${ctx.locale}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0].id}`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -52,7 +47,6 @@ export async function getServerSideProps(ctx) {
         props: {
             analyzes,
             categories,
-            page,
             allCategories,
         }
     }

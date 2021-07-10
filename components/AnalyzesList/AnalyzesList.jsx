@@ -9,6 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import Pagination from "../Pagination/Pgination";
+import {useRouter} from "next/router";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
@@ -31,6 +32,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllByFilterCategories(allCategories)
     }, [loc])
 
+
+
     const handleCategoryFilter = async (e) => {
         const value = e.target.value
         const name = e.target.id
@@ -44,7 +47,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setIsOpen(false)
     }
 
-    const handleMainCategoryName = async (e) => {
+    const handleMainCategoryName = async (e, page=1) => {
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
         setFilterName(null)
@@ -76,6 +79,23 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             .then(data=>data)
 
         setAllAnalyzes(currentCategoryTests)
+    }
+
+    const handleSaleFilter = async ()=>{
+        const filteredTest = await fetch(analyzesUrl +
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&lang=${loc}`)
+            .then(res=>res.json())
+            .then(data=>data)
+        setAllAnalyzes(filteredTest)
+        setIsOpen(false)
+    }
+
+    const handleHomeCallFilter = async ()=>{
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&lang=${loc}&shipping_class=124`)
+            .then(res=>res.json())
+            .then(data=>data)
+        setAllAnalyzes(filteredTest)
+        setIsOpen(false)
     }
 
 
@@ -124,23 +144,23 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                         > </span>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
-                                                                                id={m.main}
+                                                                                id={'on_sale'}
                                                                                 type='radio'
                                                                                 name={'events-1'}
                                                                                 value='event'
-                                                                                onChange={(e) => handleEventsFilter(e)}
+                                                                                onChange={(e) => handleSaleFilter(e)}
                                                                             />
-                                                                            <label htmlFor={'events-1'}>{t('common:event')}</label>
+                                                                            <label htmlFor={'on_sale'}>{t('common:event')}</label>
                                                                         </li>
                                                                         <li className={AnalyzesStyle.Emergency}>
                                                                             <input
-                                                                                id={m.main}
+                                                                                id={'homeCall'}
                                                                                 type="radio"
                                                                                 name={'events-1'}
                                                                                 value='homeCall'
-                                                                                onChange={(e) => handleEventsFilter(e)}
+                                                                                onChange={(e) => handleHomeCallFilter(e)}
                                                                             />
-                                                                            <label htmlFor={'homeCall-1'}>{t('common:home_call')}</label>
+                                                                            <label htmlFor={'homeCall'}>{t('common:home_call')}</label>
                                                                         </li>
                                                                         {
                                                                             allByFilterCategories ? allByFilterCategories.map((item, index) => {
@@ -180,7 +200,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                 <div className={'col-lg-12'}>
                                                                     <div className={AnalyzesStyle.a}>
                                                                         <AnalyzesCard inner={a} index={index}
-                                                                                      id={a.id}/>
+                                                                                      id={a.id} loc={loc}/>
                                                                     </div>
                                                                 </div>
                                                             </div>

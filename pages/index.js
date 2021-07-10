@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-    aboutUsTextUrl,
+    aboutUsTextUrl, aboutUsUrl,
     analyzesCategoryUrl,
     analyzesUrl,
     contactInfoUrl, locationsUrl,
@@ -20,15 +20,15 @@ import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/
 
 
 
-const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo}) => {
+const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent}) => {
 
     const initId = categories && categories[0].id
     return (
         <>
             <MainSlider slides={slides}/>
             <TabComponent categories={categories} t={t} loc={loc} initId={initId} analyzes={analyzes}/>
-           {/* <Researches researches={researches}/>
-            <AboutUsSection aboutUs={aboutUs}/>*/}
+            {/*<Researches researches={researches}/>*/}
+            <AboutUsSection aboutUs={aboutUsContent}/>
             <ContactUs contactInfo={contactInfo} t={t} contactPageInfo={contactPageInfo}/>
         </>
     );
@@ -55,6 +55,10 @@ export async function getServerSideProps(ctx) {
     })
         .then(res => res.json())
         .then(data => data)
+
+    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}&_embed`)
+        .then(res=>res.json())
+        .then(data=>data)
 
     /*const researches = await fetch(researchesUrl, {
         method: 'GET',
@@ -84,7 +88,7 @@ export async function getServerSideProps(ctx) {
         props: {
             slides,
             //researches,
-            //aboutUs,
+            aboutUsContent,
             contactInfo,
             categories: categories,
             analyzes,
