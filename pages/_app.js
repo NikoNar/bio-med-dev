@@ -62,14 +62,6 @@ function BioMedApp({Component, pageProps}) {
 }
 
 
-/*
-export async function getServerSideProps({Component, ctx}) {
-    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
-    if (Object.keys(pageProps).length > 0) {
-        return {pageProps};
-    }
-}
-*/
 
 
 export async function getServerSideProps(ctx){

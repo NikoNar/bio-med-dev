@@ -185,7 +185,6 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                     <div className={'col-lg-12'}>
                         <div className={ProfStyle.Logout}>
                             <button
-                                className={'btn btn-primary'}
                                 onClick={(e) => {
                                     handleLogOut(e).then()
                                 }}

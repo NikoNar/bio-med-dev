@@ -69,12 +69,4 @@ const Account = () => {
 };
 
 
-Account.getInitialProps = () => {
-    resetIdCounter();
-
-    return {
-        props:{}
-    }
-};
-
 export default Account;
