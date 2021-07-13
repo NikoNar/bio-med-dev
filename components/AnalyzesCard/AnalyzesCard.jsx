@@ -45,7 +45,7 @@ const AnalyzesCard = ({inner, icon, index, id, loc}) => {
                             </div> : ''
                         }
                         <div className={AStyle.Top}>
-                            <small className={AStyle.Number}>№{inner.number}</small>
+                            <small className={AStyle.Number}>№ {inner.sku}</small>
                             <div className={AStyle.Title}>
                                 <Link href={`/researches/${inner.slug}`}>
                                     <a><span>{inner.name}</span></a>

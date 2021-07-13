@@ -10,6 +10,7 @@ import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import Pagination from "../Pagination/Pgination";
 import {useRouter} from "next/router";
+import Logo from "../Logo/Logo";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
@@ -21,7 +22,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [mainCategory, setMainCategory] = useState(categories[0].id)
     const [filterName, setFilterName] = useState(null)
-
+    const [isChecked, setIsChecked] = useState(false)
+    const [active, setActive] = React.useState(null);
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
 
@@ -34,11 +36,11 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
 
 
-    const handleCategoryFilter = async (e) => {
+    const handleCategoryFilter = async (e, index) => {
+        setActive(index)
         const value = e.target.value
         const name = e.target.id
         setFilterName(name)
-
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
             .then(res=>res.json())
@@ -71,6 +73,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
     const handleClearFilters = async ()=>{
         setFilterName(null)
+        setActive(null)
         const currentCategoryTests = await fetch(analyzesUrl +
             `?lang=${loc}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
@@ -79,6 +82,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             .then(data=>data)
 
         setAllAnalyzes(currentCategoryTests)
+
     }
 
     const handleSaleFilter = async ()=>{
@@ -170,7 +174,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                                                id={item.name}
                                                                                                name={item.parent}
                                                                                                value={item.id}
-                                                                                               onChange={(e) => handleCategoryFilter(e)}
+                                                                                               checked={active===index}
+                                                                                               onChange={(e) => handleCategoryFilter(e, index)}
                                                                                         />
                                                                                         <label
                                                                                             htmlFor={item.name}>{item.name}</label>

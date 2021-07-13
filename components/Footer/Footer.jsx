@@ -6,11 +6,14 @@ import {getNavBarItems} from "../../redux/actions/navBarAction";
 import {getAllNews} from "../../redux/actions/getAllNewsAction";
 import MiniFooter from "../MiniFooter/MiniFooter";
 import useTranslation from "next-translate/useTranslation";
+import {getFooterLeftLinks, getFooterRightLinks} from "../../redux/actions/getFooterLinksAction";
 
 
 const Footer = ({loc})=>{
     const {t} = useTranslation()
     const navigation = useSelector(state=>state.navigation)
+    const footerLeftLinks = useSelector(state=>state.footerLeftLinks)
+    const footerRightLinks = useSelector(state=>state.footerRightLinks)
     const news = useSelector(state => state.news)
     const dispatch = useDispatch()
     const size = 3
@@ -19,10 +22,11 @@ const Footer = ({loc})=>{
     })
 
 
-
     useEffect(()=>{
         dispatch(getAllNews(loc))
-    },[loc])
+        dispatch(getFooterLeftLinks(loc))
+        dispatch(getFooterRightLinks(loc))
+    },[loc, dispatch])
 
     return(
         <footer className={FooterStyle.Footer}>
@@ -70,10 +74,10 @@ const Footer = ({loc})=>{
                             <div className={FooterStyle.List}>
                                 <ul>
                                     {
-                                        navigation.items ? navigation.items.map((item)=>{
+                                        footerLeftLinks.items ? footerLeftLinks.items.map((item)=>{
                                             return(
                                                 <li key={item.ID}>
-                                                    <Link href={`/${item.slug}`}>
+                                                    <Link href={item.post_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
                                                         <a>{item.title}</a>
                                                     </Link>
                                                 </li>
@@ -83,7 +87,7 @@ const Footer = ({loc})=>{
                                 </ul>
                             </div>
                         </div>
-                        <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12 order-last order-lg-3' + ' ' + FooterStyle.News}>
+                        <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12' + ' ' + FooterStyle.News}>
                             <div className={FooterStyle.NewsTitle}>
                                 <h5>{t('common:news')}</h5>
                             </div>
@@ -104,6 +108,21 @@ const Footer = ({loc})=>{
                             </div>
                         </div>
                         <div className={'col-lg-3 mb-3 mb-lg-0 col-md-4 col-sm-12'}>
+                            <div className={FooterStyle.List}>
+                                <ul>
+                                    {
+                                        footerRightLinks.items ? footerRightLinks.items.map((item)=>{
+                                            return(
+                                                <li key={item.ID}>
+                                                    <Link href={item.post_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
+                                                        <a>{item.title}</a>
+                                                    </Link>
+                                                </li>
+                                            )
+                                        }): ''
+                                    }
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

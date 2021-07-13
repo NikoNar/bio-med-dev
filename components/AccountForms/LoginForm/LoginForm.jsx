@@ -4,6 +4,7 @@ import Button from "../../Button/Button";
 import RegisterFormStyle from "../RegisterForm/register-form.module.scss";
 import {loginUrl} from "../../../utils/url";
 import {useRouter} from "next/router";
+import Router from "next/router";
 import {setCookie} from "nookies";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -44,10 +45,8 @@ const LoginForm = () => {
     const [error, setError] = useState('')
 
     const handleSubmitLogin = async (loginData) => {
-
         await fetch(`${loginUrl}`, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

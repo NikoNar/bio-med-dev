@@ -17,6 +17,9 @@ module.exports = {
             CONSUMER_KEY: process.env.NEXT_PUBLIC_CONSUMER_KEY,
             CONSUMER_SECRET: process.env.NEXT_PUBLIC_CONSUMER_SECRET
           },
+        cssLoaderOptions: {
+            url: false
+        }
     }),
 }
 

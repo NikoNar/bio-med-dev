@@ -76,9 +76,9 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                                         <Tabs>
                                             <TabList className={SAnalyseStyle.TabList}>
                                                 {
-                                                    singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
+                                                    singleAnalyse[0].attributes && singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
                                                         return (
-                                                            <Tab selectedClassName={SAnalyseStyle.Selected} key={cont.name}>
+                                                            <Tab selectedClassName={SAnalyseStyle.Selected} key={cont.name && cont.name}>
                                                                 <span>{cont.name.split('-').join(' ')}</span>
                                                             </Tab>
                                                         )

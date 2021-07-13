@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-    aboutUsTextUrl, aboutUsUrl,
+    aboutUsTextUrl, aboutUsUrl, allPagesUrl,
     analyzesCategoryUrl,
     analyzesUrl,
     contactInfoUrl, locationsUrl,
@@ -20,14 +20,21 @@ import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/
 
 
 
-const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent}) => {
+const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches}) => {
+
+    const researchesArr = researches.filter((el)=>{
+        return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
+    })
+
+
+
 
     const initId = categories && categories[0].id
     return (
         <>
             <MainSlider slides={slides}/>
             <TabComponent categories={categories} t={t} loc={loc} initId={initId} analyzes={analyzes}/>
-            {/*<Researches researches={researches}/>*/}
+            <Researches researches={researchesArr}/>
             <AboutUsSection aboutUs={aboutUsContent}/>
             <ContactUs contactInfo={contactInfo} t={t} contactPageInfo={contactPageInfo}/>
         </>
@@ -60,17 +67,11 @@ export async function getServerSideProps(ctx) {
         .then(res=>res.json())
         .then(data=>data)
 
-    /*const researches = await fetch(researchesUrl, {
+    const researches = await fetch(`${allPagesUrl}&lang=${ctx.locale}&_embed`, {
         method: 'GET',
     })
         .then(res => res.json())
-        .then(data => data)*/
-
-    /*const aboutUs = await fetch(aboutUsTextUrl, {
-        method: 'GET',
-    })
-        .then(res => res.json())
-        .then(data => data)*/
+        .then(data => data)
 
     const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
         .then(res => res.json())
@@ -87,7 +88,7 @@ export async function getServerSideProps(ctx) {
     return {
         props: {
             slides,
-            //researches,
+            researches,
             aboutUsContent,
             contactInfo,
             categories: categories,

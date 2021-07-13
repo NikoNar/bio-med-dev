@@ -11,7 +11,7 @@ export const orderUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/orders`
 export const homeCallOrdersUrl = `${process.env.NEXT_PUBLIC_HOST}/homeCallOrders`
 export const analyzesCategoryUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/products/categories`
 export const slidesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/home_slider`
-export const researchesUrl = `${process.env.NEXT_PUBLIC_HOST}/researches`
+export const allPagesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages?status=publish`
 export const aboutUsTextUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/aboutUs`
 export const locationsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/locations`
 export const contactFormMessageUrl = `${process.env.NEXT_PUBLIC_HOST}/messages`
@@ -22,4 +22,6 @@ export const aboutUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publ
 export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/doctors?_embed&status=publish`
 export const equipmentUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/equipment?_embed&status=publish`
 export const qualityControlUrl = `${process.env.NEXT_PUBLIC_HOST}/quality-control`
+export const footerLeftLinksUrl = `https://biomed.codemanstudio.com/wp-json/menus/v1/menus/footer-left`
+export const footerRightLinksUrl = `https://biomed.codemanstudio.com/wp-json/menus/v1/menus/footer-right`
 

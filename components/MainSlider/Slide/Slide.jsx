@@ -23,8 +23,8 @@ const Slide = ({slide, flag}) => {
                     </div>
                     {!flag ? <div className={SlideStyle.Link}>
                                 <LinkButton text={t('common:read_more')} link={'/'}/>
-                            </div>
-                        :
+                            </div> :
+                        flag === 'hide' ? '' :
                         <Link href={slide.link}>
                             <a style={{textAlign: 'right', color: '#52a4e3'}}>{t('common:see_more')}</a>
                         </Link>}

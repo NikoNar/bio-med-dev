@@ -1,22 +1,23 @@
 import React from 'react';
 import AUStyle from './about-us.module.scss'
 import Slide from "../../components/MainSlider/Slide/Slide";
-import {aboutUsUrl, doctorsUsUrl, equipmentUrl, qualityControlUrl} from "../../utils/url";
+import {aboutUsUrl, doctorsUsUrl, dynamicPageUrl, equipmentUrl, qualityControlUrl} from "../../utils/url";
 import InnerSlider from "../../components/InnerSlider/InnerSlider";
 import QualityControl from "../../components/QualityControl/QualityControl";
+
 
 import useTranslation from "next-translate/useTranslation";
 
 const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
+    console.log(qualityControl);
     const {t} = useTranslation()
-    console.log(aboutUsContent);
     return (
         <>
             <section className={AUStyle.AboutUs}>
                 <div className={'container'}>
                     <div className={'row'}>
                         <div className={'col-lg-12'}>
-                            <Slide flag={true} slide={aboutUsContent[0]}/>
+                            <Slide flag={'hide'} slide={aboutUsContent[0]}/>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
                     </div>
                 </div>
             </section>
-            {/*<QualityControl qualityControl={qualityControl}/>*/}
+            <QualityControl qualityControl={qualityControl}/>
         </>
     );
 };
@@ -88,9 +89,14 @@ export async function getServerSideProps(ctx) {
         .then(res=>res.json())
         .then(data=>data)
 
-    /*const qualityControl = await fetch(qualityControlUrl)
-        .then(res=>res.json())
-        .then(data=>data)*/
+    // const qualityControl = await fetch(qualityControlUrl)
+    //     .then(res=>res.json())
+    //     .then(data=>data)
+
+    const qualityControl = await fetch(`${dynamicPageUrl}&slug=quality-control&lang=${ctx.locale}&_embed`)
+        .then(res => res.json())
+        .then(data => data)
+
 
 
     return {
@@ -98,7 +104,7 @@ export async function getServerSideProps(ctx) {
             aboutUsContent,
             doctors,
             equipment,
-            //qualityControl
+            qualityControl
         }
     }
 }

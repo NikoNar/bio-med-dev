@@ -12,6 +12,7 @@ import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import dynamic from "next/dynamic";
 import TabButtons from "../../components/TabButtons/TabButtons";
 import useTranslation from "next-translate/useTranslation";
+import {parseCookies} from "nookies";
 
 
 const Account = () => {
@@ -70,3 +71,5 @@ const Account = () => {
 
 
 export default Account;
+
+

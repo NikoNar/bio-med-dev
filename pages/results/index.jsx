@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ResStyle from './results.module.scss'
 import ContactUs from "../../components/ContactUs/ContactUs";
-import {contactInfoUrl, resultsUrl} from "../../utils/url";
+import {contactInfoUrl, locationsUrl, resultsUrl} from "../../utils/url";
 import Button from "../../components/Button/Button";
 import * as Yup from "yup";
 import {Controller, useForm} from "react-hook-form";
@@ -10,12 +10,11 @@ import RegisterFormStyle from "../../components/AccountForms/RegisterForm/regist
 import DatePicker from "react-datepicker";
 import useTranslation from "next-translate/useTranslation";
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
-import CheckoutStyle from "../../components/CheckoutForm/checkout.module.scss";
 import RequiredFields from "../../components/Alerts/RequiredFields/RequiredFields";
 import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
-const Results = ({contactInfo}) => {
+const Results = ({contactInfo, contactPageInfo}) => {
     const {t} = useTranslation()
 
     const resultsSchema = Yup.object().shape({
@@ -57,7 +56,7 @@ const Results = ({contactInfo}) => {
     }
 
     const submitResultsForm = async (resultsData) => {
-        console.log(resultsData);
+
         await fetch(resultsUrl + `?number=${resultsData.userKey}&${resultsData.userFullName}&${resultsData.userBirthDay}`, {
             method: 'GET'
         })
@@ -176,14 +175,18 @@ const Results = ({contactInfo}) => {
                     </div>
                 </div>
             </section>
-            <ContactUs contactInfo={contactInfo}/>
+            <ContactUs contactInfo={contactInfo} t={t} contactPageInfo={contactPageInfo}/>
         </>
     );
 };
 
 
 export async function getServerSideProps(ctx) {
-    const contactInfo = await fetch(contactInfoUrl, {
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
+        .then(res => res.json())
+        .then(data => data)
+
+    const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -191,7 +194,8 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            contactInfo
+            contactInfo,
+            contactPageInfo
         },
     }
 }

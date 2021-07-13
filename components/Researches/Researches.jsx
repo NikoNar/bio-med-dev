@@ -3,9 +3,10 @@ import RStyle from './research.module.scss'
 import Image from "../Image/Image";
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
-
+import parser from 'html-react-parser'
 
 const Researches = ({researches}) => {
+
     const {t} = useTranslation()
     return (
         <section className={RStyle.Research}>
@@ -24,18 +25,18 @@ const Researches = ({researches}) => {
                                 <div className={'col-lg-4'} key={item.id}>
                                     <div className={RStyle.Item}>
                                         <div className={RStyle.Image}>
-                                            <Image link={item.image}/>
+                                            <Image link={item._embedded['wp:featuredmedia']['0'].source_url}/>
                                         </div>
                                         <div className={RStyle.ItemTitle}>
-                                            <span>{item.title}</span>
+                                            <span>{item.title.rendered}</span>
                                         </div>
                                         <div className={RStyle.Desc}>
-                                            <span>{item.text}</span>
+                                            {parser(item.content.rendered)}
                                         </div>
                                         <div className={RStyle.Link}>
-                                            {/*<Link href={item.link.link}>
+                                            <Link href={item.slug !== 'call-home' ? `/page?title=${item.slug}` : `/call-home`}>
                                                 <a>ՏԵՍՆԵԼ ԱՎԵԼԻՆ</a>
-                                            </Link>*/}
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

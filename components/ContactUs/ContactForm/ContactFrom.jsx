@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Button from "../../Button/Button";
-import {contactFormMessageUrl} from "../../../utils/url";
 import * as Yup from "yup";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -18,7 +17,7 @@ const ContactFrom = () => {
     const [text, setText] = useState(null)
 
     const contactUsFormSchema = Yup.object().shape({
-        messageAuthor: Yup.string().matches(/^([^1-9]*)$/).required(),
+        messageAuthor: Yup.string().required(),
         messageAuthorEmail: Yup.string().email().required(),
         messageBody: Yup.string().required(),
     })
@@ -37,7 +36,6 @@ const ContactFrom = () => {
 
 
     const handleSubmitMessage = async (messageData) => {
-        console.log(messageData);
         await fetch('https://biomed.codemanstudio.com/wp-json/contact-form-7/v1/contact-forms/236/feedback', {
             method: 'POST',
             headers: {
