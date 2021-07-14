@@ -131,7 +131,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                         <div className={'col-lg-12'}>
                             {
                                 categories && categories.map((m) => {
-
                                     return (
                                         <TabPanel key={m.name}>
                                             <div className={'row'}>
@@ -150,7 +149,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                             <input
                                                                                 id={'on_sale'}
                                                                                 type='radio'
-                                                                                name={'events-1'}
+                                                                                name={m.id}
                                                                                 value='event'
                                                                                 onChange={(e) => handleSaleFilter(e)}
                                                                             />
@@ -160,7 +159,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                             <input
                                                                                 id={'homeCall'}
                                                                                 type="radio"
-                                                                                name={'events-1'}
+                                                                                name={m.id}
                                                                                 value='homeCall'
                                                                                 onChange={(e) => handleHomeCallFilter(e)}
                                                                             />

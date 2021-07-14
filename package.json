@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "mock": "json-server -w db.json -p 4500 -d 450"
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.0",

@@ -3,7 +3,7 @@ const nextTranslate = require('next-translate')
 module.exports = {
     ...nextTranslate({
         future: {
-            webpack5: true,
+            webpack5: false,
         },
         env: {
             HOST_1: process.env.NEXT_PUBLIC_HOST_V1,
@@ -19,7 +19,8 @@ module.exports = {
           },
         cssLoaderOptions: {
             url: false
-        }
+        },
+        generateEtags: false
     }),
 }
 

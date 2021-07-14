@@ -16,10 +16,11 @@ const ContactFrom = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [text, setText] = useState(null)
 
+
     const contactUsFormSchema = Yup.object().shape({
-        messageAuthor: Yup.string().required(),
-        messageAuthorEmail: Yup.string().email().required(),
-        messageBody: Yup.string().required(),
+        fullname: Yup.string().required(),
+        email: Yup.string().email().required(),
+        message: Yup.string().required(),
     })
 
     const {
@@ -29,25 +30,22 @@ const ContactFrom = () => {
         reset: contactUsFormReset
     } = useForm(
         {
-            mode: 'onBlur',
             resolver: yupResolver(contactUsFormSchema)
         }
     );
 
-
     const handleSubmitMessage = async (messageData) => {
+        console.log(messageData);
         await fetch('https://biomed.codemanstudio.com/wp-json/contact-form-7/v1/contact-forms/236/feedback', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>'
             },
-            body: JSON.stringify({
-                fullname: messageData.messageAuthor,
-                email: messageData.messageAuthorEmail,
-                message: messageData.messageBody
-            })
+            body: JSON.stringify(messageData)
         })
-            .then(res => res.json())
+            .then(res => {
+                console.log(res.json());
+            })
             .then(data=>{
                 data.message ? setError(data.message) : setText('Your message has been successfully sent')
                 setIsOpen(true)
@@ -69,25 +67,25 @@ const ContactFrom = () => {
             <form onSubmit={contactUsHandleSubmit(handleSubmitMessage)}>
                 <input
                     type="text"
-                    name="messageAuthor"
+                    name="fullname"
                     placeholder={t('common:full_name')}
-                    {...contactUsRegister("messageAuthor")}
-                    style={{borderColor: errors.messageAuthor ? '#ff0000' : 'transparent'}}
+                    {...contactUsRegister("fullname")}
+                    style={{borderColor: errors.fullname ? '#ff0000' : 'transparent'}}
                 />
 
                 <input
                     type="email"
-                    name="messageAuthorEmail"
+                    name="email"
                     placeholder={t('common:email')}
-                    {...contactUsRegister("messageAuthorEmail")}
-                    style={{borderColor: errors.messageAuthorEmail ? '#ff0000' : 'transparent'}}
+                    {...contactUsRegister("email")}
+                    style={{borderColor: errors.email ? '#ff0000' : 'transparent'}}
                 />
 
                 <textarea
-                    name="messageBody"
+                    name="message"
                     placeholder={t('common:your_message')}
-                    {...contactUsRegister("messageBody")}
-                    style={{borderColor: errors.messageBody ? '#ff0000' : 'transparent'}}
+                    {...contactUsRegister("message")}
+                    style={{borderColor: errors.message ? '#ff0000' : 'transparent'}}
                 />
                 <Button type={'submit'} text={t('common:send')}/>
             </form>

@@ -47,7 +47,7 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
 };
 
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
     resetIdCounter();
 
     const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
