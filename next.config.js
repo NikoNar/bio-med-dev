@@ -6,6 +6,7 @@ module.exports = {
             webpack5: false,
         },
         env: {
+            MAIN_HOST: process.env.NEXT_PUBLIC_MAIN_HOST,
             HOST_1: process.env.NEXT_PUBLIC_HOST_V1,
             HOST_2: process.env.NEXT_PUBLIC_HOST_V2,
             HOST_WP: process.env.NEXT_PUBLIC_HOST_WC,
