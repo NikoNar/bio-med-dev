@@ -60,9 +60,9 @@ const Results = ({contactInfo, contactPageInfo}) => {
             .then(res => res.json())
             .then(async (data) => {
                     console.log(data.status);
-                    data.status && data.status.toString() === '404' && setError('Ձեր մուտքագռած կոդը գոյություն չունի')
-                    data.status && data.status.toString() === '403' && setError('Ձեր մուտքագռած ազգանունը սխալ է')
-                    data.status && data.status.toString() === '416' && setError('Դուք ունեք չմարած պարտավորվածություն և չեք կարող կատարել հարցում')
+                    data.status && data.status.toString() === '404' && setError(t('common:error-404'))
+                    data.status && data.status.toString() === '403' && setError(t('common:error-403'))
+                    data.status && data.status.toString() === '416' && setError(t('common:error-416'))
                     data.status && data.status.toString() === '200' ? setIsOpen(false) : setIsOpen(true)
                     data.status.toString() === '200' && await fetch(`${resultsPdfUrl}?code=${resultsData.userKey}&surname=${resultsData.userFullName}`)
                         .then(res => res.json())

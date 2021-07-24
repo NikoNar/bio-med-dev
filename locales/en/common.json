@@ -66,5 +66,8 @@
     "home_address": "Home call address",
     "yerevan": "Yerevan",
     "armenia": "Armenia",
-    "history_message": "Please press \"Analyzes results\" button to see your analyzes results"
+    "history_message": "Please press \"Analyzes results\" button to see your analyzes results",
+    "error-404": "The code you entered does not exist",
+    "error-403": "The last name you entered is incorrect",
+    "error-416": "You have outstanding obligations and you cannot fulfill the request"
   }
