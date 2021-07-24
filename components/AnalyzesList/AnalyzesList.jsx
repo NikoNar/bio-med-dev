@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import AnalyzesStyle from "../../pages/researches/Analyzes.module.scss";
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
@@ -8,32 +8,36 @@ import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
-import Pagination from "../Pagination/Pgination";
-import {useRouter} from "next/router";
-import Logo from "../Logo/Logo";
+import InnerSlider from "../InnerSlider/InnerSlider";
+import ALStyle from './analyzes-lst.module.scss'
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
+
     const {t} = useTranslation()
     const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
     const [isOpen, setIsOpen] = useState(false)
     const [mainCategory, setMainCategory] = useState(categories[0].id)
     const [filterName, setFilterName] = useState(null)
-    const [isChecked, setIsChecked] = useState(false)
     const [active, setActive] = React.useState(null);
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
+    const [height, setHeight] = useState(0)
+    const ref = useRef(null)
 
+    const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
 
     useEffect(() => {
         setTabIndex(0)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
+        setTimeout(()=>{
+            setHeight(ref ? ref.current.clientHeight : 0)
+        }, 100)
     }, [loc])
-
 
 
     const handleCategoryFilter = async (e, index) => {
@@ -43,13 +47,13 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setFilterName(name)
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
 
-    const handleMainCategoryName = async (e, page=1) => {
+    const handleMainCategoryName = async (e, page = 1) => {
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
         setFilterName(null)
@@ -57,47 +61,47 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             `?lang=${loc}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&parent=${tabName}`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
             `?lang=${loc}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&category=${tabName}`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
 
         setAllAnalyzes(currentCategoryTests)
         setAllByFilterCategories(tests)
     }
 
-    const handleClearFilters = async ()=>{
+    const handleClearFilters = async () => {
         setFilterName(null)
         setActive(null)
         const currentCategoryTests = await fetch(analyzesUrl +
             `?lang=${loc}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&category=${mainCategory}`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
 
         setAllAnalyzes(currentCategoryTests)
 
     }
 
-    const handleSaleFilter = async ()=>{
+    const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&lang=${loc}`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
 
-    const handleHomeCallFilter = async ()=>{
+    const handleHomeCallFilter = async () => {
         const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&lang=${loc}&shipping_class=124`)
-            .then(res=>res.json())
-            .then(data=>data)
+            .then(res => res.json())
+            .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
@@ -138,13 +142,16 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                     <div className={AnalyzesStyle.Header}>
                                                         <div className={'row'}>
                                                             <div className={'col-lg-12'}>
-                                                                <div className={AnalyzesStyle.Tags}>
-                                                                    <ul className={isOpen ? AnalyzesStyle.Open : ''}>
-                                                                        <span
+                                                                <div className={isOpen ? AnalyzesStyle.Open + ' ' + AnalyzesStyle.Tags : AnalyzesStyle.Tags}>
+                                                                    {
+                                                                        height && height > 47 ? <span
                                                                             className={'_icon-chevrone-down'}
-                                                                            onClick={()=>setIsOpen(!isOpen)}
+                                                                            onClick={() => setIsOpen(!isOpen)}
                                                                             style={{display: allByFilterCategories && allByFilterCategories.length > 2 ? 'block' : 'none'}}
-                                                                        > </span>
+                                                                        > </span> : ''
+                                                                    }
+
+                                                                    <ul ref={ref}>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
                                                                                 id={'on_sale'}
@@ -153,7 +160,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                                 value='event'
                                                                                 onChange={(e) => handleSaleFilter(e)}
                                                                             />
-                                                                            <label htmlFor={'on_sale'}>{t('common:event')}</label>
+                                                                            <label
+                                                                                htmlFor={'on_sale'}>{t('common:event')}</label>
                                                                         </li>
                                                                         <li className={AnalyzesStyle.Emergency}>
                                                                             <input
@@ -163,7 +171,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                                 value='homeCall'
                                                                                 onChange={(e) => handleHomeCallFilter(e)}
                                                                             />
-                                                                            <label htmlFor={'homeCall'}>{t('common:home_call')}</label>
+                                                                            <label
+                                                                                htmlFor={'homeCall'}>{t('common:home_call')}</label>
                                                                         </li>
                                                                         {
                                                                             allByFilterCategories ? allByFilterCategories.map((item, index) => {
@@ -173,7 +182,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                                                id={item.name}
                                                                                                name={item.parent}
                                                                                                value={item.id}
-                                                                                               checked={active===index}
+                                                                                               checked={active === index}
                                                                                                onChange={(e) => handleCategoryFilter(e, index)}
                                                                                         />
                                                                                         <label
@@ -192,33 +201,46 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                             <div className={'row'}>
                                                 <div className={'col-lg-12'}>
                                                     <div className={AnalyzesStyle.SelectedFiltersName}>
-                                                        <article>{t('common:selected_filter')}: <strong>{filterName ? filterName : t('common:no_filters_selected')}</strong></article>
-                                                        {filterName ? <span><CloseIcon callBack={handleClearFilters}/></span> : null}
+                                                        <article>{t('common:selected_filter')}: <strong>{filterName ? filterName : t('common:no_filters_selected')}</strong>
+                                                        </article>
+                                                        {filterName ? <span><CloseIcon
+                                                            callBack={handleClearFilters}/></span> : null}
                                                     </div>
                                                 </div>
                                             </div>
-                                            {
-                                                allAnalyzes && allAnalyzes.length > 0 ? allAnalyzes.map((a, index) => {
-                                                        return (
-                                                            <div className={'row mb-5'} key={a.id}>
-                                                                <div className={'col-lg-12'}>
-                                                                    <div className={AnalyzesStyle.a}>
+                                            <div className={ALStyle.ListWrapper}>
+                                                {
+                                                    allAnalyzes && allAnalyzes.length > 0 ? allAnalyzes.map((a, index) => {
+                                                            return (
+                                                                <div className={'row mb-5'} key={a.id}>
+                                                                    <div className={'col-lg-12'}>
                                                                         <AnalyzesCard inner={a} index={index}
                                                                                       id={a.id} loc={loc}/>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        )
-                                                    }) :
-                                                    <div className={AnalyzesStyle.NoMatch}>
-                                                        <h4>{t('common:no_analysis_found_in_this_category')}</h4>
-                                                    </div>
-                                            }
-                                            <Pagination/>
+                                                            )
+                                                        }) :
+                                                        <div className={AnalyzesStyle.NoMatch}>
+                                                            <h4>{t('common:no_analysis_found_in_this_category')}</h4>
+                                                        </div>
+                                                }
+                                            </div>
                                         </TabPanel>
                                     )
                                 })
                             }
+                        </div>
+                    </div>
+                    <div className={'row mt-5'}>
+                        <div className={'col-lg-12'}>
+                            <div style={{textAlign: "left"}}>
+                                <h4>{t('common:frequently_passed_tests')}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'col-lg-12'}>
+                            <InnerSlider analyzes={popular} component={'analyzes'}/>
                         </div>
                     </div>
                 </Tabs>

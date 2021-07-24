@@ -7,12 +7,11 @@ import RegisterForm from "../../components/AccountForms/RegisterForm/RegisterFor
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), { ssr: false }) // disable ssr
-import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
+import {Tab, TabList, TabPanel} from "react-tabs";
 
 import dynamic from "next/dynamic";
 import TabButtons from "../../components/TabButtons/TabButtons";
 import useTranslation from "next-translate/useTranslation";
-import {parseCookies} from "nookies";
 
 
 const Account = () => {

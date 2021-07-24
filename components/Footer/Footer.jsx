@@ -11,7 +11,6 @@ import {getFooterLeftLinks, getFooterRightLinks} from "../../redux/actions/getFo
 
 const Footer = ({loc})=>{
     const {t} = useTranslation()
-    const navigation = useSelector(state=>state.navigation)
     const footerLeftLinks = useSelector(state=>state.footerLeftLinks)
     const footerRightLinks = useSelector(state=>state.footerRightLinks)
     const news = useSelector(state => state.news)

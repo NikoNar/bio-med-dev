@@ -23,7 +23,7 @@ const Header = ({pageProps, loc}) => {
     const pages =useSelector(state=>state.navigation)
     const orders = useSelector(state => state.orders)
     const [isOpen, setIsOpen] = useState(false)
-    const buttonLink = user ? "/profile" : "/results"
+    const buttonLink = /*user ? "/profile" :*/ "/results"
 
     useEffect(() => {
         dispatch(getCurrentUserAction())

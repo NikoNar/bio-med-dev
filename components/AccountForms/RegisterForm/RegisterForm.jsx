@@ -2,14 +2,13 @@ import React, {useEffect, useState} from 'react';
 import RegisterFormStyle from './register-form.module.scss'
 import Button from "../../Button/Button";
 import DatePicker from 'react-datepicker'
-import {loginUrl, registerUrl} from "../../../utils/url";
+import {registerUrl} from "../../../utils/url";
 import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from 'yup';
 import useTranslation from "next-translate/useTranslation";
 import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 import ModalComponent from "../../Alerts/Modal/ModalComponent";
-import {setCookie} from "nookies";
 import {useRouter} from "next/router";
 
 
@@ -18,8 +17,6 @@ const RegisterForm = ({security, currentUser}) => {
     const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
-    const [error, setError] = useState('')
-    const router = useRouter()
     const registerSchema = Yup.object().shape({
         first_name: Yup.string().matches(/^([^1-9]*)$/).required(),
         registerGender: Yup.string().nullable(true).required(),
@@ -64,14 +61,24 @@ const RegisterForm = ({security, currentUser}) => {
             },
             body: JSON.stringify({...registerData,
                 meta_data: [
-                    {user_dob: registerData.registerDate},
-                    {user_gender: registerData.registerGender},
-                    {user_phone: registerData.registerPhone}
+                    {
+                        "key": "user_dob",
+                        "value": registerData.registerDate
+                    },
+                    {
+                        "key": "user_gender",
+                        "value": registerData.registerGender
+                    },
+                    {
+                        "key": "user_phone",
+                        "value": registerData.registerPhone
+                    }
                 ]
             })
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 registerFormReset({
                     registerFullName: '',
                     registerEmail: '',

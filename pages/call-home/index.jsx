@@ -16,9 +16,6 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
                     <div className={'row'}>
                         <div className={'col-lg-6'}>
                             <div className={HCStyle.Wrapper}>
-                                {/*<div className={HCStyle.Title}>*/}
-                                {/*    <h4>{homeCall[0].title.rendered}</h4>*/}
-                                {/*</div>*/}
                                 <div className={HCStyle.Content}>
                                     {parse(homeCall[0].content.rendered)}
                                 </div>

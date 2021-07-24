@@ -4,29 +4,28 @@ import ContactUs from "../../components/ContactUs/ContactUs";
 import {contactInfoUrl, locationsUrl, resultsUrl} from "../../utils/url";
 import Button from "../../components/Button/Button";
 import * as Yup from "yup";
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import RegisterFormStyle from "../../components/AccountForms/RegisterForm/register-form.module.scss";
-import DatePicker from "react-datepicker";
 import useTranslation from "next-translate/useTranslation";
 import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
 import RequiredFields from "../../components/Alerts/RequiredFields/RequiredFields";
 import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
+import PdfIcon from "../../components/SVGIcons/Pdf/PdfIcon";
 
 
 const Results = ({contactInfo, contactPageInfo}) => {
     const {t} = useTranslation()
 
     const resultsSchema = Yup.object().shape({
-        userFullName: Yup.string().matches(/^([^1-9]*)$/, t('errors:name_format_error')).required(t('errors:enter_email')),
-        userBirthDay: Yup.string().required(t('errors:birthday_error')),
-        userKey: Yup.string().required(t('errors:analyze_number_error'))
+        userFullName: Yup.string().matches(/^([^1-9]*)$/),
+        userBirthDay: Yup.string(),
+        userKey: Yup.string()
     })
 
     const [results, setResults] = useState(null)
     const [error, setError] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-
+    const [link, setLink] = useState('')
     const {
         handleSubmit: handleResultsSubmit,
         register: resultsRegister,
@@ -56,31 +55,45 @@ const Results = ({contactInfo, contactPageInfo}) => {
     }
 
     const submitResultsForm = async (resultsData) => {
-
-        await fetch(resultsUrl + `?number=${resultsData.userKey}&${resultsData.userFullName}&${resultsData.userBirthDay}`, {
+        await fetch(`https://biomed.codemanstudio.com/wp-json/custom-api/v1/get-analysis-results?code=${resultsData.userKey}&surname=${resultsData.userFullName}`, {
             method: 'GET'
         })
-            .then(res => res.json())
-            .then(data => {
-                data.length <= 0 ? setIsOpen(true) : null
-                setResults(data)
-                setError(`Sorry there are no any matches with your number ${resultsData.userKey}. Please try again later`)
-            })
+            .then(res =>res.json())
+            .then(async (data) => {
+                data.length <= 0 ? setIsOpen(true) : setIsOpen(false)
+                setResults(data.testList)
+                await fetch('https://biomed.codemanstudio.com/wp-json/custom-api/v1/get-analysis-results-pdf?code=${resultsData.userKey}&surname=${resultsData.userFullName}')
+                    .then(res=>res.json())
+                    .then(data=>{
+                        setLink(data.url)
+                    })
+                data.status === '404' ? setError(`Sorry there are no any matches with your number ${resultsData.userKey}. Please try again later`) : ''
+                }
+             )
             .then(() => resultsFormReset({}))
     }
 
 
     return (
         <>
-            <ModalComponent callBack={closeModal} isOpen={isOpen} error={error}/>
+            <ModalComponent callBack={closeModal} isOpen={error ? isOpen : false} error={error}/>
             <section className={ResStyle.Results}>
                 <div className={'container' + ' ' + ResStyle.Info}>
                     <div className={'row'}>
-                        <div className={'col-lg-12'}>
+                        <div className={'col-lg-8'}>
                             <div className={ResStyle.Title}>
                                 <h4>{t('common:analyzes_results')}</h4>
                                 <small>{t('common:analyzes_results_text')}</small>
                             </div>
+                        </div>
+                        <div className={'col-lg-4'}>
+                           <div className={ResStyle.PdfIcon}>
+                               {
+                                   link ? <a href={link}>
+                                       <PdfIcon/>
+                                   </a> : ''
+                               }
+                           </div>
                         </div>
                     </div>
                     <div className={'row mt-4'}>
@@ -100,7 +113,7 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                                         style={{borderColor: errors.userFullName ? '#ff0000' : 'transparent'}}
                                                     />
                                                 </div>
-                                                <div className={'col-lg-4'}>
+                                                {/*<div className={'col-lg-4'}>
                                                     <div
                                                         className={RegisterFormStyle.DatePicker + ' ' + ResStyle.DatePicker}>
                                                         <div
@@ -126,8 +139,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                                                 )}
                                                             />
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                        </div>
+                                                </div>*/}
                                                 <div className={'col-lg-4'}>
                                                     <input
                                                         type="text"
@@ -149,19 +162,19 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                     <div className={'row'}>
                                         <div className={'col-lg-12'}>
                                             <div className={ResStyle.FullName}>
-                                                <div className={'row'}>
-                                                    <div className={'col-lg-12'}>
-                                                        <div className={ResStyle.Header}>
-                                                            <div className={ResStyle.Name}>
-                                                                <span className="_icon-male"></span>
-                                                                <h4>{results && results[0].fullName}</h4>
-                                                            </div>
-                                                            <div className={ResStyle.BirthDay}>
-                                                                <h4>{results && new Date(results[0].date).toLocaleDateString()}</h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {/*<div className={'row'}>*/}
+                                                {/*    <div className={'col-lg-12'}>*/}
+                                                {/*        <div className={ResStyle.Header}>*/}
+                                                {/*            <div className={ResStyle.Name}>*/}
+                                                {/*                <span className="_icon-male"></span>*/}
+                                                {/*                <h4>{results && results[0].fullName}</h4>*/}
+                                                {/*            </div>*/}
+                                                {/*            <div className={ResStyle.BirthDay}>*/}
+                                                {/*                <h4>{results && new Date(results[0].date).toLocaleDateString()}</h4>*/}
+                                                {/*            </div>*/}
+                                                {/*        </div>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
                                                 <div className={'row'}>
                                                     <div className={'col-lg-12'}>
                                                         <AnalyzesResults results={results}/>

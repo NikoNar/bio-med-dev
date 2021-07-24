@@ -12,8 +12,6 @@ const ContactUsPage = ({contactInfo, contactPageInfo, loc, t}) => {
     );
 };
 
-
-
 export async function getServerSideProps(ctx) {
 
     const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {

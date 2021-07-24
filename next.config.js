@@ -15,12 +15,14 @@ module.exports = {
             GOOGLE_API: process.env.NEXT_PUBLIC_GOOGLE_API,
             local_host: process.env.NEXT_PUBLIC_LOCAL_HOST,
             CONSUMER_KEY: process.env.NEXT_PUBLIC_CONSUMER_KEY,
-            CONSUMER_SECRET: process.env.NEXT_PUBLIC_CONSUMER_SECRET
+            CONSUMER_SECRET: process.env.NEXT_PUBLIC_CONSUMER_SECRET,
+            CONSUMER_RESULTS: process.env.NEXT_PUBLIC_HOST_RESULTS
           },
         cssLoaderOptions: {
             url: false
         },
-        generateEtags: false
+        generateEtags: false,
+        throwIfNamespace: false
     }),
 }
 

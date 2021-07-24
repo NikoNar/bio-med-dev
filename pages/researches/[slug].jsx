@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import SAnalyseStyle from "./single-analyse.module.scss";
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import dynamic from "next/dynamic";
 import Button from "../../components/Button/Button";
-import {analyzesCategoryUrl, analyzesUrl, contactInfoUrl, locationsUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesUrl, locationsUrl} from "../../utils/url";
 import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
-import useTranslation from "next-translate/useTranslation";
 import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
 import {addItemToCart} from "../../redux/actions/setOrderAction";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import TabComponent from "../../components/Tab/Tab";
 import {useRouter} from "next/router";
 import parse from 'html-react-parser'

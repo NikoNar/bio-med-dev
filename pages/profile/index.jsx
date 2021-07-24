@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
-import {destroyCookie, setCookie} from 'nookies'
+import {destroyCookie, parseCookies, setCookie} from 'nookies'
 import ProfStyle from './profile.module.scss'
 import dynamic from 'next/dynamic'
 
@@ -13,36 +13,35 @@ import {
     contactInfoUrl,
     editProfileUrl,
     locationsUrl,
-    loggedInUserInfo,
-    resultsUrl
 } from "../../utils/url";
-import LinkButton from "../../components/LinkButton/LinkButton";
 
 const ContactUs = dynamic(() => import("../../components/ContactUs/ContactUs"), {ssr: false});
-import AnalyzesResults from "../../components/AnalyzesResults/AnalyzesResults";
-import {useDispatch, useSelector} from "react-redux";
 import RegisterFormStyle from "../../components/AccountForms/RegisterForm/register-form.module.scss";
 import DatePicker from 'react-datepicker'
 import Button from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import {parsePhoneNumberFromString} from "libphonenumber-js";
-import useTranslation from "next-translate/useTranslation";
-import Account from "../account";
 import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 
 
-const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
-    const currentUser = useSelector(state => state.currentUser)
+const Profile = ({contactInfo, token, contactPageInfo, t}) => {
+
+    const cookieUser = parseCookies('currentUser')
+    const currentUser = cookieUser.currentUser ? JSON.parse(cookieUser.currentUser) : null
+
     const [isEdited, setIsEdited] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
+
+    const [phone, setPhone] = useState('')
+    const [gender, setGender] = useState('')
+    const [dob, setDob] = useState('')
+
     const router = useRouter()
-    const dispatch = useDispatch()
     const results = []
 
 
@@ -60,11 +59,25 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
         editProfileConfirmPassword: Yup.string().oneOf([Yup.ref('editProfileNewPassword'), null]).required()
     })
 
+    function getCurrentUserMeta(){
+        currentUser && currentUser.meta_data.map((data=>{
+            if(data.key === 'user_dob'){
+                setDob(data.value && data.value)
+            }
+            if(data.key === 'user_gender'){
+                setGender(data.value && data.value)
+            }
+            if(data.key === 'user_phone'){
+                setPhone(data.value && data.value)
+            }
+        }))
+    }
 
-    useEffect(async ()=>{
+    useEffect(()=>{
         setIsEdited(false)
-        dispatch(getCurrentUserAction())
+        getCurrentUserMeta()
     },[])
+
 
     const {
         handleSubmit: handleSubmitChangePassword,
@@ -100,16 +113,12 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
             headers: {
                 'ContentType': 'application/json',
                 'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                "first_name": "",
-                "email": ""
-            }),
+            }
         })
             .then(() => {
-                router.push('/')
                 destroyCookie(null, 'currentUser')
                 destroyCookie(null, 'token')
+                router.push('/')
             })
     }
 
@@ -134,33 +143,38 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
     }
 
     const handleProfileEdit = async (editProfileData) => {
-        await fetch(editProfileUrl  + `/${currentUser.user_id}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
+        destroyCookie(null, 'currentUser')
+        destroyCookie(null, 'token')
+        await fetch(`${editProfileUrl}/${currentUser.id}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                "first_name": editProfileData.editProfileFullName,
-                "email": editProfileData.editProfileEmail,
-                "consumer_key": "ck_a47e7fe464749514bb12d991f377ca074edf2f93",
-                "consumer_secret": "cs_537e132ca0f429c320cf6a51c29332a9409d5432"
+            body: JSON.stringify({...editProfileData,
+                meta_data: [
+                    {
+                        "key": "user_dob",
+                        "value": editProfileData.editProfileDate
+                    },
+                    {
+                        "key": "user_gender",
+                        "value": editProfileData.editProfileGender
+                    },
+                    {
+                        "key": "user_phone",
+                        "value": editProfileData.editProfilePhone
+                    }
+                ]
             })
         })
-            .then(res => {
-                return res.json()
-            })
+            .then(res => res.json())
             .then((data)=>{
-                const user = JSON.stringify(data.user)
+                const user = JSON.stringify(data)
                 setIsEdited(true)
                 setResError(data.message ? data.message : undefined)
                 setIsOpen(true)
-            })
-            .then(()=>{
-                !isOpen ? setTimeout( () => {
-                    destroyCookie(null, 'currentUser')
-                    destroyCookie(null, 'token')
-                    router.push('/account')
-                }, 1000) : false
+                setCookie(null, 'currentUser', user)
+                setCookie(null, 'token', token)
             })
     }
 
@@ -210,10 +224,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                             </TabList>
 
                             <TabPanel>
-                                {
-                                    results.length > 0 ? <AnalyzesResults/> : <h5 style={{margin: '35px 0'}}>{t('common:history_message')}</h5>
-                                }
-
+                                <h5 style={{margin: '35px 0'}}>{t('common:history_message')}</h5>
                             </TabPanel>
                             <TabPanel>
                                 <div className={'row pt-5'}>
@@ -227,7 +238,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                                 placeholder={t('common:full_name')}
                                                                 type="text"
                                                                 name='registerFullName'
-                                                                defaultValue={currentUser && currentUser.user_meta.first_name[0]}
+                                                                defaultValue={currentUser && currentUser.first_name}
                                                                 {...registerEditProfile('editProfileFullName')}
                                                                 style={{borderColor: errorsEditProfile.editProfileFullName ? '#ff0000' : 'transparent'}}
                                                             />
@@ -237,7 +248,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                                         type="radio"
                                                                         id="male"
                                                                         value='male'
-                                                                        //defaultChecked={!!(currentUser && currentUser.gender === 'male')}
+                                                                        defaultChecked={!!(currentUser && gender === 'male')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -248,7 +259,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                                         type="radio"
                                                                         id="female"
                                                                         value='female'
-                                                                        //defaultChecked={!!(currentUser && currentUser.gender === 'female')}
+                                                                        defaultChecked={!!(currentUser && gender === 'female')}
                                                                         {...registerEditProfile('editProfileGender')}
                                                                         style={{borderColor: errorsEditProfile.editProfileGender ? '#ff0000' : 'transparent'}}
                                                                     />
@@ -261,7 +272,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                 <Controller
                                                     control={controlEditProfile}
                                                     name="editProfileDate"
-                                                    //defaultValue={new Date(currentUser && currentUser.date)}
+                                                    defaultValue={new Date(currentUser && dob && dob)}
                                                     render={({field: {onChange, value, ref}}) => {
                                                         return (
 
@@ -288,7 +299,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                     type='email'
                                                     name='editProfileEmail'
                                                     {...registerEditProfile('editProfileEmail')}
-                                                    defaultValue={currentUser && currentUser.user_email}
+                                                    defaultValue={currentUser && currentUser.email}
                                                     style={{borderColor: errorsEditProfile.editProfileEmail ? '#ff0000' : 'transparent'}}
                                                 />
                                                 <input
@@ -296,7 +307,7 @@ const Profile = ({contactInfo, token, user, contactPageInfo, t}) => {
                                                     type="tel"
                                                     name='editProfilePhone'
                                                     {...registerEditProfile('editProfilePhone')}
-                                                    //defaultValue={currentUser && currentUser.phone}
+                                                    defaultValue={currentUser && phone}
                                                     onChange={(event)=>{
                                                         event.target.value = validatePhoneNumber(event.target.value)
                                                     }}
@@ -375,13 +386,14 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
+
+
+
     return {
         props: {
             contactInfo,
-            //results,
             token,
             contactPageInfo
-            //user
         },
     }
 }

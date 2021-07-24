@@ -9,6 +9,13 @@
         color: $brand-gray;
       }
     }
+    .PdfIcon{
+      width: 100%;
+      text-align: right;
+      svg{
+        width: 50px;
+      }
+    }
   }
   .Form{
     input {
@@ -65,3 +72,4 @@
     }
   }
 }
+

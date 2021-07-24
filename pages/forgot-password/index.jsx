@@ -6,8 +6,6 @@ import * as Yup from 'yup'
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import RequiredFields from "../../components/Alerts/RequiredFields/RequiredFields";
-import ContactFrom from "../../components/ContactUs/ContactForm/ContactFrom";
-import ContactUs from "../../components/ContactUs/ContactUs";
 import {contactInfoUrl} from "../../utils/url";
 import useTranslation from "next-translate/useTranslation";
 
@@ -16,7 +14,7 @@ const schema = Yup.object().shape({
 })
 
 
-const ForgotPassword = ({contactInfo}) => {
+const ForgotPassword = () => {
 
     const {t} = useTranslation()
 
@@ -26,7 +24,7 @@ const ForgotPassword = ({contactInfo}) => {
     })
 
     const handlePasswordEmail = (data) => {
-        console.log(data);
+
     }
 
     return (

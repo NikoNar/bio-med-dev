@@ -5,7 +5,6 @@ import AccountIcon from "../../SVGIcons/Account/AccountIcon";
 
 
 const AccountIconComponent = ({user, callBack}) => {
-
     return (
         <div
             onClick={callBack && callBack}
@@ -16,7 +15,7 @@ const AccountIconComponent = ({user, callBack}) => {
                     <a>
                         <AccountIcon/>
                     </a>
-                </Link> : <Link href={'/profile'}><a>{user ? user.user_meta.first_name[0] : '/account'}</a></Link>
+                </Link> : <Link href={'/profile'}><a>{user ? user.first_name : '/account'}</a></Link>
             }
 
         </div>

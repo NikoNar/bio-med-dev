@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import CartStyle from './cart.module.scss'
-import ContactInfoWithSelect from "../../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
-import {allPagesUrl, contactInfoUrl, locationsUrl} from "../../utils/url";
+import {allPagesUrl, locationsUrl} from "../../utils/url";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
-import {getAllOrdersItem, removeAllOrdersAction, removeCartItem} from "../../redux/actions/setOrderAction";
+import {getAllOrdersItem, removeAllOrdersAction} from "../../redux/actions/setOrderAction";
 import {useDispatch, useSelector} from "react-redux";
 import useTranslation from "next-translate/useTranslation";
 import Researches from "../../components/Researches/Researches";
@@ -97,7 +96,6 @@ const Cart = ({contactInfo, token, researches}) => {
 
 
 export async function getServerSideProps(ctx) {
-    //console.log(JSON.parse(ctx.req.cookies.currentUser))
     const token = ctx.req.cookies.token ? ctx.req.cookies.token : null
 
     const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)

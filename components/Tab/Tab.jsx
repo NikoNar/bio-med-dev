@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import InnerSlider from '../InnerSlider/InnerSlider'
 import TabStyle from './tab.module.scss'
 import dynamic from 'next/dynamic'
@@ -24,7 +24,6 @@ const TabComponent = ({categories, t, loc, analyzes}) => {
     const handleInnerSliderMainCategoryName = async (e) => {
 
         const tabName = e.target.getAttribute("data-value")
-        //setMainCategory(tabName)
 
         const currentCategoryTests = await fetch(analyzesUrl +
             `?lang=${loc}` +

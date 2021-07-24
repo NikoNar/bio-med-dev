@@ -19,12 +19,9 @@ const Search = ({setIsOpen, loc}) => {
 
     const handleSearchSubmit = async (e)=>{
         e.preventDefault()
-        dispatch(makeSearch(searchData, loc))
+        dispatch(makeSearch(searchData, loc, setIsOpen))
         await router.push('/search')
         setSearchData('')
-        setTimeout(()=>{
-            setIsOpen(false)
-        },500)
     }
 
 

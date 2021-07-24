@@ -44,21 +44,45 @@
       position: absolute;
       top: 50%;
       right: 15px;
-      transition: all .5s ease;
+      transition: max-height .5s ease;
       transform: translateY(-50%);
       font-size: 14px;
     }
   }
   .Body{
     max-height: 0;
-    overflow: hidden;
-    transition: all .5s ease;
+    overflow-y: auto;
+    overflow-x: auto;
+    transition: max-height .5s ease;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 6px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
     table{
       width: 100%;
       background-color: $white;
+      border-collapse: collapse;
       th, td{
         border-right: 2px solid $brand-gray;
         color: $brand-gray;
+        border-bottom: 2px solid $brand-gray;
         &:last-child{
           border-right: none;
         }
@@ -110,7 +134,8 @@
             font-size: 12px;
           }
           td{
-            font-size: 16px;
+            font-size: 12px;
+            padding: 8px 12px;
           }
         }
       }

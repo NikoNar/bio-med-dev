@@ -9,7 +9,6 @@ import QualityControl from "../../components/QualityControl/QualityControl";
 import useTranslation from "next-translate/useTranslation";
 
 const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
-    console.log(qualityControl);
     const {t} = useTranslation()
     return (
         <>
@@ -79,25 +78,18 @@ export async function getServerSideProps(ctx) {
     const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
-    //console.log(aboutUsContent);
+
     const doctors = await fetch(`${doctorsUsUrl}&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
-
 
     const equipment = await fetch(`${equipmentUrl}&lang=${ctx.locale}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    // const qualityControl = await fetch(qualityControlUrl)
-    //     .then(res=>res.json())
-    //     .then(data=>data)
-
     const qualityControl = await fetch(`${dynamicPageUrl}&slug=quality-control&lang=${ctx.locale}&_embed`)
         .then(res => res.json())
         .then(data => data)
-
-
 
     return {
         props:{

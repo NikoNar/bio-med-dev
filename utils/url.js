@@ -16,7 +16,7 @@ export const aboutUsTextUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/aboutUs`
 export const locationsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/locations`
 export const contactFormMessageUrl = `${process.env.NEXT_PUBLIC_HOST}/messages`
 export const contactInfoUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=contact-us`
-export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST}/results`
+export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS}`
 export const callHomeUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=call-home`
 export const aboutUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=about-us`
 export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/doctors?_embed&status=publish`

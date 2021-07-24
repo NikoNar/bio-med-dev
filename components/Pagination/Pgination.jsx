@@ -51,11 +51,3 @@ const Pagination = ({ callBackPrev,
 };
 
 export default Pagination;
-
-
-/*
-<li><a href="#"><span className="_icon-chevrone_left"></span></a></li>
-<li className="active-page"><a href="#">1</a></li>
-<li><a href="#">2</a></li>
-<li><a href="#">...</a></li>
-<li><a href="#"><span className="_icon-chevrone_right"></span></a></li>*/

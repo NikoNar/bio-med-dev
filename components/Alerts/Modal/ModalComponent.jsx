@@ -11,10 +11,9 @@ const customStyles = {
 };
 
 const ModalComponent = ({error, callBack, isOpen, text}) => {
-
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={isOpen && isOpen}
             className={error ? ModalStyle.MyModal + ' ' + ModalStyle.Error : ModalStyle.MyModal + ' ' + ModalStyle.Success}
             style={customStyles}
         >

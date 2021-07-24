@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
-import {homeCallOrdersUrl, orderUrl} from "../../utils/url";
+import {orderUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -17,8 +17,6 @@ import useTranslation from "next-translate/useTranslation";
 import RequiredFields from "../Alerts/RequiredFields/RequiredFields";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
-import {getAllOrdersItem} from "../../redux/actions/setOrderAction";
-import {getNavBarItems} from "../../redux/actions/navBarAction";
 
 
 
@@ -51,6 +49,7 @@ const homeCallSchema = Yup.object().shape({
 const CheckoutForm = ({info, orders, addresses, token}) => {
 
     const user = useSelector(state => state.currentUser)
+    console.log(user);
     const dispatch = useDispatch()
     const {t} = useTranslation()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
@@ -179,7 +178,7 @@ const CheckoutForm = ({info, orders, addresses, token}) => {
             ]
         }
 
-        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.user_id}`, {
+        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -245,7 +244,7 @@ const CheckoutForm = ({info, orders, addresses, token}) => {
                 }
             ]
         }
-        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.user_id}`, {
+        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

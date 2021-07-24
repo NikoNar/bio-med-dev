@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Button from "../../Button/Button";
 import RegisterFormStyle from "../RegisterForm/register-form.module.scss";
-import {loginUrl} from "../../../utils/url";
+import {editProfileUrl, loginUrl} from "../../../utils/url";
 import {useRouter} from "next/router";
-import Router from "next/router";
 import {setCookie} from "nookies";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -54,11 +53,15 @@ const LoginForm = () => {
         })
             .then(res => res.json())
             .then(data => {
-                const user = JSON.stringify(data)
                 if (!data.message){
-                    setCookie(null, 'currentUser', user)
                     setCookie(null, 'token', data.token)
-                    router.push('/profile')
+                    fetch(`${editProfileUrl}/${data.user_id}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`)
+                        .then(res=>res.json())
+                        .then(data=>{
+                            const user = JSON.stringify(data)
+                            setCookie(null, 'currentUser', user)
+                            router.push('/profile')
+                        })
                 }else {
                     setError(data.message)
                     setIsOpen(true)

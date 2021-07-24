@@ -50,11 +50,13 @@
           }
         }
         display: block;
-        padding-left: 30px;
+        padding: 15px 30px;
         position: absolute;
         width: max-content;
         opacity: 0;
         visibility: hidden;
+        background-color: $white;
+        z-index: 2;
       }
       a{
         color: $brand-blue;

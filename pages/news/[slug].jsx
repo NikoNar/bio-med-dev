@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {newsUrl} from "../../utils/url";
 import NewsStyle from "./news.module.scss";
 import SocialMedia from "../../components/SocialMedia/SocialMedia";

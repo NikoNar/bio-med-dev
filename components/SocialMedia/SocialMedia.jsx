@@ -5,8 +5,7 @@ import {fetchSocialMedia} from "../../redux/actions/getSocialMediaAction";
 import {
     FacebookIcon,
     FacebookShareButton,
-    InstapaperIcon,
-    InstapaperShareButton,
+    LinkedinIcon, LinkedinShareButton,
     TelegramIcon, TelegramShareButton,
 } from 'react-share'
 const SocialMedia = ({link}) => {
@@ -24,9 +23,9 @@ const SocialMedia = ({link}) => {
                 <FacebookShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
                     <FacebookIcon size={32} round={true}/>
                 </FacebookShareButton>
-                <InstapaperShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
-                    <InstapaperIcon size={32} round={true}/>
-                </InstapaperShareButton>
+                <LinkedinShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                    <LinkedinIcon size={32} round={true}/>
+                </LinkedinShareButton>
                 <TelegramShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
                     <TelegramIcon size={32} round={true}/>
                 </TelegramShareButton>

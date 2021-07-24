@@ -4,7 +4,7 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
-import {addItemToCart,  removeCartItem} from "../../redux/actions/setOrderAction";
+import {addItemToCart, removeCartItem} from "../../redux/actions/setOrderAction";
 import EmergencyIcon from "../SVGIcons/Emergency/EmergencyIcon";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {useRouter} from "next/router";
@@ -12,8 +12,7 @@ import useTranslation from "next-translate/useTranslation";
 import parse from 'html-react-parser';
 
 
-
-const AnalyzesCard = ({inner, icon, index, id, loc}) => {
+const AnalyzesCard = ({inner, icon, index}) => {
 
     const {t} = useTranslation()
     const router = useRouter()
@@ -36,59 +35,68 @@ const AnalyzesCard = ({inner, icon, index, id, loc}) => {
 
     return (
 
-            <div className={AStyle.Item}>
-                <div className={'row'}>
-                    <div className={'col-lg-12'}>
-                        {
-                            icon ? <div className={AStyle.RemoveBtn}>
-                                <button onClick={()=>deleteOrder(index)}><CloseIcon/></button>
-                            </div> : ''
-                        }
-                        <div className={AStyle.Top}>
-                            <small className={AStyle.Number}>№ {inner.sku}</small>
-                            <div className={AStyle.Title}>
-                                <Link href={`/researches/${inner.slug}`}>
-                                    <a><span>{inner.name}</span></a>
-                                </Link>
-                            </div>
-                            <div className={AStyle.Desc}>
-                                {parse(inner.description)}
-                            </div>
+        <div className={AStyle.Item}>
+            <div className={'row'}>
+                <div className={'col-lg-12'}>
+                    {
+                        icon ? <div className={AStyle.RemoveBtn}>
+                            <button onClick={() => deleteOrder(index)}><CloseIcon/></button>
+                        </div> : ''
+                    }
+                    <div className={AStyle.Top}>
+                        <small className={AStyle.Number}>№ {inner.sku}</small>
+                        <div className={AStyle.Title}>
+                            <Link href={`/researches/${inner.slug}`}>
+                                <a><span>{inner.name}</span></a>
+                            </Link>
                         </div>
-                    </div>
-                </div>
-                <div className={'row' + ' ' + AStyle.Info}>
-                    <div className={'col-12 col-sm-4 col-md-4 col-lg-4'}>
-                        <div className={AStyle.Price}>
-                            <p
-                                className={inner.sale_price ? AStyle.SellPrice : null}
-                                style={{visibility: inner.sale_price !== "" ? 'visible' : 'hidden'}}
-                            >{inner.regular_price}<span className={'_icon-amd'}></span></p>
-                            <p>{inner.sale_price !== "" ? inner.sale_price : inner.regular_price}<span className={'_icon-amd'}></span></p>
-                        </div>
-                    </div>
-                    <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>
-                        <div className={AStyle.Options}>
-                            <div className={AStyle.Emergency}>
-                                <Link href={'/'}>
-                                    <a>
-                                        {inner.shipping_class === `home-call` ? <EmergencyIcon/> : null}
-                                    </a>
-                                </Link>
-                            </div>
-                            <Button text={buttonText}
-                                    backgroundColor={backgroundColor}
-                                    icon={icon}
-                                    padding={'10px'}
-                                    callBack={
-                                        currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text) :
-                                            ()=>{router.push('/account')}
-                                    }
-                            />
+                        <div className={AStyle.Desc}>
+                            {parse(inner.description)}
+                            <p style={{maxHeight: 0, overflow: "hidden"}}>Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit. Aspernatur corporis eaque error explicabo in laudantium, quo rerum
+                                voluptatibus! Aliquam aspernatur, at ex impedit inventore provident quaerat quibusdam
+                                recusandae similique sint. Aspernatur natus sint vitae. Cupiditate dolorum, ducimus nemo
+                                officia perspiciatis possimus quae quibusdam! Aperiam architecto consequatur laudantium
+                                provident quam rerum!</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <div className={'row' + ' ' + AStyle.Info}>
+                <div className={'col-12 col-sm-4 col-md-4 col-lg-4'}>
+                    <div className={AStyle.Price}>
+                        <p
+                            className={inner.sale_price ? AStyle.SellPrice : null}
+                            style={{visibility: inner.sale_price !== "" ? 'visible' : 'hidden'}}
+                        >{inner.regular_price}<span className={'_icon-amd'}></span></p>
+                        <p>{inner.sale_price !== "" ? inner.sale_price : inner.regular_price}<span
+                            className={'_icon-amd'}></span></p>
+                    </div>
+                </div>
+                <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>
+                    <div className={AStyle.Options}>
+                        <div className={AStyle.Emergency}>
+                            <Link href={'/'}>
+                                <a>
+                                    {inner.shipping_class === `home-call` ? <EmergencyIcon/> : null}
+                                </a>
+                            </Link>
+                        </div>
+                        <Button text={buttonText}
+                                backgroundColor={backgroundColor}
+                                icon={icon}
+                                padding={'10px'}
+                                callBack={
+                                    currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text) :
+                                        () => {
+                                            router.push('/account')
+                                        }
+                                }
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 
