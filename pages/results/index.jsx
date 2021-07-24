@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ResStyle from './results.module.scss'
 import ContactUs from "../../components/ContactUs/ContactUs";
-import {contactInfoUrl, locationsUrl, resultsUrl} from "../../utils/url";
+import {contactInfoUrl, locationsUrl, resultsPdfUrl, resultsUrl} from "../../utils/url";
 import Button from "../../components/Button/Button";
 import * as Yup from "yup";
 import {useForm} from "react-hook-form";
@@ -49,28 +49,33 @@ const Results = ({contactInfo, contactPageInfo}) => {
     }, [isOpen]);
 
 
-
     const closeModal = () => {
         setIsOpen(false)
     }
 
     const submitResultsForm = async (resultsData) => {
-        await fetch(`https://biomed.codemanstudio.com/wp-json/custom-api/v1/get-analysis-results?code=${resultsData.userKey}&surname=${resultsData.userFullName}`, {
+        await fetch(`${resultsUrl}?code=${resultsData.userKey}&surname=${resultsData.userFullName}`, {
             method: 'GET'
         })
-            .then(res =>res.json())
+            .then(res => res.json())
             .then(async (data) => {
-                data.length <= 0 ? setIsOpen(true) : setIsOpen(false)
-                setResults(data.testList)
-                await fetch('https://biomed.codemanstudio.com/wp-json/custom-api/v1/get-analysis-results-pdf?code=${resultsData.userKey}&surname=${resultsData.userFullName}')
-                    .then(res=>res.json())
-                    .then(data=>{
-                        setLink(data.url)
-                    })
-                data.status === '404' ? setError(`Sorry there are no any matches with your number ${resultsData.userKey}. Please try again later`) : ''
+                    console.log(data.status);
+                    data.status && data.status.toString() === '404' && setError('Ձեր մուտքագռած կոդը գոյություն չունի')
+                    data.status && data.status.toString() === '403' && setError('Ձեր մուտքագռած ազգանունը սխալ է')
+                    data.status && data.status.toString() === '416' && setError('Դուք ունեք չմարած պարտավորվածություն և չեք կարող կատարել հարցում')
+                    data.status && data.status.toString() === '200' ? setIsOpen(false) : setIsOpen(true)
+                    data.status.toString() === '200' && await fetch(`${resultsPdfUrl}?code=${resultsData.userKey}&surname=${resultsData.userFullName}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            setLink(data.url)
+                        })
+                    setResults(data.testList)
                 }
-             )
+            )
             .then(() => resultsFormReset({}))
+            .catch(err => {
+                console.log(err);
+            })
     }
 
 
@@ -87,13 +92,13 @@ const Results = ({contactInfo, contactPageInfo}) => {
                             </div>
                         </div>
                         <div className={'col-lg-4'}>
-                           <div className={ResStyle.PdfIcon}>
-                               {
-                                   link ? <a href={link}>
-                                       <PdfIcon/>
-                                   </a> : ''
-                               }
-                           </div>
+                            <div className={ResStyle.PdfIcon}>
+                                {
+                                    link ? <a href={link}>
+                                        <PdfIcon/>
+                                    </a> : ''
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className={'row mt-4'}>
@@ -153,7 +158,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                             </div>
                                             <div className={'row mt-3 mt-lg-5'}>
                                                 <div className={'col-lg-12 text-end text-lg-start'}>
-                                                    <Button type={'submit'} text={t('common:see_results')} padding={'10px'}/>
+                                                    <Button type={'submit'} text={t('common:see_results')}
+                                                            padding={'10px'}/>
                                                 </div>
                                             </div>
                                         </form>

@@ -1,6 +1,5 @@
 import React from 'react';
 import ARStyle from "../analyzes-results.module.scss";
-import useTranslation from "next-translate/useTranslation";
 
 const AnalyzesResultsItem = ({res, openAccordion, callBack, index}) => {
 
@@ -66,10 +65,9 @@ const AnalyzesResultsItem = ({res, openAccordion, callBack, index}) => {
                                 </tr> :
                                 res.complexDetail.map(c => {
                                     return (
-                                        <tr>
+                                        <tr key={c.id}>
                                             {
                                                 c.table.body.map(b => {
-
                                                     return (
                                                         <td key={Math.random()}>{b}</td>
                                                     )

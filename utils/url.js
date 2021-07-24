@@ -17,6 +17,7 @@ export const locationsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/locations`
 export const contactFormMessageUrl = `${process.env.NEXT_PUBLIC_HOST}/messages`
 export const contactInfoUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=contact-us`
 export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS}`
+export const resultsPdfUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS_PDF}`
 export const callHomeUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=call-home`
 export const aboutUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=about-us`
 export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/doctors?_embed&status=publish`
