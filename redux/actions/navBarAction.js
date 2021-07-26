@@ -6,10 +6,7 @@ import {navigationUrl} from "../../utils/url";
 export function getNavBarItems(locale) {
 
     return async (dispatch)=>{
-        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}/main-menu?lang=${locale}`,{
-            method: 'GET',
-            mode: 'no-cors'
-        })
+        const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}/main-menu?lang=${locale}`)
             .then(res=>res.json())
             .then(items=>items)
             .catch((error)=>{
