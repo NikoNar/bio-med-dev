@@ -9,7 +9,6 @@ import {useRouter} from "next/router";
 
 const ContactInfoWithSelect = ({addresses, loc}) => {
 
-
     const router = useRouter()
     const {t} = useTranslation()
     const Addresses = addresses
