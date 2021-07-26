@@ -5,7 +5,7 @@ import {locationsUrl} from "../../utils/url";
 
 export const getLocation = (loc)=>{
     return async (dispatch)=>{
-        const locations = await fetch(`${locationsUrl}?status=publish&lang=${loc}`)
+        const locations = await fetch(`${locationsUrl}?status=publish&${loc !== 'hy' ? `lang=${loc}`: ''}`)
             .then(res=>res.json())
             .then(data=>data)
         dispatch(getLocationsAction(locations))
