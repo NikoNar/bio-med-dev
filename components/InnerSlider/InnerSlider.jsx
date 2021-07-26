@@ -33,11 +33,13 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                     <Swiper
                         slidesPerView={component === 'analyzes' && analyzes && analyzes.length > 2 ? 3 : analyzes && analyzes.length <= 2 ? 2 : perPage}
                         spaceBetween={20}
-                        mousewheel={component === 'analyzes'}
+                        //mousewheel={component === 'analyzes'}
                         className={ISStyle.SliderContainer}
-                        navigation={component !== 'analyzes'}
+                        //navigation={component !== 'analyzes'}
+                        navigation={true}
                         breakpoints={breakpointsValue}
                         autoHeight={isOpen && true}
+                        watchOverflow={true}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {

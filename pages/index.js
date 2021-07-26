@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
-    aboutUsTextUrl, aboutUsUrl, allPagesUrl,
+    aboutUsUrl, allPagesUrl,
     analyzesCategoryUrl,
     analyzesUrl,
     contactInfoUrl, locationsUrl,
-    researchesUrl,
     slidesUrl
 } from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
@@ -16,7 +15,6 @@ import dynamic from 'next/dynamic'
 const ContactUs = dynamic(() => import("../components/ContactUs/ContactUs"), {ssr: false})
 
 import {resetIdCounter} from "react-tabs";
-import ContactInfoWithSelect from "../components/ContactUs/ContacInfoWithSelect/ContacInfoWithSelect";
 
 
 
@@ -46,38 +44,35 @@ export async function getServerSideProps(ctx) {
 
     resetIdCounter();
 
-    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
+    const categories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
 
-    const analyzes = await fetch(analyzesUrl +
-        `?lang=${ctx.locale}` +
-        `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
-        `&category=${categories[0].id}`)
+    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0].id}`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const slides = await fetch(slidesUrl + `?lang=${ctx.locale}` + `&_embed`, {
+    const slides = await fetch(`${slidesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
 
-    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}&_embed`)
+    const aboutUsContent = await fetch(`${aboutUsUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const researches = await fetch(`${allPagesUrl}&lang=${ctx.locale}&_embed`, {
+    const researches = await fetch(`${allPagesUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
 
-    const contactInfo = await fetch(`${locationsUrl}?status=publish&lang=${ctx.locale}`)
+    const contactInfo = await fetch(`${locationsUrl}?status=publish&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`)
         .then(res => res.json())
         .then(data => data)
 
-    const contactPageInfo = await fetch(contactInfoUrl + `&lang=${ctx.locale}`, {
+    const contactPageInfo = await fetch(`${contactInfoUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`, {
         method: 'GET',
     })
         .then(res => res.json())

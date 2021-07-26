@@ -2,13 +2,12 @@ import React from 'react';
 import Slide from "./Slide/Slide";
 import MainSliderStyle from './mainSlider.module.scss'
 import {Swiper, SwiperSlide} from 'swiper/react';
-import SwiperCore, {Mousewheel, Navigation, Pagination} from "swiper";
+import SwiperCore, {Mousewheel, Navigation, Pagination, Autoplay } from "swiper";
 
 
- SwiperCore.use([Mousewheel, Navigation, Pagination]);
+ SwiperCore.use([Mousewheel, Navigation, Pagination, Autoplay ]);
 
 const MainSlider = (slides) => {
-
     return (
         <section className={MainSliderStyle.Slider}>
             <div className={'container'}>
@@ -17,9 +16,11 @@ const MainSlider = (slides) => {
                         <Swiper
                             slidesPerView={1}
                             spaceBetween={20}
-                            mousewheel={true}
+                            //mousewheel={true}
                             className={MainSliderStyle.SliderContainer}
                             pagination={{clickable: true}}
+                            navigation={true}
+                            autoplay={{delay: 5000}}
                         >
                             {
                                 slides.slides ? slides.slides.map((slide) => {

@@ -44,26 +44,26 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
 };
 
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
     resetIdCounter();
 
-    const analyzes = await fetch(analyzesUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
+    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
 
-    const homeCall = await fetch(`${callHomeUrl}&lang=${ctx.locale}`, {
+    const homeCall = await fetch(`${callHomeUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
 
-    const categories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
+    const categories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
         .then(data => data)
 
-    const allCategories = await fetch(analyzesCategoryUrl + `?lang=${ctx.locale}` + `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0].id}`)
+    const allCategories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0].id}`)
         .then(res => res.json())
         .then(data => data)
 

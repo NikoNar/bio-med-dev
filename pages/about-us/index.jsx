@@ -73,21 +73,20 @@ const AboutUs = ({aboutUsContent, doctors, equipment, qualityControl}) => {
 };
 
 
-
 export async function getServerSideProps(ctx) {
-    const aboutUsContent = await fetch(aboutUsUrl + `&lang=${ctx.locale}&_embed`)
+    const aboutUsContent = await fetch(`${aboutUsUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const doctors = await fetch(`${doctorsUsUrl}&lang=${ctx.locale}&_embed`)
+    const doctors = await fetch(`${doctorsUsUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const equipment = await fetch(`${equipmentUrl}&lang=${ctx.locale}&_embed`)
+    const equipment = await fetch(`${equipmentUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
         .then(res=>res.json())
         .then(data=>data)
 
-    const qualityControl = await fetch(`${dynamicPageUrl}&slug=quality-control&lang=${ctx.locale}&_embed`)
+    const qualityControl = await fetch(`${dynamicPageUrl}&slug=quality-control&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
         .then(res => res.json())
         .then(data => data)
 

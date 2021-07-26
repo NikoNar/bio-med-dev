@@ -1,7 +1,6 @@
 export const dynamicPageUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages?status=publish`
 export const newsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/posts`
 export const navigationUrl = `${process.env.NEXT_PUBLIC_HOST_V1}/pages`
-export const socialMediaUrl = `${process.env.NEXT_PUBLIC_HOST}/social`
 export const analyzesUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/products`
 export const registerUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/customers?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`
 export const loginUrl = `${process.env.NEXT_PUBLIC_HOST_LOGIN}/token`
@@ -11,7 +10,6 @@ export const orderUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/orders`
 export const analyzesCategoryUrl = `${process.env.NEXT_PUBLIC_HOST_V2}/products/categories`
 export const slidesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/home_slider`
 export const allPagesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages?status=publish`
-export const aboutUsTextUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/aboutUs`
 export const locationsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/locations`
 export const contactInfoUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=contact-us`
 export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS}`
@@ -23,4 +21,5 @@ export const equipmentUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/equipment?_embed
 export const qualityControlUrl = `${process.env.NEXT_PUBLIC_HOST}/quality-control`
 export const footerLeftLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-left`
 export const footerRightLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-right`
+export const mainUrl = `${process.env.NEXT_PUBLIC_MAIN_HOST}`
 

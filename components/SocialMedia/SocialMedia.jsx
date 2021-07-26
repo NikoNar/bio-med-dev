@@ -1,32 +1,39 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SocialStyle from './social.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import {fetchSocialMedia} from "../../redux/actions/getSocialMediaAction";
+
+
 import {
     FacebookIcon,
     FacebookShareButton,
     LinkedinIcon, LinkedinShareButton,
     TelegramIcon, TelegramShareButton,
 } from 'react-share'
-const SocialMedia = ({link}) => {
-
-    const social = useSelector(state => state.social)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(fetchSocialMedia())
-    }, [])
-
-
+import {mainUrl} from "../../utils/url";
+const SocialMedia = ({link, title, picture}) => {
     return (
         <div className={SocialStyle.List}>
-                <FacebookShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                <FacebookShareButton
+                    url={mainUrl + link}
+                    quote={title}
+                    picture={picture}
+                    title={title}
+                >
                     <FacebookIcon size={32} round={true}/>
                 </FacebookShareButton>
-                <LinkedinShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                <LinkedinShareButton
+                    url={mainUrl + link}
+                    quote={title}
+                    picture={picture}
+                    title={title}
+                >
                     <LinkedinIcon size={32} round={true}/>
                 </LinkedinShareButton>
-                <TelegramShareButton url={process.env.NEXT_PUBLIC_LOCAL_HOST + link}>
+                <TelegramShareButton
+                    url={mainUrl + link}
+                    quote={title}
+                    picture={picture}
+                    title={title}
+                >
                     <TelegramIcon size={32} round={true}/>
                 </TelegramShareButton>
         </div>

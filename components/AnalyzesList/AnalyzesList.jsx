@@ -46,7 +46,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         const name = e.target.id
         setFilterName(name)
         const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&lang=${loc}`)
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
@@ -58,19 +58,18 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setMainCategory(tabName)
         setFilterName(null)
         const tests = await fetch(analyzesCategoryUrl +
-            `?lang=${loc}` +
+            `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&parent=${tabName}`)
             .then(res => res.json())
             .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
-            `?lang=${loc}` +
+            `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&category=${tabName}`)
             .then(res => res.json())
             .then(data => data)
-
         setAllAnalyzes(currentCategoryTests)
         setAllByFilterCategories(tests)
     }
@@ -79,7 +78,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setFilterName(null)
         setActive(null)
         const currentCategoryTests = await fetch(analyzesUrl +
-            `?lang=${loc}` +
+            `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&category=${mainCategory}`)
             .then(res => res.json())
@@ -91,7 +90,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&lang=${loc}`)
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
@@ -99,7 +98,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     }
 
     const handleHomeCallFilter = async () => {
-        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&lang=${loc}&shipping_class=124`)
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)

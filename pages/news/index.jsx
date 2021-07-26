@@ -76,11 +76,11 @@ const News = ({news, page, totalNumberOfNews, limit}) => {
 export async function getServerSideProps({locale: locale ,query:{page=1}}) {
     const start = page === 1 ? 0 : (page - 1) * 9
     const limit = 9
-    const allNews = await fetch(`${newsUrl}?status=publish&lang=${locale}&_embed`)
+    const allNews = await fetch(`${newsUrl}?status=publish&${locale !== 'hy' ? `lang=${locale}` : ''}&_embed`)
         .then(res => res.json())
         .then(data => data)
 
-    const news = await fetch(`${newsUrl}?status=publish&page=${page}&lang=${locale}&_embed&per_page=${limit}&offset=${start}`)
+    const news = await fetch(`${newsUrl}?status=publish&page=${page}&${locale !== 'hy' ? `lang=${locale}` : ''}&_embed&per_page=${limit}&offset=${start}`)
         .then(res => res.json())
         .then(data => data)
 

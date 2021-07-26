@@ -5,12 +5,21 @@ import SocialMedia from "../../components/SocialMedia/SocialMedia";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import parse from 'html-react-parser'
+import {Helmet} from "react-helmet";
 
-const SingleNews = ({singleNews, link})=>{
+const SingleNews = ({singleNews, link, loc})=>{
 
     const {t} = useTranslation()
     return (
         <section className={NewsStyle.SingleNews}>
+            <Helmet>
+                <meta property="og:image" content={singleNews && singleNews[0]._embedded['wp:featuredmedia']['0'].source_url}/>
+                <meta property="og:image:secure_url" content={singleNews && singleNews[0]._embedded['wp:featuredmedia']['0'].source_url}/>
+                <meta property="og:title" content={singleNews && singleNews[0].title.rendered}/>
+                <meta property="og:description" content={singleNews && singleNews[0].title.rendered}/>
+                <meta property="og:locale" content={loc} />
+                <title>{singleNews && singleNews[0].title.rendered}</title>
+            </Helmet>
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
@@ -47,7 +56,7 @@ const SingleNews = ({singleNews, link})=>{
                                             <div className={NewsStyle.SocialLabel}>
                                                 <span>{t('common:share')}: </span>
                                             </div>
-                                            <SocialMedia link={link}/>
+                                            <SocialMedia link={link} title={singleNews[0].title.rendered} picture={singleNews[0]._embedded['wp:featuredmedia']['0'].source_url}/>
                                         </div>
                                     </div>
                                 </div>
@@ -62,13 +71,13 @@ const SingleNews = ({singleNews, link})=>{
 
 
 export async function getServerSideProps(ctx) {
-
+    const loc = ctx.locale
     const link = ctx.resolvedUrl
-    const singleNews = await fetch( `${newsUrl}?status=publish&slug=${ctx.query.slug}&_embed&lang=${ctx.locale}`)
+    const singleNews = await fetch( `${newsUrl}?status=publish&slug=${ctx.query.slug}&_embed&${`${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`}`)
         .then(res => res.json())
         .then(data => data)
     return {
-        props: {singleNews, link},
+        props: {singleNews, link, loc},
     }
 }
 

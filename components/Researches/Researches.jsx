@@ -35,7 +35,7 @@ const Researches = ({researches}) => {
                                         </div>
                                         <div className={RStyle.Link}>
                                             <Link href={item.slug !== 'call-home' ? `/page?title=${item.slug}` : `/call-home`}>
-                                                <a>ՏԵՍՆԵԼ ԱՎԵԼԻՆ</a>
+                                                <a>{t('common:see_more')}</a>
                                             </Link>
                                         </div>
                                     </div>

@@ -18,6 +18,8 @@ import I18nProvider from 'next-translate/I18nProvider'
 import useTranslation from "next-translate/useTranslation";
 import NProgress from 'nprogress';
 import Router from "next/router";
+import parse from "html-react-parser";
+
 
 
 
@@ -31,19 +33,18 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 function BioMedApp({Component, pageProps}) {
     const { t, lang } = useTranslation()
-
+    console.log(pageProps.singleNews);
     return (
         <>
             <Head>
-
+                {/*    <meta property="og:image" content={pageProps.singleNews && pageProps.singleNews[0]._embedded['wp:featuredmedia']['0'].source_url}/>*/}
+                {/*    <meta property="og:title" content={pageProps.singleNews && pageProps.singleNews[0].title.rendered}/>*/}
+                {/*    <meta property="og:description" content={parse(pageProps.singleNews && pageProps.singleNews[0].content.rendered)}/>*/}
+                {/*    <title>{pageProps.singleNews && pageProps.singleNews[0].title.rendered}</title>*/}
                 <meta charSet="UTF-8"/>
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="description" content={`${pageProps.aboutUs && pageProps.aboutUs.text}`}/>
-                <meta property="og:image" content={`${pageProps.singleNews && pageProps.singleNews.image}`}/>
-                <meta property="og:title" content={`${pageProps.singleNews && pageProps.singleNews.title}`}/>
-                <meta property="og:description" content={`${pageProps.singleNews && pageProps.singleNews.body}`}/>
 
                 <title>Bio med</title>
                 <script
@@ -65,7 +66,6 @@ function BioMedApp({Component, pageProps}) {
 
 
 export async function getServerSideProps(ctx){
-
 
     return {
         props:{}
