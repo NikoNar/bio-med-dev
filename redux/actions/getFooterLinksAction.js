@@ -4,7 +4,10 @@ import {footerLeftLinksUrl, footerRightLinksUrl} from "../../utils/url";
 
 export const getFooterLeftLinks = (locale)=>{
     return async (dispatch)=>{
-        const links = await fetch(`${footerLeftLinksUrl}?lang=${locale}`)
+        const links = await fetch(`${footerLeftLinksUrl}?lang=${locale}`,{
+            method: 'GET',
+            mode: 'no-cors'
+        })
             .then(res=>res.json())
             .then(data=>data)
 
@@ -16,7 +19,10 @@ export const getFooterLeftLinks = (locale)=>{
 
 export const getFooterRightLinks = (locale)=>{
     return async (dispatch)=>{
-        const links = await fetch(`${footerRightLinksUrl}?lang=${locale}`)
+        const links = await fetch(`${footerRightLinksUrl}?lang=${locale}`, {
+            method: 'GET',
+            mode: 'no-cors'
+        })
             .then(res=>res.json())
             .then(data=>data)
 

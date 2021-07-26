@@ -25,8 +25,7 @@ module.exports = {
             url: false
         },
         generateEtags: false,
-        throwIfNamespace: false,
-        target: 'serverless'
+        throwIfNamespace: false
     }),
 }
 
