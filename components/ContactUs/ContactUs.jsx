@@ -6,11 +6,13 @@ import {getLocation} from "../../redux/actions/getLocationsAction";
 import ContactFrom from "./ContactForm/ContactFrom";
 import ContactInfoWithSelect from "./ContacInfoWithSelect/ContacInfoWithSelect";
 import parse from 'html-react-parser'
+import {useRouter} from "next/router";
 
 
-const ContactUs = ({contactInfo, loc, t, contactPageInfo}) => {
+const ContactUs = ({contactInfo, t, contactPageInfo}) => {
 
-
+    const router = useRouter()
+    const loc = router.locale
 
     const locations = useSelector(state=>state.locations)
     const dispatch = useDispatch()

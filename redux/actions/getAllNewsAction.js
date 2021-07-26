@@ -4,7 +4,6 @@ import {newsUrl} from "../../utils/url";
 
 export const getAllNews = (loc)=>{
     return async (dispatch)=>{
-
         const news = await fetch(newsUrl + `?${loc !== 'hy' ? `lang=${loc}`: ''}`)
             .then(res => res.json())
             .then(data => data)

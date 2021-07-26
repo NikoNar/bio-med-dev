@@ -4,7 +4,6 @@ import {navigationUrl} from "../../utils/url";
 
 
 export function getNavBarItems(locale) {
-    console.log(locale);
     return async (dispatch)=>{
         const navBarItems = await fetch(`${process.env.NEXT_PUBLIC_HOST_MENU}/main-menu?${locale !== 'hy' ? `lang=${locale}` : ''}`)
             .then(res=>res.json())
