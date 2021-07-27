@@ -8,6 +8,7 @@ import SwiperCore, {Mousewheel, Navigation, Pagination, Autoplay } from "swiper"
  SwiperCore.use([Mousewheel, Navigation, Pagination, Autoplay ]);
 
 const MainSlider = (slides) => {
+
     return (
         <section className={MainSliderStyle.Slider}>
             <div className={'container'}>
@@ -17,16 +18,17 @@ const MainSlider = (slides) => {
                             slidesPerView={1}
                             spaceBetween={20}
                             //mousewheel={true}
-                            className={MainSliderStyle.SliderContainer}
+                            className={MainSliderStyle.SliderContainer + ' ' + 'main_slider'}
                             pagination={{clickable: true}}
                             navigation={true}
                             autoplay={{delay: 5000}}
                         >
                             {
                                 slides.slides ? slides.slides.map((slide) => {
+                                    console.log(slide)
                                     return (
                                         <SwiperSlide key={slide.id}>
-                                            <Slide slide={slide}/>
+                                            <Slide slide={slide} button_link={slide.button_url} button_text={slide.button_name} subtitle={slide.subtitle}/>
                                         </SwiperSlide>
                                     )
                                 }) : ''

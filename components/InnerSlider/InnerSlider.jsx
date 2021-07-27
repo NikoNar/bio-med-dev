@@ -39,7 +39,6 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                         navigation={true}
                         breakpoints={breakpointsValue}
                         autoHeight={isOpen && true}
-                        watchOverflow={true}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {

@@ -24,9 +24,6 @@ const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageIn
         return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
     })
 
-
-
-
     const initId = categories && categories[0].id
     return (
         <>

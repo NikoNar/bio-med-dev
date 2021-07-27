@@ -30,6 +30,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
     const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
 
+
     useEffect(() => {
         setTabIndex(0)
         setAllAnalyzes(analyzes)
@@ -90,15 +91,16 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}`)
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}&category=${mainCategory}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
+        console.log(filteredTest, mainCategory)
     }
 
     const handleHomeCallFilter = async () => {
-        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124`)
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)

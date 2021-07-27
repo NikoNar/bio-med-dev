@@ -17,7 +17,6 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc}) => {
-
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const currentUser = useSelector(state => state.currentUser)

@@ -2,6 +2,9 @@
   margin-bottom: 80px;
   .SliderContainer{
     padding: 40px 0 154px;
+    .swiper-button-prev{
+      top: 10%!important;
+    }
   }
 }
 

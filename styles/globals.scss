@@ -79,6 +79,10 @@ svg{
   top: 3%!important;
 }
 
+.main_slider .swiper-button-next, .main_slider .swiper-button-prev{
+  top: 10%!important;
+}
+
 
 .swiper-button-next {
   background-image: url('/images/icons/chevron-right.svg');
@@ -106,7 +110,7 @@ svg{
   width: 10px!important;
   height: 10px!important;
   background: $brand-gray!important;
-  margin-right: 40px!important;
+  margin-right: 15px!important;
   &.swiper-pagination-bullet-active{
     background: $brand-red!important;
   }

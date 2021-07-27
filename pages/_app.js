@@ -33,7 +33,6 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 function BioMedApp({Component, pageProps}) {
     const { t, lang } = useTranslation()
-    console.log(pageProps.singleNews);
     return (
         <>
             <Head>

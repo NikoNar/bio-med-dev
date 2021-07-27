@@ -6,14 +6,14 @@ import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import parse from 'html-react-parser';
 
-const Slide = ({slide, flag}) => {
+const Slide = ({slide, flag, button_text, button_link, subtitle}) => {
     const {t} = useTranslation()
     return (
         <div className={'row'}>
             <div className={'col-lg-6 col-md-6'}>
                 <div className={SlideStyle.Text}>
                     <div className={SlideStyle.Line} style={{display: !flag ? 'block' : 'none'}}>
-                        <h5>{t('common:welcome')}</h5>
+                        <h5>{subtitle}</h5>
                     </div>
                     <div className={SlideStyle.Line}>
                         <h1>{parse(slide.title.rendered)}</h1>
@@ -22,11 +22,11 @@ const Slide = ({slide, flag}) => {
                         {parse(slide.content.rendered)}
                     </div>
                     {!flag ? <div className={SlideStyle.Link}>
-                                <LinkButton text={t('common:read_more')} link={'/'}/>
+                                <LinkButton text={button_text} link={button_link}/>
                             </div> :
                         flag === 'hide' ? '' :
                         <Link href={slide.link}>
-                            <a style={{textAlign: 'right', color: '#52a4e3'}}>{t('common:see_more')}</a>
+                            <a style={{textAlign: 'right', color: '#52a4e3'}}>{button_text}</a>
                         </Link>}
                 </div>
             </div>

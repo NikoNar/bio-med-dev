@@ -5,6 +5,7 @@ import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import parser from 'html-react-parser'
 
+
 const Researches = ({researches}) => {
 
     const {t} = useTranslation()
@@ -34,7 +35,8 @@ const Researches = ({researches}) => {
                                             {parser(item.content.rendered)}
                                         </div>
                                         <div className={RStyle.Link}>
-                                            <Link href={item.slug !== 'call-home' ? `/page?title=${item.slug}` : `/call-home`}>
+                                            <Link href={
+                                                item.slug === 'call-home' ? `/call-home` : item.slug === 'sales' ? `/researches` : `/page?title=${item.slug}`}>
                                                 <a>{t('common:see_more')}</a>
                                             </Link>
                                         </div>
