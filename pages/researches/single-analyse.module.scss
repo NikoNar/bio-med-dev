@@ -17,7 +17,7 @@
       color: $brand-red;
       line-height: 30px;
       letter-spacing: 0.05em;
-      font-weight: 400;
+      font-weight: 900;
       margin-bottom: 40px;
     }
   }
@@ -27,6 +27,14 @@
     font-weight: 900;
     line-height: 30px;
     letter-spacing: 0.05em;
+    p{
+      font-weight: 400;
+    }
+    ul{
+      list-style: disc;
+      padding-left: 20px;
+      font-weight: 400;
+    }
   }
   .Price{
     font-size: 30px;
