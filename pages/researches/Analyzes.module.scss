@@ -32,7 +32,7 @@
       position: relative;
       z-index: 10;
       transition: all .3s ease;
-      max-height: 50px;
+      max-height: 47px;
       overflow: hidden;
       &:hover{
         filter: drop-shadow(0px 10px 22px rgba(24, 48, 66, 0.3));
@@ -154,12 +154,12 @@
     }
     .Header{
       .Tags{
+        span{
+          top: 12px;
+          right: 10px;
+          font-size: 12px;
+        }
         ul{
-          span{
-            top: 12px;
-            right: 10px;
-            font-size: 8px;
-          }
           li{
             font-size: 12px;
           }

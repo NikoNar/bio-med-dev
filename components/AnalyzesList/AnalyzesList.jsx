@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import AnalyzesStyle from "../../pages/researches/Analyzes.module.scss";
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
@@ -10,13 +10,14 @@ import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import InnerSlider from "../InnerSlider/InnerSlider";
 import ALStyle from './analyzes-lst.module.scss'
+import {useRouter} from "next/router";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
-
+    const router = useRouter()
     const {t} = useTranslation()
     const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
     const [isOpen, setIsOpen] = useState(false)
@@ -25,20 +26,22 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     const [active, setActive] = React.useState(null);
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
-    const [height, setHeight] = useState(0)
-    const ref = useRef(null)
-
     const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
-
+   /* useLayoutEffect(()=>{
+        window.addEventListener("resize", ()=>{
+            if(ref.current){
+                setTimeout(()=>{
+                    console.log(ref.current.clientHeight);
+                    setHeight(ref.current.clientHeight)
+                },200)
+            }
+        });
+    },[])*/
     useEffect(() => {
         setTabIndex(0)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
-        setTimeout(()=>{
-            setHeight(ref ? ref.current.clientHeight : 0)
-        }, 100)
-    }, [loc])
-
+    }, [loc, router])
 
     const handleCategoryFilter = async (e, index) => {
         setActive(index)
@@ -105,6 +108,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setIsOpen(false)
     }
 
+
     return (
         <section className={AnalyzesStyle.Main}>
             <div className={'container'}>
@@ -144,9 +148,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                                     <span
                                                                         className={'_icon-chevrone-down'}
                                                                         onClick={() => setIsOpen(!isOpen)}
-                                                                        style={{display: height && height > 47 ? 'block' : 'none'}}
                                                                     > </span>
-                                                                    <ul ref={ref}>
+                                                                    <ul>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
                                                                                 id={'on_sale'}

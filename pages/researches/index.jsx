@@ -43,6 +43,7 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
+
     return {
         props: {
             analyzes,
