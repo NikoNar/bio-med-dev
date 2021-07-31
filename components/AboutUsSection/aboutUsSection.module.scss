@@ -19,7 +19,9 @@
   }
 
   .Empty {
-
+    img{
+      display: none;
+    }
   }
 
   .Info {
@@ -72,14 +74,17 @@
 
 @media (max-width: 991px) {
   .About {
-    background-position: 83%;
+    background-image: unset!important;
+    margin-top: 20px;
     &:before {
       width: 100%;
       height: 55%;
       top: unset;
     }
     .Empty{
-      height: 480px;
+      img{
+        display: block;
+      }
     }
     .Info{
       padding: 50px 10px;
@@ -89,11 +94,6 @@
 
 @media (max-width: 476px) {
   .About {
-    margin-top: 80px;
-    background-position: 78%;
-    .Empty{
-      height: 360px;
-    }
     .Info{
       padding: 20px 15px;
       .Title {

@@ -25,7 +25,6 @@ const MainSlider = (slides) => {
                         >
                             {
                                 slides.slides ? slides.slides.map((slide) => {
-                                    console.log(slide)
                                     return (
                                         <SwiperSlide key={slide.id}>
                                             <Slide slide={slide} button_link={slide.button_url} button_text={slide.button_name} subtitle={slide.subtitle}/>

@@ -11,7 +11,9 @@ const AboutUsSection = ({aboutUs}) => {
             <div className={'container'}>
                 <div className={'row'}>
                     <div className={'col-lg-6'}>
-                        <div className={AUStyle.Empty}></div>
+                        <div className={AUStyle.Empty}>
+                            <img src={aboutUs[0]._embedded['wp:featuredmedia']['0'].source_url} alt=""/>
+                        </div>
                     </div>
                     <div className={'col-lg-6'}>
                         <div className={AUStyle.Info}>
