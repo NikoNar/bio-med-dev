@@ -9,30 +9,21 @@ import {
     TelegramIcon, TelegramShareButton,
 } from 'react-share'
 import {mainUrl} from "../../utils/url";
-const SocialMedia = ({link, title, picture}) => {
+const SocialMedia = ({link, title, picture, loc}) => {
     return (
         <div className={SocialStyle.List}>
                 <FacebookShareButton
-                    url={mainUrl + link}
-                    quote={title}
-                    picture={picture}
-                    title={title}
+                    url={mainUrl+ `/${loc}` + link}
                 >
                     <FacebookIcon size={32} round={true}/>
                 </FacebookShareButton>
                 <LinkedinShareButton
-                    url={mainUrl + link}
-                    quote={title}
-                    picture={picture}
-                    title={title}
+                    url={mainUrl + `/${loc}`+ link}
                 >
                     <LinkedinIcon size={32} round={true}/>
                 </LinkedinShareButton>
                 <TelegramShareButton
-                    url={mainUrl + link}
-                    quote={title}
-                    picture={picture}
-                    title={title}
+                    url={mainUrl + `/${loc}`+ link}
                 >
                     <TelegramIcon size={32} round={true}/>
                 </TelegramShareButton>

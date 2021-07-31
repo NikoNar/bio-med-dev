@@ -30,7 +30,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
     const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
 
-
     useEffect(() => {
         setTabIndex(0)
         setAllAnalyzes(analyzes)
@@ -96,7 +95,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
-        console.log(filteredTest, mainCategory)
     }
 
     const handleHomeCallFilter = async () => {
@@ -106,7 +104,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-
 
     return (
         <section className={AnalyzesStyle.Main}>
@@ -144,14 +141,11 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                                                         <div className={'row'}>
                                                             <div className={'col-lg-12'}>
                                                                 <div className={isOpen ? AnalyzesStyle.Open + ' ' + AnalyzesStyle.Tags : AnalyzesStyle.Tags}>
-                                                                    {
-                                                                        height && height > 47 ? <span
-                                                                            className={'_icon-chevrone-down'}
-                                                                            onClick={() => setIsOpen(!isOpen)}
-                                                                            style={{display: allByFilterCategories && allByFilterCategories.length > 2 ? 'block' : 'none'}}
-                                                                        > </span> : ''
-                                                                    }
-
+                                                                    <span
+                                                                        className={'_icon-chevrone-down'}
+                                                                        onClick={() => setIsOpen(!isOpen)}
+                                                                        style={{display: height && height > 47 ? 'block' : 'none'}}
+                                                                    > </span>
                                                                     <ul ref={ref}>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input

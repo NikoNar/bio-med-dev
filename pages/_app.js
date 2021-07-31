@@ -36,15 +36,10 @@ function BioMedApp({Component, pageProps}) {
     return (
         <>
             <Head>
-                {/*    <meta property="og:image" content={pageProps.singleNews && pageProps.singleNews[0]._embedded['wp:featuredmedia']['0'].source_url}/>*/}
-                {/*    <meta property="og:title" content={pageProps.singleNews && pageProps.singleNews[0].title.rendered}/>*/}
-                {/*    <meta property="og:description" content={parse(pageProps.singleNews && pageProps.singleNews[0].content.rendered)}/>*/}
-                {/*    <title>{pageProps.singleNews && pageProps.singleNews[0].title.rendered}</title>*/}
                 <meta charSet="UTF-8"/>
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-
                 <title>Bio med</title>
                 <script
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`}/>
