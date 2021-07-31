@@ -24,7 +24,7 @@ const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageIn
         return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
     })
 
-    const initId = categories && categories[0].id
+    const initId = categories[0] ? categories[0].id : ''
     return (
         <>
             <MainSlider slides={slides}/>
@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0].id}`)
+    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}`)
         .then(res=>res.json())
         .then(data=>data)
 

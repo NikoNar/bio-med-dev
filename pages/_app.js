@@ -40,7 +40,7 @@ function BioMedApp({Component, pageProps}) {
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <title>Bio med</title>
+                <title>BIOMED</title>
                 <script
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`}/>
 
