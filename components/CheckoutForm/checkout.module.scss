@@ -4,6 +4,17 @@
   background-color: $white;
   box-shadow: 0 10px 22px rgb(39 39 39 / 30%);
   padding: 40px;
+  .PaymentMethodSwitcher{
+    padding: 20px 0;
+    width: 100%;
+    label{
+      margin-right: 20px;
+      input{
+        margin-left: 10px;
+        margin-top: 2px;
+      }
+    }
+  }
   form{
     text-align: center;
     display: inline-block;
@@ -54,6 +65,11 @@
       }
       &:focus{
         outline: none;
+      }
+    }
+    .CityValue, .CountryValue{
+      &::placeholder{
+        color: $brand-blue;
       }
     }
     button{

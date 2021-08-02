@@ -66,43 +66,46 @@
       .MapIcon{
         width: 30px;
         height: auto;
-      }
-      .InfoWindow{
-        position: absolute;
-        background-color: $brand-blue;
-        color: $white;
-        min-width: 200px;
-        min-height: 40px;
-        font-size: 14px;
-        padding: 15px;
-        border-radius: 6px;
-        top: -95px;
-        left: -15px;
-        transition: opacity 0.3s ease-in;
-        cursor: pointer;
-        &:before{
-          content: "";
+        position: relative;
+        .InfoWindow{
           position: absolute;
-          width: 10px;
-          height: 10px;
-          transform: rotate(45deg);
-          top: 83px;
-          left: 24px;
           background-color: $brand-blue;
-        }
-        p{
-          margin: 0;
-          &:first-child{
-            margin-bottom: 7px;
+          color: $white;
+          min-width: 200px;
+          min-height: 100px;
+          font-size: 14px;
+          padding: 15px;
+          border-radius: 6px;
+          top: -107px;
+          left: -15px;
+          transition: opacity 0.3s ease-in;
+          cursor: pointer;
+          z-index: 1;
+          &:before{
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            transform: rotate(45deg);
+            top: 94px;
+            left: 24px;
+            background-color: $brand-blue;
+          }
+          p{
+            margin: 0;
+            &:first-child{
+              margin-bottom: 7px;
+            }
+          }
+          span{
+            position: absolute;
+            top: 1px;
+            right: 5px;
+            width: 12px;
           }
         }
-        span{
-          position: absolute;
-          top: 1px;
-          right: 5px;
-          width: 12px;
-        }
       }
+
     }
   }
 }

@@ -22,4 +22,5 @@ export const qualityControlUrl = `${process.env.NEXT_PUBLIC_HOST}/quality-contro
 export const footerLeftLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-left`
 export const footerRightLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-right`
 export const mainUrl = `${process.env.NEXT_PUBLIC_MAIN_HOST}`
+export const paymentApiUrl = `${process.env.NEXT_PUBLIC_HOST_PAYMENT_API}`
 

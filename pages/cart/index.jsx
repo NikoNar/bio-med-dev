@@ -10,7 +10,7 @@ import Researches from "../../components/Researches/Researches";
 
 
 
-const Cart = ({contactInfo, token, researches}) => {
+const Cart = ({contactInfo, token, researches, loc}) => {
 
     const {t} = useTranslation()
     const dispatch = useDispatch()
@@ -84,7 +84,7 @@ const Cart = ({contactInfo, token, researches}) => {
                             </div>
                         </div>
                         <div className={'col-lg-6'}>
-                            <CheckoutForm info={{contactInfo}} orders={orders} addresses={addresses} token={token}/>
+                            <CheckoutForm info={{contactInfo}} orders={orders} addresses={addresses} token={token} loc={loc} deleteAllOrders={deleteAllOrders}/>
                         </div>
                     </div>
                 </div>

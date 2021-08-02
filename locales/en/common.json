@@ -69,5 +69,8 @@
     "history_message": "Please press \"Analyzes results\" button to see your analyzes results",
     "error-404": "The code you entered does not exist",
     "error-403": "The last name you entered is incorrect",
-    "error-416": "You have outstanding obligations and you cannot fulfill the request"
+    "error-416": "You have outstanding obligations and you cannot fulfill the request",
+    "checkout_success_message": "Dear customer, the order has been accepted. Our specialist will contact you soon. Thank you for using our services.",
+    "add_to_card_message": "successfully added to your cart",
+    "cart_link": "Go to your cart page"
   }

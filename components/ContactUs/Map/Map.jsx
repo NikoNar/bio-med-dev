@@ -7,7 +7,6 @@ import Marker from "./InfoWindow";
 
 const MapComponent = ({locations})=>{
 
-
     const monoChromeMapStyles = [
         {
             "elementType": "geometry",
@@ -172,10 +171,15 @@ const MapComponent = ({locations})=>{
     const [infoWindowOpen, setInfoWindowOpen] = useState(false)
     const openInfoWindow = (index)=>{
         setInfoWindowOpen(index)
+        console.log('Boom')
     }
 
+
+
     const closeInfoWindow = (e)=>{
+        e.stopPropagation()
         setInfoWindowOpen(false)
+        console.log(infoWindowOpen, 'Boom')
     }
 
     return(
@@ -183,13 +187,14 @@ const MapComponent = ({locations})=>{
             <div style={{ height: '100%', width: '100%' }}>
                 <GoogleMapReact
                     defaultCenter={{lat: 40.2932074974116, lng: 44.35055671336521}}
-                    defaultZoom={17}
+                    defaultZoom={10}
                     options={{
                         styles: monoChromeMapStyles,
                     }}
                 >
                     {
                         locations ? locations.map((loc, index)=>{
+
                             return  <Marker
                                 state={infoWindowOpen}
                                 closeWindow={closeInfoWindow}

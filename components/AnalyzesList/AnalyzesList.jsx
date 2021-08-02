@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import AnalyzesStyle from "../../pages/researches/Analyzes.module.scss";
 import {Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
@@ -15,18 +15,20 @@ import {useRouter} from "next/router";
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
+
 const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
 
+    const [page, setPage] = useState(1)
     const router = useRouter()
     const {t} = useTranslation()
     const [allByFilterCategories, setAllByFilterCategories] = useState(allCategories)
     const [isOpen, setIsOpen] = useState(false)
-    const [mainCategory, setMainCategory] = useState(categories[0].id)
+    const [mainCategory, setMainCategory] = useState(categories[0] ? categories[0].id : '')
     const [filterName, setFilterName] = useState(null)
     const [active, setActive] = React.useState(null);
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
-    const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
+    //const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
    /* useLayoutEffect(()=>{
         window.addEventListener("resize", ()=>{
             if(ref.current){
@@ -38,10 +40,20 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         });
     },[])*/
     useEffect(() => {
-        setTabIndex(0)
+        //setTabIndex(0)
+        setPage(1)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
-    }, [loc, router])
+    }, [loc, router, mainCategory])
+
+    useMemo(async ()=>{
+        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${mainCategory}`)
+            .then(res=>res.json())
+            .then(data=>{
+                setAllAnalyzes(data)
+            })
+    }, [page])
+
 
     const handleCategoryFilter = async (e, index) => {
         setActive(index)
@@ -49,13 +61,12 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         const name = e.target.id
         setFilterName(name)
         const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}`)
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}&page=${page}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-
     const handleMainCategoryName = async (e, page = 1) => {
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
@@ -63,34 +74,32 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         const tests = await fetch(analyzesCategoryUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
-            `&parent=${tabName}`)
+            `&parent=${tabName}&page=${page}&per_page=100`)
             .then(res => res.json())
             .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
-            `&category=${tabName}`)
+            `&category=${tabName}&page=${page}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(currentCategoryTests)
         setAllByFilterCategories(tests)
     }
-
     const handleClearFilters = async () => {
         setFilterName(null)
         setActive(null)
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
-            `&category=${mainCategory}`)
+            `&category=${mainCategory}&page=${page}`)
             .then(res => res.json())
             .then(data => data)
 
         setAllAnalyzes(currentCategoryTests)
 
     }
-
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}&category=${mainCategory}`)
@@ -99,7 +108,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-
     const handleHomeCallFilter = async () => {
         const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}`)
             .then(res => res.json())
@@ -108,6 +116,13 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setIsOpen(false)
     }
 
+    const handlePrevPageAnalyzes =  ()=>{
+        setPage(page - 1)
+    }
+
+    const handleNextPageAnalyzes =  ()=>{
+        setPage(page + 1)
+    }
 
     return (
         <section className={AnalyzesStyle.Main}>
@@ -238,10 +253,18 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                     </div>
                     <div className={'row'}>
                         <div className={'col-lg-12'}>
-                            <InnerSlider analyzes={popular} component={'analyzes'}/>
+                            {/*<InnerSlider analyzes={popular} component={'analyzes'}/>*/}
                         </div>
                     </div>
                 </Tabs>
+                <ul>
+                    <li>
+                        <span onClick={handlePrevPageAnalyzes}>Prev</span>
+                    </li>
+                    <li>
+                        <span onClick={handleNextPageAnalyzes}>Next</span>
+                    </li>
+                </ul>
             </div>
         </section>
     );

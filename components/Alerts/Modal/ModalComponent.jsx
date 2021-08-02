@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 import Modal from 'react-modal'
 import ModalStyle from './modal.module.scss'
 import parse from 'html-react-parser';
+import useTranslation from "next-translate/useTranslation";
 
 Modal.setAppElement('#__next')
 
 const customStyles = {
-    content : {},
+    content: {},
     overlay: {zIndex: 1000}
 };
 
-const ModalComponent = ({error, callBack, isOpen, text}) => {
+const ModalComponent = ({error, callBack, isOpen, text, link}) => {
+    const {t} = useTranslation()
     return (
         <Modal
             isOpen={isOpen && isOpen}
@@ -18,7 +20,9 @@ const ModalComponent = ({error, callBack, isOpen, text}) => {
             style={customStyles}
         >
             <p>{error ? parse(error) : text}</p>
-            <button onClick={callBack} className={error ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>
+            <div>{link ? <a href={link}>{t('common:cart_link')}</a> : ''}</div>
+            <button onClick={callBack}
+                    className={error ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>
         </Modal>
     );
 };

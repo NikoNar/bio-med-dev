@@ -19,7 +19,7 @@ module.exports = {
             CONSUMER_SECRET: process.env.NEXT_PUBLIC_CONSUMER_SECRET,
             RESULTS: process.env.NEXT_PUBLIC_HOST_RESULTS,
             RESULTS_PDF: process.env.NEXT_PUBLIC_HOST_RESULTS_PDF,
-
+            PAYMENT_API: process.env.NEXT_PUBLIC_HOST_PAYMENT_API,
           },
         cssLoaderOptions: {
             url: false

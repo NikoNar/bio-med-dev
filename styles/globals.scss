@@ -76,11 +76,16 @@ svg{
   background-size: 100% auto;
   background-position: center;
   width: 15px!important;
-  top: 3%!important;
+  top: 16px!important;
 }
 
 .main_slider .swiper-button-next, .main_slider .swiper-button-prev{
   top: 10%!important;
+}
+
+.swiper-button-prev {
+  background-image: url('/images/icons/chevron-left.svg');
+  left: calc(100% - 50px)!important;
 }
 
 
@@ -89,9 +94,13 @@ svg{
   right: 0!important;
 }
 
-.swiper-button-prev {
+.inner_slider .swiper-button-next{
+  right: 166px!important;
+}
+
+.inner_slider .swiper-button-prev {
   background-image: url('/images/icons/chevron-left.svg');
-  left: calc(100% - 50px)!important;
+  left: calc(100% - 225px)!important;
 }
 
 .swiper-button-next {

@@ -29,7 +29,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
     return (
         <>
             <div className={ISStyle.Products}>
-                <div className={ISStyle.Inner}>
+                <div className={ISStyle.Inner + ' ' + 'inner_slider'}>
                     <Swiper
                         slidesPerView={component === 'analyzes' && analyzes && analyzes.length > 2 ? 3 : analyzes && analyzes.length <= 2 ? 2 : perPage}
                         spaceBetween={20}
@@ -38,7 +38,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                         //navigation={component !== 'analyzes'}
                         navigation={true}
                         breakpoints={breakpointsValue}
-                        autoHeight={isOpen && true}
+                        autoHeight={false}
                     >
                         {
                             analyzes && component === 'analyzes' ? analyzes.map((analyze) => {
