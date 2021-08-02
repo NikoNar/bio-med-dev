@@ -187,26 +187,32 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 }
             ]
         }
-        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res =>res.json())
-            .then(data=>{
-                if (paymentMethod === 'cod'){
-                    setIsOpen(true)
-                    setText(t('common:checkout_success_message'))
-                    deleteAllOrders()
-                    return data
-                }
-                if (paymentMethod === 'acba_gateway'){
-                    handleSubmitWithAcba(data)
-                }
+        if(paymentMethod === ''){
+            setIsOpen(true)
+            setText(t('common:payment_error_message'))
+        }else{
+            await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-            .then(()=> reserveReset({}))
+                .then(res =>res.json())
+                .then(data=>{
+                    console.log(paymentMethod)
+                    if (paymentMethod === 'cod'){
+                        setIsOpen(true)
+                        setText(t('common:checkout_success_message'))
+                        deleteAllOrders()
+                        return data
+                    }
+                    if (paymentMethod === 'acba_gateway'){
+                        handleSubmitWithAcba(data)
+                    }
+                })
+                .then(()=> reserveReset({}))
+        }
     }
 
     /* ---- Home Call Form ----*/
