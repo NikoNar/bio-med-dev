@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SAnalyseStyle from "./single-analyse.module.scss";
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import dynamic from "next/dynamic";
@@ -11,16 +11,19 @@ import {useDispatch, useSelector} from "react-redux";
 import TabComponent from "../../components/Tab/Tab";
 import {useRouter} from "next/router";
 import parse from 'html-react-parser'
+import ModalComponent from "../../components/Alerts/Modal/ModalComponent";
 
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc}) => {
+
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
+    const [isOpen, setIsOpen] = useState(false)
 
     const addresses = contactInfo.map((cont)=>{
         return{
@@ -37,7 +40,13 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
 
     return (
         <>
-
+            <ModalComponent
+                isOpen={isOpen}
+                callBack={()=>setIsOpen(false)}
+                text={`${singleAnalyse.name}` + ' ' +t('common:add_to_card_message')}
+                t={t}
+                link={`${router.locale}/cart`}
+            />
             <section className={SAnalyseStyle.Single}>
                 <div className={'container'}>
                     <div className={'row'}>
