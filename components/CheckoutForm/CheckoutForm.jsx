@@ -322,9 +322,9 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
              language: loc
          }*/
 
-        const returnUrl = `${mainUrl}/cart&order_id=${orderData.id}`
+        //const returnUrl = `${mainUrl}/cart&order_id=${orderData.id}`
 
-        await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&returnUrl=${returnUrl}&language=${loc}`, {
+        await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&language=${loc}`, {
             method: 'GET'
         })
             .then(response => response.json())
