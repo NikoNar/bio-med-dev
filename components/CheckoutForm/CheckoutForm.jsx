@@ -296,7 +296,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         setPaymentMethod(e.target.value)
     }
     const getUserOrderStatus = async (id, orderId)=>{
-        console.log(id, orderId);
+        console.log('order_id', id);
+        console.log('orderId', orderId);
         /*const data = new FormData();
         data.append("order_id", id);
         data.append("orderId", orderId);*/
