@@ -320,8 +320,9 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             language: loc
         }*/
 
-        await fetch('https://biomed.codemanstudio.com/wp-json/custom-api/v1/order/make-payment', {
+        await fetch(paymentApiUrl, {
             method: 'POST',
+            mode: 'no-cors',
             body: data
         })
             .then(response => response.json())

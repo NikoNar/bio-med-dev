@@ -17,7 +17,6 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
-
     const [page, setPage] = useState(1)
     const router = useRouter()
     const {t} = useTranslation()
@@ -47,7 +46,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     }, [loc, router, mainCategory])
 
     useMemo(async ()=>{
-        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${mainCategory}`)
+        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${mainCategory}&order=asc`)
             .then(res=>res.json())
             .then(data=>{
                 setAllAnalyzes(data)
@@ -73,14 +72,14 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setFilterName(null)
         const tests = await fetch(analyzesCategoryUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
             `&parent=${tabName}&page=${page}&per_page=100`)
             .then(res => res.json())
             .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
             `&category=${tabName}&page=${page}`)
             .then(res => res.json())
             .then(data => data)
@@ -102,14 +101,14 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     }
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}&category=${mainCategory}`)
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}&category=${mainCategory}&order=asc`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
     const handleHomeCallFilter = async () => {
-        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}`)
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
