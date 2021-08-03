@@ -22,6 +22,9 @@ import {setCookie} from "nookies";
 import {useRouter} from "next/router";
 
 
+const FormData = require('form-data');
+
+
 
 
 
@@ -309,24 +312,25 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
     }
     const handleSubmitWithAcba = async (orderData)=>{
+        console.log(FormData);
         const data = new FormData();
         data.append("orderNumber", `${orderData.id}`);
         data.append("returnUrl", `${mainUrl}/cart?order_id=${orderData.id}`);
         data.append("language", loc);
-
-        /*const newData = {
-            orderNumber: orderData.id,
-            returnUrl: `http://localhost:3000/cart?order_id=${orderData.id}`,
-            language: loc
-        }*/
+        console.log(data);
+        /* const newData = {
+             orderNumber: orderData.id,
+             returnUrl: `${mainUrl}/cart?order_id=${orderData.id}`,
+             language: loc
+         }*/
 
         await fetch(paymentApiUrl, {
             method: 'POST',
-            mode: 'no-cors',
             body: data
         })
             .then(response => response.json())
             .then(result => {
+                console.log(result);
                 if (result.result === 'error' || result.errorMessage){
                     setIsOpen(true)
                     setText(result.message ? result.message : result.errorMessage)
