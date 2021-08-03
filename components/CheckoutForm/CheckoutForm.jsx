@@ -299,7 +299,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         /*const data = new FormData();
         data.append("order_id", id);
         data.append("orderId", orderId);*/
-        await fetch(`${paymentCheckingApiUrl}?order_id=${id}&${orderId}`, {
+        await fetch(`${paymentCheckingApiUrl}?order_id=${id}&orderId=${orderId}`, {
             method: 'GET'
         })
             .then(res=>res.json())
