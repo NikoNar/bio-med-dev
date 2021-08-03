@@ -16,7 +16,7 @@ export const getAllOrdersItem = () => {
 
 export const addItemToCart = (data, setIsOpen) => {
 
-    setIsOpen(true)
+    setIsOpen && setIsOpen(true)
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
     if (ordersInitialArray.map(o => o.id).indexOf(data.id) === -1) ordersInitialArray = [...ordersInitialArray, data];
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
