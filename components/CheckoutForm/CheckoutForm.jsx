@@ -296,9 +296,9 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         setPaymentMethod(e.target.value)
     }
     const getUserOrderStatus = async (id, orderId)=>{
-        const data = new FormData();
+        /*const data = new FormData();
         data.append("order_id", id);
-        data.append("orderId", orderId);
+        data.append("orderId", orderId);*/
         await fetch(`${paymentCheckingApiUrl}?order_id=${id}&${orderId}`, {
             method: 'GET'
         })
@@ -322,11 +322,14 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
              language: loc
          }*/
 
-        await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&${mainUrl}/cart?order_id=${orderData.id}&language=${loc}`, {
+        const returnUrl = `${mainUrl}/cart&order_id=${orderData.id}`
+
+        await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&returnUrl=${returnUrl}&language=${loc}`, {
             method: 'GET'
         })
             .then(response => response.json())
             .then(result => {
+                console.log(result);
                 if (result.result === 'error' || result.errorMessage){
                     setIsOpen(true)
                     setText(result.message ? result.message : result.errorMessage)
