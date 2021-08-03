@@ -299,9 +299,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         const data = new FormData();
         data.append("order_id", id);
         data.append("orderId", orderId);
-        await fetch(paymentCheckingApiUrl, {
-            method: 'POST',
-            body: data
+        await fetch(`${paymentCheckingApiUrl}?order_id=${id}&${orderId}`, {
+            method: 'GET'
         })
             .then(res=>res.json())
             .then(data=>{
@@ -312,25 +311,22 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
     }
     const handleSubmitWithAcba = async (orderData)=>{
-        console.log(FormData);
-        const data = new FormData();
+        /*const data = new FormData();
         data.append("orderNumber", `${orderData.id}`);
         data.append("returnUrl", `${mainUrl}/cart?order_id=${orderData.id}`);
-        data.append("language", loc);
-        console.log(data);
+        data.append("language", loc);*/
+
         /* const newData = {
              orderNumber: orderData.id,
              returnUrl: `${mainUrl}/cart?order_id=${orderData.id}`,
              language: loc
          }*/
 
-        await fetch(paymentApiUrl, {
-            method: 'POST',
-            body: data
+        await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&${mainUrl}/cart?order_id=${orderData.id}&language=${loc}`, {
+            method: 'GET'
         })
             .then(response => response.json())
             .then(result => {
-                console.log(result);
                 if (result.result === 'error' || result.errorMessage){
                     setIsOpen(true)
                     setText(result.message ? result.message : result.errorMessage)
