@@ -20,6 +20,7 @@ module.exports = {
             RESULTS: process.env.NEXT_PUBLIC_HOST_RESULTS,
             RESULTS_PDF: process.env.NEXT_PUBLIC_HOST_RESULTS_PDF,
             PAYMENT_API: process.env.NEXT_PUBLIC_HOST_PAYMENT_API,
+            PAYMENT_CHECKING: process.env.NEXT_PUBLIC_HOST_PAYMENT_CHECK_API,
           },
         cssLoaderOptions: {
             url: false

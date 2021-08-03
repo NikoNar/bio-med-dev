@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import ModalStyle from './modal.module.scss'
 import parse from 'html-react-parser';
 import useTranslation from "next-translate/useTranslation";
+import {useRouter} from "next/router";
 
 Modal.setAppElement('#__next')
 
@@ -13,6 +14,7 @@ const customStyles = {
 
 const ModalComponent = ({error, callBack, isOpen, text, link}) => {
     const {t} = useTranslation()
+    const router = useRouter()
     return (
         <Modal
             isOpen={isOpen && isOpen}
@@ -20,7 +22,7 @@ const ModalComponent = ({error, callBack, isOpen, text, link}) => {
             style={customStyles}
         >
             <p>{error ? parse(error) : text}</p>
-            <div>{link ? <a href={link}>{t('common:cart_link')}</a> : ''}</div>
+            <div>{link ? <span onClick={()=>router.push(link)}>{t('common:cart_link')}</span> : ''}</div>
             <button onClick={callBack}
                     className={error ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>
         </Modal>

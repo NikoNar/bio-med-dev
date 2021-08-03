@@ -43,7 +43,7 @@ const AnalyzesCard = ({inner, icon, index}) => {
                 callBack={()=>setIsOpen(false)}
                 text={`${prod.name}` + ' ' +t('common:add_to_card_message')}
                 t={t}
-                link={'/cart'}
+                link={`${router.locale}/cart`}
             />
             <div className={AStyle.Item}>
                 <div className={'row'}>

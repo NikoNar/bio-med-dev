@@ -23,4 +23,6 @@ export const footerLeftLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-l
 export const footerRightLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-right`
 export const mainUrl = `${process.env.NEXT_PUBLIC_MAIN_HOST}`
 export const paymentApiUrl = `${process.env.NEXT_PUBLIC_HOST_PAYMENT_API}`
+export const paymentCheckingApiUrl = `${process.env.NEXT_PUBLIC_HOST_PAYMENT_CHECK_API}`
+
 

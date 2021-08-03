@@ -16,8 +16,8 @@ const Cart = ({contactInfo, token, researches, loc}) => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.orders)
 
-    const deleteAllOrders = async () => {
-        await dispatch(removeAllOrdersAction())
+    const deleteAllOrders =() => {
+        dispatch(removeAllOrdersAction())
     }
 
     const researchesArr = researches.filter((el)=>{

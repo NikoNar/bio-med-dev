@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
-import {orderUrl, paymentApiUrl} from "../../utils/url";
+import {orderUrl, paymentApiUrl, paymentCheckingApiUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -20,7 +20,7 @@ import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import ModalComponent from "../Alerts/Modal/ModalComponent";
 import {setCookie} from "nookies";
 import {useRouter} from "next/router";
-import FormData from "form-data";
+
 
 
 
@@ -200,7 +200,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
                 .then(res =>res.json())
                 .then(data=>{
-                    console.log(paymentMethod)
                     if (paymentMethod === 'cod'){
                         setIsOpen(true)
                         setText(t('common:checkout_success_message'))
@@ -226,6 +225,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
     const homeCloudStyle = {
         display: showAlert ? 'block' : 'none'
     }
+
     const handleSubmitHomeCallOrders = async (homeCallData) => {
         const lineItems = orders.map(order=>{
             return {
@@ -289,16 +289,14 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
             .then(()=> homeCallReset({}))
     }
-
     const handlePaymentMethod = (e)=>{
         setPaymentMethod(e.target.value)
     }
-
     const getUserOrderStatus = async (id, orderId)=>{
         const data = new FormData();
         data.append("order_id", id);
         data.append("orderId", orderId);
-        await fetch('https://biomed.codemanstudio.com/wp-json/custom-api/v1/order/get-payment-status', {
+        await fetch(paymentCheckingApiUrl, {
             method: 'POST',
             body: data
         })
@@ -310,23 +308,27 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 router.push('/cart')
             })
     }
-
     const handleSubmitWithAcba = async (orderData)=>{
         const data = new FormData();
         data.append("orderNumber", `${orderData.id}`);
         data.append("returnUrl", `http://localhost:3000/cart?order_id=${orderData.id}`);
         data.append("language", loc);
 
-        var requestOptions = {
+        /*const newData = {
+            orderNumber: orderData.id,
+            returnUrl: `http://localhost:3000/cart?order_id=${orderData.id}`,
+            language: loc
+        }*/
+
+        await fetch('https://biomed.codemanstudio.com/wp-json/custom-api/v1/order/make-payment', {
             method: 'POST',
             body: data
-        };
-        fetch(paymentApiUrl, requestOptions)
+        })
             .then(response => response.json())
             .then(result => {
-                if (result.result === 'error'){
+                if (result.result === 'error' || result.errorMessage){
                     setIsOpen(true)
-                    setText(result.message)
+                    setText(result.message ? result.message : result.errorMessage)
                 }else{
                     router.push(result.formUrl)
                 }
@@ -349,9 +351,9 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             <ModalComponent isOpen={isOpen} text={text} callBack={()=>setIsOpen(false)} error={error}/>
             <Tabs>
                 <TabList className={TabStyle.TabList}>
-
                     <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:reserve')}/></Tab>
-                    <Tab selectedClassName={TabStyle.Selected} disabled={tabDisabled} onClick={ tabDisabled ? (e)=>homeCallAlert(e,true) : null}><TabButtons text={t('common:home_call')}/>
+                    <Tab selectedClassName={TabStyle.Selected} disabled={tabDisabled} onClick={tabDisabled ? (e)=>homeCallAlert(e,true) : null}>
+                        <TabButtons text={t('common:home_call')}/>
                         <HomeCallCloudText callback={(e) => homeCallAlert(e, false)} style={homeCloudStyle}/>
                     </Tab>
                 </TabList>
