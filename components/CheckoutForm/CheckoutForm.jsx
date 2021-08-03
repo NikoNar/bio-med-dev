@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import {resetIdCounter, Tab, TabList, TabPanel} from "react-tabs";
 import TabStyle from "../Tab/tab.module.scss";
 import TabButtons from "../TabButtons/TabButtons";
-import {orderUrl, paymentApiUrl, paymentCheckingApiUrl} from "../../utils/url";
+import {mainUrl, orderUrl, paymentApiUrl, paymentCheckingApiUrl} from "../../utils/url";
 import dynamic from "next/dynamic";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -311,7 +311,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
     const handleSubmitWithAcba = async (orderData)=>{
         const data = new FormData();
         data.append("orderNumber", `${orderData.id}`);
-        data.append("returnUrl", `http://localhost:3000/cart?order_id=${orderData.id}`);
+        data.append("returnUrl", `${mainUrl}/cart?order_id=${orderData.id}`);
         data.append("language", loc);
 
         /*const newData = {
