@@ -1,5 +1,6 @@
 import React from "react";
 import buttonStyles from './button.module.scss'
+import Spinner from "../SVGIcons/Spinner/Spinner";
 
 
 const styles = {
@@ -7,7 +8,7 @@ const styles = {
 }
 
 
-const Button = ({text, backgroundColor, type, callBack, icon, disabled, padding}) => {
+const Button = ({text, backgroundColor, type, callBack, icon, disabled, padding, isLoading}) => {
     return (
         <>
             <button
@@ -36,6 +37,7 @@ const Button = ({text, backgroundColor, type, callBack, icon, disabled, padding}
                   C24.7,16.4,24.4,16.1,24.1,16.1z"/>
               </svg>
                 </span>
+                {isLoading ? <Spinner/> : null}
             </button>
         </>
     )

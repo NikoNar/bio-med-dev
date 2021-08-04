@@ -26,7 +26,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
     const [error, setError] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
     const [link, setLink] = useState('')
-    const [disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const {
         handleSubmit: handleResultsSubmit,
         register: resultsRegister,
@@ -55,6 +56,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
     }
 
     const submitResultsForm = async (resultsData) => {
+        setDisabled(true)
+        setIsLoading(true)
         await fetch(`${resultsUrl}?code=${resultsData.userKey}&surname=${resultsData.userFullName}`, {
             method: 'GET'
         })
@@ -70,6 +73,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
                             setLink(data.url)
                         })
                     setResults(data.testList)
+                    setDisabled(false)
+                    setIsLoading(false)
                 }
             )
             .then(() => resultsFormReset({}))
@@ -118,34 +123,6 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                                         style={{borderColor: errors.userFullName ? '#ff0000' : 'transparent'}}
                                                     />
                                                 </div>
-                                                {/*<div className={'col-lg-4'}>
-                                                    <div
-                                                        className={RegisterFormStyle.DatePicker + ' ' + ResStyle.DatePicker}>
-                                                        <div
-                                                            className={errors.userBirthDay ? ResStyle.Date + ' ' + ResStyle.DateWithError : ResStyle.Date}>
-                                                            <Controller
-                                                                control={resultsControl}
-                                                                name="userBirthDay"
-                                                                render={({field: {onChange, value}}) => (
-
-                                                                    <DatePicker
-                                                                        selected={value}
-                                                                        onChange={onChange}
-                                                                        dateFormat='dd/MM/yyyy'
-                                                                        placeholderText={t('common:birth_date')}
-                                                                        style={{width: "100%"}}
-                                                                        withPortal
-                                                                        showMonthDropdown
-                                                                        showYearDropdown
-                                                                        dropdownMode="select"
-                                                                        yearDropdownItemNumber={100}
-                                                                        maxDate={new Date()}
-                                                                    />
-                                                                )}
-                                                            />
-                                                        </div>
-                                                        </div>
-                                                </div>*/}
                                                 <div className={'col-lg-4'}>
                                                     <input
                                                         type="text"
@@ -158,8 +135,10 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                             </div>
                                             <div className={'row mt-3 mt-lg-5'}>
                                                 <div className={'col-lg-12 text-end text-lg-start'}>
-                                                    <Button type={'submit'} text={t('common:see_results')}
+                                                    <Button type={'submit'} text={isLoading ? '' : t('common:see_results')}
                                                             padding={'10px'}
+                                                            isLoading={isLoading}
+                                                            disabled={disabled}
                                                     />
                                                 </div>
                                             </div>
@@ -169,19 +148,6 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                     <div className={'row'}>
                                         <div className={'col-lg-12'}>
                                             <div className={ResStyle.FullName}>
-                                                {/*<div className={'row'}>*/}
-                                                {/*    <div className={'col-lg-12'}>*/}
-                                                {/*        <div className={ResStyle.Header}>*/}
-                                                {/*            <div className={ResStyle.Name}>*/}
-                                                {/*                <span className="_icon-male"></span>*/}
-                                                {/*                <h4>{results && results[0].fullName}</h4>*/}
-                                                {/*            </div>*/}
-                                                {/*            <div className={ResStyle.BirthDay}>*/}
-                                                {/*                <h4>{results && new Date(results[0].date).toLocaleDateString()}</h4>*/}
-                                                {/*            </div>*/}
-                                                {/*        </div>*/}
-                                                {/*    </div>*/}
-                                                {/*</div>*/}
                                                 <div className={'row'}>
                                                     <div className={'col-lg-12'}>
                                                         <AnalyzesResults results={results}/>

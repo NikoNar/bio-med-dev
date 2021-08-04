@@ -14,10 +14,10 @@ import ModalComponent from "../Alerts/Modal/ModalComponent";
 
 
 const AnalyzesCard = ({inner, icon, index}) => {
-    console.log(inner);
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
+    const orders = useSelector(state => state.orders)
 
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
@@ -25,24 +25,35 @@ const AnalyzesCard = ({inner, icon, index}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [prod, setProd] = useState({})
     const [buttonText, setButtonText] = useState(t('common:add_to_cart'))
+    const [inCart, setInCart] = useState(false)
+    //const [error, setError] = useState(false)
 
-    const text = t('common:add_to_cart')
 
-    const handleAddToCart = (data) => {
+
+    const handleAddToCart = (data, text, index) => {
+
         setProd(data);
-        dispatch(addItemToCart(data, setIsOpen))
+        dispatch(addItemToCart(data, setIsOpen, setInCart))
+        setButtonText(text)
+        if(inCart){
+            console.log(index);
+            dispatch(removeCartItem(index, setInCart))
+        }
     }
+
+    const text = inCart ? t('common:add_to_cart') : 'Զամբյուղում է'
 
     const deleteOrder = (index) => {
-        dispatch(removeCartItem(index))
+        dispatch(removeCartItem(index, setInCart))
     }
+
 
     return (
         <>
             <ModalComponent
                 isOpen={isOpen}
                 callBack={()=>setIsOpen(false)}
-                text={`${prod.name}` + ' ' +t('common:add_to_card_message')}
+                text={inCart ? `${prod.name}` + ' ' + t('common:add_to_card_message') : 'In Cart'}
                 t={t}
                 link={`${router.locale}/cart`}
             />
@@ -64,15 +75,6 @@ const AnalyzesCard = ({inner, icon, index}) => {
                                     <a><span>{inner.name}</span></a>
                                 </Link>
                             </div>
-                            {/* <div className={AStyle.Desc}>
-                            {parse(inner.description)}
-                            <p style={{maxHeight: 0, overflow: "hidden"}}>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Aspernatur corporis eaque error explicabo in laudantium, quo rerum
-                                voluptatibus! Aliquam aspernatur, at ex impedit inventore provident quaerat quibusdam
-                                recusandae similique sint. Aspernatur natus sint vitae. Cupiditate dolorum, ducimus nemo
-                                officia perspiciatis possimus quae quibusdam! Aperiam architecto consequatur laudantium
-                                provident quam rerum!</p>
-                        </div>*/}
                         </div>
                     </div>
                 </div>
@@ -101,7 +103,7 @@ const AnalyzesCard = ({inner, icon, index}) => {
                                     icon={icon}
                                     padding={'10px'}
                                     callBack={
-                                        currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text) :
+                                        currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text, index) :
                                             () => {
                                                 router.push('/account')
                                             }

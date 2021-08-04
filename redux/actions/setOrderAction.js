@@ -14,11 +14,14 @@ export const getAllOrdersItem = () => {
 }
 
 
-export const addItemToCart = (data, setIsOpen) => {
-
+export const addItemToCart = (data, setIsOpen, setInCart) => {
     setIsOpen && setIsOpen(true)
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
-    if (ordersInitialArray.map(o => o.id).indexOf(data.id) === -1) ordersInitialArray = [...ordersInitialArray, data];
+    if (ordersInitialArray.map(o => o.id).indexOf(data.id) === -1){
+        setInCart(false)
+        ordersInitialArray = [...ordersInitialArray, data];
+        setInCart(true)
+    }
     window.localStorage.setItem('orders', JSON.stringify(ordersInitialArray))
     return {
         type: ADD_ORDER_TO_CART,
@@ -40,7 +43,9 @@ export const removeAllOrdersAction = () => {
 }
 
 
-export const removeCartItem = (index) => {
+export const removeCartItem = (index, setInCart) => {
+    //console.log(index);
+    setInCart(false)
     const json = window.localStorage.getItem('orders')
     ordersInitialArray = JSON.parse(json)
     ordersInitialArray = ordersInitialArray.filter((data, idx) => idx !== index)
