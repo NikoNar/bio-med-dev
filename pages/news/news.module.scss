@@ -83,11 +83,11 @@
   padding-top: 60px;
   .Wrapper {
     .WrapperImg{
-      min-height: 600px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
+      max-width: 100%;
       margin-bottom: 20px;
+      img{
+        object-position: center;
+      }
     }
     .WrapperDate{
       font-size: 16px;
@@ -104,19 +104,22 @@
       font-size: 16px;
       color: #000000;
       margin-bottom: 50px;
+      overflow-wrap: break-word;
     }
-  }
-  .Social{
-    .SocialWrapper{
-      display: flex;
-      align-items: center;
-      .SocialLabel{
-        font-size: 20px;
-        color: $light-blue;
-        font-weight: 700;
+    .Social{
+      margin-top: 40px;
+      .SocialWrapper{
+        display: flex;
+        align-items: center;
+        .SocialLabel{
+          font-size: 20px;
+          color: $light-blue;
+          font-weight: 700;
+        }
       }
     }
   }
+
 }
 
 

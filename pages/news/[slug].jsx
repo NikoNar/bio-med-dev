@@ -41,33 +41,25 @@ const SingleNews = ({singleNews, link, loc})=>{
                             <div className={NewsStyle.Wrapper}>
                                 <div className={'row'}>
                                     <div className={'col-lg-12'}>
-                                        <div className={NewsStyle.WrapperImg} style={{backgroundImage: "url(" + `${singleNews ? singleNews[0]._embedded['wp:featuredmedia']['0'].source_url : "/images/placeholder.png"}` + ")"}}>
-
-                                        </div>
-                                        <div className={NewsStyle.WrapperDate}>
-                                            <span>{new Date(singleNews[0].date).toLocaleDateString()}</span>
+                                        <div className={NewsStyle.WrapperImg}>
+                                            <img src={singleNews ? singleNews[0]._embedded['wp:featuredmedia']['0'].source_url : "/images/placeholder.png"} alt=""/>
                                         </div>
                                     </div>
                                 </div>
                                 <div className={'row'}>
                                     <div className={'col-lg-8 offset-lg-2'}>
+                                        <div className={NewsStyle.WrapperDate}>
+                                            <span>{new Date(singleNews[0].date).toLocaleDateString()}</span>
+                                        </div>
                                         <div className={NewsStyle.WrapperTitle}>
                                             <p>{singleNews[0].title.rendered}</p>
                                         </div>
                                         <div className={NewsStyle.WrapperText}>
                                             {parse(singleNews[0].content.rendered)}
                                         </div>
-                                    </div>
-                                </div>
-                                <div className={'row mb-5'}>
-                                    <div className={'col-lg-12'}>
                                         <div className={NewsStyle.AllNewsLink}>
                                             <Link href={'/news'}><a>{t('common:back_to_all_news')}</a></Link>
                                         </div>
-                                    </div>
-                                </div>
-                                <div className={'row'}>
-                                    <div className={'col-lg-12'}>
                                         <div className={NewsStyle.Social}>
                                             <div className={NewsStyle.SocialWrapper}>
                                                 <div className={NewsStyle.SocialLabel}>
@@ -76,6 +68,16 @@ const SingleNews = ({singleNews, link, loc})=>{
                                                 <SocialMedia link={link} title={singleNews[0].title.rendered} picture={singleNews[0]._embedded['wp:featuredmedia']['0'].source_url} loc={loc}/>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className={'row mb-5'}>
+                                    <div className={'col-lg-12'}>
+
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-lg-12'}>
+
                                     </div>
                                 </div>
                             </div>
