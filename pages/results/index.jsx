@@ -17,15 +17,16 @@ const Results = ({contactInfo, contactPageInfo}) => {
     const {t} = useTranslation()
 
     const resultsSchema = Yup.object().shape({
-        userFullName: Yup.string().matches(/^([^1-9]*)$/),
+        userFullName: Yup.string().required().matches(/^([^1-9]*)$/),
         userBirthDay: Yup.string(),
-        userKey: Yup.string()
+        userKey: Yup.string().required()
     })
 
     const [results, setResults] = useState(null)
     const [error, setError] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
     const [link, setLink] = useState('')
+    const [disabled, setDisabled] = useState(true)
     const {
         handleSubmit: handleResultsSubmit,
         register: resultsRegister,
@@ -59,7 +60,6 @@ const Results = ({contactInfo, contactPageInfo}) => {
         })
             .then(res => res.json())
             .then(async (data) => {
-                    console.log(data.status);
                     data.status && data.status.toString() === '404' && setError(t('common:error-404'))
                     data.status && data.status.toString() === '403' && setError(t('common:error-403'))
                     data.status && data.status.toString() === '416' && setError(t('common:error-416'))
@@ -88,7 +88,7 @@ const Results = ({contactInfo, contactPageInfo}) => {
                         <div className={'col-lg-8'}>
                             <div className={ResStyle.Title}>
                                 <h4>{t('common:analyzes_results')}</h4>
-                                <small>{t('common:analyzes_results_text')}</small>
+                                <small>{t('common:results_text')}</small>
                             </div>
                         </div>
                         <div className={'col-lg-4'}>
@@ -112,7 +112,7 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                                 <div className={'col-lg-4'}>
                                                     <input
                                                         type="text"
-                                                        placeholder={t('common:full_name')}
+                                                        placeholder={t('common:sure_name')}
                                                         name="userFullName"
                                                         {...resultsRegister("userFullName")}
                                                         style={{borderColor: errors.userFullName ? '#ff0000' : 'transparent'}}
@@ -159,7 +159,8 @@ const Results = ({contactInfo, contactPageInfo}) => {
                                             <div className={'row mt-3 mt-lg-5'}>
                                                 <div className={'col-lg-12 text-end text-lg-start'}>
                                                     <Button type={'submit'} text={t('common:see_results')}
-                                                            padding={'10px'}/>
+                                                            padding={'10px'}
+                                                    />
                                                 </div>
                                             </div>
                                         </form>

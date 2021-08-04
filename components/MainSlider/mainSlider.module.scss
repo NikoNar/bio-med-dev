@@ -1,7 +1,7 @@
 .Slider{
   margin-bottom: 80px;
   .SliderContainer{
-    padding: 40px 0 154px;
+    padding: 40px 0 60px;
     .swiper-button-prev{
       top: 10%!important;
     }
@@ -12,8 +12,5 @@
 @media (max-width: 476px){
   .Slider{
     margin-bottom: 40px;
-    .SliderContainer{
-      padding: 40px 0 70px;
-    }
   }
 }

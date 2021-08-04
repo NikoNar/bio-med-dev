@@ -31,20 +31,25 @@
       font-weight: 500;
       color: $brand-gray;
     }
+    .CategoryName{
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 15px;
+    }
     .Title{
       font-size: 18px;
       font-weight: 900;
       color: $brand-red;
       margin-bottom: 10px;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: left;
       margin-top: 10px;
-      min-height: 55px;
-      max-height: 55px;
+      min-height: 30px;
+      max-height: 30px;
       padding-right: 50px;
     }
     .Desc{
@@ -157,8 +162,8 @@
       .Title{
         font-size: 14px;
         line-height: 21px;
-        min-height: 40px;
-        max-height: 40px;
+        min-height: 24px;
+        max-height: 24px;
       }
       .Desc{
         font-size: 14px;

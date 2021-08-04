@@ -73,5 +73,9 @@
     "checkout_success_message": "Dear customer, the order has been accepted. Our specialist will contact you soon. Thank you for using our services.",
     "add_to_card_message": "successfully added to your cart",
     "cart_link": "Go to your cart page",
-    "payment_error_message": "Please choose payment method"
+    "payment_error_message": "Please choose payment method",
+    "pay_online": "Pay online",
+    "cash_on_deliver": "Cash on delivery",
+    "sure_name": "Surname",
+    "results_text": "Please enter your Surname in Armenian and Code to get analyzes results"
   }

@@ -29,11 +29,13 @@ const News = ({news, page, totalNumberOfNews, limit}) => {
                     </div>
                     <div className={'row'}>
                         {news && news.map((n) => {
+                            const newsImage = n._embedded['wp:featuredmedia'] && n._embedded['wp:featuredmedia']['0'].source_url
                             return (
                                     <div className={'col-lg-4 mb-5'} key={n.id}>
                                         <div className={NewsStyle.Item}>
                                             <div className={NewsStyle.Img}
-                                                 style={{backgroundImage: "url(" + n._embedded['wp:featuredmedia']['0'].source_url + ")"}}> </div>
+                                                 style={{backgroundImage: "url(" + `${newsImage ? newsImage : "/images/placeholder.png"}` + ")"}}>
+                                            </div>
                                             <div className={NewsStyle.Body}>
                                                 <div className={NewsStyle.Date}>
                                                     <span>{new Date(n.date).toLocaleDateString()}</span>

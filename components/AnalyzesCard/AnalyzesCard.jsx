@@ -14,6 +14,7 @@ import ModalComponent from "../Alerts/Modal/ModalComponent";
 
 
 const AnalyzesCard = ({inner, icon, index}) => {
+    console.log(inner);
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
@@ -55,6 +56,9 @@ const AnalyzesCard = ({inner, icon, index}) => {
                         }
                         <div className={AStyle.Top}>
                             <small className={AStyle.Number}>№ {inner.sku}</small>
+                            <div className={AStyle.CategoryName}>
+                                <span>{inner.categories[0].name}</span>
+                            </div>
                             <div className={AStyle.Title}>
                                 <Link href={`/researches/${inner.slug}`}>
                                     <a><span>{inner.name}</span></a>

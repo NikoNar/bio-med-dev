@@ -53,7 +53,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                         <div className={'col-lg-12'}>
                             <div className={SAnalyseStyle.Header}>
                                 <div className={SAnalyseStyle.Number}>
-                                    <p>№ <span>{singleAnalyse[0].id}</span></p>
+                                    <p>№ <span>{singleAnalyse[0].sku}</span></p>
                                 </div>
                                 <div className={SAnalyseStyle.Category}>
                                     {singleAnalyse[0].name}

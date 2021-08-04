@@ -331,7 +331,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         })
             .then(response => response.json())
             .then(result => {
-                console.log(result);
                 if (result.result === 'error' || result.errorMessage){
                     setIsOpen(true)
                     setText(result.message ? result.message : result.errorMessage)
@@ -366,32 +365,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 <TabPanel>
                     <div className={CheckoutStyle.Form}>
                         <RequiredFields errors={errorsReserve}/>
-                        <div className={CheckoutStyle.PaymentMethodSwitcher}>
-                            <label htmlFor="cod" className="form-check-label">
-                                Cash on delivery
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name='payment_method'
-                                    id={'cod'}
-                                    value={'cod'}
-                                    onChange={(e)=>handlePaymentMethod(e)}
-                                    required={true}
-                                />
-                            </label>
-                            <label htmlFor="acba_gateway" className="form-check-label">
-                                acba Payment
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name='payment_method'
-                                    id={'acba_gateway'}
-                                    value={'acba_gateway'}
-                                    onChange={(e)=>handlePaymentMethod(e)}
-                                    required={true}
-                                />
-                            </label>
-                        </div>
                         <form
                             onSubmit={handleSubmitReserve((reserveData) => handleSubmitReserveOrders(reserveData))}>
                             <input
@@ -486,6 +459,32 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                                 {...registerReserve('email')}
                                 style={{borderColor: errorsReserve.email ? '#ff0000' : 'transparent'}}
                             />
+                            <div className={CheckoutStyle.PaymentMethodSwitcher}>
+                                <label htmlFor="cod" className="form-check-label">
+                                    {t('common:cash_on_deliver')}
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name='payment_method'
+                                        id={'cod'}
+                                        value={'cod'}
+                                        onChange={(e)=>handlePaymentMethod(e)}
+                                        required={true}
+                                    />
+                                </label>
+                                <label htmlFor="acba_gateway" className="form-check-label">
+                                    {t('common:pay_online')}
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name='payment_method'
+                                        id={'acba_gateway'}
+                                        value={'acba_gateway'}
+                                        onChange={(e)=>handlePaymentMethod(e)}
+                                        required={true}
+                                    />
+                                </label>
+                            </div>
                             <Button
                                 backgroundColor={backgroundColor}
                                 text={t('common:reserve')}
@@ -504,32 +503,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 <TabPanel>
                     <div className={CheckoutStyle.Form}>
                         <RequiredFields errors={errorsHomeCall}/>
-                        <div className={CheckoutStyle.PaymentMethodSwitcher}>
-                            <label htmlFor="cod" className="form-check-label">
-                                Cash on delivery
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name='payment_method'
-                                    id={'cod'}
-                                    value={'cod'}
-                                    onChange={(e)=>handlePaymentMethod(e)}
-                                    required={true}
-                                />
-                            </label>
-                            <label htmlFor="acba_gateway" className="form-check-label">
-                                acba Payment
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name='payment_method'
-                                    id={'acba_gateway'}
-                                    value={'acba_gateway'}
-                                    onChange={(e)=>handlePaymentMethod(e)}
-                                    required={true}
-                                />
-                            </label>
-                        </div>
                         <form onSubmit={handleSubmitHomeCall((homeCallData) => handleSubmitHomeCallOrders(homeCallData))}>
                             <input
                                 placeholder={t('common:full_name')}
@@ -627,6 +600,32 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                                 {...registerHomeCall('homeCallEmail', {required: true})}
                                 style={{borderColor: errorsHomeCall.homeCallEmail ? '#ff0000' : 'transparent'}}
                             />
+                            <div className={CheckoutStyle.PaymentMethodSwitcher}>
+                                <label htmlFor="cod" className="form-check-label">
+                                    {t('common:cash_on_deliver')}
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name='payment_method'
+                                        id={'cod'}
+                                        value={'cod'}
+                                        onChange={(e)=>handlePaymentMethod(e)}
+                                        required={true}
+                                    />
+                                </label>
+                                <label htmlFor="acba_gateway" className="form-check-label">
+                                    {t('common:pay_online')}
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name='payment_method'
+                                        id={'acba_gateway'}
+                                        value={'acba_gateway'}
+                                        onChange={(e)=>handlePaymentMethod(e)}
+                                        required={true}
+                                    />
+                                </label>
+                            </div>
                             <Button backgroundColor={backgroundColor} text={t('common:submit_order')} type={'submit'} disabled={!orders || orders.length === 0}/>
                         </form>
                         <div className={CheckoutStyle.Price}>

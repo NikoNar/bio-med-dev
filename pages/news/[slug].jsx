@@ -5,15 +5,17 @@ import SocialMedia from "../../components/SocialMedia/SocialMedia";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import parse from 'html-react-parser'
-import {Helmet} from "react-helmet";
 import Head from "next/head";
+
 
 const SingleNews = ({singleNews, link, loc})=>{
 
     const {t} = useTranslation()
-    const image = singleNews && singleNews[0]._embedded['wp:featuredmedia']['0'].source_url
+    const image = singleNews[0]._embedded && singleNews[0]._embedded['wp:featuredmedia']['0'].source_url
     const title = singleNews && singleNews[0].title.rendered
     const url = mainUrl + `${loc}` + link
+    const metaDesc = parse(singleNews && singleNews[0].content.rendered)[0].props.children
+
 
     return (
         <>
@@ -23,7 +25,7 @@ const SingleNews = ({singleNews, link, loc})=>{
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <meta property="og:image" content={image}/>
                 <meta property="og:title" content={title}/>
-                <meta property="og:description" content={singleNews && singleNews[0].content.rendered}/>
+                <meta property="og:description" content={metaDesc}/>
                 <meta property="og:url" content={url} />
                 <meta property="og:type" content="website" />
                 <meta property="og:image:width" content="1200"/>
@@ -39,8 +41,8 @@ const SingleNews = ({singleNews, link, loc})=>{
                             <div className={NewsStyle.Wrapper}>
                                 <div className={'row'}>
                                     <div className={'col-lg-12'}>
-                                        <div className={NewsStyle.WrapperImg}>
-                                            <img src={singleNews[0]._embedded['wp:featuredmedia']['0'].source_url} alt=""/>
+                                        <div className={NewsStyle.WrapperImg} style={{backgroundImage: "url(" + `${singleNews ? singleNews[0]._embedded['wp:featuredmedia']['0'].source_url : "/images/placeholder.png"}` + ")"}}>
+
                                         </div>
                                         <div className={NewsStyle.WrapperDate}>
                                             <span>{new Date(singleNews[0].date).toLocaleDateString()}</span>
@@ -48,7 +50,7 @@ const SingleNews = ({singleNews, link, loc})=>{
                                     </div>
                                 </div>
                                 <div className={'row'}>
-                                    <div className={'col-lg-8'}>
+                                    <div className={'col-lg-8 offset-lg-2'}>
                                         <div className={NewsStyle.WrapperTitle}>
                                             <p>{singleNews[0].title.rendered}</p>
                                         </div>
