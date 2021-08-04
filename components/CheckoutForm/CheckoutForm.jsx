@@ -309,7 +309,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 setIsOpen(true)
                 data.status ? setText(data.message) : setError(data.message)
                 data.status ? deleteAllOrders() : null
-                router.push('/cart')
+                //router.push('/cart')
             })
     }
     const handleSubmitWithAcba = async (orderData)=>{
