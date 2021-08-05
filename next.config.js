@@ -9,6 +9,7 @@ module.exports = {
             MAIN_HOST: process.env.NEXT_PUBLIC_MAIN_HOST,
             HOST_1: process.env.NEXT_PUBLIC_HOST_V1,
             HOST_2: process.env.NEXT_PUBLIC_HOST_V2,
+            HOST_3: process.env.NEXT_PUBLIC_HOST_V3,
             HOST_WP: process.env.NEXT_PUBLIC_HOST_WC,
             HOST_LOGIN: process.env.NEXT_PUBLIC_HOST_LOGIN,
             HOST_MENU: process.env.NEXT_PUBLIC_HOST_MENU,

@@ -4,9 +4,10 @@ import HeaderStyle from "../../Header/header.module.scss";
 import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import {useDispatch} from "react-redux";
+import {searchUrl} from "../../../utils/url";
+import {setCookie} from "nookies";
 
-const Search = ({setIsOpen, loc}) => {
-
+const Search = ({setIsOpen, loc, pageProps}) => {
     const {t} = useTranslation()
     const dispatch = useDispatch()
 
@@ -19,8 +20,18 @@ const Search = ({setIsOpen, loc}) => {
 
     const handleSearchSubmit = async (e)=>{
         e.preventDefault()
-        dispatch(makeSearch(searchData, loc, setIsOpen))
-        await router.push('/search')
+        //dispatch(makeSearch(searchData, loc, setIsOpen))
+        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}`, {
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const results = JSON.stringify(data)
+                const word = JSON.stringify(searchData)
+                localStorage.setItem('searchKeyWord', word)
+                localStorage.setItem('searchResults', results)
+                data && router.push('/search')
+            })
         setSearchData('')
     }
 

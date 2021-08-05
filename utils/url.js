@@ -24,5 +24,6 @@ export const footerRightLinksUrl = `${process.env.NEXT_PUBLIC_HOST_MENU}/footer-
 export const mainUrl = `${process.env.NEXT_PUBLIC_MAIN_HOST}`
 export const paymentApiUrl = `${process.env.NEXT_PUBLIC_HOST_PAYMENT_API}`
 export const paymentCheckingApiUrl = `${process.env.NEXT_PUBLIC_HOST_PAYMENT_CHECK_API}`
+export const searchUrl = `${process.env.NEXT_PUBLIC_HOST_V3}/products?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`
 
 
