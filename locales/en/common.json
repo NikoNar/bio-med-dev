@@ -77,5 +77,7 @@
     "pay_online": "Pay online",
     "cash_on_deliver": "Cash on delivery",
     "sure_name": "Surname",
-    "results_text": "Please enter your Surname in Armenian and Code to get analyzes results"
+    "results_text": "Please enter your Surname in Armenian and Code to get analyzes results",
+    "register_success": "You have successfully registered and now can log in to your profile",
+    "in_cart": "Added to cart"
   }

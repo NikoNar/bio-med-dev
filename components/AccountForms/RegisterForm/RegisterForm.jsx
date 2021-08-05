@@ -78,7 +78,6 @@ const RegisterForm = ({security, currentUser}) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 registerFormReset({
                     registerFullName: '',
                     registerEmail: '',
@@ -102,7 +101,7 @@ const RegisterForm = ({security, currentUser}) => {
         <div className={RegisterFormStyle.Register}>
             <RequiredFields errors={errors}/>
             <ModalComponent callBack={() => setIsOpen(false)} isOpen={isOpen}
-                            text={'You have successfully registered and now can log in to your profile'}
+                            text={t('common:register_success')}
                             error={resError}
             />
             <form onSubmit={handleRegisterSubmit(registerHandleSubmit)}>

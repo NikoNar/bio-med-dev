@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import AStyle from './analyzes-card.module.scss'
 import Link from "next/link";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentUserAction} from "../../redux/actions/getCurrentUserAction";
 import {addItemToCart, removeCartItem} from "../../redux/actions/setOrderAction";
 import EmergencyIcon from "../SVGIcons/Emergency/EmergencyIcon";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import parse from 'html-react-parser';
 import ModalComponent from "../Alerts/Modal/ModalComponent";
 
 
-const AnalyzesCard = ({inner, icon, index}) => {
+const AnalyzesCard = ({inner, icon, index, id}) => {
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
@@ -26,25 +24,32 @@ const AnalyzesCard = ({inner, icon, index}) => {
     const [prod, setProd] = useState({})
     const [buttonText, setButtonText] = useState(t('common:add_to_cart'))
     const [inCart, setInCart] = useState(false)
-    //const [error, setError] = useState(false)
 
 
-
-    const handleAddToCart = (data, text, index) => {
-
-        setProd(data);
-        dispatch(addItemToCart(data, setIsOpen, setInCart))
-        setButtonText(text)
+    const handleAddToCart = (data) => {
+        if (!inCart){
+            setProd(data);
+            dispatch(addItemToCart(data, setIsOpen))
+        }
         if(inCart){
-            console.log(index);
-            dispatch(removeCartItem(index, setInCart))
+            dispatch(removeCartItem(id))
+            setInCart(false)
         }
     }
 
-    const text = inCart ? t('common:add_to_cart') : 'Զամբյուղում է'
+    useMemo(()=>{
+        orders && orders.map((o)=>{
+            if(o.id === id){
+                setInCart(true)
+                return o
+            }
+        })
+    }, [orders])
+
+    const text = !inCart ? t('common:add_to_cart') : 'Added'
 
     const deleteOrder = (index) => {
-        dispatch(removeCartItem(index, setInCart))
+        dispatch(removeCartItem(index))
     }
 
 
@@ -53,7 +58,7 @@ const AnalyzesCard = ({inner, icon, index}) => {
             <ModalComponent
                 isOpen={isOpen}
                 callBack={()=>setIsOpen(false)}
-                text={inCart ? `${prod.name}` + ' ' + t('common:add_to_card_message') : 'In Cart'}
+                text={`${prod.name}` + ' ' + t('common:add_to_card_message')}
                 t={t}
                 link={`${router.locale}/cart`}
             />
@@ -98,12 +103,12 @@ const AnalyzesCard = ({inner, icon, index}) => {
                                     </a>
                                 </Link>
                             </div>
-                            <Button text={buttonText}
+                            <Button text={!inCart ? t('common:add_to_cart') : t('common:in_cart')}
                                     backgroundColor={backgroundColor}
                                     icon={icon}
                                     padding={'10px'}
                                     callBack={
-                                        currentUser ? () => handleAddToCart({...inner, userId: currentUser.id}, text, index) :
+                                        currentUser ? () => handleAddToCart({...inner}, text) :
                                             () => {
                                                 router.push('/account')
                                             }
