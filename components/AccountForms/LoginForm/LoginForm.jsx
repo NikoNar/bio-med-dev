@@ -15,17 +15,21 @@ import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 
 
 
-const schema = Yup.object().shape({
-    username: Yup.string().required(),
-    password: Yup.string().min(4).required()
-})
+
 
 
 const LoginForm = () => {
+    const {t} = useTranslation()
+    const nameRegex = /^[A-Za-z]+$/;
+
+    const schema = Yup.object().shape({
+        username: Yup.string().matches(nameRegex, "Only English letters").required(t('errors:login_error')),
+        password: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required()
+    })
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const {t} = useTranslation()
+
     const router = useRouter()
 
     useEffect(() => {
@@ -81,20 +85,27 @@ const LoginForm = () => {
 
             <RequiredFields errors={errors}/>
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
-                <input
-                    placeholder={t('common:mail_or_phone_number')}
-                    type="text"
-                    name="username"
-                    {...register("username")}
-                    style={{borderColor: errors.username ? '#ff0000' : 'transparent'}}
-                />
-                <input
-                    placeholder={t('common:password')}
-                    type="password"
-                    name="password"
-                    {...register("password")}
-                    style={{borderColor: errors.password ? '#ff0000' : 'transparent'}}
-                />
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '40px' : 0}}>
+                    <small>{errors.username && errors.username.message}</small>
+                    <input
+                        placeholder={t('common:mail_or_phone_number')}
+                        type="text"
+                        name="username"
+                        {...register("username")}
+                        style={{borderColor: errors.username ? '#ff0000' : 'transparent'}}
+                    />
+                </div>
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                    <small>{errors.password && errors.password.message}</small>
+                    <input
+                        placeholder={t('common:password')}
+                        type="password"
+                        name="password"
+                        {...register("password")}
+                        style={{borderColor: errors.password ? '#ff0000' : 'transparent'}}
+                    />
+                </div>
+
                 <Link href={'/forgot-password'}>
                     <a>{t('common:forgot_password')}</a>
                 </Link>

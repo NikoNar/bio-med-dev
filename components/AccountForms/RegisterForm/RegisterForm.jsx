@@ -13,18 +13,18 @@ import {useRouter} from "next/router";
 
 
 const RegisterForm = ({security, currentUser}) => {
-
+    const nameRegex = /^[A-Za-z]+$/;
     const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
     const registerSchema = Yup.object().shape({
-        first_name: Yup.string().matches(/^([^1-9]*)$/).required(),
-        registerGender: Yup.string().nullable(true).required(),
-        registerDate: Yup.string().required(),
-        email: Yup.string().email().required(),
-        registerPhone: Yup.string().required(),
-        password: Yup.string().min(4).required(),
-        registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null])
+        first_name: Yup.string().matches(/^([^1-9]*^[A-Za-z]+$)$/, t('errors:language_error')).required(t('errors:name_error')),
+        registerGender: Yup.string().nullable(true).required(t('errors:gender_error')),
+        registerDate: Yup.string().required(t('errors:birthday_error')),
+        email: Yup.string().matches(nameRegex, t('errors:language_error')).email(t('errors:email_format_error')).required(t('errors:enter_email')),
+        registerPhone: Yup.string().required(t('errors:phone_error')),
+        password: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
+        registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null], t('errors:confirm_password_error'))
     })
 
 
@@ -44,12 +44,15 @@ const RegisterForm = ({security, currentUser}) => {
     );
 
     useEffect(() => {
+        //setIsOpen(!!errors)
         if (isOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
         }
     }, [isOpen]);
+
+    console.log(errors)
 
 
     const registerHandleSubmit = async (registerData) => {
@@ -102,12 +105,13 @@ const RegisterForm = ({security, currentUser}) => {
             <RequiredFields errors={errors}/>
             <ModalComponent callBack={() => setIsOpen(false)} isOpen={isOpen}
                             text={t('common:register_success')}
-                            error={resError}
+                            error={errors.registerGender ? errors.registerGender.message : ''}
             />
             <form onSubmit={handleRegisterSubmit(registerHandleSubmit)}>
                 <div className={'row'}>
                     <div className={'col-lg-12'}>
-                        <div className={RegisterFormStyle.FullName}>
+                        <div className={RegisterFormStyle.FullName + ' ' + RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                            <small>{errors.first_name && errors.first_name.message}</small>
                             <input
                                 placeholder={t('common:full_name')}
                                 type="text"
@@ -115,7 +119,7 @@ const RegisterForm = ({security, currentUser}) => {
                                 {...handleRegisterRegister('first_name')}
                                 style={{borderColor: errors.first_name ? '#ff0000' : 'transparent'}}
                             />
-                            <div className={RegisterFormStyle.GenderBlock}>
+                            <div className={RegisterFormStyle.GenderBlock + ' ' + RegisterFormStyle.Filed}>
                                 <label htmlFor="male" className={RegisterFormStyle.MaleActive}>
                                     <input
                                         type="radio"
@@ -146,8 +150,9 @@ const RegisterForm = ({security, currentUser}) => {
                     defaultValue={''}
                     render={({field: {onChange, value}}) => (
                         <div className={
-                            errors.registerDate ? RegisterFormStyle.DatePicker + ' ' + RegisterFormStyle.DatePickerWithError : RegisterFormStyle.DatePicker
-                        }>
+                            errors.registerDate ? RegisterFormStyle.DatePicker + ' ' + RegisterFormStyle.Filed + ' ' + RegisterFormStyle.DatePickerWithError : RegisterFormStyle.DatePicker + ' ' + RegisterFormStyle.Filed
+                        } style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                            <small>{errors.registerDate && errors.registerDate.message}</small>
                             <DatePicker
                                 selected={value}
                                 onChange={onChange}
@@ -164,46 +169,58 @@ const RegisterForm = ({security, currentUser}) => {
                         </div>
                     )}
                 />
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                    <small>{errors.email && errors.email.message}</small>
+                    <input
+                        placeholder={t('common:email')}
+                        type='email'
+                        name='email'
+                        {...handleRegisterRegister('email')}
+                        defaultValue={currentUser ? currentUser.email : ''}
+                        style={{borderColor: errors.email ? '#ff0000' : 'transparent'}}
+                    />
+                </div>
 
-                <input
-                    placeholder={t('common:email')}
-                    type='email'
-                    name='email'
-                    {...handleRegisterRegister('email')}
-                    defaultValue={currentUser ? currentUser.email : ''}
-                    style={{borderColor: errors.email ? '#ff0000' : 'transparent'}}
-                />
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                    <small>{errors.registerPhone && errors.registerPhone.message}</small>
+                    <input
+                        placeholder={t('common:phone_number')}
+                        type="tel"
+                        name='registerPhone'
+                        {...handleRegisterRegister('registerPhone')}
+                        defaultValue={currentUser ? currentUser.phone : ''}
+                        style={{borderColor: errors.registerPhone ? '#ff0000' : 'transparent'}}
+                    />
+                </div>
 
-                <input
-                    placeholder={t('common:phone_number')}
-                    type="tel"
-                    name='registerPhone'
-                    {...handleRegisterRegister('registerPhone')}
-                    defaultValue={currentUser ? currentUser.phone : ''}
-                    style={{borderColor: errors.registerPhone ? '#ff0000' : 'transparent'}}
-                />
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '20px' : 0}}>
+                    <small>{errors.password && errors.password.message}</small>
+                    <input
+                        placeholder={t('common:password')}
+                        type="password"
+                        name='password'
+                        {...handleRegisterRegister('password')}
+                        style={{
+                            display: security ? 'none' : 'block',
+                            borderColor: errors.password ? '#ff0000' : 'transparent'
+                        }}
+                    />
+                </div>
 
-                <input
-                    placeholder={t('common:password')}
-                    type="password"
-                    name='password'
-                    {...handleRegisterRegister('password')}
-                    style={{
-                        display: security ? 'none' : 'block',
-                        borderColor: errors.password ? '#ff0000' : 'transparent'
-                    }}
-                />
+                <div className={RegisterFormStyle.Filed} style={{marginTop: Object.keys(errors).length !== 0 ? '40px' : 0}}>
+                    <small>{errors.registerConfirmPassword && errors.registerConfirmPassword.message}</small>
+                    <input
+                        placeholder={t('common:confirm_password')}
+                        type="password"
+                        name='registerConfirmPassword'
+                        {...handleRegisterRegister('registerConfirmPassword')}
+                        style={{
+                            display: security ? 'none' : 'block',
+                            borderColor: errors.registerConfirmPassword ? '#ff0000' : 'transparent'
+                        }}
+                    />
+                </div>
 
-                <input
-                    placeholder={t('common:confirm_password')}
-                    type="password"
-                    name='registerConfirmPassword'
-                    {...handleRegisterRegister('registerConfirmPassword')}
-                    style={{
-                        display: security ? 'none' : 'block',
-                        borderColor: errors.registerConfirmPassword ? '#ff0000' : 'transparent'
-                    }}
-                />
 
                 <div style={{textAlign: 'right'}}>
                     <Button type={'submit'} text={t('common:submit')}/>
