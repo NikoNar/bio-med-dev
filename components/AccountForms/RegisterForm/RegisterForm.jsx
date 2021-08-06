@@ -23,7 +23,7 @@ const RegisterForm = ({security, currentUser}) => {
         registerDate: Yup.string().required(),
         email: Yup.string().email().required(),
         registerPhone: Yup.string().required(),
-        password: Yup.string().min(4).max(10).required(),
+        password: Yup.string().min(4).required(),
         registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null])
     })
 

@@ -17,7 +17,7 @@ import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 
 const schema = Yup.object().shape({
     username: Yup.string().required(),
-    password: Yup.string().min(4).max(10).required()
+    password: Yup.string().min(4).required()
 })
 
 

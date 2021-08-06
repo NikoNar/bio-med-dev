@@ -5,13 +5,17 @@ import SearchStyle from './search.module.scss'
 import useTranslation from "next-translate/useTranslation";
 import {parseCookies} from "nookies";
 import {useRouter} from "next/router";
+import Pagination from "../../components/Pagination/Pgination";
+import {searchUrl} from "../../utils/url";
+import NextPrevPagination from "../../components/Pagination/NextPrevPagination/NextPrevPagination";
 
-const Search = ({loc}) => {
+const Search = ({loc, limit, start, page}) => {
     const {t} = useTranslation()
     const [res, setRes] = useState([])
     const [word, setWord] = useState('')
     const router = useRouter()
-
+    const [searchData, setSearchData] = useState('')
+    const [pages, setPages] = useState(page)
     useEffect(()=>{
         const keyWordJson = localStorage.getItem('searchKeyWord')
         const keyWord = keyWordJson ? JSON.parse(keyWordJson) : ''
@@ -24,6 +28,38 @@ const Search = ({loc}) => {
             localStorage.removeItem('searchKeyWord')
         }
     }, [t])
+
+    const prevSearchResults = async ()=>{
+        setPages(pages - 1)
+        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${pages}`, {
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const results = JSON.stringify(data)
+                const word = JSON.stringify(searchData)
+                localStorage.setItem('searchKeyWord', word)
+                localStorage.setItem('searchResults', results)
+                data && router.push('/search')
+            })
+        setSearchData('')
+    }
+
+    const nextSearchResults = async ()=>{
+        setPages(pages + 1)
+        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${pages}`, {
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const results = JSON.stringify(data)
+                const word = JSON.stringify(searchData)
+                localStorage.setItem('searchKeyWord', word)
+                localStorage.setItem('searchResults', results)
+                data && router.push('/search')
+            })
+        setSearchData('')
+    }
 
 
     return (
@@ -52,10 +88,28 @@ const Search = ({loc}) => {
                             </div>
                     }
                 </div>
+                {
+                    res.length >= 10 ? <NextPrevPagination nextSearchResults={nextSearchResults} prevSearchResults={prevSearchResults} page={pages} res={res} t={t}/> : null
+                }
             </div>
         </section>
     );
 };
 
 export default Search;
+
+export async function getServerSideProps({query: {page = 1}}){
+    const start = page === 1 ? 0 : (page - 1) * 10
+    const limit = 10
+
+
+
+    return{
+        props:{
+            start,
+            limit,
+            page: +page,
+        }
+    }
+}
 

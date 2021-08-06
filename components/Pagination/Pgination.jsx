@@ -15,6 +15,7 @@ const Pagination = ({ callBackPrev,
         pages.push(i)
     }
 
+
     return (
         <section className={PaginationStyle.Pagination} style={{display: pages.length <= 1 ? 'none' : 'flex'}}>
             <ul>

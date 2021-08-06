@@ -79,5 +79,7 @@
     "sure_name": "Surname",
     "results_text": "Please enter your Surname in Armenian and Code to get analyzes results",
     "register_success": "You have successfully registered and now can log in to your profile",
-    "in_cart": "Added to cart"
+    "in_cart": "Added to cart",
+    "next": "next",
+    "prev": "prev"
   }

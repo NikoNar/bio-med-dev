@@ -1,0 +1,16 @@
+@import "../../../styles/variables";
+
+.Wrapper{
+    ul{
+        display: flex;
+        justify-content: center;
+        li{
+            margin: 10px;
+            button{
+                background-color: $brand-blue;
+                padding: 5px 10px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
