@@ -80,6 +80,8 @@
           input[type="radio"] {
 
             appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
             & + label{
               cursor: pointer;
             }
