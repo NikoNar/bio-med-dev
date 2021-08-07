@@ -92,6 +92,21 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
             .then(data => data)
         setAllAnalyzes(filteredTest)
     }
+    async function clearFilters(){
+        const currentCategoryTests = await fetch(analyzesUrl +
+            `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
+            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
+            `&category=${mainCategory}&order=asc`)
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                setActiveFilterID(null)
+                return res.json()
+            })
+            .then(data => data)
+
+        setAllAnalyzes(currentCategoryTests)
+    }
 
 
     const handleCategoryFilter = async (e, index) => {
@@ -106,6 +121,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
     }
     const handleMainCategoryName = (e, page = 1) => {
         setPage(1)
+        setIsOpen(false)
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
         setFilterName(null)
@@ -113,23 +129,11 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
         fetchMainCategoryTests(tabName, 1)
 
     }
-    const handleClearFilters = async () => {
+    const handleClearFilters = () => {
         setPage(1)
         setFilterName(null)
-        setActive(null)
-        const currentCategoryTests = await fetch(analyzesUrl +
-            `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
-            `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
-            `&category=${mainCategory}&order=asc`)
-            .then(res => {
-                const total = res.headers.get('x-wp-totalpages')
-                setTotalPagesCount(total)
-                return res.json()
-            })
-            .then(data => data)
-
-        setAllAnalyzes(currentCategoryTests)
-
+        //setActive(null)
+        clearFilters()
     }
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
