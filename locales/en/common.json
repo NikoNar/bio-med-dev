@@ -81,5 +81,10 @@
     "register_success": "You have successfully registered and now can log in to your profile",
     "in_cart": "Added to cart",
     "next": "next",
-    "prev": "prev"
+    "prev": "prev",
+    "res_code": "Code",
+    "res_name": "Test title",
+    "res_value": "Result value",
+    "res_norma": "The norm by gender and age",
+    "res_unit": "Unit"
   }

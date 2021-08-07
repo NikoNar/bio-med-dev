@@ -93,7 +93,7 @@ const Results = ({contactInfo, contactPageInfo}) => {
                         <div className={'col-lg-8'}>
                             <div className={ResStyle.Title}>
                                 <h4>{t('common:analyzes_results')}</h4>
-                                <small>{t('common:results_text')}</small>
+                                {!results ? <small>{t('common:results_text')}</small> : null}
                             </div>
                         </div>
                         <div className={'col-lg-4'}>

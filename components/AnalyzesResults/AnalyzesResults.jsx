@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import AnalyzesResultsItem from "./AnalyzesResultsItem/AnalyzesResultsItem";
+import useTranslation from "next-translate/useTranslation";
+
 
 const AnalyzesResults = ({results}) => {
-
+    const {t} = useTranslation()
     var resData = Object.keys(results).map(key => {
         return results[key];
     })
@@ -15,11 +17,11 @@ const AnalyzesResults = ({results}) => {
                 title: res.name,
                 table: {
                     head: [
-                        "Կոդ",
-                        "Անվանում",
-                        "Արդյունք",
-                        "Նորմա ըստ սեռի և տարիքի",
-                        "Միավոր"
+                        t('common:res_code'),
+                        t('common:res_name'),
+                        t('common:res_value'),
+                        t('common:res_norma'),
+                        t('common:res_unit')
                     ],
                     body: [
                         res.code,
@@ -41,11 +43,11 @@ const AnalyzesResults = ({results}) => {
                 title: res.name,
                 table: {
                     head: [
-                        "Կոդ",
-                        "Անվանում",
-                        "Արդյունք",
-                        "Նորմա ըստ սեռի և տարիքի",
-                        "Միավոր"
+                        t('common:res_code'),
+                        t('common:res_name'),
+                        t('common:res_value'),
+                        t('common:res_norma'),
+                        t('common:res_unit')
                     ],
                     body: [
                         res.code,
@@ -63,10 +65,10 @@ const AnalyzesResults = ({results}) => {
                         table: {
                             head: [
                                 "№",
-                                "Անվանում",
-                                "Արդյունք",
-                                "Նորմա ըստ սեռի և տարիքի",
-                                "Միավոր"
+                                t('common:res_name'),
+                                t('common:res_value'),
+                                t('common:res_norma'),
+                                t('common:res_unit')
                             ],
                             body: [
                                 complex.ID_test,
