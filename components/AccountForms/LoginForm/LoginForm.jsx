@@ -20,7 +20,7 @@ import RequiredFields from "../../Alerts/RequiredFields/RequiredFields";
 
 const LoginForm = () => {
     const {t} = useTranslation()
-    const nameRegex = /^[A-Za-z]+$/;
+    const nameRegex = /^([^1-9]*^[A-Za-z]+$)$/;
 
     const schema = Yup.object().shape({
         username: Yup.string().matches(nameRegex, "Only English letters").required(t('errors:login_error')),
