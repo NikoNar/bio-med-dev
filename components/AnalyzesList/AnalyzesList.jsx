@@ -12,10 +12,8 @@ import InnerSlider from "../InnerSlider/InnerSlider";
 import ALStyle from './analyzes-lst.module.scss'
 import {useRouter} from "next/router";
 import NextPrevPagination from "../Pagination/NextPrevPagination/NextPrevPagination";
-import Pagination from "../Pagination/Pgination";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
-
 
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCount, totalPages}) => {
@@ -32,17 +30,9 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
     const [tabIndex, setTabIndex] = useState(0);
     const [activeFilterId, setActiveFilterID] = useState()
     const [totalPagesCount, setTotalPagesCount] = useState()
+    const ref = useRef(null)
     //const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
-   /* useLayoutEffect(()=>{
-        window.addEventListener("resize", ()=>{
-            if(ref.current){
-                setTimeout(()=>{
-                    console.log(ref.current.clientHeight);
-                    setHeight(ref.current.clientHeight)
-                },200)
-            }
-        });
-    },[])*/
+
     useEffect(() => {
         setTabIndex(0)
         setPage(1)
@@ -50,6 +40,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
         setAllByFilterCategories(allCategories)
         setTotalPagesCount(totalPages)
     }, [loc, router])
+
 
 
     async function fetchTestWithPage (page){
@@ -76,9 +67,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
             `&parent=${tabName}&page=${page}&per_page=100`)
-            .then(res => {
-                return res.json()
-            })
+            .then(res => res.json())
             .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
@@ -152,7 +141,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
                 return res.json()
             })
             .then(data => data)
-        console.log(filteredTest)
+
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
@@ -211,7 +200,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
                                                                         className={'_icon-chevrone-down'}
                                                                         onClick={() => setIsOpen(!isOpen)}
                                                                     > </span>
-                                                                    <ul>
+                                                                    <ul ref={ref} className={'cat_list'}>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
                                                                                 id={'on_sale'}

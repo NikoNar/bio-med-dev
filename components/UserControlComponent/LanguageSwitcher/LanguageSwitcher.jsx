@@ -43,6 +43,10 @@ const LanguageSwitcher = () => {
     const handleChange = (e) => {
         const locale = e.value;
         setSelectedValue(locale);
+        localStorage.removeItem('searchResults')
+        localStorage.removeItem('searchKeyWord')
+        localStorage.removeItem('resultsCount')
+        localStorage.removeItem('pagesCount')
         router.push(router.asPath, router.asPath, { locale }).then();
         if(cookie.NEXT_LOCALE !== locale){
             setCookie("NEXT_LOCALE", locale);

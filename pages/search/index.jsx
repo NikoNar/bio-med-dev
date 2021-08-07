@@ -1,33 +1,46 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {useSelector} from "react-redux";
+import React, {useEffect, useState} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import SearchStyle from './search.module.scss'
 import useTranslation from "next-translate/useTranslation";
-import {parseCookies} from "nookies";
 import {useRouter} from "next/router";
-import Pagination from "../../components/Pagination/Pgination";
 import {searchUrl} from "../../utils/url";
 import NextPrevPagination from "../../components/Pagination/NextPrevPagination/NextPrevPagination";
 
-const Search = ({loc, limit, start, page}) => {
+
+const Search = ({loc, start, page}) => {
+
     const {t} = useTranslation()
     const [res, setRes] = useState([])
     const [word, setWord] = useState('')
+    const [resCount, setResCount] = useState()
+    const [resPagesCount, setResPagesCount] = useState()
+
     const router = useRouter()
     const [searchData, setSearchData] = useState('')
     const [pages, setPages] = useState(page)
+
     useEffect(()=>{
         const keyWordJson = localStorage.getItem('searchKeyWord')
         const keyWord = keyWordJson ? JSON.parse(keyWordJson) : ''
+
         const resultsJson = localStorage.getItem('searchResults')
         const results = resultsJson ? JSON.parse(resultsJson) : []
+
+        const resultsCountJson = localStorage.getItem('resultsCount')
+        const resultsCount = resultsCountJson ? JSON.parse(resultsCountJson) : 0
+
+        const resultsPagesJson = localStorage.getItem('pagesCount')
+        const resultsPages = resultsPagesJson ? JSON.parse(resultsPagesJson) : 0
+
+
+
         setRes(results)
         setWord(keyWord)
-        if (router.locale){
-            localStorage.removeItem('searchResults')
-            localStorage.removeItem('searchKeyWord')
-        }
+        setResCount(resultsCount)
+        setResPagesCount(resultsPages)
     }, [t])
+
+    console.log(res);
 
     const prevSearchResults = async ()=>{
         setPages(pages - 1)
@@ -72,7 +85,7 @@ const Search = ({loc, limit, start, page}) => {
                 </div>
                 <div className={'row'}>
                     <p>{t('common:you_were_looking_for')} <strong style={{color: '#ff0000'}}>{word}</strong></p>
-                    <p>{t('common:results')} <strong style={{color: '#ff0000'}}>{res && res.length > 0 ? res.length : '0'}</strong></p>
+                    <p>{t('common:results')} <strong style={{color: '#ff0000'}}>{resCount && resCount > 0 ? resCount : '0'}</strong></p>
                     {
                         res ? res.map((res) => {
                             return (
@@ -89,7 +102,7 @@ const Search = ({loc, limit, start, page}) => {
                     }
                 </div>
                 {
-                    res.length >= 10 ? <NextPrevPagination nextSearchResults={nextSearchResults} prevSearchResults={prevSearchResults} page={pages} res={res} t={t}/> : null
+                    resPagesCount > 1 ? <NextPrevPagination nextSearchResults={nextSearchResults} prevSearchResults={prevSearchResults} page={pages} res={res} t={t} totalPages={resPagesCount}/> : null
                 }
             </div>
         </section>
@@ -101,8 +114,6 @@ export default Search;
 export async function getServerSideProps({query: {page = 1}}){
     const start = page === 1 ? 0 : (page - 1) * 10
     const limit = 10
-
-
 
     return{
         props:{

@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import {makeSearch} from "../../../redux/actions/searchAction";
 import HeaderStyle from "../../Header/header.module.scss";
 import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import {useDispatch} from "react-redux";
 import {searchUrl} from "../../../utils/url";
-import {setCookie} from "nookies";
 
-const Search = ({setIsOpen, loc, pageProps}) => {
+
+const Search = ({loc}) => {
     const {t} = useTranslation()
-    const dispatch = useDispatch()
 
     const [searchData, setSearchData] = useState('')
     const router = useRouter()
@@ -20,11 +17,18 @@ const Search = ({setIsOpen, loc, pageProps}) => {
 
     const handleSearchSubmit = async (e)=>{
         e.preventDefault()
-        //dispatch(makeSearch(searchData, loc, setIsOpen))
         await fetch(`${searchUrl}&lang=${loc}&search=${searchData}`, {
             method: 'GET'
         })
-            .then(res=>res.json())
+            .then(res=> {
+                const totalSearchResults = res.headers.get('x-wp-total')
+                const totalPages = res.headers.get('x-wp-totalpages')
+                const results = JSON.stringify(totalSearchResults)
+                const pages = JSON.stringify(totalPages)
+                localStorage.setItem('resultsCount', results)
+                localStorage.setItem('pagesCount', pages)
+                return res.json()
+            })
             .then(data=>{
                 const results = JSON.stringify(data)
                 const word = JSON.stringify(searchData)
