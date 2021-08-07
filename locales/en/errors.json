@@ -1,8 +1,8 @@
 {
   "enter_email": "Enter your email",
   "email_format_error": "The entered email address must be in the following format (test@test.am)",
-  "password_min_error": "The password must contain min 4 characters",
-  "password_max_error": "The password must contain a maximum of 10 characters",
+  "password_min_error": "The password must contain min 6 characters",
+  "password_max_error": "The password must contain a maximum of 16 characters",
   "name_format_error": "The name must contain only letters",
   "name_error": "Enter your first and last name",
   "gender_error": "Choose your gender",

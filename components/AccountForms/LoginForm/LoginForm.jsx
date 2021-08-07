@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     const schema = Yup.object().shape({
         username: Yup.string().matches(nameRegex, "Only English letters").required(t('errors:login_error')),
-        password: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required()
+        password: Yup.string().min(6, t('errors:password_min_error')).max(16, t('errors:password_max_error')).required()
     })
 
     const [isOpen, setIsOpen] = useState(false)

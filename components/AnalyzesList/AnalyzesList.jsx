@@ -45,7 +45,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setPage(1)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
-        console.log(mainCategory)
     }, [loc, router])
 
 

@@ -18,12 +18,12 @@ const RegisterForm = ({security, currentUser}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
     const registerSchema = Yup.object().shape({
-        first_name: Yup.string().matches(/^([^1-9]*^[A-Za-z]+$)$/, t('errors:language_error')).required(t('errors:name_error')),
+        first_name: Yup.string().matches(/^([^1-9]*)$/).required(t('errors:name_error')),
         registerGender: Yup.string().nullable(true).required(t('errors:gender_error')),
         registerDate: Yup.string().required(t('errors:birthday_error')),
         email: Yup.string().matches(nameRegex, t('errors:language_error')).email(t('errors:email_format_error')).required(t('errors:enter_email')),
         registerPhone: Yup.string().required(t('errors:phone_error')),
-        password: Yup.string().min(4, t('errors:password_min_error')).max(10, t('errors:password_max_error')).required(),
+        password: Yup.string().min(6, t('errors:password_min_error')).max(16, t('errors:password_max_error')).required(),
         registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null], t('errors:confirm_password_error'))
     })
 
