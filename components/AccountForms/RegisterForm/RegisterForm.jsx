@@ -13,7 +13,8 @@ import {useRouter} from "next/router";
 
 
 const RegisterForm = ({security, currentUser}) => {
-    const nameRegex = /^[A-Za-z]+$/;
+    const nameRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     const {t} = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [resError, setResError] = useState('')
@@ -21,7 +22,7 @@ const RegisterForm = ({security, currentUser}) => {
         first_name: Yup.string().matches(/^([^1-9]*)$/).required(t('errors:name_error')),
         registerGender: Yup.string().nullable(true).required(t('errors:gender_error')),
         registerDate: Yup.string().required(t('errors:birthday_error')),
-        email: Yup.string().matches(nameRegex, t('errors:language_error')).email(t('errors:email_format_error')).required(t('errors:enter_email')),
+        email: Yup.string().matches(nameRegex, t('errors:name_language_error')).email(t('errors:email_format_error')).required(t('errors:enter_email')),
         registerPhone: Yup.string().required(t('errors:phone_error')),
         password: Yup.string().min(6, t('errors:password_min_error')).max(16, t('errors:password_max_error')).required(),
         registerConfirmPassword: Yup.string().oneOf([Yup.ref('password'), null], t('errors:confirm_password_error'))

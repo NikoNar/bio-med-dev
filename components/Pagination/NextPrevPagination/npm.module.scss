@@ -4,12 +4,74 @@
     ul{
         display: flex;
         justify-content: center;
+        align-items: center;
         li{
             margin: 10px;
+            span{
+                font-size: 18px;
+                line-height: 27px;
+                font-weight: 500;
+                small{
+                    font-weight: 300;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+            }
             button{
-                background-color: $brand-blue;
+                background: none;
                 padding: 5px 10px;
                 text-transform: uppercase;
+                text-decoration: underline;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                color: $brand-blue;
+                position: relative;
+
+                &.Next{
+                    &:disabled{
+                        color: $brand-gray;
+                        &:before{
+                            border-right-color: $brand-gray;
+                            border-bottom-color: $brand-gray;
+                        }
+                    }
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        top: 13px;
+                        right: -8px;
+                        width: 8px;
+                        height: 8px;
+                        border-right: 3px solid #183042;
+                        border-bottom: 3px solid #183042;
+                        -webkit-transform: rotate(-45deg);
+                        -moz-transform: rotate(-45deg);
+                        transform: rotate(-45deg) translateY(-50%);
+                    }
+                }
+                &.Prev{
+                    &:disabled{
+                        color: $brand-gray;
+                        &:after{
+                            border-right-color: $brand-gray;
+                            border-bottom-color: $brand-gray;
+                        }
+                    }
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        top: 9px;
+                        left: -8px;
+                        width: 8px;
+                        height: 8px;
+                        border-right: 3px solid #183042;
+                        border-bottom: 3px solid #183042;
+                        -webkit-transform: rotate(-45deg);
+                        -moz-transform: rotate(-45deg);
+                        transform: rotate(-225deg) translateY(-50%);
+                    }
+                }
             }
         }
     }

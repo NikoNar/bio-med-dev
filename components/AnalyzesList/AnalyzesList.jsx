@@ -12,12 +12,13 @@ import InnerSlider from "../InnerSlider/InnerSlider";
 import ALStyle from './analyzes-lst.module.scss'
 import {useRouter} from "next/router";
 import NextPrevPagination from "../Pagination/NextPrevPagination/NextPrevPagination";
+import Pagination from "../Pagination/Pgination";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 
-const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
+const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCount, totalPages}) => {
     const [page, setPage] = useState(1)
     const router = useRouter()
     const {t} = useTranslation()
@@ -29,6 +30,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
     const [activeFilterId, setActiveFilterID] = useState()
+    const [totalPagesCount, setTotalPagesCount] = useState()
     //const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
    /* useLayoutEffect(()=>{
         window.addEventListener("resize", ()=>{
@@ -45,8 +47,29 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setPage(1)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
+        setTotalPagesCount(totalPages)
     }, [loc, router])
 
+
+    async function fetchTestWithPage (page){
+        page
+        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
+            .then(res=>res.json())
+            .then(data=>{
+                setAllAnalyzes(data)
+            })
+    }
+    async function fetchProductsByCategory(page, value){
+        const filteredTest = await fetch(analyzesUrl +
+            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}&page=${page}`)
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                return res.json()
+            })
+            .then(data => data)
+        setAllAnalyzes(filteredTest)
+    }
 
 
     const handleCategoryFilter = async (e, index) => {
@@ -56,14 +79,11 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         const name = e.target.id
         setActiveFilterID(+value)
         setFilterName(name)
-        const filteredTest = await fetch(analyzesUrl +
-            `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}&page=${page}`)
-            .then(res => res.json())
-            .then(data => data)
-        setAllAnalyzes(filteredTest)
         setIsOpen(false)
+        fetchProductsByCategory(1, value)
     }
     const handleMainCategoryName = async (e, page = 1) => {
+        setPage(1)
         const tabName = e.target.getAttribute("data-value")
         setMainCategory(tabName)
         setFilterName(null)
@@ -71,14 +91,21 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
             `&parent=${tabName}&page=${page}&per_page=100`)
-            .then(res => res.json())
+            .then(res => {
+                return res.json()
+            })
             .then(data => data)
 
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
             `&category=${tabName}&page=${page}`)
-            .then(res => res.json())
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                console.log(totalPagesCount);
+                return res.json()
+            })
             .then(data => data)
         setAllAnalyzes(currentCategoryTests)
         setAllByFilterCategories(tests)
@@ -92,7 +119,11 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
             `&category=${mainCategory}&order=asc`)
-            .then(res => res.json())
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                return res.json()
+            })
             .then(data => data)
 
         setAllAnalyzes(currentCategoryTests)
@@ -101,33 +132,33 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     const handleSaleFilter = async () => {
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&on_sale=true&${loc !== 'hy' ? `lang=${loc}` : ''}&category=${mainCategory}&order=asc`)
-            .then(res => res.json())
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                return res.json()
+            })
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
     const handleHomeCallFilter = async () => {
         const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc&page=${page}`)
-            .then(res => res.json())
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                return res.json()
+            })
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-    const handlePrevPageAnalyzes =  async ()=>{
+    const handlePrevPageAnalyzes =  ()=>{
         setPage(page - 1)
-        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
-            .then(res=>res.json())
-            .then(data=>{
-                setAllAnalyzes(data)
-            })
+        fetchTestWithPage(page - 1)
     }
-    const handleNextPageAnalyzes =  async ()=>{
+    const handleNextPageAnalyzes = ()=>{
         setPage(page + 1)
-        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
-            .then(res=>res.json())
-            .then(data=>{
-                setAllAnalyzes(data)
-            })
+        fetchTestWithPage(page + 1)
     }
 
 
@@ -252,7 +283,13 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                         </div>
                     </div>
                     {
-                        allAnalyzes.length >= 10 ? <NextPrevPagination nextSearchResults={handleNextPageAnalyzes} prevSearchResults={handlePrevPageAnalyzes} res={allAnalyzes} page={page}/> : null
+                        totalPagesCount && totalPagesCount > 1 ? <NextPrevPagination
+                            nextSearchResults={handleNextPageAnalyzes}
+                            prevSearchResults={handlePrevPageAnalyzes}
+                            res={allAnalyzes}
+                            page={page}
+                            totalPages={totalPagesCount}
+                        /> : null
                     }
                     <div className={'row mt-5'}>
                         <div className={'col-lg-12'}>
