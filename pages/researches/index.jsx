@@ -7,7 +7,7 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 
 
 
-const Analyzes = ({ analyzes, categories, allCategories, loc}) => {
+const Analyzes = ({ analyzes, categories, allCategories, loc, page}) => {
 
     return (
         <>
@@ -16,6 +16,7 @@ const Analyzes = ({ analyzes, categories, allCategories, loc}) => {
                 categories={categories}
                 allCategories={allCategories}
                 loc={loc}
+                page={page}
             />
         </>
     );
@@ -49,7 +50,8 @@ export async function getServerSideProps(ctx) {
         props: {
             analyzes,
             categories,
-            allCategories
+            allCategories,
+            page
         }
     }
 }

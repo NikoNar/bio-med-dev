@@ -8,10 +8,10 @@ const NextPrevPagination = ({prevSearchResults, nextSearchResults, page, res}) =
         <div className={NPStyle.Wrapper}>
             <ul>
                 <li>
-                    <button onClick={prevSearchResults} disabled={page<=1}>{t('common:next')}</button>
+                    <button onClick={()=>prevSearchResults()} disabled={page<=1}>{t('common:prev')}</button>
                 </li>
                 <li>
-                    <button onClick={nextSearchResults} disabled={res.length <= 0}>{t('common:prev')}</button>
+                    <button onClick={()=>nextSearchResults()} disabled={res.length <= 0}>{t('common:next')}</button>
                 </li>
             </ul>
         </div>

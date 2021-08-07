@@ -53,10 +53,10 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                         <div className={'col-lg-12'}>
                             <div className={SAnalyseStyle.Header}>
                                 <div className={SAnalyseStyle.Number}>
-                                    <p>№ <span>{singleAnalyse[0].sku}</span></p>
+                                    <p>№ <span>{singleAnalyse[0] ? singleAnalyse[0].sku : ''}</span></p>
                                 </div>
                                 <div className={SAnalyseStyle.Category}>
-                                    {singleAnalyse[0].name}
+                                    {singleAnalyse[0] ? singleAnalyse[0].name : ''}
                                 </div>
                             </div>
                         </div>
@@ -64,13 +64,13 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                     <div className={'row mb-5'}>
                         <div className={'col-lg-8'}>
                             <div className={SAnalyseStyle.Title}>
-                                {parse(singleAnalyse[0].description)}
+                                {parse(singleAnalyse[0] ? singleAnalyse[0].description : '')}
                             </div>
                         </div>
                         <div className={'col-lg-4'}>
                             <div className={SAnalyseStyle.Price}>
-                                <p style={{display: singleAnalyse[0].sale_price ? 'block': 'none'}}>{singleAnalyse[0].sale_price}<span className="_icon-amd"></span></p>
-                                <p className={singleAnalyse[0].sale_price ? SAnalyseStyle.OldPrice : ''}>{singleAnalyse[0].regular_price}<span className="_icon-amd"></span></p>
+                                <p style={{display: singleAnalyse[0] && singleAnalyse[0].sale_price ? 'block': 'none'}}>{singleAnalyse[0] && singleAnalyse[0].sale_price}<span className="_icon-amd"></span></p>
+                                <p className={singleAnalyse[0] && singleAnalyse[0].sale_price ? SAnalyseStyle.OldPrice : ''}>{singleAnalyse[0] && singleAnalyse[0].regular_price}<span className="_icon-amd"></span></p>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                                         <Tabs>
                                             <TabList className={SAnalyseStyle.TabList}>
                                                 {
-                                                    singleAnalyse[0].attributes && singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
+                                                    singleAnalyse[0] && singleAnalyse[0].attributes && singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
                                                         return (
                                                             <Tab selectedClassName={SAnalyseStyle.Selected} key={cont.name && cont.name}>
                                                                 <span>{cont.name.split('-').join(' ')}</span>
@@ -92,7 +92,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                                                 }
                                             </TabList>
                                             {
-                                                singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
+                                                singleAnalyse[0] && singleAnalyse[0].attributes.length > 0 && singleAnalyse[0].attributes.map((cont)=>{
                                                     return(
                                                         <TabPanel key={cont.position}>
                                                             <div className={SAnalyseStyle.InnerText}>
@@ -117,7 +117,7 @@ const SingleAnalyse = ({analyzes, contactInfo, singleAnalyse, categories, t, loc
                                     backgroundColor={backgroundColor}
                                     icon={false}
                                     callBack={
-                                        currentUser ? () => handleAddToCart({...singleAnalyse[0], userId: currentUser.id}) :
+                                        currentUser ? () => handleAddToCart(singleAnalyse[0]) :
                                             ()=>{router.push('/account')}
                                     }
                                 />

@@ -11,6 +11,7 @@ import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import InnerSlider from "../InnerSlider/InnerSlider";
 import ALStyle from './analyzes-lst.module.scss'
 import {useRouter} from "next/router";
+import NextPrevPagination from "../Pagination/NextPrevPagination/NextPrevPagination";
 
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
@@ -27,6 +28,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
     const [active, setActive] = React.useState(null);
     const [allAnalyzes, setAllAnalyzes] = useState(analyzes && analyzes)
     const [tabIndex, setTabIndex] = useState(0);
+    const [activeFilterId, setActiveFilterID] = useState()
     //const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
    /* useLayoutEffect(()=>{
         window.addEventListener("resize", ()=>{
@@ -45,20 +47,17 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllByFilterCategories(allCategories)
     }, [loc, router, mainCategory])
 
-    useMemo(async ()=>{
-        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${mainCategory}&order=asc`)
-            .then(res=>res.json())
-            .then(data=>{
-                setAllAnalyzes(data)
-            })
-    }, [page])
+
 
 
     const handleCategoryFilter = async (e, index) => {
+        setPage(1)
         setActive(index)
         const value = e.target.value
         const name = e.target.id
+        setActiveFilterID(+value)
         setFilterName(name)
+        console.log(page);
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}&page=${page}`)
             .then(res => res.json())
@@ -87,12 +86,14 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setAllByFilterCategories(tests)
     }
     const handleClearFilters = async () => {
+        setPage(1)
         setFilterName(null)
         setActive(null)
+
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
-            `&category=${mainCategory}&page=${page}`)
+            `&category=${mainCategory}&order=asc`)
             .then(res => res.json())
             .then(data => data)
 
@@ -108,19 +109,27 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         setIsOpen(false)
     }
     const handleHomeCallFilter = async () => {
-        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc`)
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc&page=${page}`)
             .then(res => res.json())
             .then(data => data)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
-
-    const handlePrevPageAnalyzes =  ()=>{
+    const handlePrevPageAnalyzes =  async ()=>{
         setPage(page - 1)
+        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
+            .then(res=>res.json())
+            .then(data=>{
+                setAllAnalyzes(data)
+            })
     }
-
-    const handleNextPageAnalyzes =  ()=>{
+    const handleNextPageAnalyzes =  async ()=>{
         setPage(page + 1)
+        await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
+            .then(res=>res.json())
+            .then(data=>{
+                setAllAnalyzes(data)
+            })
     }
 
     return (
@@ -243,6 +252,9 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                             }
                         </div>
                     </div>
+                    {
+                        allAnalyzes.length >= 10 ? <NextPrevPagination nextSearchResults={handleNextPageAnalyzes} prevSearchResults={handlePrevPageAnalyzes} res={allAnalyzes} page={page}/> : null
+                    }
                     <div className={'row mt-5'}>
                         <div className={'col-lg-12'}>
                             <div style={{textAlign: "left"}}>
@@ -256,14 +268,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                         </div>
                     </div>
                 </Tabs>
-                <ul>
-                    <li>
-                        <span onClick={handlePrevPageAnalyzes}>Prev</span>
-                    </li>
-                    <li>
-                        <span onClick={handleNextPageAnalyzes}>Next</span>
-                    </li>
-                </ul>
             </div>
         </section>
     );
