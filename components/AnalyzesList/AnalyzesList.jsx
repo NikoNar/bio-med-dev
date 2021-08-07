@@ -19,6 +19,7 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCount, totalPages}) => {
+
     const [page, setPage] = useState(1)
     const router = useRouter()
     const {t} = useTranslation()
@@ -70,23 +71,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
             .then(data => data)
         setAllAnalyzes(filteredTest)
     }
-
-
-    const handleCategoryFilter = async (e, index) => {
-        setPage(1)
-        setActive(index)
-        const value = e.target.value
-        const name = e.target.id
-        setActiveFilterID(+value)
-        setFilterName(name)
-        setIsOpen(false)
-        fetchProductsByCategory(1, value)
-    }
-    const handleMainCategoryName = async (e, page = 1) => {
-        setPage(1)
-        const tabName = e.target.getAttribute("data-value")
-        setMainCategory(tabName)
-        setFilterName(null)
+    async function fetchMainCategoryTests(tabName, page){
         const tests = await fetch(analyzesCategoryUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&order=asc` +
@@ -103,18 +88,47 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
             .then(res => {
                 const total = res.headers.get('x-wp-totalpages')
                 setTotalPagesCount(total)
-                console.log(totalPagesCount);
                 return res.json()
             })
             .then(data => data)
         setAllAnalyzes(currentCategoryTests)
         setAllByFilterCategories(tests)
     }
+    async function fetchHomeCallProducts(){
+        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc&page=${page}`)
+            .then(res => {
+                const total = res.headers.get('x-wp-totalpages')
+                setTotalPagesCount(total)
+                return res.json()
+            })
+            .then(data => data)
+        setAllAnalyzes(filteredTest)
+    }
+
+
+    const handleCategoryFilter = async (e, index) => {
+        setPage(1)
+        setActive(index)
+        const value = e.target.value
+        const name = e.target.id
+        setActiveFilterID(+value)
+        setFilterName(name)
+        setIsOpen(false)
+        fetchProductsByCategory(1, value)
+    }
+    const handleMainCategoryName = (e, page = 1) => {
+        setPage(1)
+        const tabName = e.target.getAttribute("data-value")
+        setMainCategory(tabName)
+        setFilterName(null)
+        setActive(null)
+        fetchMainCategoryTests(tabName, 1)
+
+    }
     const handleClearFilters = async () => {
         setPage(1)
         setFilterName(null)
         setActive(null)
-
         const currentCategoryTests = await fetch(analyzesUrl +
             `?${loc !== 'hy' ? `lang=${loc}` : ''}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}` +
@@ -138,18 +152,13 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
                 return res.json()
             })
             .then(data => data)
+        console.log(filteredTest)
         setAllAnalyzes(filteredTest)
         setIsOpen(false)
     }
     const handleHomeCallFilter = async () => {
-        const filteredTest = await fetch(`${analyzesUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&${loc !== 'hy' ? `lang=${loc}` : ''}&shipping_class=124&category=${mainCategory}&order=asc&page=${page}`)
-            .then(res => {
-                const total = res.headers.get('x-wp-totalpages')
-                setTotalPagesCount(total)
-                return res.json()
-            })
-            .then(data => data)
-        setAllAnalyzes(filteredTest)
+        setPage(1)
+        fetchHomeCallProducts()
         setIsOpen(false)
     }
     const handlePrevPageAnalyzes =  ()=>{

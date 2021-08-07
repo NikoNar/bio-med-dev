@@ -7,7 +7,7 @@ import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 import parse from 'html-react-parser';
 
 
-const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, loc, allCategories}) => {
+const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, loc, allCategories, totalPages}) => {
 
     return (
         <>
@@ -38,6 +38,7 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
                 analyzesLab={analyzesLab}
                 allCategories={allCategories}
                 loc={loc}
+                totalPages={totalPages}
             />
         </>
     );
@@ -46,11 +47,23 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
 
 export async function getServerSideProps(ctx) {
     resetIdCounter();
+    let totalAnalyzesCount
+    let totalPages
+    const page = ctx.query.page = 1
+    const start = page === 1 ? 0 : (page - 1) * 10
 
-    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
+    const categories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
+        .then(res => res.json())
+        .then(data => data)
+
+    const analyzes = await fetch( `${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}&offset=${start}&order=asc`, {
         method: 'GET',
     })
-        .then(res => res.json())
+        .then(res => {
+            totalAnalyzesCount =  res.headers.get('x-wp-total')
+            totalPages =  res.headers.get('x-wp-totalpages')
+            return res.json()
+        })
         .then(data => data)
 
     const homeCall = await fetch(`${callHomeUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`, {
@@ -59,9 +72,6 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-    const categories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
-        .then(res => res.json())
-        .then(data => data)
 
     const allCategories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=${categories[0] ? categories[0].id : ''}`)
         .then(res => res.json())
@@ -74,7 +84,8 @@ export async function getServerSideProps(ctx) {
             analyzes: analyzes,
             homeCall,
             categories,
-            allCategories
+            allCategories,
+            totalPages
         }
     }
 }
