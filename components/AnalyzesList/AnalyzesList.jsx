@@ -41,12 +41,12 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         });
     },[])*/
     useEffect(() => {
-        //setTabIndex(0)
+        setTabIndex(0)
         setPage(1)
         setAllAnalyzes(analyzes)
         setAllByFilterCategories(allCategories)
-    }, [loc, router, mainCategory])
-
+        console.log(mainCategory)
+    }, [loc, router])
 
 
 
@@ -57,7 +57,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
         const name = e.target.id
         setActiveFilterID(+value)
         setFilterName(name)
-        console.log(page);
         const filteredTest = await fetch(analyzesUrl +
             `?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${value}&${loc !== 'hy' ? `lang=${loc}` : ''}&page=${page}`)
             .then(res => res.json())
@@ -131,6 +130,7 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes}) => {
                 setAllAnalyzes(data)
             })
     }
+
 
     return (
         <section className={AnalyzesStyle.Main}>

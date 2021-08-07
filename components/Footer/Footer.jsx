@@ -74,9 +74,10 @@ const Footer = ({loc})=>{
                                 <ul>
                                     {
                                         footerLeftLinks.items ? footerLeftLinks.items.map((item)=>{
+
                                             return(
                                                 <li key={item.ID}>
-                                                    <Link href={item.post_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
+                                                    <Link href={item.post_parent == '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
                                                         <a>{item.title}</a>
                                                     </Link>
                                                 </li>
@@ -111,9 +112,10 @@ const Footer = ({loc})=>{
                                 <ul>
                                     {
                                         footerRightLinks.items ? footerRightLinks.items.map((item)=>{
+                                            console.log(item);
                                             return(
                                                 <li key={item.ID}>
-                                                    <Link href={item.post_parent === '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
+                                                    <Link href={item.post_parent == '0' ? `/${item.slug}` : `/page?title=${item.slug}`}>
                                                         <a>{item.title}</a>
                                                     </Link>
                                                 </li>
