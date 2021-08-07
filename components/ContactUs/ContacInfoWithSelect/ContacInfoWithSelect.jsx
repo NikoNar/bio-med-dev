@@ -90,7 +90,7 @@ const ContactInfoWithSelect = ({addresses, loc}) => {
                                 <PhoneIcon/>
                             </div>
                             <div className={CUWSStyle.Info}>
-                                <strong>{t('common:phone_short')}: <span className={CUWSStyle.InfoText}>{phone}</span></strong>
+                                <strong>{t('common:phone_short')}: <a href={`tel:${phone}`} className={CUWSStyle.InfoText}>{phone}</a></strong>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ const ContactInfoWithSelect = ({addresses, loc}) => {
                                 <EmailIcon/>
                             </div>
                             <div className={CUWSStyle.Info}>
-                                <strong>{t('common:email')}: <span className={CUWSStyle.InfoText}>{email}</span></strong>
+                                <strong>{t('common:email')}: <a href={`mailto:${email}`} className={CUWSStyle.InfoText}>{email}</a></strong>
                             </div>
                         </div>
                     </div>
