@@ -15,6 +15,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
     const {t} = useTranslation()
     const router = useRouter()
     const backgroundColor = 'linear-gradient(208deg,' + 'transparent 11px,' + '#52A4E3 0)'
+    const backgroundColorAdded = 'linear-gradient(208deg,' + 'transparent 11px,' + '#932322 0)'
     const orders = useSelector(state => state.orders)
 
     const currentUser = useSelector(state => state.currentUser)
@@ -104,7 +105,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                                 </Link>
                             </div>
                             <Button text={!inCart ? t('common:add_to_cart') : t('common:in_cart')}
-                                    backgroundColor={backgroundColor}
+                                    backgroundColor={!inCart ? backgroundColor : backgroundColorAdded}
                                     icon={icon}
                                     padding={'10px'}
                                     callBack={
