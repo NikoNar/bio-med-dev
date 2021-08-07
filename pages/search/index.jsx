@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import SearchStyle from './search.module.scss'
 import useTranslation from "next-translate/useTranslation";
@@ -7,20 +7,21 @@ import {searchUrl} from "../../utils/url";
 import NextPrevPagination from "../../components/Pagination/NextPrevPagination/NextPrevPagination";
 
 
-const Search = ({loc, start, page}) => {
-
+const Search = ({loc}) => {
     const {t} = useTranslation()
+    const router = useRouter()
+
+
     const [res, setRes] = useState([])
     const [word, setWord] = useState('')
     const [resCount, setResCount] = useState()
     const [resPagesCount, setResPagesCount] = useState()
 
-    const router = useRouter()
-    const [searchData, setSearchData] = useState('')
-    const [pages, setPages] = useState(page)
+    const [page, setPage] = useState(1)
 
-    useEffect(()=>{
-        setPages(1)
+
+
+    function getResults(){
 
         const keyWordJson = localStorage.getItem('searchKeyWord')
         const keyWord = keyWordJson ? JSON.parse(keyWordJson) : ''
@@ -34,43 +35,49 @@ const Search = ({loc, start, page}) => {
         const resultsPagesJson = localStorage.getItem('pagesCount')
         const resultsPages = resultsPagesJson ? JSON.parse(resultsPagesJson) : 0
 
-
-
         setRes(results)
         setWord(keyWord)
         setResCount(resultsCount)
         setResPagesCount(resultsPages)
-    }, [t])
-
-
-    async function fetchSearchResultsWithPage(page){
-        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${page}`, {
-            method: 'GET'
-        })
-            .then(res=>res.json())
-            .then(data=>{
-                const results = JSON.stringify(data)
-                const word = JSON.stringify(searchData)
-                localStorage.setItem('searchKeyWord', word)
-                localStorage.setItem('searchResults', results)
-                data && router.push('/search')
-            })
-        setSearchData('')
     }
 
 
+    useEffect(()=>{
+        setPage(1)
+        getResults()
+    }, [router])
+
+    async function fetchSearchResultsWithPage(page){
+
+        await fetch(`${searchUrl}&lang=${loc}&search=${word}&page=${page}`, {
+            method: 'GET'
+        })
+            .then(res=> {
+                const totalSearchResults = res.headers.get('x-wp-total')
+                const totalPages = res.headers.get('x-wp-totalpages')
+                setResPagesCount(totalPages)
+                setResCount(totalSearchResults)
+                setWord(word)
+                return res.json()
+            })
+            .then(data=>{
+                localStorage.removeItem('searchResults')
+                localStorage.removeItem('resultsCount')
+                localStorage.removeItem('pagesCount')
+                localStorage.removeItem('searchKeyWord')
+                setRes(data)
+            })
+    }
 
 
     const prevSearchResults = ()=>{
-        setPages(pages - 1)
-        fetchSearchResultsWithPage(pages - 1)
+        setPage(page - 1)
+        fetchSearchResultsWithPage(page - 1, word)
     }
-
     const nextSearchResults = ()=>{
-        setPages(pages + 1)
-        fetchSearchResultsWithPage(pages + 1)
+        setPage(page + 1)
+        fetchSearchResultsWithPage(page + 1, word)
     }
-
 
     return (
         <section className={SearchStyle.Search}>
@@ -92,14 +99,18 @@ const Search = ({loc, start, page}) => {
                             )
                         }) :
                             <div>
-                                <p>{t('common:nothing_was_found_for_your_search')}
-
-                                </p>
+                                <p>{t('common:nothing_was_found_for_your_search')}</p>
                             </div>
                     }
                 </div>
                 {
-                    resPagesCount > 1 ? <NextPrevPagination nextSearchResults={nextSearchResults} prevSearchResults={prevSearchResults} page={pages} res={res} t={t} totalPages={resPagesCount}/> : null
+                    resPagesCount > 1 ? <NextPrevPagination
+                        nextSearchResults={nextSearchResults}
+                        prevSearchResults={prevSearchResults}
+                        page={page}
+                        res={res} t={t}
+                        totalPages={resPagesCount}
+                    /> : null
                 }
             </div>
         </section>
@@ -107,17 +118,4 @@ const Search = ({loc, start, page}) => {
 };
 
 export default Search;
-
-export async function getServerSideProps({query: {page = 1}}){
-    const start = page === 1 ? 0 : (page - 1) * 10
-    const limit = 10
-
-    return{
-        props:{
-            start,
-            limit,
-            page: +page,
-        }
-    }
-}
 

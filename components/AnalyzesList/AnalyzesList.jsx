@@ -44,7 +44,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
 
 
     async function fetchTestWithPage (page){
-        page
         await fetch(`${analyzesUrl}?${loc !== 'hy' ? `lang=${loc}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&page=${page}&category=${!activeFilterId ? mainCategory : null},${activeFilterId}&order=asc`)
             .then(res=>res.json())
             .then(data=>{

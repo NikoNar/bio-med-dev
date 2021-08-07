@@ -17,7 +17,7 @@ const Search = ({loc}) => {
 
     const handleSearchSubmit = async (e)=>{
         e.preventDefault()
-        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}`, {
+        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&page=1`, {
             method: 'GET'
         })
             .then(res=> {
