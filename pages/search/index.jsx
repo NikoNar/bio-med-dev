@@ -20,6 +20,8 @@ const Search = ({loc, start, page}) => {
     const [pages, setPages] = useState(page)
 
     useEffect(()=>{
+        setPages(1)
+
         const keyWordJson = localStorage.getItem('searchKeyWord')
         const keyWord = keyWordJson ? JSON.parse(keyWordJson) : ''
 
@@ -40,11 +42,9 @@ const Search = ({loc, start, page}) => {
         setResPagesCount(resultsPages)
     }, [t])
 
-    console.log(res);
 
-    const prevSearchResults = async ()=>{
-        setPages(pages - 1)
-        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${pages}`, {
+    async function fetchSearchResultsWithPage(page){
+        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${page}`, {
             method: 'GET'
         })
             .then(res=>res.json())
@@ -58,20 +58,17 @@ const Search = ({loc, start, page}) => {
         setSearchData('')
     }
 
-    const nextSearchResults = async ()=>{
+
+
+
+    const prevSearchResults = ()=>{
+        setPages(pages - 1)
+        fetchSearchResultsWithPage(pages - 1)
+    }
+
+    const nextSearchResults = ()=>{
         setPages(pages + 1)
-        await fetch(`${searchUrl}&lang=${loc}&search=${searchData}&offset=${start}&page=${pages}`, {
-            method: 'GET'
-        })
-            .then(res=>res.json())
-            .then(data=>{
-                const results = JSON.stringify(data)
-                const word = JSON.stringify(searchData)
-                localStorage.setItem('searchKeyWord', word)
-                localStorage.setItem('searchResults', results)
-                data && router.push('/search')
-            })
-        setSearchData('')
+        fetchSearchResultsWithPage(pages + 1)
     }
 
 

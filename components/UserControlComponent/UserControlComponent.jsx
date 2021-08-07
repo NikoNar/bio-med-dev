@@ -5,7 +5,7 @@ import LanguageSwitcher from "./LanguageSwitcher/LanguageSwitcher";
 import BagIconComponent from "./BagIconComponent/BagIconComponent";
 
 
-const UserControlComponent = ({user, orders, setIsOpen}) => {
+const UserControlComponent = ({user, orders, setIsOpen, pageProps}) => {
     return (
         <div className={HeaderStyle.Search}>
             <div className={HeaderStyle.UserControl}>

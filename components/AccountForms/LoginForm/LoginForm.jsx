@@ -23,7 +23,7 @@ const LoginForm = () => {
     const nameRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     const schema = Yup.object().shape({
-        username: Yup.string().matches(nameRegex, t('errors:name_language_error')).required(t('errors:login_error')),
+        username: Yup.string().matches(nameRegex, t('errors:language_error')).required(t('errors:login_error')),
         password: Yup.string().min(6, t('errors:password_min_error')).max(16, t('errors:password_max_error')).required()
     })
 

@@ -4,8 +4,7 @@ import SelectBox from "../../SelectBox/SelectBox";
 import {useRouter} from "next/router";
 import {useCookies} from "react-cookie";
 
-const LanguageSwitcher = () => {
-
+const LanguageSwitcher = ({pageProps}) => {
     const router = useRouter()
     const {locale} = router
 
