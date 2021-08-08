@@ -6,7 +6,7 @@ import {getSearchResults} from "../../../redux/actions/searchAction";
 import {useDispatch} from "react-redux";
 
 
-const Search = ({loc}) => {
+const Search = ({loc, setIsOpen}) => {
     const {t} = useTranslation()
 
     const [searchData, setSearchData] = useState('')
@@ -26,6 +26,7 @@ const Search = ({loc}) => {
         dispatch(getSearchResults(loc, searchData, 1))
         router.push('/search').then()
         setSearchData('')
+        setIsOpen(false)
     }
 
 

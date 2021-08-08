@@ -123,21 +123,24 @@
           &.HasChild {
             position: relative;
             padding-right: 30px;
-
-            &:before {
-              content: '';
-              display: inline-block;
+            ul{
+              height: 0;
+              overflow: hidden;
+              padding: 0;
+            }
+            &.Open{
+              ul{
+                height: auto;
+                padding: 20px;
+              }
+            }
+            span{
+              font-family: 'icons';
+              font-size: 10px;
               position: absolute;
-              top: 50%;
-              right: 20px;
-              transform: translateY(-50%);
-              font-size: 8px;
-              width: 12px;
-              height: 8px;
-              background-image: url("/images/icons/chevron-down.svg");
-              background-size: cover;
-              background-position: center;
-              background-repeat: no-repeat;
+              right: 19px;
+              top: 17px;
+              z-index: 10;
             }
           }
 
@@ -148,6 +151,14 @@
             display: block;
           }
         }
+      }
+    }
+    .ResButton{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a{
+        background: linear-gradient(208deg, transparent 11px, #183042 0);
       }
     }
   }

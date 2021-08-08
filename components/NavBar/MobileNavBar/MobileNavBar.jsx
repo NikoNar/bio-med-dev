@@ -8,16 +8,27 @@ import CloseIcon from "../../SVGIcons/CloseIcon/CloseIcon";
 import {switchMobileNavBarState} from "../../../redux/actions/setNavBarStateAction";
 import Search from "../../UserControlComponent/Search/Search";
 import UserControlComponent from "../../UserControlComponent/UserControlComponent";
+import NavStyle from "../navigation.module.scss";
+import DropDownNavBarInner from "../SubLinks/DropDownNavBarInner";
+import {useRouter} from "next/router";
+import LinkButton from "../../LinkButton/LinkButton";
+import useTranslation from "next-translate/useTranslation";
 
 
 const MobileNavBar = ({pages, loc}) => {
-
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
     const orders = useSelector(state=>state.orders)
     const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
+    const [subNavOpen, setSubNavOpen] = useState(false)
 
-
+    const openSubNavBar = (e)=>{
+        e.stopPropagation()
+        setSubNavOpen(!subNavOpen)
+        console.log('Boom')
+    }
     useEffect(()=>{
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -25,22 +36,19 @@ const MobileNavBar = ({pages, loc}) => {
             document.body.style.overflow = 'unset';
         }
     }, [isOpen])
-
-
-
     const handleOpen = (state)=>{
         dispatch(switchMobileNavBarState(state))
         setIsOpen(!isOpen)
     }
-
     const closeSideBar = ()=>{
         setTimeout(()=>{
             setIsOpen(false)
         },3000)
     }
 
+
     return (
-        <header className={MNStyle.Mobile}>
+        <div className={MNStyle.Mobile}>
             <div className={MNStyle.Wrapper}>
                <Logo/>
                <div className={MNStyle.Burger}>
@@ -58,22 +66,28 @@ const MobileNavBar = ({pages, loc}) => {
                     <nav>
                         <ul>
                             {
-                                pages.items ? pages.items.map((p, index)=>{
-                                    return <li className={ p.subLinks ? MNStyle.HasChild : null } key={index} onClick={()=>{
-                                        closeSideBar()
-                                    }}>
-                                        <Link href={`/${p.slug}`}>
-                                            <a>{p.title}</a>
-                                        </Link>
-                                    </li>
-                                }) : ''
+                                pages.items && pages.items.map((item)=>{
+                                    return(
+                                        <li key={item.ID} className={ item.child_items && subNavOpen ? MNStyle.HasChild + ' ' + MNStyle.Open : item.child_items && !subNavOpen ? MNStyle.HasChild : null} onClick={()=>closeSideBar()}>
+                                            {item.child_items ? <span className={'_icon-chevrone-down'} onClick={(e)=>openSubNavBar(e)}></span> : null}
+                                            <Link href={item.slug && item.menu_item_parent === '0' ? `/${item.slug}` : !item.slug  ? '/' : `/page?title=${item.slug}`} activeClassName="active">
+                                                <a className={router.asPath === `/${item.slug}` ? NavStyle.Active : " "}>
+                                                    {item.title}
+                                                </a>
+                                            </Link>
+                                            <DropDownNavBarInner subLink={item.child_items ? item.child_items : null}/>
+                                        </li>
+                                    )
+                                })
                             }
                         </ul>
                     </nav>
                 </div>
+                <div className={MNStyle.ResButton} onClick={()=>closeSideBar()}>
+                    <LinkButton text={t('common:analyzes_results')} link={'/results'}/>
+                </div>
             </div>
-
-        </header>
+        </div>
     );
 };
 
