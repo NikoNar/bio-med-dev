@@ -1,18 +1,19 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AnalyzesCard from "../../components/AnalyzesCard/AnalyzesCard";
 import SearchStyle from './search.module.scss'
 import useTranslation from "next-translate/useTranslation";
 import {useRouter} from "next/router";
-import {searchUrl} from "../../utils/url";
 import NextPrevPagination from "../../components/Pagination/NextPrevPagination/NextPrevPagination";
+import {useDispatch, useSelector} from "react-redux";
+import {getSearchResults} from "../../redux/actions/searchAction";
 
 
 const Search = ({loc}) => {
     const {t} = useTranslation()
     const router = useRouter()
+    const dispatch = useDispatch()
+    const sr = useSelector(state=>state.search)
 
-
-    const [res, setRes] = useState([])
     const [word, setWord] = useState('')
     const [resCount, setResCount] = useState()
     const [resPagesCount, setResPagesCount] = useState()
@@ -22,12 +23,8 @@ const Search = ({loc}) => {
 
 
     function getResults(){
-
         const keyWordJson = localStorage.getItem('searchKeyWord')
         const keyWord = keyWordJson ? JSON.parse(keyWordJson) : ''
-
-        const resultsJson = localStorage.getItem('searchResults')
-        const results = resultsJson ? JSON.parse(resultsJson) : []
 
         const resultsCountJson = localStorage.getItem('resultsCount')
         const resultsCount = resultsCountJson ? JSON.parse(resultsCountJson) : 0
@@ -35,38 +32,22 @@ const Search = ({loc}) => {
         const resultsPagesJson = localStorage.getItem('pagesCount')
         const resultsPages = resultsPagesJson ? JSON.parse(resultsPagesJson) : 0
 
-        setRes(results)
-        setWord(keyWord)
+        setWord(keyWord && keyWord)
         setResCount(resultsCount)
         setResPagesCount(resultsPages)
     }
 
+    useEffect(()=>{
+        getResults()
+    },[sr])
+
 
     useEffect(()=>{
         setPage(1)
-        getResults()
     }, [router])
 
     async function fetchSearchResultsWithPage(page){
-
-        await fetch(`${searchUrl}&lang=${loc}&search=${word}&page=${page}`, {
-            method: 'GET'
-        })
-            .then(res=> {
-                const totalSearchResults = res.headers.get('x-wp-total')
-                const totalPages = res.headers.get('x-wp-totalpages')
-                setResPagesCount(totalPages)
-                setResCount(totalSearchResults)
-                setWord(word)
-                return res.json()
-            })
-            .then(data=>{
-                localStorage.removeItem('searchResults')
-                localStorage.removeItem('resultsCount')
-                localStorage.removeItem('pagesCount')
-                localStorage.removeItem('searchKeyWord')
-                setRes(data)
-            })
+        dispatch(getSearchResults(loc, word, page))
     }
 
 
@@ -91,7 +72,7 @@ const Search = ({loc}) => {
                     <p>{t('common:you_were_looking_for')} <strong style={{color: '#ff0000'}}>{word}</strong></p>
                     <p>{t('common:results')} <strong style={{color: '#ff0000'}}>{resCount && resCount > 0 ? resCount : '0'}</strong></p>
                     {
-                        res ? res.map((res) => {
+                        sr ? sr.map((res) => {
                             return (
                                 <div className={'col-lg-12 mb-5'} key={Math.random()}>
                                     <AnalyzesCard inner={res} id={res.id}/>
@@ -108,7 +89,8 @@ const Search = ({loc}) => {
                         nextSearchResults={nextSearchResults}
                         prevSearchResults={prevSearchResults}
                         page={page}
-                        res={res} t={t}
+                        res={sr}
+                        t={t}
                         totalPages={resPagesCount}
                     /> : null
                 }

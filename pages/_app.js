@@ -18,7 +18,6 @@ import I18nProvider from 'next-translate/I18nProvider'
 import useTranslation from "next-translate/useTranslation";
 import NProgress from 'nprogress';
 import Router from "next/router";
-import parse from "html-react-parser";
 
 
 

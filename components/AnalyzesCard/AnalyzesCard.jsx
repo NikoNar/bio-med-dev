@@ -98,11 +98,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                     <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>
                         <div className={AStyle.Options}>
                             <div className={AStyle.Emergency}>
-                                <Link href={'/'}>
-                                    <a>
-                                        {inner.shipping_class === `home-call` ? <EmergencyIcon/> : null}
-                                    </a>
-                                </Link>
+                                {inner.shipping_class === `home-call` ? <EmergencyIcon/> : null}
                             </div>
                             <Button text={!inCart ? t('common:add_to_cart') : t('common:in_cart')}
                                     backgroundColor={!inCart ? backgroundColor : backgroundColorAdded}
