@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import {resetIdCounter} from "react-tabs";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
@@ -41,7 +41,9 @@ export async function getServerSideProps(ctx) {
 
 
     const allCategories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&per_page=100&parent=${categories[0] ? categories[0].id : ''}`)
-        .then(res => res.json())
+        .then(res => {
+            return res.json()
+        })
         .then(data => data)
 
     const analyzes = await fetch( `${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}&offset=${start}&order=asc`, {
@@ -53,7 +55,7 @@ export async function getServerSideProps(ctx) {
             return res.json()
         })
         .then(data => data)
-    const totalNumberOfAnalyzes = analyzes.length
+
 
     return {
         props: {
@@ -68,3 +70,5 @@ export async function getServerSideProps(ctx) {
 }
 
 export default Analyzes;
+
+

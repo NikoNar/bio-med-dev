@@ -16,7 +16,10 @@ import NextPrevPagination from "../Pagination/NextPrevPagination/NextPrevPaginat
 const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 
-const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCount, totalPages}) => {
+const AnalyzesList = ({categories, loc, allCategories, analyzes, totalPages}) => {
+
+
+
 
     const [page, setPage] = useState(1)
     const router = useRouter()
@@ -32,6 +35,17 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
     const [totalPagesCount, setTotalPagesCount] = useState()
     const ref = useRef(null)
     //const popular = allAnalyzes.filter((o) => o.tags.some(t => t.name === 'popular'))
+    const [height, setHeight] = useState(null)
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            const current = ref.current
+            //console.log(current.offsetHeight);
+            setHeight(current.offsetHeight)
+        },3000)
+    },[mainCategory])
+
+    console.log(height);
 
     useEffect(() => {
         setTabIndex(0)
@@ -163,6 +177,8 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
     }
 
 
+
+
     return (
         <section className={AnalyzesStyle.Main}>
             <div className={'container'}>
@@ -199,10 +215,10 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalAnalyzesCo
                                                         <div className={'row'}>
                                                             <div className={'col-lg-12'}>
                                                                 <div className={isOpen ? AnalyzesStyle.Open + ' ' + AnalyzesStyle.Tags : AnalyzesStyle.Tags}>
-                                                                    <span
+                                                                    {height && height > 47 ? <span
                                                                         className={'_icon-chevrone-down'}
                                                                         onClick={() => setIsOpen(!isOpen)}
-                                                                    > </span>
+                                                                        > </span> : null }
                                                                     <ul ref={ref} className={'cat_list'}>
                                                                         <li className={AnalyzesStyle.Event}>
                                                                             <input
