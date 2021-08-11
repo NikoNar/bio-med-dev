@@ -45,7 +45,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalPages}) =>
         },3000)
     },[mainCategory])
 
-    console.log(height);
 
     useEffect(() => {
         setTabIndex(0)
