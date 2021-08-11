@@ -94,6 +94,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         }),
     }
 
+    console.log(user);
+
     /*Total Price Calculating*/
     const homeCallPrice = 5000
     const [totalPrice, setTotalPrice] = useState('0')
@@ -105,6 +107,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
     const [defaultCountry, setDefaultCountry] = useState(t('common:armenia'))
     const [paymentMethod, setPaymentMethod] = useState('')
     const [error, setError] = useState(false)
+    const [linkText, setLinkText] = useState('')
     let calculateOrderItemsTotalPrice = '0'
 
 
@@ -193,6 +196,11 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         if(paymentMethod === ''){
             setIsOpen(true)
             setText(t('common:payment_error_message'))
+        }
+        if(!user){
+            setIsOpen(true)
+            setText(t('common:confirm_order_message'))
+            setLinkText(t('common:account_link'))
         }else{
             await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
                 method: 'POST',
@@ -272,32 +280,36 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 }
             ]
         }
-        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data=>{
-                if (paymentMethod === 'cod'){
-                    setIsOpen(true)
-                    setText(t('common:checkout_success_message'))
-                    return data
-                }
-                if (paymentMethod === 'acba_gateway'){
-                    handleSubmitWithAcba(data)
-                }
+        if(user){
+            await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-            .then(()=> homeCallReset({}))
+                .then(res => res.json())
+                .then(data=>{
+                    if (paymentMethod === 'cod'){
+                        setIsOpen(true)
+                        setText(t('common:checkout_success_message'))
+                        return data
+                    }
+                    if (paymentMethod === 'acba_gateway'){
+                        handleSubmitWithAcba(data)
+                    }
+                })
+                .then(()=> homeCallReset({}))
+        }else{
+            setIsOpen(true)
+            setText(t('common:confirm_order_message'))
+            setLinkText(t('common:account_link'))
+        }
     }
     const handlePaymentMethod = (e)=>{
         setPaymentMethod(e.target.value)
     }
     const getUserOrderStatus = async (id, orderId)=>{
-        console.log('order_id', id);
-        console.log('orderId', orderId);
         /*const data = new FormData();
         data.append("order_id", id);
         data.append("orderId", orderId);*/
@@ -353,7 +365,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
 
     return (
         <>
-            <ModalComponent isOpen={isOpen} text={text} callBack={()=>setIsOpen(false)} error={error}/>
+            <ModalComponent isOpen={isOpen} text={text} callBack={()=>setIsOpen(false)} error={error} link={'/account'} user={user} linkText={linkText}/>
             <Tabs>
                 <TabList className={TabStyle.TabList}>
                     <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:reserve')}/></Tab>

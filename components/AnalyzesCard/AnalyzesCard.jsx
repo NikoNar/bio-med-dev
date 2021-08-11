@@ -25,12 +25,14 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
     const [prod, setProd] = useState({})
     const [buttonText, setButtonText] = useState(t('common:add_to_cart'))
     const [inCart, setInCart] = useState(false)
+    const [linkText, setLinkText] = useState('')
 
 
     const handleAddToCart = (data) => {
         if (!inCart){
             setProd(data);
             dispatch(addItemToCart(data, setIsOpen))
+            setLinkText(t('common:cart_link'))
         }
         if(inCart){
             dispatch(removeCartItem(id))
@@ -62,6 +64,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                 text={`${prod.name}` + ' ' + t('common:add_to_card_message')}
                 t={t}
                 link={`${router.locale}/cart`}
+                linkText={linkText}
             />
             <div className={AStyle.Item}>
                 <div className={'row'}>
@@ -104,12 +107,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                                     backgroundColor={!inCart ? backgroundColor : backgroundColorAdded}
                                     icon={icon}
                                     padding={'10px'}
-                                    callBack={
-                                        currentUser ? () => handleAddToCart({...inner}, text) :
-                                            () => {
-                                                router.push('/account')
-                                            }
-                                    }
+                                    callBack={()=>handleAddToCart({...inner}, text)}
                             />
                         </div>
                     </div>

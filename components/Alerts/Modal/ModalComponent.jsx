@@ -12,7 +12,7 @@ const customStyles = {
     overlay: {zIndex: 1000}
 };
 
-const ModalComponent = ({error, callBack, isOpen, text, link, hasError}) => {
+const ModalComponent = ({error, callBack, isOpen, text, link, hasError, user, linkText}) => {
 
     const {t} = useTranslation()
     const router = useRouter()
@@ -23,7 +23,7 @@ const ModalComponent = ({error, callBack, isOpen, text, link, hasError}) => {
             style={customStyles}
         >
             <p>{error ? parse(error) : text}</p>
-            <div>{link ? <span onClick={()=>router.push(link)}>{t('common:cart_link')}</span> : ''}</div>
+            <div>{link ? <span onClick={()=>router.push(link)}>{linkText}</span> : ''}</div>
             <button onClick={callBack}
                     className={error || hasError ? ModalStyle.ErrorBtn : ModalStyle.SuccessBtn}>{error ? 'X' : 'OK'}</button>
         </Modal>
