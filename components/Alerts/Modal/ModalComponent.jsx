@@ -13,7 +13,6 @@ const customStyles = {
 };
 
 const ModalComponent = ({error, callBack, isOpen, text, link, hasError, user, linkText}) => {
-
     const {t} = useTranslation()
     const router = useRouter()
     return (

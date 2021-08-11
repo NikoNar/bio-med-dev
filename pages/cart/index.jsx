@@ -75,6 +75,7 @@ const Cart = ({contactInfo, token, researches, loc}) => {
                                                     inner={o}
                                                     icon={true}
                                                     index={index}
+                                                    id={o.id}
                                                 />
                                             </div>
                                         )

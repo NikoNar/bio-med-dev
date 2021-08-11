@@ -94,7 +94,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         }),
     }
 
-    console.log(user);
 
     /*Total Price Calculating*/
     const homeCallPrice = 5000
@@ -365,7 +364,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
 
     return (
         <>
-            <ModalComponent isOpen={isOpen} text={text} callBack={()=>setIsOpen(false)} error={error} link={'/account'} user={user} linkText={linkText}/>
+            <ModalComponent isOpen={isOpen} text={text} callBack={()=>setIsOpen(false)} error={error} link={'/account'} user={user} linkText={linkText} hasError={true}/>
             <Tabs>
                 <TabList className={TabStyle.TabList}>
                     <Tab selectedClassName={TabStyle.Selected}><TabButtons text={t('common:reserve')}/></Tab>

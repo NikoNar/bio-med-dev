@@ -71,7 +71,7 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                     <div className={'col-lg-12'}>
                         {
                             icon ? <div className={AStyle.RemoveBtn}>
-                                <button onClick={() => deleteOrder(index)}><CloseIcon/></button>
+                                <button onClick={() => deleteOrder(id)}><CloseIcon/></button>
                             </div> : ''
                         }
                         <div className={AStyle.Top}>
