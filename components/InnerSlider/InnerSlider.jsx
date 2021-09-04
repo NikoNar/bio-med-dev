@@ -12,7 +12,6 @@ SwiperCore.use([Mousewheel, Navigation, Pagination]);
 
 const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCategory}) => {
     const [isOpen, setIsOpen] = useState(false)
-
     const handleOpen = (index) => {
         if (isOpen === index) {
             return setIsOpen(null)
@@ -20,11 +19,13 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
         setIsOpen(index)
     }
 
+    const frequencyAnalyzes = analyzes && analyzes.filter(fa=>fa.tags.length > 0 && fa.tags.filter(name=>name.name === 'frequency'))
+
+    console.log(frequencyAnalyzes);
 
     const breakpointsValue =
-             component === 'analyzes' ? { 1700:{ slidesPerView: analyzes.length > 2 ? 3 : 2}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1}} :
+             component === 'analyzes' ? { 1700:{ slidesPerView: analyzes.length > 2 ? 3 : analyzes.length < 2 ? 1 : 2}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1}} :
              component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4}, 991: { slidesPerView: 3}, 476: { slidesPerView: 2}, 0: {slidesPerView: 1}} : null
-
 
     return (
         <>
@@ -41,7 +42,7 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
                         autoHeight={false}
                     >
                         {
-                            analyzes && component === 'analyzes' ? analyzes.map((analyze) => {
+                            frequencyAnalyzes && frequencyAnalyzes.length > 0 && component === 'analyzes' ? frequencyAnalyzes.map((analyze) => {
                                 if (mainCategory === analyze.mainCategory){
                                     return (
                                         <SwiperSlide className={ISStyle.Slide} key={Math.random()}>

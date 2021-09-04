@@ -94,6 +94,13 @@ svg{
   right: 0!important;
 }
 
+.inner_slider{
+  .swiper-container{
+    min-width: 100%;
+  }
+}
+
+
 .inner_slider .swiper-button-next{
   right: 166px!important;
 }
@@ -102,6 +109,7 @@ svg{
   background-image: url('/images/icons/chevron-left.svg');
   left: calc(100% - 225px)!important;
 }
+
 
 .swiper-button-next {
   &:after{
@@ -138,6 +146,9 @@ svg{
   }
 }
 
+.amd{
+  font-family: "Montserrat arm", sans-serif!important;
+}
 
 #checkoutBranch{
   padding: 4px;

@@ -88,5 +88,7 @@
     "res_norma": "The norm by gender and age",
     "res_unit": "Unit",
     "account_link": "Login/Register page",
-    "confirm_order_message": "To place an order, please register or log in to your personal account"
+    "confirm_order_message": "To place an order, please register or log in to your personal account",
+    "amd": "AMD",
+    "time": "Time"
   }

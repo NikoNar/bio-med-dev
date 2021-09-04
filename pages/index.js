@@ -19,7 +19,6 @@ import {resetIdCounter} from "react-tabs";
 
 
 const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches}) => {
-
     const researchesArr = researches.filter((el)=>{
         return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
     })
@@ -43,9 +42,9 @@ export async function getServerSideProps(ctx) {
 
     const categories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&parent=0&orderby=slug`)
         .then(res => res.json())
-        .then(data => data)
+        .then(data => data.reverse())
 
-    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}`)
+    const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}&tag=266`)
         .then(res=>res.json())
         .then(data=>data)
 
@@ -59,11 +58,12 @@ export async function getServerSideProps(ctx) {
         .then(res=>res.json())
         .then(data=>data)
 
-    const researches = await fetch(`${allPagesUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
+    const researches = await fetch(`${allPagesUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed&per_page=20`, {
         method: 'GET',
     })
         .then(res => res.json())
         .then(data => data)
+
 
     const contactInfo = await fetch(`${locationsUrl}?status=publish&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`)
         .then(res => res.json())

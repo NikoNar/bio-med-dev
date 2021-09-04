@@ -93,9 +93,16 @@ const AnalyzesCard = ({inner, icon, index, id}) => {
                             <p
                                 className={inner.on_sale ? AStyle.SellPrice : null}
                                 style={{display: inner.on_sale ? 'inline-block' : 'none'}}
-                            >{inner.regular_price}<span className={'_icon-amd'}></span></p>
-                            <p>{inner.on_sale ? inner.sale_price : inner.regular_price}<span
-                                className={'_icon-amd'}></span></p>
+                            >{inner.regular_price}
+                                {
+                                    router.locale === 'hy' ?  <span className={'_icon-amd'}></span> : <span className="amd">{t('common:amd')}</span>
+                                }
+                            </p>
+                            <p>{inner.on_sale ? inner.sale_price : inner.regular_price}
+                                {
+                                    router.locale === 'hy' ?  <span className={'_icon-amd'}></span> : <span className="amd">{t('common:amd')}</span>
+                                }
+                            </p>
                         </div>
                     </div>
                     <div className={'col-12 col-sm-8 col-md-8 col-lg-8'}>

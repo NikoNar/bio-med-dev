@@ -103,7 +103,7 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
-    const researches = await fetch(`${allPagesUrl}&lang=${ctx.locale}&_embed`, {
+    const researches = await fetch(`${allPagesUrl}&lang=${ctx.locale}&_embed&per_page=20`, {
         method: 'GET',
     })
         .then(res => res.json())

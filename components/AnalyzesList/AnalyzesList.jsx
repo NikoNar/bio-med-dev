@@ -18,9 +18,6 @@ const Tabs = dynamic(import('react-tabs').then(mod => mod.Tabs), {ssr: true})
 
 const AnalyzesList = ({categories, loc, allCategories, analyzes, totalPages}) => {
 
-
-
-
     const [page, setPage] = useState(1)
     const router = useRouter()
     const {t} = useTranslation()

@@ -99,7 +99,7 @@ const Results = ({contactInfo, contactPageInfo}) => {
                         <div className={'col-lg-4'}>
                             <div className={ResStyle.PdfIcon}>
                                 {
-                                    link ? <a href={link}>
+                                    link ? <a href={link} download={'Analyse results'}>
                                         <PdfIcon/>
                                     </a> : ''
                                 }

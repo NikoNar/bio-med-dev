@@ -37,7 +37,7 @@ export async function getServerSideProps(ctx) {
         .then(res => {
            return  res.json()
         })
-        .then(data => data)
+        .then(data => data.reverse())
 
 
     const allCategories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&per_page=100&parent=${categories[0] ? categories[0].id : ''}`)

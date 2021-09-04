@@ -49,6 +49,9 @@ const MobileNavBar = ({pages, loc}) => {
 
     return (
         <div className={MNStyle.Mobile}>
+            <div className={MNStyle.ResButton} onClick={()=>closeSideBar()}>
+                <LinkButton text={t('common:analyzes_results')} link={'/results'}/>
+            </div>
             <div className={MNStyle.Wrapper}>
                <Logo/>
                <div className={MNStyle.Burger}>
@@ -82,9 +85,6 @@ const MobileNavBar = ({pages, loc}) => {
                             }
                         </ul>
                     </nav>
-                </div>
-                <div className={MNStyle.ResButton} onClick={()=>closeSideBar()}>
-                    <LinkButton text={t('common:analyzes_results')} link={'/results'}/>
                 </div>
             </div>
         </div>

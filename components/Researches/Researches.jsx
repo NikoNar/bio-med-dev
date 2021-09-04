@@ -7,7 +7,6 @@ import parser from 'html-react-parser'
 
 
 const Researches = ({researches}) => {
-
     const {t} = useTranslation()
     return (
         <section className={RStyle.Research}>
@@ -36,7 +35,7 @@ const Researches = ({researches}) => {
                                         </div>
                                         <div className={RStyle.Link}>
                                             <Link href={
-                                                item.slug === 'call-home' ? `/call-home` : item.slug === 'sales' ? `/researches` : `/page?title=${item.slug}`}>
+                                                item.slug === 'call-home' ? `/call-home` : item.slug === 'sales' || item.slug === 'appointment' ? `/researches` : null}>
                                                 <a>{t('common:see_more')}</a>
                                             </Link>
                                         </div>
