@@ -127,7 +127,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
 
     useEffect(() => {
         const selectedDay = selectedDate ? selectedDate.getDay() : null
-        console.log('selectedDay', selectedDay)
+
         if (selectedDay === 6) {
             setAvailableTimes(
                 [
@@ -187,7 +187,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         }
     }, [selectedDate])
 
-    console.log(availableTimes);
 
     useEffect(() => {
         setDefaultCity(t('common:yerevan'))
@@ -275,12 +274,13 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             setIsOpen(true)
             setText(t('common:payment_error_message'))
         }
-        if (!user) {
+       /* if (!user) {
+       ${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}
             setIsOpen(true)
             setText(t('common:confirm_order_message'))
             setLinkText(t('common:account_link'))
-        } else {
-            await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
+        } else {*/
+            await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -300,7 +300,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                     }
                 })
                 .then(() => reserveReset({}))
-        }
+        /*}*/
     }
 
     /* ---- Home Call Form ----*/
@@ -358,31 +358,32 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                 }
             ]
         }
-        if (user) {
-            await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+        await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (paymentMethod === 'cod') {
+                    setIsOpen(true)
+                    setText(t('common:checkout_success_message'))
+                    return data
+                }
+                if (paymentMethod === 'acba_gateway') {
+                    handleSubmitWithAcba(data)
+                }
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (paymentMethod === 'cod') {
-                        setIsOpen(true)
-                        setText(t('common:checkout_success_message'))
-                        return data
-                    }
-                    if (paymentMethod === 'acba_gateway') {
-                        handleSubmitWithAcba(data)
-                    }
-                })
-                .then(() => homeCallReset({}))
+            .then(() => homeCallReset({}))
+        /*if (user) {
+           ${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&customer_id=${user.id}
         } else {
             setIsOpen(true)
             setText(t('common:confirm_order_message'))
             setLinkText(t('common:account_link'))
-        }
+        }*/
     }
     const handlePaymentMethod = (e) => {
         setPaymentMethod(e.target.value)
@@ -403,18 +404,6 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
     }
     const handleSubmitWithAcba = async (orderData) => {
-        /*const data = new FormData();
-        data.append("orderNumber", `${orderData.id}`);
-        data.append("returnUrl", `${mainUrl}/cart?order_id=${orderData.id}`);
-        data.append("language", loc);*/
-
-        /* const newData = {
-             orderNumber: orderData.id,
-             returnUrl: `${mainUrl}/cart?order_id=${orderData.id}`,
-             language: loc
-         }*/
-
-        //const returnUrl = `${mainUrl}/cart&order_id=${orderData.id}`
 
         await fetch(`${paymentApiUrl}?orderNumber=${orderData.id}&language=${loc}`, {
             method: 'GET'
@@ -631,10 +620,14 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                                                 control={controlHomeCall}
                                                 name="homeCallDate"
                                                 rules={{required: true}}
-                                                render={({field: {onChange, value}}) => (
-                                                    <DatePicker
+                                                render={({field: {onChange, value}}) => {
+                                                    useEffect(() => {
+                                                        setSelectedDate(value)
+                                                    }, [value])
+                                                    return <DatePicker
                                                         selected={value}
                                                         onChange={onChange}
+                                                        filterDate={isWeekday}
                                                         dateFormat='dd/MM/yyyy'
                                                         placeholderText={reserveOrderDate}
                                                         style={{width: "100%"}}
@@ -644,7 +637,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                                                         dropdownMode="select"
                                                         yearDropdownItemNumber={100}
                                                     />
-                                                )}
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -667,6 +660,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                                                         timeIntervals={15}
                                                         timeCaption={t('common:time')}
                                                         dateFormat="HH:mm"
+                                                        includeTimes={availableTimes}
                                                     />
                                                 )}
                                             />

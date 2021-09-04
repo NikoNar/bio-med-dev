@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import CloseIcon from "../SVGIcons/CloseIcon/CloseIcon";
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
-import InnerSlider from "../InnerSlider/InnerSlider";
 import ALStyle from './analyzes-lst.module.scss'
 import {useRouter} from "next/router";
 import NextPrevPagination from "../Pagination/NextPrevPagination/NextPrevPagination";
@@ -309,11 +308,6 @@ const AnalyzesList = ({categories, loc, allCategories, analyzes, totalPages}) =>
                             <div style={{textAlign: "left"}}>
                                 <h4>{t('common:frequently_passed_tests')}</h4>
                             </div>
-                        </div>
-                    </div>
-                    <div className={'row'}>
-                        <div className={'col-lg-12'}>
-                            {/*<InnerSlider analyzes={popular} component={'analyzes'}/>*/}
                         </div>
                     </div>
                 </Tabs>

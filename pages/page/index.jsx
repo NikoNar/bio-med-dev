@@ -23,8 +23,9 @@ function Page({pageContent}) {
                                 </div>
                             </div>
                             <div className={'col-lg-6'}>
-                                <div className={PageStyle.Image} style={{backgroundImage: 'url(' + content._embedded['wp:featuredmedia']['0'].source_url + ')'}}>
-
+                                <div
+                                    className={PageStyle.Image}
+                                    style={{backgroundImage: content._embedded['wp:featuredmedia'] ? 'url(' +  content._embedded['wp:featuredmedia']['0'].source_url + ')' : "url('/images/placeholder.png')"}}>
                                 </div>
                             </div>
                         </div>

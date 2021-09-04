@@ -48,6 +48,7 @@ export async function getServerSideProps(ctx) {
         .then(res=>res.json())
         .then(data=>data)
 
+
     const slides = await fetch(`${slidesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
     })

@@ -19,12 +19,12 @@ const InnerSlider = ({analyzes, doctors, component, equipment, perPage, mainCate
         setIsOpen(index)
     }
 
+
     const frequencyAnalyzes = analyzes && analyzes.filter(fa=>fa.tags.length > 0 && fa.tags.filter(name=>name.name === 'frequency'))
 
-    console.log(frequencyAnalyzes);
 
     const breakpointsValue =
-             component === 'analyzes' ? { 1700:{ slidesPerView: analyzes.length > 2 ? 3 : analyzes.length < 2 ? 1 : 2}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1}} :
+             component === 'analyzes' ? { 1700:{ slidesPerView: analyzes.length > 2 ? 3 : 2}, 991: { slidesPerView: 2,}, 0: {slidesPerView: 1}} :
              component === 'doctors' || component === 'equipment' ? { 1700:{ slidesPerView: 4}, 991: { slidesPerView: 3}, 476: { slidesPerView: 2}, 0: {slidesPerView: 1}} : null
 
     return (

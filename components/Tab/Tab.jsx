@@ -28,7 +28,7 @@ const TabComponent = ({categories, t, loc, analyzes}) => {
         const currentCategoryTests = await fetch(analyzesUrl +
             `?lang=${loc}` +
             `&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`+
-            `&category=${tabName}`)
+            `&category=${tabName}&tag=266`)
             .then(res=>res.json())
             .then(data=>data)
         setAllAnalyzes(currentCategoryTests)
@@ -62,7 +62,7 @@ const TabComponent = ({categories, t, loc, analyzes}) => {
                     <div className={'container'}>
                         <div className={'row'}>
                             <div className={'col-lg-12'}>
-                                <InnerSlider analyzes={allAnalyzes && allAnalyzes} component={'analyzes'}/>
+                                <InnerSlider analyzes={allAnalyzes && allAnalyzes} component={'analyzes'} tagId={'266'}/>
                             </div>
                         </div>
                     </div>
