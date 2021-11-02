@@ -29,6 +29,7 @@ const News = ({news, page, totalNumberOfNews, limit}) => {
                     </div>
                     <div className={'row'}>
                         {news && news.map((n) => {
+                            console.log(n);
                             const newsImage = n._embedded['wp:featuredmedia'] && n._embedded['wp:featuredmedia']['0'].source_url
                             return (
                                     <div className={'col-lg-4 mb-5'} key={n.id}>
@@ -44,7 +45,7 @@ const News = ({news, page, totalNumberOfNews, limit}) => {
                                                     {parse(n.title.rendered)}
                                                 </div>
                                                 <div className={NewsStyle.ItemText}>
-                                                    {parse(n.content.rendered)}
+                                                    {parse(n.excerpt.rendered)}
                                                 </div>
                                                 <div className={NewsStyle.Link}>
                                                     <Link href={'/news/' + n.slug}>

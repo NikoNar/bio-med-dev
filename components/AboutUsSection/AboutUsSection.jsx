@@ -4,7 +4,7 @@ import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 
 const AboutUsSection = ({aboutUs}) => {
-
+console.log(aboutUs);
     const {t} = useTranslation()
     return (
         <section className={AUStyle.About} style={{ backgroundImage: `url(${aboutUs[0]._embedded['wp:featuredmedia']['0'].source_url})` }}>

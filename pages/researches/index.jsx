@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
 import {resetIdCounter} from "react-tabs";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
-
+import HCStyle from "../call-home/home-call.module.scss"
+import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
 
 
 
@@ -11,6 +12,26 @@ const Analyzes = ({ analyzes, categories, allCategories, loc, page, totalPages, 
 
     return (
         <>
+            <section className={HCStyle.HomeCall}>
+                <div className={'container'}>
+                    <div className={'row'}>
+                        <div className={'col-lg-6'}>
+                            <div className={HCStyle.Wrapper}>
+                                <div className={HCStyle.Content}>
+                                    {/* {parse(homeCall[0].content.rendered)} */}
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-lg-6 order-first order-lg-last mb-5 mb-lg-0'}>
+                            <div className={HCStyle.IconWrapper}>
+                                <div className={HCStyle.Icon}>
+                                    <EmergencyIcon/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
             <AnalyzesList
                 analyzes={analyzes}
                 categories={categories}

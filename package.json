@@ -29,6 +29,7 @@
     "next-translate": "^1.0.7",
     "nodemon": "^2.0.7",
     "nookies": "^2.5.2",
+    "npm-watch": "^0.11.0",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
     "react-bootstrap": "^1.6.1",

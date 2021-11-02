@@ -39,7 +39,7 @@ const ContactFrom = () => {
         data.append('fullname', messageData.fullname)
         data.append('email', messageData.email)
         data.append('message', messageData.message)
-        await fetch('https://biomed.codemanstudio.com/wp-json/contact-form-7/v1/contact-forms/236/feedback', {
+        await fetch('https://admin.biomed.am/wp-json/contact-form-7/v1/contact-forms/236/feedback', {
             method: 'POST',
             body: data
         })

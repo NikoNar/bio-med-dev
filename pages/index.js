@@ -45,9 +45,18 @@ export async function getServerSideProps(ctx) {
         .then(data => data.reverse())
 
     const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}&tag=266`)
-        .then(res=>res.json())
-        .then(data=>data)
-
+        .then((res)=>{
+            return res.json();
+        //    let getImg = ()=>{
+        //         fetch('https://admin.biomed.am/wp-json/wp/v2/media/5513')
+        //             .then((response) => {
+        //                 return response.json();
+        //             })
+        //             .then((data) => {
+        //                 console.log(data);
+        //             });
+        //     }
+        }).then(data=>data)
 
     const slides = await fetch(`${slidesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',

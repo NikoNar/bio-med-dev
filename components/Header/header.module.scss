@@ -5,8 +5,14 @@
     padding: 10px 0;
     display: flex;
     justify-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    z-index: 1000;
     a{
       background: linear-gradient(208deg, transparent 11px, #183042 0);
+      // background: red;
+      
     }
   }
   .MainHeader{

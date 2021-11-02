@@ -41,10 +41,10 @@ const SingleNews = ({singleNews, link, loc}) => {
                         <div className={'col-lg-12'}>
                             <div className={NewsStyle.Wrapper}>
                                 <div className={'row'}>
-                                    <div className={'col-lg-12'}>
+                                    <div className={'col-lg-8 offset-lg-2'}>
                                         <div className={NewsStyle.WrapperImg}>
                                             <img
-                                                src={singleNews[0]._embedded['wp:featuredmedia'] ? singleNews[0]._embedded['wp:featuredmedia']['0'].source_url : "/images/placeholder.png"}
+                                                src={singleNews[0]._embedded['wp:featuredmedia'] ? singleNews[0]._embedded['wp:featuredmedia']['0'].source_url : ""}
                                                 alt=""/>
                                         </div>
                                     </div>
