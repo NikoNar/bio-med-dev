@@ -4,7 +4,8 @@ import {
     analyzesCategoryUrl,
     analyzesUrl,
     contactInfoUrl, locationsUrl,
-    slidesUrl
+    slidesUrl,
+    salesUrl
 } from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
@@ -18,7 +19,7 @@ import {resetIdCounter} from "react-tabs";
 
 
 
-const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches}) => {
+const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches, sales}) => {
     const researchesArr = researches.filter((el)=>{
         return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
     })
@@ -45,18 +46,8 @@ export async function getServerSideProps(ctx) {
         .then(data => data.reverse())
 
     const analyzes = await fetch(`${analyzesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&category=${categories[0] ? categories[0].id : ''}&tag=266`)
-        .then((res)=>{
-            return res.json();
-        //    let getImg = ()=>{
-        //         fetch('https://admin.biomed.am/wp-json/wp/v2/media/5513')
-        //             .then((response) => {
-        //                 return response.json();
-        //             })
-        //             .then((data) => {
-        //                 console.log(data);
-        //             });
-        //     }
-        }).then(data=>data)
+    .then(res=>res.json())
+    .then(data=>data)
 
     const slides = await fetch(`${slidesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
@@ -65,8 +56,8 @@ export async function getServerSideProps(ctx) {
         .then(data => data)
 
     const aboutUsContent = await fetch(`${aboutUsUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
-        .then(res=>res.json())
-        .then(data=>data)
+    .then(res => res.json())
+    .then(data => data);
 
     const researches = await fetch(`${allPagesUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed&per_page=20`, {
         method: 'GET',
@@ -74,6 +65,11 @@ export async function getServerSideProps(ctx) {
         .then(res => res.json())
         .then(data => data)
 
+    const sales = await fetch(`${salesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
 
     const contactInfo = await fetch(`${locationsUrl}?status=publish&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`)
         .then(res => res.json())
@@ -95,7 +91,8 @@ export async function getServerSideProps(ctx) {
             contactInfo,
             categories: categories,
             analyzes,
-            contactPageInfo
+            contactPageInfo,
+            sales
         },
     }
 }

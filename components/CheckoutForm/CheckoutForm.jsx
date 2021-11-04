@@ -51,6 +51,9 @@ const homeCallSchema = Yup.object().shape({
 
 
 const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
+
+// console.log(orders)
+
     const router = useRouter()
     const user = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
@@ -113,6 +116,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
     const [startDate, setStartDate] = useState(
         setHours(setMinutes(new Date(), 30), 20)
     );
+
 
 
     const isWeekday = (date) => {
@@ -268,7 +272,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                     method_title: "Appointment",
                     total: '0'
                 }
-            ]
+            ],
+            status: paymentMethod == 'cod' ? 'on-hold' : 'pending',
         }
         if (paymentMethod === '') {
             setIsOpen(true)
@@ -289,6 +294,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
             })
                 .then(res => res.json())
                 .then(data => {
+
+                   
                     if (paymentMethod === 'cod') {
                         setIsOpen(true)
                         setText(t('common:checkout_success_message'))
@@ -298,6 +305,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                     if (paymentMethod === 'acba_gateway') {
                         handleSubmitWithAcba(data)
                     }
+                     console.log(data);
                 })
                 .then(() => reserveReset({}))
         /*}*/
@@ -356,7 +364,8 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                     method_title: "Flat rate",
                     total: '5000'
                 }
-            ]
+            ],
+            status: paymentMethod == 'cod' ? 'on-hold' : 'pending',
         }
         await fetch(`${orderUrl}?${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`, {
             method: 'POST',
@@ -373,7 +382,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
                     return data
                 }
                 if (paymentMethod === 'acba_gateway') {
-                    handleSubmitWithAcba(data)
+                    handleSubmitWithAcba(data);
                 }
             })
             .then(() => homeCallReset({}))
@@ -386,7 +395,7 @@ const CheckoutForm = ({info, orders, addresses, loc, deleteAllOrders}) => {
         }*/
     }
     const handlePaymentMethod = (e) => {
-        setPaymentMethod(e.target.value)
+        setPaymentMethod(e.target.value);
     }
     const getUserOrderStatus = async (id, orderId) => {
         /*const data = new FormData();

@@ -1,0 +1,58 @@
+@import "styles/variables";
+
+.HomeCall {
+  padding: 100px 0 0;
+
+  .Wrapper {
+    margin-bottom: 50px;
+
+    p {
+      color: #000000;
+      font-size: 18px;
+      line-height: 22px;
+
+      span {
+        color: $light-blue;
+      }
+    }
+
+    .Title {
+      h4 {
+        margin-bottom: 20px;
+      }
+    }
+    .Content{
+      color: $brand-gray;
+    }
+  }
+
+  .IconWrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+
+    .Icon {
+      width: 291px;
+    }
+  }
+}
+
+
+@media (max-width: 991px){
+  .HomeCall{
+    .Wrapper{
+      p{
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    .IconWrapper{
+      .Icon{
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
