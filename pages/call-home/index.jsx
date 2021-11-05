@@ -24,7 +24,8 @@ const CallHome = ({analyzes, homeCall, categories, analyzesEquip, analyzesLab, l
                         <div className={'col-lg-6 order-first order-lg-last mb-5 mb-lg-0'}>
                             <div className={HCStyle.IconWrapper}>
                                 <div className={HCStyle.Icon}>
-                                    <EmergencyIcon/>
+                                    {/* <EmergencyIcon/> */}
+                                    {homeCall[0]._embedded['wp:featuredmedia'] ? <img src={homeCall[0]._embedded['wp:featuredmedia'][0].source_url}/>  :<EmergencyIcon/>}
                                 </div>
                             </div>
                         </div>
@@ -67,7 +68,7 @@ export async function getServerSideProps(ctx) {
         })
         .then(data => data)
 
-    const homeCall = await fetch(`${callHomeUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}`, {
+    const homeCall = await fetch(`${callHomeUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
     })
         .then(res => res.json())

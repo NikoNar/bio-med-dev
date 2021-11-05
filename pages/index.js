@@ -5,7 +5,6 @@ import {
     analyzesUrl,
     contactInfoUrl, locationsUrl,
     slidesUrl,
-    salesUrl
 } from "../utils/url";
 import TabComponent from "../components/Tab/Tab";
 import MainSlider from "../components/MainSlider/MainSlider";
@@ -19,7 +18,7 @@ import {resetIdCounter} from "react-tabs";
 
 
 
-const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches, sales}) => {
+const Home = ({ slides, categories, t, loc, analyzes, contactInfo, contactPageInfo, aboutUsContent, researches}) => {
     const researchesArr = researches.filter((el)=>{
         return el.slug === 'sales' || el.slug === 'appointment' || el.slug === 'call-home'
     })
@@ -57,15 +56,20 @@ export async function getServerSideProps(ctx) {
 
     const aboutUsContent = await fetch(`${aboutUsUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`)
     .then(res => res.json())
-    .then(data => data);
+    .then(dataOne => {
+        let id = dataOne[0].metadata.image;
+      
+        fetch('https://admin.biomed.am/wp-json/wp/v2/media/'+ id)
+        .then(res => res.json())
+        .then(data => {
+            dataOne[0].metadata.image = data.guid.rendered;   
+        })
+    
+        return dataOne;
+
+    });
 
     const researches = await fetch(`${allPagesUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed&per_page=20`, {
-        method: 'GET',
-    })
-        .then(res => res.json())
-        .then(data => data)
-
-    const sales = await fetch(`${salesUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
         method: 'GET',
     })
         .then(res => res.json())
@@ -92,7 +96,6 @@ export async function getServerSideProps(ctx) {
             categories: categories,
             analyzes,
             contactPageInfo,
-            sales
         },
     }
 }

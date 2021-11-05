@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {analyzesCategoryUrl, analyzesUrl} from "../../utils/url";
+import {analyzesCategoryUrl, analyzesUrl, researchUrl} from "../../utils/url";
 import {resetIdCounter} from "react-tabs";
 import AnalyzesList from "../../components/AnalyzesList/AnalyzesList";
 import HCStyle from "../call-home/home-call.module.scss"
-import EmergencyIcon from "../../components/SVGIcons/Emergency/EmergencyIcon";
+import parse from 'html-react-parser';
 
 
 
-
-const Analyzes = ({ analyzes, categories, allCategories, loc, page, totalPages, totalAnalyzesCount}) => {
-
+const Analyzes = ({ analyzes, categories, allCategories, loc, page, totalPages, totalAnalyzesCount, researches}) => {
+ 
     return (
         <>
             <section className={HCStyle.HomeCall}>
@@ -18,14 +17,14 @@ const Analyzes = ({ analyzes, categories, allCategories, loc, page, totalPages, 
                         <div className={'col-lg-6'}>
                             <div className={HCStyle.Wrapper}>
                                 <div className={HCStyle.Content}>
-                                    {/* {parse(homeCall[0].content.rendered)} */}
+                                    {parse(researches[0].content.rendered)}
                                 </div>
                             </div>
                         </div>
                         <div className={'col-lg-6 order-first order-lg-last mb-5 mb-lg-0'}>
                             <div className={HCStyle.IconWrapper}>
                                 <div className={HCStyle.Icon}>
-                                    <EmergencyIcon/>
+                                    <img src={researches[0]._embedded['wp:featuredmedia'] ? researches[0]._embedded['wp:featuredmedia'][0].source_url : ''}/>     
                                 </div>
                             </div>
                         </div>
@@ -59,6 +58,12 @@ export async function getServerSideProps(ctx) {
            return  res.json()
         })
         .then(data => data.reverse())
+        
+    const researches = await fetch(`${researchUrl}&${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&_embed`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(data => data)
 
 
     const allCategories = await fetch(`${analyzesCategoryUrl}?${ctx.locale !== 'hy' ? `lang=${ctx.locale}` : ''}&${process.env.NEXT_PUBLIC_CONSUMER_KEY}&${process.env.NEXT_PUBLIC_CONSUMER_SECRET}&per_page=100&parent=${categories[0] ? categories[0].id : ''}`)
@@ -77,7 +82,6 @@ export async function getServerSideProps(ctx) {
         })
         .then(data => data)
 
-
     return {
         props: {
             analyzes,
@@ -85,7 +89,8 @@ export async function getServerSideProps(ctx) {
             allCategories,
             page,
             totalAnalyzesCount,
-            totalPages
+            totalPages,
+            researches
         }
     }
 }

@@ -15,8 +15,8 @@ export const contactInfoUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=
 export const resultsUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS}`
 export const resultsPdfUrl = `${process.env.NEXT_PUBLIC_HOST_RESULTS_PDF}`
 export const callHomeUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=call-home`
+export const researchUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=researches`
 export const aboutUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/pages/?status=publish&slug=about-us`
-export const salesUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/sales`
 export const doctorsUsUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/doctors?_embed&status=publish`
 export const equipmentUrl = `${process.env.NEXT_PUBLIC_HOST_WP}/equipment?_embed&status=publish`
 export const qualityControlUrl = `${process.env.NEXT_PUBLIC_HOST}/quality-control`
